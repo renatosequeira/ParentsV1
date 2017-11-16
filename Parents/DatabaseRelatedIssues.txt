@@ -1,0 +1,4 @@
+1- ERROR WHEN ADDING OR OPENING VIEWS - Cannot insert the value NULL into column ” but my column is Nullable
+
+2- COMPLETELLY DELETE DATABASE
+https://stackoverflow.com/questions/20304058/how-to-re-create-database-for-entity-framework

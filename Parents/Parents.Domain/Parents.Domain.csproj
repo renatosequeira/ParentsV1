@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{182BDC44-F225-46A3-BF9B-2D1E8CCFE734}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Parents.Domain</RootNamespace>
+    <AssemblyName>Parents.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActivitiesManagement\Activity.cs" />
+    <Compile Include="ActivitiesManagement\Helpers\ActivityFamily.cs" />
+    <Compile Include="ActivitiesManagement\Helpers\ActivityInstitutionType.cs" />
+    <Compile Include="ActivitiesManagement\Helpers\ActivityPeriodicity.cs" />
+    <Compile Include="ActivitiesManagement\Helpers\ActivityType.cs" />
+    <Compile Include="AppCore\ChildManagement.cs" />
+    <Compile Include="AppCore\Children.cs" />
+    <Compile Include="AppCore\Parent.cs" />
+    <Compile Include="DataContext.cs" />
+    <Compile Include="DomesticManagement\ItemsCategory.cs" />
+    <Compile Include="DomesticManagement\ItemToBuy.cs" />
+    <Compile Include="HealthManagement\Alergy.cs" />
+    <Compile Include="HealthManagement\Categories\AlergyType.cs" />
+    <Compile Include="HealthManagement\Categories\BloodInformation.cs" />
+    <Compile Include="HealthManagement\Categories\DiseaseFamily.cs" />
+    <Compile Include="HealthManagement\Categories\DiseaseType.cs" />
+    <Compile Include="HealthManagement\Categories\HumanBodyAreas.cs" />
+    <Compile Include="HealthManagement\Categories\MedicalInstitutions.cs" />
+    <Compile Include="HealthManagement\Categories\Medicine.cs" />
+    <Compile Include="HealthManagement\Categories\MedicineDosage.cs" />
+    <Compile Include="HealthManagement\Categories\MedicinePharmaceuticalForm.cs" />
+    <Compile Include="HealthManagement\Categories\PhysicalCharacteristicType.cs" />
+    <Compile Include="HealthManagement\Categories\UrgencyCategory.cs" />
+    <Compile Include="HealthManagement\Categories\UrgencySeverity.cs" />
+    <Compile Include="HealthManagement\Disease.cs" />
+    <Compile Include="HealthManagement\PhysicalCharacteristic.cs" />
+    <Compile Include="HealthManagement\Urgency.cs" />
+    <Compile Include="ParentalManagement\ChildSupportPayment.cs" />
+    <Compile Include="ParentalManagement\ChildSupportVisit.cs" />
+    <Compile Include="ParentalManagement\Helpers\ChildSupportVisitType.cs" />
+    <Compile Include="ParentalManagement\Helpers\MatrimonialState.cs" />
+    <Compile Include="ParentalManagement\Helpers\ParentalGuardTerm.cs" />
+    <Compile Include="ParentalManagement\Helpers\ParentalType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SchoolManagement\Exam.cs" />
+    <Compile Include="SchoolManagement\Helpers\AcademicYear.cs" />
+    <Compile Include="SchoolManagement\Helpers\Discipline.cs" />
+    <Compile Include="SchoolManagement\Helpers\ExamFamily.cs" />
+    <Compile Include="SchoolManagement\ParentsMeeting.cs" />
+    <Compile Include="SchoolManagement\School.cs" />
+    <Compile Include="TasksManagement\Helpers\TaskFamily.cs" />
+    <Compile Include="TasksManagement\Task.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
