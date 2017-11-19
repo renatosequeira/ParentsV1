@@ -50,7 +50,7 @@ namespace Parents.Backend.Controllers.ActivitiesManagement.Helpers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ActivityFamilyId,ActivityFamilyDescription")] ActivityFamily activityFamily)
+        public async Task<ActionResult> Create(ActivityFamily activityFamily)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace Parents.Backend.Controllers.ActivitiesManagement.Helpers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ActivityFamilyId,ActivityFamilyDescription")] ActivityFamily activityFamily)
+        public async Task<ActionResult> Edit(ActivityFamily activityFamily)
         {
             if (ModelState.IsValid)
             {

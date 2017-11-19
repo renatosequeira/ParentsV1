@@ -241,10 +241,20 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ActivitiesManagement\ActivitiesView.cs" />
+    <Compile Include="Models\AppCore\ChildManagementView.cs" />
+    <Compile Include="Models\AppCore\ChildrenView.cs" />
     <Compile Include="Models\AppCore\ParentView.cs" />
     <Compile Include="Models\DataContextLocal.cs" />
+    <Compile Include="Models\DomesticManagement\ItemsToBuyView.cs" />
+    <Compile Include="Models\HealthManagement\AlergiesView.cs" />
+    <Compile Include="Models\HealthManagement\DiseasesView.cs" />
+    <Compile Include="Models\HealthManagement\PhisicalCharacteristicsView.cs" />
+    <Compile Include="Models\HealthManagement\UrgencyView.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ParentalManagement\ChildSupportPaymentView.cs" />
+    <Compile Include="Models\TaskManagement\TaskFunctionView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
