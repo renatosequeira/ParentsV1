@@ -14,6 +14,7 @@ using Parents.Domain.AppCore;
 
 namespace Parents.API.Controllers.AppCore
 {
+    [Authorize]
     public class ChildsManagementController : ApiController
     {
         private DataContext db = new DataContext();

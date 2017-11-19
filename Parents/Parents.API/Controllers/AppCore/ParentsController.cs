@@ -13,6 +13,7 @@ using Parents.Domain;
 
 namespace Parents.API.Controllers.AppCore
 {
+    [Authorize]
     public class ParentsController : ApiController
     {
         private DataContext db = new DataContext();

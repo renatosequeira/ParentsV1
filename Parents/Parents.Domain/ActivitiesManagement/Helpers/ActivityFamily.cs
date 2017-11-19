@@ -13,6 +13,7 @@ namespace Parents.Domain.ActivitiesManagement.Helpers
      Extra-Curricular
      Curricular
          */
+       
     public class ActivityFamily
     {
         [Key]

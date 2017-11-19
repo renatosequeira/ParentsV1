@@ -14,6 +14,7 @@ using Parents.Domain.ParentalManagement.Helpers;
 
 namespace Parents.API.Controllers.ParentalManagement.Helpers
 {
+    [Authorize]
     public class MatrimonialStatesController : ApiController
     {
         private DataContext db = new DataContext();

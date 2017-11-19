@@ -51,6 +51,7 @@ namespace Parents.Domain.AppCore
         public int? ParentalGuardTermId { get; set; }
         [JsonIgnore]
         public virtual ParentalGuardTerm ParentalGuardTerm { get; set; }
+
     }
 
 }

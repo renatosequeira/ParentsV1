@@ -13,6 +13,7 @@ using Parents.Backend.Models;
 
 namespace Parents.Backend.Controllers.TasksManagement.Helpers
 {
+    [Authorize]
     public class TaskFamiliesController : Controller
     {
         private DataContextLocal db = new DataContextLocal();

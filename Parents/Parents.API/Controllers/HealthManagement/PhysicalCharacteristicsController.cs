@@ -14,6 +14,7 @@ using Parents.Domain.HealthManagement;
 
 namespace Parents.API.Controllers.HealthManagement
 {
+    [Authorize]
     public class PhysicalCharacteristicsController : ApiController
     {
         private DataContext db = new DataContext();

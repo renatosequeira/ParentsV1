@@ -14,6 +14,7 @@ using Parents.Domain.ParentalManagement.Helpers;
 
 namespace Parents.API.Controllers.ParentalManagement
 {
+    [Authorize]
     public class ChildSupportVisitsController : ApiController
     {
         private DataContext db = new DataContext();

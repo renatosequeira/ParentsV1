@@ -14,6 +14,7 @@ using Parents.Domain.SchoolManagement;
 
 namespace Parents.API.Controllers.SchoolManagement
 {
+    [Authorize]
     public class ExamsController : ApiController
     {
         private DataContext db = new DataContext();

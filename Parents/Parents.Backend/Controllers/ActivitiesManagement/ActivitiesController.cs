@@ -13,6 +13,7 @@ using Parents.Backend.Models;
 
 namespace Parents.Backend.Controllers.ActivitiesManagement
 {
+    [Authorize]
     public class ActivitiesController : Controller
     {
         private DataContextLocal db = new DataContextLocal();

@@ -77,5 +77,6 @@
 
         public string BloodInformationDescription { get; set; }
 
+        public string ChildrenImage { get; set; }
     }
 }

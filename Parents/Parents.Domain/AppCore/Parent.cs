@@ -72,5 +72,7 @@
         public virtual ICollection<Activity> Activity { get; set; }
         [JsonIgnore]
         public virtual ICollection<ParentsMeeting> ParentsMeeting { get; set; }
+
+        public string ParentImage { get; set; }
     }
 }

@@ -14,6 +14,7 @@ using Parents.Domain.HealthManagement.Categories;
 
 namespace Parents.API.Controllers.HealthManagement.Helpers
 {
+    [Authorize]
     public class UrgencySeveritiesController : ApiController
     {
         private DataContext db = new DataContext();

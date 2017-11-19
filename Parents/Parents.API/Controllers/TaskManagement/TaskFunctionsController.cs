@@ -14,6 +14,7 @@ using Parents.Domain.TasksManagement;
 
 namespace Parents.API.Controllers.TaskManagement
 {
+    [Authorize]
     public class TaskFunctionsController : ApiController
     {
         private DataContext db = new DataContext();

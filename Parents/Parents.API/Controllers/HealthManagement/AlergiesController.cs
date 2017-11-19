@@ -14,6 +14,7 @@ using Parents.Domain.HealthManagement;
 
 namespace Parents.API.Controllers.HealthManagement
 {
+    [Authorize]
     public class AlergiesController : ApiController
     {
         private DataContext db = new DataContext();

@@ -13,6 +13,7 @@ using Parents.Backend.Models;
 
 namespace Parents.Backend.Controllers.SchoolManagement.Helpers
 {
+    [Authorize]
     public class DisciplinesController : Controller
     {
         private DataContextLocal db = new DataContextLocal();

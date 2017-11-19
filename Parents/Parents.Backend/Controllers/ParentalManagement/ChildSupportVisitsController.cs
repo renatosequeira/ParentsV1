@@ -13,6 +13,7 @@ using Parents.Backend.Models;
 
 namespace Parents.Backend.Controllers.ParentalManagement
 {
+    [Authorize]
     public class ChildSupportVisitsController : Controller
     {
         private DataContextLocal db = new DataContextLocal();

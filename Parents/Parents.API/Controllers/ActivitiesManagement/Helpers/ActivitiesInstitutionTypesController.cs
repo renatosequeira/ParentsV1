@@ -14,6 +14,7 @@ using Parents.Domain.ActivitiesManagement.Helpers;
 
 namespace Parents.API.Controllers.ActivitiesManagement.Helpers
 {
+    [Authorize]
     public class ActivitiesInstitutionTypesController : ApiController
     {
         private DataContext db = new DataContext();

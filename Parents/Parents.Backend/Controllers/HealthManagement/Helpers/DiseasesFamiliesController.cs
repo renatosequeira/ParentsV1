@@ -13,6 +13,7 @@ using Parents.Backend.Models;
 
 namespace Parents.Backend.Controllers.HealthManagement.Helpers
 {
+    [Authorize]
     public class DiseasesFamiliesController : Controller
     {
         private DataContextLocal db = new DataContextLocal();

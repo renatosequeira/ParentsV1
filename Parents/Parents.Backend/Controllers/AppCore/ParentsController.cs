@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Parents.Domain;
 using Parents.Backend.Models;
 
 namespace Parents.Backend.Controllers.AppCore
 {
+    [Authorize]
     public class ParentsController : Controller
     {
         private DataContextLocal db = new DataContextLocal();

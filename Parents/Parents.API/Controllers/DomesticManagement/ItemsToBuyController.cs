@@ -14,6 +14,7 @@ using Parents.Domain.DomesticManagement;
 
 namespace Parents.API.Controllers.DomesticManagement
 {
+    [Authorize]
     public class ItemsToBuyController : ApiController
     {
         private DataContext db = new DataContext();
