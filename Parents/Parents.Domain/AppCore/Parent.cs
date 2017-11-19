@@ -1,5 +1,6 @@
 ﻿namespace Parents.Domain
 {
+    using Newtonsoft.Json;
     using Parents.Domain.ActivitiesManagement;
     using Parents.Domain.HealthManagement;
     using Parents.Domain.ParentalManagement.Helpers;
@@ -59,12 +60,17 @@
         [Display(Name = "Parenthood type (father/ mother/ other)")]
         //public string ParenthoodType { get; set; }
         public int ParentalTypeId { get; set; }
+        [JsonIgnore]
         public virtual ParentalType ParentalType { get; set; }
         #endregion
 
+        [JsonIgnore]
         public virtual ICollection<Urgency> Urgency { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Children> Children { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Activity> Activity { get; set; }
+        [JsonIgnore]
         public virtual ICollection<ParentsMeeting> ParentsMeeting { get; set; }
     }
 }

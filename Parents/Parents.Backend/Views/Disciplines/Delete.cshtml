@@ -1,0 +1,40 @@
+﻿@model Parents.Domain.SchoolManagement.Helpers.Discipline
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Discipline</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DisciplineDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DisciplineDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DisciplineRemarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DisciplineRemarks)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Parents.Domain.TasksManagement.TaskFunction>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskFamily.TaskFamilyDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskResponsible.ParentFirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskOwner)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskCreationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskConclusionDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskRemarks)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskFamily.TaskFamilyDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskResponsible.ParentFirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskOwner)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskCreationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskConclusionDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskRemarks)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TaskId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TaskId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TaskId })
+        </td>
+    </tr>
+}
+
+</table>

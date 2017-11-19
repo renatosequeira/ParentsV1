@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Parents.Domain.HealthManagement.Alergy>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AlergyTypes.AlergyTypeDescriptiom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AlergyDescription)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AlergyTypes.AlergyTypeDescriptiom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AlergyDescription)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AlergyId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AlergyId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AlergyId })
+        </td>
+    </tr>
+}
+
+</table>

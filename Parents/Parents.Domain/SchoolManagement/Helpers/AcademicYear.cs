@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -21,7 +22,8 @@ namespace Parents.Domain.SchoolManagement.Helpers
 
         public bool AcademicYearAchievment { get; set; }
 
-        public int SchoolId { get; set; }
+        public int? SchoolId { get; set; }
+        [JsonIgnore]
         public virtual School  School{ get; set; }
     }
 }

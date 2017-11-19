@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -19,6 +20,7 @@ namespace Parents.Domain.HealthManagement.Categories
         [Index("UrgencySeverity_UrgencySeverityDescription_Index", IsUnique = true)]
         public string UrgencySeverityDescription { get; set; }
 
-        public ICollection<Urgency> Urgency { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Urgency> Urgency { get; set; }
     }
 }

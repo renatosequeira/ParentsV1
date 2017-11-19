@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Parents.Domain.AppCore.ChildManagement>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Children.ChildrenFirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChildSupportLastVisit.ChildSupportVisitId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChildSupportVisitType.ChildSupportVisitTypeDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Parent.ParentFirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParentalGuardTerm.ParentalGuardTermDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParentalType.ParentalTypeDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParentsMatrimonialState.MatrimonialStateDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChildSupportAgreedValue)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Children.ChildrenFirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChildSupportLastVisit.ChildSupportVisitId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChildSupportVisitType.ChildSupportVisitTypeDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Parent.ParentFirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParentalGuardTerm.ParentalGuardTermDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParentalType.ParentalTypeDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParentsMatrimonialState.MatrimonialStateDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChildSupportAgreedValue)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ChildManagementId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ChildManagementId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ChildManagementId })
+        </td>
+    </tr>
+}
+
+</table>

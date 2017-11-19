@@ -1,5 +1,6 @@
 ﻿namespace Parents.Domain.HealthManagement.Categories
 {
+    using Newtonsoft.Json;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -18,6 +19,8 @@
         [MaxLength(250, ErrorMessage = "The field {0} only can contain {1} characters lenght.")]
         public string BloodInformationRemarks { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<Children> Children { get; set; }
+
     }
 }

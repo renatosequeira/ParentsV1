@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Parents.Domain.Parent>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ParentalType.ParentalTypeDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParentFirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParentMiddleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParentLastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParentIdentityCard)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParentBirthDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParentEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParentMobile)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParentAddress)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParentalType.ParentalTypeDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParentFirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParentMiddleName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParentLastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParentIdentityCard)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParentBirthDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParentEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParentMobile)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParentAddress)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ParentId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ParentId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ParentId })
+        </td>
+    </tr>
+}
+
+</table>

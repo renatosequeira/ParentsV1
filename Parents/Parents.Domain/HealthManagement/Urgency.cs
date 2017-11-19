@@ -1,4 +1,5 @@
-﻿using Parents.Domain.HealthManagement.Categories;
+﻿using Newtonsoft.Json;
+using Parents.Domain.HealthManagement.Categories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -31,20 +32,24 @@ namespace Parents.Domain.HealthManagement
         #endregion
 
         #region ExternalTables
-        public int UrgencySeverityId { get; set; }
+        public int? UrgencySeverityId { get; set; }
 
-        public int UrgencyCategoryId { get; set; }
+        public int? UrgencyCategoryId { get; set; }
 
-        public int ParentId { get; set; }
+        public int? ParentId { get; set; }
 
-        public int MedicalInstitutionId { get; set; }
+        public int? MedicalInstitutionId { get; set; }
 
+        [JsonIgnore]
         public virtual UrgencyCategory UrgencyCategory { get; set; }
 
+        [JsonIgnore]
         public virtual UrgencySeverity UrgencySeverity { get; set; }
 
+        [JsonIgnore]
         public virtual Parent ParentInCharge { get; set; }
 
+        [JsonIgnore]
         public virtual MedicalInstitutions MedicalInstitutions { get; set; }
 
         #endregion

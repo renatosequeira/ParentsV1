@@ -1,0 +1,58 @@
+﻿@model Parents.Domain.SchoolManagement.Helpers.AcademicYear
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AcademicYear</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.School.SchoolName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.School.SchoolName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AcademicYearReference)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AcademicYearReference)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AcademicYearClassDirector)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AcademicYearClassDirector)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AcademicYearGPA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AcademicYearGPA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AcademicYearAchievment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AcademicYearAchievment)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AcademicYearId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

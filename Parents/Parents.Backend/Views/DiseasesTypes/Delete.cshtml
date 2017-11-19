@@ -1,0 +1,56 @@
+﻿@model Parents.Domain.HealthManagement.Categories.DiseaseType
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>DiseaseType</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DiseaseFamily.DiseaseFamilyDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiseaseFamily.DiseaseFamilyDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiseaseTypeDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiseaseTypeDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiseaseRemarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiseaseRemarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiseaseExternalLink)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiseaseExternalLink)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,4 +1,5 @@
-﻿using Parents.Domain.AppCore;
+﻿using Newtonsoft.Json;
+using Parents.Domain.AppCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -29,6 +30,7 @@ namespace Parents.Domain.ParentalManagement.Helpers
         [DataType(DataType.MultilineText)]
         public string ParentalGuardTermRemarks { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<ChildManagement> ChildManagement { get; set; }
     }
 }

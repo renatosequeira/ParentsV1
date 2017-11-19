@@ -1,0 +1,87 @@
+﻿@model IEnumerable<Parents.Domain.ActivitiesManagement.Activity>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ActivityFamily.ActivityFamilyDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActivityInstitutionType.ActivityInstitutionTypeDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActivityPeriodicity.ActivityPeriodicityDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActivityType.ActivityTypeDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParentInCharge.ParentFirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActivityDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActivityDateStart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActivityDateEnd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActivityRemarks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActivityAddress)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActivityFamily.ActivityFamilyDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActivityInstitutionType.ActivityInstitutionTypeDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActivityPeriodicity.ActivityPeriodicityDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActivityType.ActivityTypeDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParentInCharge.ParentFirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActivityDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActivityDateStart)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActivityDateEnd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActivityRemarks)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActivityAddress)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ActivityId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ActivityId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ActivityId })
+        </td>
+    </tr>
+}
+
+</table>

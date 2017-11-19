@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Parents.Domain.HealthManagement.Disease>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DiseaseFamily.DiseaseFamilyDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiseaseType.DiseaseTypeDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Medicine.MedicineName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MedicineDosage.MedicineDosageDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MedicinePharmaceuticalForm.MedicinePharmaceuticalFormDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiseaseDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateDiagnosed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCured)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HasGeneticOrigin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsTreatable)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HasAssociatedMedicines)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiseaseFamily.DiseaseFamilyDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiseaseType.DiseaseTypeDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Medicine.MedicineName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MedicineDosage.MedicineDosageDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MedicinePharmaceuticalForm.MedicinePharmaceuticalFormDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiseaseDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateDiagnosed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCured)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HasGeneticOrigin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsTreatable)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HasAssociatedMedicines)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DiseaseId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DiseaseId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DiseaseId })
+        </td>
+    </tr>
+}
+
+</table>

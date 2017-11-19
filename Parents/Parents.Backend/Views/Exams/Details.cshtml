@@ -1,0 +1,58 @@
+﻿@model Parents.Domain.SchoolManagement.Exam
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Exam</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Discipline.DisciplineDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Discipline.DisciplineDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExamFamily.ExamFamilyDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExamFamily.ExamFamilyDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.School.SchoolName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.School.SchoolName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExamDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExamDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExamFinalNote)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExamFinalNote)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ExamId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

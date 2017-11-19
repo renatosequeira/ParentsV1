@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -26,6 +27,7 @@ namespace Parents.Domain.ParentalManagement.Helpers
 
         public int ChildSupportVisitTypeId { get; set; }
         [Display(Name ="Visit Type")]
+        [JsonIgnore]
         public virtual ChildSupportVisitType ChildSupportVisitType { get; set; }
 
         [Display(Name ="Recorded Incidents?")]

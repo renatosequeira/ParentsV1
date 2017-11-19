@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,6 +19,7 @@ namespace Parents.Domain.TasksManagement.Helpers
         [Index("TaskFamily_TaskFamilyDescription_Index", IsUnique = true)]
         public string TaskFamilyDescription { get; set; }
 
-        public virtual ICollection<Task> Task { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<TaskFunction> Task { get; set; }
     }
 }

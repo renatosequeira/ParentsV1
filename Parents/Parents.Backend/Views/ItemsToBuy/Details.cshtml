@@ -1,0 +1,66 @@
+﻿@model Parents.Domain.DomesticManagement.ItemToBuy
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ItemToBuy</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemsCategory.ItemCategoryDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemsCategory.ItemCategoryDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemToBuyDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemToBuyDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemToBuyDateAdded)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemToBuyDateAdded)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemToBuyOwner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemToBuyOwner)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemToBuyAssignment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemToBuyAssignment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemToBuyStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemToBuyStatus)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ItemToBuyId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

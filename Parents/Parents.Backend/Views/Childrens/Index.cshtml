@@ -1,0 +1,123 @@
+﻿@model IEnumerable<Parents.Domain.Children>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BloodInformation.BloodInformationDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParentsMatrimonialState.MatrimonialStateDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParentId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChildrenFirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChildrenMiddleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChildrenLastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChildrenIdentityCard)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChildrenBirthDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChildrenFamilyDoctor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChildrenEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChildrenMobile)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChildrenAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrentSchool)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SchoolContact)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FatherId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MotherId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BloodInformation.BloodInformationDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParentsMatrimonialState.MatrimonialStateDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParentId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChildrenFirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChildrenMiddleName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChildrenLastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChildrenIdentityCard)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChildrenBirthDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChildrenFamilyDoctor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChildrenEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChildrenMobile)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChildrenAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CurrentSchool)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SchoolContact)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FatherId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MotherId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ChildrenId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ChildrenId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ChildrenId })
+        </td>
+    </tr>
+}
+
+</table>

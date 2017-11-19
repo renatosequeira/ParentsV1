@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,8 +16,9 @@ namespace Parents.Domain.SchoolManagement
         [DataType(DataType.Date)]
         public DateTime ParentsMeetingDate { get; set; }
 
-        public int ParentId { get; set; }
+        public int? ParentId { get; set; }
         [Display(Name = "Attendee")]
+        [JsonIgnore]
         public virtual Parent Parent { get; set; }
 
         [Display(Name = "Remarks")]

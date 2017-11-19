@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Parents.Domain.SchoolManagement.Helpers.Discipline>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DisciplineDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DisciplineRemarks)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DisciplineDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DisciplineRemarks)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DisciplineId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DisciplineId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DisciplineId })
+        </td>
+    </tr>
+}
+
+</table>

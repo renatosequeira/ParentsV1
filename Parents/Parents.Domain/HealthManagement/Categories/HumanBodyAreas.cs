@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,6 +21,7 @@ namespace Parents.Domain.HealthManagement.Categories
 
         public string HumanBodyAreaSide { get; set; }
 
-        public ICollection<PhysicalCharacteristic> PhysicalCharacteristic { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<PhysicalCharacteristic> PhysicalCharacteristic { get; set; }
     }
 }

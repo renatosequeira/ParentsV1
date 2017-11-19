@@ -1,0 +1,88 @@
+﻿@model Parents.Domain.AppCore.ChildManagement
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ChildManagement</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Children.ChildrenFirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Children.ChildrenFirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChildSupportLastVisit.ChildSupportVisitId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChildSupportLastVisit.ChildSupportVisitId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChildSupportVisitType.ChildSupportVisitTypeDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChildSupportVisitType.ChildSupportVisitTypeDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Parent.ParentFirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Parent.ParentFirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ParentalGuardTerm.ParentalGuardTermDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParentalGuardTerm.ParentalGuardTermDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ParentalType.ParentalTypeDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParentalType.ParentalTypeDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ParentsMatrimonialState.MatrimonialStateDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParentsMatrimonialState.MatrimonialStateDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChildSupportAgreedValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChildSupportAgreedValue)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

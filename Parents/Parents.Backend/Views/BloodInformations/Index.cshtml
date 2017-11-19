@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Parents.Domain.HealthManagement.Categories.BloodInformation>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BloodInformationDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BloodInformationRemarks)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BloodInformationDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BloodInformationRemarks)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.BoodInformationId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.BoodInformationId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.BoodInformationId })
+        </td>
+    </tr>
+}
+
+</table>

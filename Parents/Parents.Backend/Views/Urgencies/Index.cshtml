@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Parents.Domain.HealthManagement.Urgency>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MedicalInstitutions.MedicalInstitutionName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParentInCharge.ParentFirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UrgencyCategory.UrgencyCategoryDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UrgencySeverity.UrgencySeverityDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UrgencyDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UrgencyDateIn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UrgencyDateOut)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UrgencyStatus)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MedicalInstitutions.MedicalInstitutionName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParentInCharge.ParentFirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UrgencyCategory.UrgencyCategoryDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UrgencySeverity.UrgencySeverityDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UrgencyDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UrgencyDateIn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UrgencyDateOut)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UrgencyStatus)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.UrgencyId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.UrgencyId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.UrgencyId })
+        </td>
+    </tr>
+}
+
+</table>

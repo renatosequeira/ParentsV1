@@ -1,0 +1,72 @@
+﻿@model Parents.Domain.DomesticManagement.ItemToBuy
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ItemToBuy</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemsCategory.ItemCategoryDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemsCategory.ItemCategoryDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemToBuyDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemToBuyDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemToBuyDateAdded)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemToBuyDateAdded)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemToBuyOwner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemToBuyOwner)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemToBuyAssignment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemToBuyAssignment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemToBuyStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemToBuyStatus)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

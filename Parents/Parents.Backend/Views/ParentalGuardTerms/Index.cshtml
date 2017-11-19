@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Parents.Domain.ParentalManagement.Helpers.ParentalGuardTerm>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ParentalGuardTermDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParentalGuardTermRemarks)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParentalGuardTermDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParentalGuardTermRemarks)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ParentalGuardTermId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ParentalGuardTermId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ParentalGuardTermId })
+        </td>
+    </tr>
+}
+
+</table>

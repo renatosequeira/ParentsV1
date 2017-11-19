@@ -1,0 +1,42 @@
+﻿@model Parents.Domain.SchoolManagement.ParentsMeeting
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ParentsMeeting</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Parent.ParentFirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Parent.ParentFirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ParentsMeetingDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParentsMeetingDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ParentsMeetingRemarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParentsMeetingRemarks)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ParentsMeetingId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

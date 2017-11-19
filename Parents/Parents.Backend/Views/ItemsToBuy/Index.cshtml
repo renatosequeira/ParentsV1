@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Parents.Domain.DomesticManagement.ItemToBuy>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemsCategory.ItemCategoryDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemToBuyDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemToBuyDateAdded)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemToBuyOwner)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemToBuyAssignment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemToBuyStatus)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemsCategory.ItemCategoryDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemToBuyDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemToBuyDateAdded)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemToBuyOwner)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemToBuyAssignment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemToBuyStatus)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ItemToBuyId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ItemToBuyId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ItemToBuyId })
+        </td>
+    </tr>
+}
+
+</table>

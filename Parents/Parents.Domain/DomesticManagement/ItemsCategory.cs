@@ -1,5 +1,6 @@
 ﻿namespace Parents.Domain.DomesticManagement
 {
+    using Newtonsoft.Json;
     using System.Collections;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -15,6 +16,7 @@
         [Index("Children_ChildrenIdentityCard_Index", IsUnique = true)]
         public string ItemCategoryDescription { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<ItemToBuy> ItemToBuy { get; set; }
     }
 }

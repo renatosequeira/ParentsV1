@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,6 +19,7 @@ namespace Parents.Domain.ActivitiesManagement.Helpers
         [Index("ActivityPeriodicity_ActivityPeriodicityDescription_Index", IsUnique = true)]
         public string ActivityPeriodicityDescription { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<Activity> Activity { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -26,6 +27,8 @@ namespace Parents.Domain.HealthManagement.Categories
         [DataType(DataType.Url)]
         public string DiseaseExternalLink { get; set; }
 
+        [Display(Name ="Family")]
+        [JsonIgnore]
         public virtual DiseaseFamily DiseaseFamily { get; set; }
     }
 }

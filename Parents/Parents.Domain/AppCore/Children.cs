@@ -1,9 +1,11 @@
 ﻿namespace Parents.Domain
 {
+    using Newtonsoft.Json;
     using Parents.Domain.HealthManagement;
     using Parents.Domain.HealthManagement.Categories;
     using Parents.Domain.ParentalManagement.Helpers;
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -41,7 +43,6 @@
 
         #region HealthInformation
         public string ChildrenFamilyDoctor { get; set; }
-        //public string BloodType { get; set; }
         
 
         #endregion
@@ -60,12 +61,21 @@
         #region ParentsInformation
         public string FatherId { get; set; }
         public string MotherId { get; set; }
+        [JsonIgnore]
         public virtual Parent Father { get; set; }
+        [JsonIgnore]
         public virtual Parent Mother { get; set; }
+        [JsonIgnore]
         public virtual MatrimonialState ParentsMatrimonialState { get; set; }
         #endregion
 
+        [JsonIgnore]
         public virtual Parent Parent { get; set; }
+
+        [JsonIgnore]
         public virtual BloodInformation BloodInformation { get; set; }
+
+        public string BloodInformationDescription { get; set; }
+
     }
 }

@@ -1,0 +1,34 @@
+﻿@model Parents.Domain.HealthManagement.Categories.MedicalInstitutions
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MedicalInstitutions</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MedicalInstitutionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedicalInstitutionName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MedicalInstitutionAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedicalInstitutionAddress)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MedicalInstitutionId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

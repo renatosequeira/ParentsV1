@@ -23,15 +23,51 @@
 
 
                 <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
+                    @*<ul class="nav navbar-nav">
                         <li>@Html.ActionLink("Início", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Sobre", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contato", "Contact", "Home")</li>
                         <li>@Html.ActionLink("Childrens", "Index", "Childrens")</li>
                         <li>@Html.ActionLink("ItemToBuy", "Index", "ItemsToBuy")</li>
                         <li>@Html.ActionLink("Parents", "Index", "Parents")</li>
+                        <li>@Html.ActionLink("ChildManagements", "Index", "ChildManagements")</li>
+                        <li>@Html.ActionLink("Activities", "Index", "Activities")</li>
+                        <li>@Html.ActionLink("Alergies", "Index", "Alergies")</li>
+                        <li>@Html.ActionLink("Diseases", "Index", "Diseases")</li>
+                        <li>@Html.ActionLink("PhysicalCharacteristics", "Index", "PhysicalCharacteristics")</li>
+                        <li>@Html.ActionLink("Urgencies", "Index", "Urgencies")</li>
+                        <li>@Html.ActionLink("ChildSupportPayments", "Index", "ChildSupportPayments")</li>
+                        <li>@Html.ActionLink("ChildSupportVisits", "Index", "ChildSupportVisits")</li>
+                        <li>@Html.ActionLink("Exams", "Index", "Exams")</li>
+                        <li>@Html.ActionLink("ParentsMeetings", "Index", "ParentsMeetings")</li>
+                        <li>@Html.ActionLink("Schools", "Index", "Schools")</li>
                         <li>@Html.ActionLink("Settings","Settings","Home")</li>
-                    </ul>
+                    </ul>*@
+
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Dropdown
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li>@Html.ActionLink("Início", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Childrens", "Index", "Childrens")</li>
+                            <li>@Html.ActionLink("ItemToBuy", "Index", "ItemsToBuy")</li>
+                            <li>@Html.ActionLink("Parents", "Index", "Parents")</li>
+                            <li>@Html.ActionLink("ChildManagements", "Index", "ChildManagements")</li>
+                            <li>@Html.ActionLink("Activities", "Index", "Activities")</li>
+                            <li>@Html.ActionLink("Alergies", "Index", "Alergies")</li>
+                            <li>@Html.ActionLink("Diseases", "Index", "Diseases")</li>
+                            <li>@Html.ActionLink("PhysicalCharacteristics", "Index", "PhysicalCharacteristics")</li>
+                            <li>@Html.ActionLink("Urgencies", "Index", "Urgencies")</li>
+                            <li>@Html.ActionLink("ChildSupportPayments", "Index", "ChildSupportPayments")</li>
+                            <li>@Html.ActionLink("ChildSupportVisits", "Index", "ChildSupportVisits")</li>
+                            <li>@Html.ActionLink("Exams", "Index", "Exams")</li>
+                            <li>@Html.ActionLink("ParentsMeetings", "Index", "ParentsMeetings")</li>
+                            <li>@Html.ActionLink("Schools", "Index", "Schools")</li>
+                            <li>@Html.ActionLink("Settings", "Settings", "Home")</li>
+                        </ul>
+                    </div>
+
+                 
 
                     @Html.Partial("_LoginPartial")
 

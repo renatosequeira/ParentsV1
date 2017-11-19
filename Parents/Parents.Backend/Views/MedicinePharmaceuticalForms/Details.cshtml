@@ -1,0 +1,26 @@
+﻿@model Parents.Domain.HealthManagement.Categories.MedicinePharmaceuticalForm
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MedicinePharmaceuticalForm</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MedicinePharmaceuticalFormDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedicinePharmaceuticalFormDescription)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MedicinePharmaceuticalFormId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

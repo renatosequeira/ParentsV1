@@ -1,0 +1,42 @@
+﻿@model Parents.Domain.HealthManagement.PhysicalCharacteristic
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PhysicalCharacteristic</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.HumanBodyAreas.HumanBodyAreaDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HumanBodyAreas.HumanBodyAreaDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhysicalCharacteristicType.PhysicalCharacteristicTypeDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhysicalCharacteristicType.PhysicalCharacteristicTypeDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhysicalCharacteristicDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhysicalCharacteristicDescription)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PhysicalCharacteristicId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

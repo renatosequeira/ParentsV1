@@ -1,0 +1,104 @@
+﻿@model Parents.Domain.ActivitiesManagement.Activity
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Activity</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ActivityFamily.ActivityFamilyDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActivityFamily.ActivityFamilyDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActivityInstitutionType.ActivityInstitutionTypeDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActivityInstitutionType.ActivityInstitutionTypeDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActivityPeriodicity.ActivityPeriodicityDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActivityPeriodicity.ActivityPeriodicityDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActivityType.ActivityTypeDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActivityType.ActivityTypeDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ParentInCharge.ParentFirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParentInCharge.ParentFirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActivityDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActivityDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActivityDateStart)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActivityDateStart)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActivityDateEnd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActivityDateEnd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActivityRemarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActivityRemarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActivityAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActivityAddress)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,82 @@
+﻿@model Parents.Domain.AppCore.ChildManagement
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ChildManagement</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Children.ChildrenFirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Children.ChildrenFirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChildSupportLastVisit.ChildSupportVisitId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChildSupportLastVisit.ChildSupportVisitId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChildSupportVisitType.ChildSupportVisitTypeDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChildSupportVisitType.ChildSupportVisitTypeDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Parent.ParentFirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Parent.ParentFirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ParentalGuardTerm.ParentalGuardTermDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParentalGuardTerm.ParentalGuardTermDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ParentalType.ParentalTypeDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParentalType.ParentalTypeDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ParentsMatrimonialState.MatrimonialStateDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParentsMatrimonialState.MatrimonialStateDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChildSupportAgreedValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChildSupportAgreedValue)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ChildManagementId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

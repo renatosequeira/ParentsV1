@@ -1,0 +1,82 @@
+﻿@model Parents.Domain.TasksManagement.TaskFunction
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TaskFunction</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskFamily.TaskFamilyDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskFamily.TaskFamilyDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskResponsible.ParentFirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskResponsible.ParentFirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskOwner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskOwner)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskCreationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskCreationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskConclusionDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskConclusionDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskRemarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskRemarks)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TaskId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

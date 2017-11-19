@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -23,6 +24,7 @@ namespace Parents.Domain.SchoolManagement.Helpers
         [Index("ExamFamily_ExamFamilyDescription_Index", IsUnique = true)]
         public string ExamFamilyDescription { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<Exam> Exam { get; set; }
     }
 }

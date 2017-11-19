@@ -1,0 +1,26 @@
+﻿@model Parents.Domain.HealthManagement.Categories.UrgencyCategory
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>UrgencyCategory</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UrgencyCategoryDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UrgencyCategoryDescription)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.UrgencyCategoryId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,40 @@
+﻿@model Parents.Domain.ParentalManagement.Helpers.MatrimonialState
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>MatrimonialState</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MatrimonialStateDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MatrimonialStateDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MatrimonialStateRemarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MatrimonialStateRemarks)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

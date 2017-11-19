@@ -1,4 +1,5 @@
-﻿using Parents.Domain.HealthManagement.Categories;
+﻿using Newtonsoft.Json;
+using Parents.Domain.HealthManagement.Categories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,15 +16,15 @@ namespace Parents.Domain.HealthManagement
         public int DiseaseId { get; set; }
 
         #region External Identifiers
-        public int DiseaseTypeId { get; set; }
+        public int? DiseaseTypeId { get; set; }
 
-        public int DiseaseFamilyId { get; set; }
+        public int? DiseaseFamilyId { get; set; }
 
-        public int MedicinePharmaceuticalFormId { get; set; }
+        public int? MedicinePharmaceuticalFormId { get; set; }
 
-        public int MedicineDosageId { get; set; }
+        public int? MedicineDosageId { get; set; }
 
-        public int MedicineId { get; set; }
+        public int? MedicineId { get; set; }
         #endregion
 
         [Required(ErrorMessage = "The field {0} is required")]
@@ -31,14 +32,19 @@ namespace Parents.Domain.HealthManagement
         public string DiseaseDescription { get; set; }
 
         #region External Virtual Fields
+        [JsonIgnore]
         public virtual DiseaseFamily DiseaseFamily { get; set; }
 
+        [JsonIgnore]
         public virtual DiseaseType DiseaseType { get; set; }
 
+        [JsonIgnore]
         public virtual Medicine Medicine { get; set; }
 
+        [JsonIgnore]
         public virtual MedicineDosage MedicineDosage { get; set; }
 
+        [JsonIgnore]
         public virtual MedicinePharmaceuticalForm MedicinePharmaceuticalForm { get; set; }
         
         #endregion

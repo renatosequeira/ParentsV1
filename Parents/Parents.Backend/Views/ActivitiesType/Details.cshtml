@@ -1,0 +1,26 @@
+﻿@model Parents.Domain.ActivitiesManagement.Helpers.ActivityType
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ActivityType</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ActivityTypeDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActivityTypeDescription)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ActivityTypeId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

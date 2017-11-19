@@ -1,4 +1,5 @@
-﻿using Parents.Domain.SchoolManagement.Helpers;
+﻿using Newtonsoft.Json;
+using Parents.Domain.SchoolManagement.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -22,8 +23,10 @@ namespace Parents.Domain.SchoolManagement
         [Display(Name = "School Phone")]
         public string SchoolPhone { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<Exam> Exam { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<AcademicYear> AcademicYear { get; set; }
     }
 }

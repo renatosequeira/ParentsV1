@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,6 +19,7 @@ namespace Parents.Domain.HealthManagement.Categories
         [Index("MedicinePharmaceuticalForm_MedicinePharmaceuticalFormDescription_Index", IsUnique = true)]
         public string MedicinePharmaceuticalFormDescription { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<Disease> Disease { get; set; }
     }
 }

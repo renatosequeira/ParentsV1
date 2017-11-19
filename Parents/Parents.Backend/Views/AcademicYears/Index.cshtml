@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Parents.Domain.SchoolManagement.Helpers.AcademicYear>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.School.SchoolName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AcademicYearReference)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AcademicYearClassDirector)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AcademicYearGPA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AcademicYearAchievment)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.School.SchoolName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AcademicYearReference)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AcademicYearClassDirector)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AcademicYearGPA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AcademicYearAchievment)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AcademicYearId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AcademicYearId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AcademicYearId })
+        </td>
+    </tr>
+}
+
+</table>

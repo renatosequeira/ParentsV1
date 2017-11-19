@@ -1,0 +1,106 @@
+﻿@model Parents.Domain.HealthManagement.Disease
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Disease</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DiseaseFamily.DiseaseFamilyDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiseaseFamily.DiseaseFamilyDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiseaseType.DiseaseTypeDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiseaseType.DiseaseTypeDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Medicine.MedicineName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Medicine.MedicineName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MedicineDosage.MedicineDosageDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedicineDosage.MedicineDosageDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MedicinePharmaceuticalForm.MedicinePharmaceuticalFormDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedicinePharmaceuticalForm.MedicinePharmaceuticalFormDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiseaseDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiseaseDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateDiagnosed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateDiagnosed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCured)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCured)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HasGeneticOrigin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HasGeneticOrigin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsTreatable)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsTreatable)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HasAssociatedMedicines)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HasAssociatedMedicines)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DiseaseId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

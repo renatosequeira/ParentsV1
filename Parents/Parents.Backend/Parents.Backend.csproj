@@ -50,6 +50,9 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -113,9 +116,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -190,13 +190,59 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ActivitiesManagement\ActivitiesController.cs" />
+    <Compile Include="Controllers\ActivitiesManagement\Helpers\ActivitiesFamilyController.cs" />
+    <Compile Include="Controllers\ActivitiesManagement\Helpers\ActivitiesInstitutionTypeController.cs" />
+    <Compile Include="Controllers\ActivitiesManagement\Helpers\ActivitiesPeriodicityController.cs" />
+    <Compile Include="Controllers\ActivitiesManagement\Helpers\ActivitiesTypeController.cs" />
+    <Compile Include="Controllers\AppCore\ChildManagementsController.cs" />
+    <Compile Include="Controllers\AppCore\ChildrensController.cs" />
+    <Compile Include="Controllers\AppCore\ParentsController.cs" />
+    <Compile Include="Controllers\DomesticManagement\ItemsCategoriesController.cs" />
+    <Compile Include="Controllers\DomesticManagement\ItemsToBuyController.cs" />
+    <Compile Include="Controllers\HealthManagement\AlergiesController.cs" />
+    <Compile Include="Controllers\HealthManagement\DiseasesController.cs" />
+    <Compile Include="Controllers\HealthManagement\Helpers\AlergyTypesController.cs" />
+    <Compile Include="Controllers\HealthManagement\Helpers\BloodInformationsController.cs" />
+    <Compile Include="Controllers\HealthManagement\Helpers\DiseasesFamiliesController.cs" />
+    <Compile Include="Controllers\HealthManagement\Helpers\DiseasesTypesController.cs" />
+    <Compile Include="Controllers\HealthManagement\Helpers\HumanBodiesAreasController.cs" />
+    <Compile Include="Controllers\HealthManagement\Helpers\MedicalInstitutionsPController.cs" />
+    <Compile Include="Controllers\HealthManagement\Helpers\MedicineDosagesController.cs" />
+    <Compile Include="Controllers\HealthManagement\Helpers\MedicinePharmaceuticalFormsController.cs" />
+    <Compile Include="Controllers\HealthManagement\Helpers\MedicinesController.cs" />
+    <Compile Include="Controllers\HealthManagement\Helpers\PhysicalCharacteristicTypesController.cs" />
+    <Compile Include="Controllers\HealthManagement\Helpers\UrgencyCategoriesController.cs" />
+    <Compile Include="Controllers\HealthManagement\Helpers\UrgencySeveritiesController.cs" />
+    <Compile Include="Controllers\HealthManagement\PhysicalCharacteristicsController.cs" />
+    <Compile Include="Controllers\HealthManagement\UrgenciesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ParentalManagement\ChildSupportPaymentsController.cs" />
+    <Compile Include="Controllers\ParentalManagement\ChildSupportVisitsController.cs" />
+    <Compile Include="Controllers\ParentalManagement\Helpers\ChildSupportVisitTypesController.cs" />
+    <Compile Include="Controllers\ParentalManagement\Helpers\MatrimonialStatesController.cs" />
+    <Compile Include="Controllers\ParentalManagement\Helpers\ParentalGuardTermsController.cs" />
+    <Compile Include="Controllers\ParentalManagement\Helpers\ParentalTypesController.cs" />
+    <Compile Include="Controllers\SchoolManagement\ExamsController.cs" />
+    <Compile Include="Controllers\SchoolManagement\Helpers\AcademicYearsController.cs" />
+    <Compile Include="Controllers\SchoolManagement\Helpers\DisciplinesController.cs" />
+    <Compile Include="Controllers\SchoolManagement\Helpers\ExamFamiliesController.cs" />
+    <Compile Include="Controllers\SchoolManagement\ParentsMeetingsController.cs" />
+    <Compile Include="Controllers\SchoolManagement\SchoolsController.cs" />
+    <Compile Include="Controllers\TasksManagement\Helpers\TaskFamiliesController.cs" />
+    <Compile Include="Controllers\TasksManagement\TaskFunctionsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711180018453_test.cs" />
+    <Compile Include="Migrations\201711180018453_test.Designer.cs">
+      <DependentUpon>201711180018453_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DataContextLocal.cs" />
+    <Compile Include="Models\HealthManagement\Helpers\BloodInformationModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -260,6 +306,206 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Settings.cshtml" />
+    <Content Include="Views\ChildManagements\Create.cshtml" />
+    <Content Include="Views\ChildManagements\Delete.cshtml" />
+    <Content Include="Views\ChildManagements\Details.cshtml" />
+    <Content Include="Views\ChildManagements\Edit.cshtml" />
+    <Content Include="Views\ChildManagements\Index.cshtml" />
+    <Content Include="Views\Childrens\Create.cshtml" />
+    <Content Include="Views\Childrens\Delete.cshtml" />
+    <Content Include="Views\Childrens\Details.cshtml" />
+    <Content Include="Views\Childrens\Edit.cshtml" />
+    <Content Include="Views\Childrens\Index.cshtml" />
+    <Content Include="Views\Parents\Create.cshtml" />
+    <Content Include="Views\Parents\Delete.cshtml" />
+    <Content Include="Views\Parents\Details.cshtml" />
+    <Content Include="Views\Parents\Edit.cshtml" />
+    <Content Include="Views\Parents\Index.cshtml" />
+    <Content Include="Views\Activities\Create.cshtml" />
+    <Content Include="Views\Activities\Delete.cshtml" />
+    <Content Include="Views\Activities\Details.cshtml" />
+    <Content Include="Views\Activities\Edit.cshtml" />
+    <Content Include="Views\Activities\Index.cshtml" />
+    <Content Include="Views\ActivitiesFamily\Create.cshtml" />
+    <Content Include="Views\ActivitiesFamily\Delete.cshtml" />
+    <Content Include="Views\ActivitiesFamily\Details.cshtml" />
+    <Content Include="Views\ActivitiesFamily\Edit.cshtml" />
+    <Content Include="Views\ActivitiesFamily\Index.cshtml" />
+    <Content Include="Views\ActivitiesInstitutionType\Create.cshtml" />
+    <Content Include="Views\ActivitiesInstitutionType\Delete.cshtml" />
+    <Content Include="Views\ActivitiesInstitutionType\Details.cshtml" />
+    <Content Include="Views\ActivitiesInstitutionType\Edit.cshtml" />
+    <Content Include="Views\ActivitiesInstitutionType\Index.cshtml" />
+    <Content Include="Views\ActivitiesPeriodicity\Create.cshtml" />
+    <Content Include="Views\ActivitiesPeriodicity\Delete.cshtml" />
+    <Content Include="Views\ActivitiesPeriodicity\Details.cshtml" />
+    <Content Include="Views\ActivitiesPeriodicity\Edit.cshtml" />
+    <Content Include="Views\ActivitiesPeriodicity\Index.cshtml" />
+    <Content Include="Views\ActivitiesType\Create.cshtml" />
+    <Content Include="Views\ActivitiesType\Delete.cshtml" />
+    <Content Include="Views\ActivitiesType\Details.cshtml" />
+    <Content Include="Views\ActivitiesType\Edit.cshtml" />
+    <Content Include="Views\ActivitiesType\Index.cshtml" />
+    <Content Include="Views\ItemsCategories\Create.cshtml" />
+    <Content Include="Views\ItemsCategories\Delete.cshtml" />
+    <Content Include="Views\ItemsCategories\Details.cshtml" />
+    <Content Include="Views\ItemsCategories\Edit.cshtml" />
+    <Content Include="Views\ItemsCategories\Index.cshtml" />
+    <Content Include="Views\ItemsToBuy\Create.cshtml" />
+    <Content Include="Views\ItemsToBuy\Delete.cshtml" />
+    <Content Include="Views\ItemsToBuy\Details.cshtml" />
+    <Content Include="Views\ItemsToBuy\Edit.cshtml" />
+    <Content Include="Views\ItemsToBuy\Index.cshtml" />
+    <Content Include="Views\Alergies\Create.cshtml" />
+    <Content Include="Views\Alergies\Delete.cshtml" />
+    <Content Include="Views\Alergies\Details.cshtml" />
+    <Content Include="Views\Alergies\Edit.cshtml" />
+    <Content Include="Views\Alergies\Index.cshtml" />
+    <Content Include="Views\Diseases\Create.cshtml" />
+    <Content Include="Views\Diseases\Delete.cshtml" />
+    <Content Include="Views\Diseases\Details.cshtml" />
+    <Content Include="Views\Diseases\Edit.cshtml" />
+    <Content Include="Views\Diseases\Index.cshtml" />
+    <Content Include="Views\PhysicalCharacteristics\Create.cshtml" />
+    <Content Include="Views\PhysicalCharacteristics\Delete.cshtml" />
+    <Content Include="Views\PhysicalCharacteristics\Details.cshtml" />
+    <Content Include="Views\PhysicalCharacteristics\Edit.cshtml" />
+    <Content Include="Views\PhysicalCharacteristics\Index.cshtml" />
+    <Content Include="Views\Urgencies\Create.cshtml" />
+    <Content Include="Views\Urgencies\Delete.cshtml" />
+    <Content Include="Views\Urgencies\Details.cshtml" />
+    <Content Include="Views\Urgencies\Edit.cshtml" />
+    <Content Include="Views\Urgencies\Index.cshtml" />
+    <Content Include="Views\AlergyTypes\Create.cshtml" />
+    <Content Include="Views\AlergyTypes\Delete.cshtml" />
+    <Content Include="Views\AlergyTypes\Details.cshtml" />
+    <Content Include="Views\AlergyTypes\Edit.cshtml" />
+    <Content Include="Views\AlergyTypes\Index.cshtml" />
+    <Content Include="Views\BloodInformations\Create.cshtml" />
+    <Content Include="Views\BloodInformations\Delete.cshtml" />
+    <Content Include="Views\BloodInformations\Details.cshtml" />
+    <Content Include="Views\BloodInformations\Edit.cshtml" />
+    <Content Include="Views\BloodInformations\Index.cshtml" />
+    <Content Include="Views\DiseasesFamilies\Create.cshtml" />
+    <Content Include="Views\DiseasesFamilies\Delete.cshtml" />
+    <Content Include="Views\DiseasesFamilies\Details.cshtml" />
+    <Content Include="Views\DiseasesFamilies\Edit.cshtml" />
+    <Content Include="Views\DiseasesFamilies\Index.cshtml" />
+    <Content Include="Views\DiseasesTypes\Create.cshtml" />
+    <Content Include="Views\DiseasesTypes\Delete.cshtml" />
+    <Content Include="Views\DiseasesTypes\Details.cshtml" />
+    <Content Include="Views\DiseasesTypes\Edit.cshtml" />
+    <Content Include="Views\DiseasesTypes\Index.cshtml" />
+    <Content Include="Views\HumanBodiesAreas\Create.cshtml" />
+    <Content Include="Views\HumanBodiesAreas\Delete.cshtml" />
+    <Content Include="Views\HumanBodiesAreas\Details.cshtml" />
+    <Content Include="Views\HumanBodiesAreas\Edit.cshtml" />
+    <Content Include="Views\HumanBodiesAreas\Index.cshtml" />
+    <Content Include="Views\MedicalInstitutionsP\Create.cshtml" />
+    <Content Include="Views\MedicalInstitutionsP\Delete.cshtml" />
+    <Content Include="Views\MedicalInstitutionsP\Details.cshtml" />
+    <Content Include="Views\MedicalInstitutionsP\Edit.cshtml" />
+    <Content Include="Views\MedicalInstitutionsP\Index.cshtml" />
+    <Content Include="Views\Medicines\Create.cshtml" />
+    <Content Include="Views\Medicines\Delete.cshtml" />
+    <Content Include="Views\Medicines\Details.cshtml" />
+    <Content Include="Views\Medicines\Edit.cshtml" />
+    <Content Include="Views\Medicines\Index.cshtml" />
+    <Content Include="Views\MedicineDosages\Create.cshtml" />
+    <Content Include="Views\MedicineDosages\Delete.cshtml" />
+    <Content Include="Views\MedicineDosages\Details.cshtml" />
+    <Content Include="Views\MedicineDosages\Edit.cshtml" />
+    <Content Include="Views\MedicineDosages\Index.cshtml" />
+    <Content Include="Views\MedicinePharmaceuticalForms\Create.cshtml" />
+    <Content Include="Views\MedicinePharmaceuticalForms\Delete.cshtml" />
+    <Content Include="Views\MedicinePharmaceuticalForms\Details.cshtml" />
+    <Content Include="Views\MedicinePharmaceuticalForms\Edit.cshtml" />
+    <Content Include="Views\MedicinePharmaceuticalForms\Index.cshtml" />
+    <Content Include="Views\PhysicalCharacteristicTypes\Create.cshtml" />
+    <Content Include="Views\PhysicalCharacteristicTypes\Delete.cshtml" />
+    <Content Include="Views\PhysicalCharacteristicTypes\Details.cshtml" />
+    <Content Include="Views\PhysicalCharacteristicTypes\Edit.cshtml" />
+    <Content Include="Views\PhysicalCharacteristicTypes\Index.cshtml" />
+    <Content Include="Views\UrgencyCategories\Create.cshtml" />
+    <Content Include="Views\UrgencyCategories\Delete.cshtml" />
+    <Content Include="Views\UrgencyCategories\Details.cshtml" />
+    <Content Include="Views\UrgencyCategories\Edit.cshtml" />
+    <Content Include="Views\UrgencyCategories\Index.cshtml" />
+    <Content Include="Views\UrgencySeverities\Create.cshtml" />
+    <Content Include="Views\UrgencySeverities\Delete.cshtml" />
+    <Content Include="Views\UrgencySeverities\Details.cshtml" />
+    <Content Include="Views\UrgencySeverities\Edit.cshtml" />
+    <Content Include="Views\UrgencySeverities\Index.cshtml" />
+    <Content Include="Views\ChildSupportPayments\Create.cshtml" />
+    <Content Include="Views\ChildSupportPayments\Delete.cshtml" />
+    <Content Include="Views\ChildSupportPayments\Details.cshtml" />
+    <Content Include="Views\ChildSupportPayments\Edit.cshtml" />
+    <Content Include="Views\ChildSupportPayments\Index.cshtml" />
+    <Content Include="Views\ChildSupportVisits\Create.cshtml" />
+    <Content Include="Views\ChildSupportVisits\Delete.cshtml" />
+    <Content Include="Views\ChildSupportVisits\Details.cshtml" />
+    <Content Include="Views\ChildSupportVisits\Edit.cshtml" />
+    <Content Include="Views\ChildSupportVisits\Index.cshtml" />
+    <Content Include="Views\ChildSupportVisitTypes\Create.cshtml" />
+    <Content Include="Views\ChildSupportVisitTypes\Delete.cshtml" />
+    <Content Include="Views\ChildSupportVisitTypes\Details.cshtml" />
+    <Content Include="Views\ChildSupportVisitTypes\Edit.cshtml" />
+    <Content Include="Views\ChildSupportVisitTypes\Index.cshtml" />
+    <Content Include="Views\MatrimonialStates\Create.cshtml" />
+    <Content Include="Views\MatrimonialStates\Delete.cshtml" />
+    <Content Include="Views\MatrimonialStates\Details.cshtml" />
+    <Content Include="Views\MatrimonialStates\Edit.cshtml" />
+    <Content Include="Views\MatrimonialStates\Index.cshtml" />
+    <Content Include="Views\ParentalGuardTerms\Create.cshtml" />
+    <Content Include="Views\ParentalGuardTerms\Delete.cshtml" />
+    <Content Include="Views\ParentalGuardTerms\Details.cshtml" />
+    <Content Include="Views\ParentalGuardTerms\Edit.cshtml" />
+    <Content Include="Views\ParentalGuardTerms\Index.cshtml" />
+    <Content Include="Views\ParentalTypes\Create.cshtml" />
+    <Content Include="Views\ParentalTypes\Delete.cshtml" />
+    <Content Include="Views\ParentalTypes\Details.cshtml" />
+    <Content Include="Views\ParentalTypes\Edit.cshtml" />
+    <Content Include="Views\ParentalTypes\Index.cshtml" />
+    <Content Include="Views\Exams\Create.cshtml" />
+    <Content Include="Views\Exams\Delete.cshtml" />
+    <Content Include="Views\Exams\Details.cshtml" />
+    <Content Include="Views\Exams\Edit.cshtml" />
+    <Content Include="Views\Exams\Index.cshtml" />
+    <Content Include="Views\ParentsMeetings\Create.cshtml" />
+    <Content Include="Views\ParentsMeetings\Delete.cshtml" />
+    <Content Include="Views\ParentsMeetings\Details.cshtml" />
+    <Content Include="Views\ParentsMeetings\Edit.cshtml" />
+    <Content Include="Views\ParentsMeetings\Index.cshtml" />
+    <Content Include="Views\Schools\Create.cshtml" />
+    <Content Include="Views\Schools\Delete.cshtml" />
+    <Content Include="Views\Schools\Details.cshtml" />
+    <Content Include="Views\Schools\Edit.cshtml" />
+    <Content Include="Views\Schools\Index.cshtml" />
+    <Content Include="Views\AcademicYears\Create.cshtml" />
+    <Content Include="Views\AcademicYears\Delete.cshtml" />
+    <Content Include="Views\AcademicYears\Details.cshtml" />
+    <Content Include="Views\AcademicYears\Edit.cshtml" />
+    <Content Include="Views\AcademicYears\Index.cshtml" />
+    <Content Include="Views\Disciplines\Create.cshtml" />
+    <Content Include="Views\Disciplines\Delete.cshtml" />
+    <Content Include="Views\Disciplines\Details.cshtml" />
+    <Content Include="Views\Disciplines\Edit.cshtml" />
+    <Content Include="Views\Disciplines\Index.cshtml" />
+    <Content Include="Views\ExamFamilies\Create.cshtml" />
+    <Content Include="Views\ExamFamilies\Delete.cshtml" />
+    <Content Include="Views\ExamFamilies\Details.cshtml" />
+    <Content Include="Views\ExamFamilies\Edit.cshtml" />
+    <Content Include="Views\ExamFamilies\Index.cshtml" />
+    <Content Include="Views\TaskFamilies\Create.cshtml" />
+    <Content Include="Views\TaskFamilies\Delete.cshtml" />
+    <Content Include="Views\TaskFamilies\Details.cshtml" />
+    <Content Include="Views\TaskFamilies\Edit.cshtml" />
+    <Content Include="Views\TaskFamilies\Index.cshtml" />
+    <Content Include="Views\TaskFunctions\Create.cshtml" />
+    <Content Include="Views\TaskFunctions\Delete.cshtml" />
+    <Content Include="Views\TaskFunctions\Details.cshtml" />
+    <Content Include="Views\TaskFunctions\Edit.cshtml" />
+    <Content Include="Views\TaskFunctions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -282,6 +528,11 @@
       <Project>{182bdc44-f225-46a3-bf9b-2d1e8ccfe734}</Project>
       <Name>Parents.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201711180018453_test.resx">
+      <DependentUpon>201711180018453_test.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,5 +1,6 @@
 ﻿namespace Parents.Domain.DomesticManagement
 {
+    using Newtonsoft.Json;
     using System;
     using System.ComponentModel.DataAnnotations;
 
@@ -15,6 +16,7 @@
         [MaxLength(50, ErrorMessage = "The field {0} only can contain {1} characters lenght.")]
         public string ItemToBuyDescription { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime ItemToBuyDateAdded { get; set; }
 
         public string ItemToBuyOwner { get; set; }
@@ -23,6 +25,7 @@
 
         public bool ItemToBuyStatus { get; set; }
 
+        [JsonIgnore]
         public virtual ItemsCategory ItemsCategory { get; set; }
     }
 }
