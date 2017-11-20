@@ -50,7 +50,7 @@ namespace Parents.Backend.Controllers.DomesticManagement
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ItemCategoryId,ItemCategoryDescription")] ItemsCategory itemsCategory)
+        public async Task<ActionResult> Create(ItemsCategory itemsCategory)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace Parents.Backend.Controllers.DomesticManagement
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ItemCategoryId,ItemCategoryDescription")] ItemsCategory itemsCategory)
+        public async Task<ActionResult> Edit(ItemsCategory itemsCategory)
         {
             if (ModelState.IsValid)
             {

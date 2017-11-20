@@ -52,7 +52,7 @@ namespace Parents.Backend.Controllers.ParentalManagement
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ChildSupportVisitId,ChildSupportVisitDateStart,ChildSupportVisitDateEnd,ChildSupportVisitTypeId,ChildSupportVisitRecordedIncidents")] ChildSupportVisit childSupportVisit)
+        public async Task<ActionResult> Create(ChildSupportVisit childSupportVisit)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace Parents.Backend.Controllers.ParentalManagement
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ChildSupportVisitId,ChildSupportVisitDateStart,ChildSupportVisitDateEnd,ChildSupportVisitTypeId,ChildSupportVisitRecordedIncidents")] ChildSupportVisit childSupportVisit)
+        public async Task<ActionResult> Edit(ChildSupportVisit childSupportVisit)
         {
             if (ModelState.IsValid)
             {

@@ -50,7 +50,7 @@ namespace Parents.Backend.Controllers.TasksManagement.Helpers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "TaskFamilyId,TaskFamilyDescription")] TaskFamily taskFamily)
+        public async Task<ActionResult> Create(TaskFamily taskFamily)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace Parents.Backend.Controllers.TasksManagement.Helpers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "TaskFamilyId,TaskFamilyDescription")] TaskFamily taskFamily)
+        public async Task<ActionResult> Edit(TaskFamily taskFamily)
         {
             if (ModelState.IsValid)
             {

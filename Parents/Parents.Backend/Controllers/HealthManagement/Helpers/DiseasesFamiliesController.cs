@@ -50,7 +50,7 @@ namespace Parents.Backend.Controllers.HealthManagement.Helpers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "DiseaseFamilyId,DiseaseFamilyDescription")] DiseaseFamily diseaseFamily)
+        public async Task<ActionResult> Create(DiseaseFamily diseaseFamily)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace Parents.Backend.Controllers.HealthManagement.Helpers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "DiseaseFamilyId,DiseaseFamilyDescription")] DiseaseFamily diseaseFamily)
+        public async Task<ActionResult> Edit(DiseaseFamily diseaseFamily)
         {
             if (ModelState.IsValid)
             {

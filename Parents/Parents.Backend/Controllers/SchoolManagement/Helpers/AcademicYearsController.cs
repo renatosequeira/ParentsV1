@@ -52,7 +52,7 @@ namespace Parents.Backend.Controllers.SchoolManagement.Helpers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "AcademicYearId,AcademicYearReference,AcademicYearClassDirector,AcademicYearGPA,AcademicYearAchievment,SchoolId")] AcademicYear academicYear)
+        public async Task<ActionResult> Create(AcademicYear academicYear)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace Parents.Backend.Controllers.SchoolManagement.Helpers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "AcademicYearId,AcademicYearReference,AcademicYearClassDirector,AcademicYearGPA,AcademicYearAchievment,SchoolId")] AcademicYear academicYear)
+        public async Task<ActionResult> Edit(AcademicYear academicYear)
         {
             if (ModelState.IsValid)
             {

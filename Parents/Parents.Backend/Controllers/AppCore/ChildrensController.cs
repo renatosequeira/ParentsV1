@@ -77,7 +77,7 @@
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ChildrenId,ParentId,BoodInformationId,MatrimonialStateId,ChildrenFirstName,ChildrenMiddleName,ChildrenLastName,ChildrenIdentityCard,ChildrenBirthDate,ChildrenFamilyDoctor,ChildrenEmail,ChildrenMobile,ChildrenAddress,CurrentSchool,SchoolContact,FatherId,MotherId")] Children children)
+        public async Task<ActionResult> Create(Children children)
         {
             if (ModelState.IsValid)
             {
@@ -113,7 +113,7 @@
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ChildrenId,ParentId,BoodInformationId,MatrimonialStateId,ChildrenFirstName,ChildrenMiddleName,ChildrenLastName,ChildrenIdentityCard,ChildrenBirthDate,ChildrenFamilyDoctor,ChildrenEmail,ChildrenMobile,ChildrenAddress,CurrentSchool,SchoolContact,FatherId,MotherId")] Children children)
+        public async Task<ActionResult> Edit(Children children)
         {
             if (ModelState.IsValid)
             {

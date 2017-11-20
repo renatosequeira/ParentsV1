@@ -50,7 +50,7 @@ namespace Parents.Backend.Controllers.ParentalManagement.Helpers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ParentalTypeId,ParentalTypeDescription")] ParentalType parentalType)
+        public async Task<ActionResult> Create(ParentalType parentalType)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace Parents.Backend.Controllers.ParentalManagement.Helpers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ParentalTypeId,ParentalTypeDescription")] ParentalType parentalType)
+        public async Task<ActionResult> Edit(ParentalType parentalType)
         {
             if (ModelState.IsValid)
             {

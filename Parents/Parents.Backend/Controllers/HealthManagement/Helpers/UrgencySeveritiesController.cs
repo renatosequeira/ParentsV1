@@ -50,7 +50,7 @@ namespace Parents.Backend.Controllers.HealthManagement.Helpers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "UrgencySeverityId,UrgencySeverityDescription")] UrgencySeverity urgencySeverity)
+        public async Task<ActionResult> Create(UrgencySeverity urgencySeverity)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace Parents.Backend.Controllers.HealthManagement.Helpers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "UrgencySeverityId,UrgencySeverityDescription")] UrgencySeverity urgencySeverity)
+        public async Task<ActionResult> Edit(UrgencySeverity urgencySeverity)
         {
             if (ModelState.IsValid)
             {

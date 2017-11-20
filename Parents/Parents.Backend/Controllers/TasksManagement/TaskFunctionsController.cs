@@ -53,7 +53,7 @@ namespace Parents.Backend.Controllers.TasksManagement
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "TaskId,TaskDescription,TaskOwner,ParentId,TaskCreationDate,TaskStatus,TaskConclusionDate,TaskFamilyId,TaskRemarks")] TaskFunction taskFunction)
+        public async Task<ActionResult> Create(TaskFunction taskFunction)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +89,7 @@ namespace Parents.Backend.Controllers.TasksManagement
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "TaskId,TaskDescription,TaskOwner,ParentId,TaskCreationDate,TaskStatus,TaskConclusionDate,TaskFamilyId,TaskRemarks")] TaskFunction taskFunction)
+        public async Task<ActionResult> Edit(TaskFunction taskFunction)
         {
             if (ModelState.IsValid)
             {

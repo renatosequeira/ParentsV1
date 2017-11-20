@@ -50,7 +50,7 @@ namespace Parents.Backend.Controllers.HealthManagement.Helpers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "HumanBodyAreaId,HumanBodyAreaDescription,HumanBodyAreaSide")] HumanBodyAreas humanBodyAreas)
+        public async Task<ActionResult> Create(HumanBodyAreas humanBodyAreas)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace Parents.Backend.Controllers.HealthManagement.Helpers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "HumanBodyAreaId,HumanBodyAreaDescription,HumanBodyAreaSide")] HumanBodyAreas humanBodyAreas)
+        public async Task<ActionResult> Edit(HumanBodyAreas humanBodyAreas)
         {
             if (ModelState.IsValid)
             {

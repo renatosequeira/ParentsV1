@@ -50,7 +50,7 @@ namespace Parents.Backend.Controllers.SchoolManagement.Helpers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "DisciplineId,DisciplineDescription,DisciplineRemarks")] Discipline discipline)
+        public async Task<ActionResult> Create(Discipline discipline)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace Parents.Backend.Controllers.SchoolManagement.Helpers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "DisciplineId,DisciplineDescription,DisciplineRemarks")] Discipline discipline)
+        public async Task<ActionResult> Edit(Discipline discipline)
         {
             if (ModelState.IsValid)
             {

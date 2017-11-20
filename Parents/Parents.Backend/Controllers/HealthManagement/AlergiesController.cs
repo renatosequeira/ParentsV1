@@ -52,7 +52,7 @@ namespace Parents.Backend.Controllers.HealthManagement
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "AlergyId,AlergyTypeId,AlergyDescription")] Alergy alergy)
+        public async Task<ActionResult> Create(Alergy alergy)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace Parents.Backend.Controllers.HealthManagement
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "AlergyId,AlergyTypeId,AlergyDescription")] Alergy alergy)
+        public async Task<ActionResult> Edit(Alergy alergy)
         {
             if (ModelState.IsValid)
             {

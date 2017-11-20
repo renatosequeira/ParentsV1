@@ -52,7 +52,7 @@ namespace Parents.Backend.Controllers.DomesticManagement
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ItemToBuyId,ItemCategoryId,ItemToBuyDescription,ItemToBuyDateAdded,ItemToBuyOwner,ItemToBuyAssignment,ItemToBuyStatus")] ItemToBuy itemToBuy)
+        public async Task<ActionResult> Create(ItemToBuy itemToBuy)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace Parents.Backend.Controllers.DomesticManagement
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ItemToBuyId,ItemCategoryId,ItemToBuyDescription,ItemToBuyDateAdded,ItemToBuyOwner,ItemToBuyAssignment,ItemToBuyStatus")] ItemToBuy itemToBuy)
+        public async Task<ActionResult> Edit(ItemToBuy itemToBuy)
         {
             if (ModelState.IsValid)
             {

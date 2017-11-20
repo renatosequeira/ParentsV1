@@ -54,7 +54,7 @@ namespace Parents.Backend.Controllers.SchoolManagement
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ExamId,ExamDate,DisciplineId,ExamFamilyId,SchoolId,ExamFinalNote")] Exam exam)
+        public async Task<ActionResult> Create(Exam exam)
         {
             if (ModelState.IsValid)
             {
@@ -92,7 +92,7 @@ namespace Parents.Backend.Controllers.SchoolManagement
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ExamId,ExamDate,DisciplineId,ExamFamilyId,SchoolId,ExamFinalNote")] Exam exam)
+        public async Task<ActionResult> Edit(Exam exam)
         {
             if (ModelState.IsValid)
             {

@@ -56,7 +56,7 @@ namespace Parents.Backend.Controllers.ActivitiesManagement
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ActivityId,ActivityFamilyId,ActivityTypeId,ActivityDescription,ActivityDateStart,ActivityDateEnd,ActivityRemarks,ActivityPeriodicityId,ParentId,ActivityInstitutionTypeId,ActivityAddress")] Activity activity)
+        public async Task<ActionResult> Create(Activity activity)
         {
             if (ModelState.IsValid)
             {
@@ -98,7 +98,7 @@ namespace Parents.Backend.Controllers.ActivitiesManagement
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ActivityId,ActivityFamilyId,ActivityTypeId,ActivityDescription,ActivityDateStart,ActivityDateEnd,ActivityRemarks,ActivityPeriodicityId,ParentId,ActivityInstitutionTypeId,ActivityAddress")] Activity activity)
+        public async Task<ActionResult> Edit(Activity activity)
         {
             if (ModelState.IsValid)
             {

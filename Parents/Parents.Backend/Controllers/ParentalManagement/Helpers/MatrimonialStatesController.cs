@@ -50,7 +50,7 @@ namespace Parents.Backend.Controllers.ParentalManagement.Helpers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "MatrimonialStateId,MatrimonialStateDescription,MatrimonialStateRemarks")] MatrimonialState matrimonialState)
+        public async Task<ActionResult> Create(MatrimonialState matrimonialState)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace Parents.Backend.Controllers.ParentalManagement.Helpers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "MatrimonialStateId,MatrimonialStateDescription,MatrimonialStateRemarks")] MatrimonialState matrimonialState)
+        public async Task<ActionResult> Edit(MatrimonialState matrimonialState)
         {
             if (ModelState.IsValid)
             {

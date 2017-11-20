@@ -56,7 +56,7 @@ namespace Parents.Backend.Controllers.HealthManagement
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "DiseaseId,DiseaseTypeId,DiseaseFamilyId,MedicinePharmaceuticalFormId,MedicineDosageId,MedicineId,DiseaseDescription,DateDiagnosed,DateCured,HasGeneticOrigin,IsTreatable,HasAssociatedMedicines")] Disease disease)
+        public async Task<ActionResult> Create(Disease disease)
         {
             if (ModelState.IsValid)
             {
@@ -98,7 +98,7 @@ namespace Parents.Backend.Controllers.HealthManagement
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "DiseaseId,DiseaseTypeId,DiseaseFamilyId,MedicinePharmaceuticalFormId,MedicineDosageId,MedicineId,DiseaseDescription,DateDiagnosed,DateCured,HasGeneticOrigin,IsTreatable,HasAssociatedMedicines")] Disease disease)
+        public async Task<ActionResult> Edit(Disease disease)
         {
             if (ModelState.IsValid)
             {
