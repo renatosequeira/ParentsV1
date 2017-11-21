@@ -10,6 +10,8 @@ using System.Web.Mvc;
 using Parents.Domain;
 using Parents.Domain.HealthManagement;
 using Parents.Backend.Models;
+using Parents.Backend.Models.HealthManagement;
+using Parents.Backend.Helpers;
 
 namespace Parents.Backend.Controllers.HealthManagement
 {
@@ -52,17 +54,41 @@ namespace Parents.Backend.Controllers.HealthManagement
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Alergy alergy)
+        public async Task<ActionResult> Create(AlergiesView view)
         {
             if (ModelState.IsValid)
             {
+                var pic = string.Empty;
+                var folder = "~/Content/Images";
+
+                if (view.ImageFile != null)
+                {
+                    pic = FilesHelper.UploadPhoto(view.ImageFile, folder);
+                    pic = string.Format("{0}/{1}", folder, pic);
+                }
+
+                var alergy = ToAlergy(view);
+                alergy.AlergyImage = pic;
+              
                 db.Alergies.Add(alergy);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AlergyTypeId = new SelectList(db.AlergyTypes, "AlergyTypeId", "AlergyTypeDescriptiom", alergy.AlergyTypeId);
-            return View(alergy);
+            ViewBag.AlergyTypeId = new SelectList(db.AlergyTypes, "AlergyTypeId", "AlergyTypeDescriptiom", view.AlergyTypeId);
+            return View(view);
+        }
+
+        private Alergy ToAlergy(AlergiesView view)
+        {
+            return new Alergy
+            {
+                AlergyDescription = view.AlergyDescription,
+                AlergyId = view.AlergyId,
+                AlergyTypeId = view.AlergyTypeId,
+                AlergyTypes = view.AlergyTypes,
+                AlergyImage = view.AlergyImage
+            };
         }
 
         // GET: Alergies/Edit/5
@@ -78,7 +104,22 @@ namespace Parents.Backend.Controllers.HealthManagement
                 return HttpNotFound();
             }
             ViewBag.AlergyTypeId = new SelectList(db.AlergyTypes, "AlergyTypeId", "AlergyTypeDescriptiom", alergy.AlergyTypeId);
-            return View(alergy);
+
+            var view = ToView(alergy);
+
+            return View(view);
+        }
+
+        private AlergiesView ToView(Alergy alergy)
+        {
+            return new AlergiesView
+            {
+                AlergyDescription = alergy.AlergyDescription,
+                AlergyId = alergy.AlergyId,
+                AlergyTypeId = alergy.AlergyTypeId,
+                AlergyTypes = alergy.AlergyTypes,
+                AlergyImage = alergy.AlergyImage
+            };
         }
 
         // POST: Alergies/Edit/5
@@ -86,16 +127,29 @@ namespace Parents.Backend.Controllers.HealthManagement
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Alergy alergy)
+        public async Task<ActionResult> Edit(AlergiesView view)
         {
             if (ModelState.IsValid)
             {
+                var pic = view.AlergyImage;
+                var folder = "~/Content/Images";
+
+                if (view.ImageFile != null)
+                {
+                    pic = FilesHelper.UploadPhoto(view.ImageFile, folder);
+                    pic = string.Format("{0}/{1}", folder, pic);
+                }
+
+                var alergy = ToAlergy(view);
+                alergy.AlergyImage = pic;
+
+
                 db.Entry(alergy).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.AlergyTypeId = new SelectList(db.AlergyTypes, "AlergyTypeId", "AlergyTypeDescriptiom", alergy.AlergyTypeId);
-            return View(alergy);
+            ViewBag.AlergyTypeId = new SelectList(db.AlergyTypes, "AlergyTypeId", "AlergyTypeDescriptiom", view.AlergyTypeId);
+            return View(view);
         }
 
         // GET: Alergies/Delete/5

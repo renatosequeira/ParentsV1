@@ -97,5 +97,9 @@
         {
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
         }
+
+        public DbSet<AppCore.Helpers.ManagementType> ManagementTypes { get; set; }
+
+        public System.Data.Entity.DbSet<Parents.Domain.HealthManagement.Categories.Treatment> Treatments { get; set; }
     }
 }

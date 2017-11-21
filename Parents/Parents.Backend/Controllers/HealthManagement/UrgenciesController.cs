@@ -10,6 +10,8 @@ using System.Web.Mvc;
 using Parents.Domain;
 using Parents.Domain.HealthManagement;
 using Parents.Backend.Models;
+using Parents.Backend.Models.HealthManagement;
+using Parents.Backend.Helpers;
 
 namespace Parents.Backend.Controllers.HealthManagement
 {
@@ -55,20 +57,53 @@ namespace Parents.Backend.Controllers.HealthManagement
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Urgency urgency)
+        public async Task<ActionResult> Create(UrgencyView view)
         {
             if (ModelState.IsValid)
             {
+                var pic = string.Empty;
+                var folder = "~/Content/Images";
+
+                if (view.ImageFile != null)
+                {
+                    pic = FilesHelper.UploadPhoto(view.ImageFile, folder);
+                    pic = string.Format("{0}/{1}", folder, pic);
+                }
+
+                var urgency = ToUrgency(view);
+                urgency.UrgencyImage = pic;
+
                 db.Urgencies.Add(urgency);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MedicalInstitutionId = new SelectList(db.MedicalInstitutions, "MedicalInstitutionId", "MedicalInstitutionName", urgency.MedicalInstitutionId);
-            ViewBag.ParentId = new SelectList(db.Parents, "ParentId", "ParentFirstName", urgency.ParentId);
-            ViewBag.UrgencyCategoryId = new SelectList(db.UrgencyCategories, "UrgencyCategoryId", "UrgencyCategoryDescription", urgency.UrgencyCategoryId);
-            ViewBag.UrgencySeverityId = new SelectList(db.UrgencySeverities, "UrgencySeverityId", "UrgencySeverityDescription", urgency.UrgencySeverityId);
-            return View(urgency);
+            ViewBag.MedicalInstitutionId = new SelectList(db.MedicalInstitutions, "MedicalInstitutionId", "MedicalInstitutionName", view.MedicalInstitutionId);
+            ViewBag.ParentId = new SelectList(db.Parents, "ParentId", "ParentFirstName", view.ParentId);
+            ViewBag.UrgencyCategoryId = new SelectList(db.UrgencyCategories, "UrgencyCategoryId", "UrgencyCategoryDescription", view.UrgencyCategoryId);
+            ViewBag.UrgencySeverityId = new SelectList(db.UrgencySeverities, "UrgencySeverityId", "UrgencySeverityDescription", view.UrgencySeverityId);
+            return View(view);
+        }
+
+        private Urgency ToUrgency(UrgencyView view)
+        {
+            return new Urgency
+            {
+                MedicalInstitutionId = view.MedicalInstitutionId,
+                MedicalInstitutions = view.MedicalInstitutions,
+                ParentId = view.ParentId,
+                ParentInCharge = view.ParentInCharge,
+                UrgencyCategory = view.UrgencyCategory,
+                UrgencyCategoryId = view.UrgencyCategoryId,
+                UrgencyDateIn = view.UrgencyDateIn,
+                UrgencyDateOut = view.UrgencyDateOut,
+                UrgencyDescription = view.UrgencyDescription,
+                UrgencyId = view.UrgencyId,
+                UrgencyImage = view.UrgencyImage,
+                UrgencySeverity = view.UrgencySeverity,
+                UrgencySeverityId = view.UrgencySeverityId,
+                UrgencyStatus = view.UrgencyStatus
+            };
         }
 
         // GET: Urgencies/Edit/5
@@ -87,7 +122,31 @@ namespace Parents.Backend.Controllers.HealthManagement
             ViewBag.ParentId = new SelectList(db.Parents, "ParentId", "ParentFirstName", urgency.ParentId);
             ViewBag.UrgencyCategoryId = new SelectList(db.UrgencyCategories, "UrgencyCategoryId", "UrgencyCategoryDescription", urgency.UrgencyCategoryId);
             ViewBag.UrgencySeverityId = new SelectList(db.UrgencySeverities, "UrgencySeverityId", "UrgencySeverityDescription", urgency.UrgencySeverityId);
-            return View(urgency);
+
+            var view = ToView(urgency);
+
+            return View(view);
+        }
+
+        private UrgencyView ToView(Urgency urgency)
+        {
+            return new UrgencyView
+            {
+                MedicalInstitutionId = urgency.MedicalInstitutionId,
+                MedicalInstitutions = urgency.MedicalInstitutions,
+                ParentId = urgency.ParentId,
+                ParentInCharge = urgency.ParentInCharge,
+                UrgencyCategory = urgency.UrgencyCategory,
+                UrgencyCategoryId = urgency.UrgencyCategoryId,
+                UrgencyDateIn = urgency.UrgencyDateIn,
+                UrgencyDateOut = urgency.UrgencyDateOut,
+                UrgencyDescription = urgency.UrgencyDescription,
+                UrgencyId = urgency.UrgencyId,
+                UrgencyImage = urgency.UrgencyImage,
+                UrgencySeverity = urgency.UrgencySeverity,
+                UrgencySeverityId = urgency.UrgencySeverityId,
+                UrgencyStatus = urgency.UrgencyStatus
+            };
         }
 
         // POST: Urgencies/Edit/5
@@ -95,19 +154,32 @@ namespace Parents.Backend.Controllers.HealthManagement
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Urgency urgency)
+        public async Task<ActionResult> Edit(UrgencyView view)
         {
             if (ModelState.IsValid)
             {
+                var pic = view.UrgencyImage;
+                var folder = "~/Content/Images";
+
+                if (view.ImageFile != null)
+                {
+                    pic = FilesHelper.UploadPhoto(view.ImageFile, folder);
+                    pic = string.Format("{0}/{1}", folder, pic);
+                }
+
+                var urgency = ToUrgency(view);
+                urgency.UrgencyImage = pic;
+
+
                 db.Entry(urgency).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.MedicalInstitutionId = new SelectList(db.MedicalInstitutions, "MedicalInstitutionId", "MedicalInstitutionName", urgency.MedicalInstitutionId);
-            ViewBag.ParentId = new SelectList(db.Parents, "ParentId", "ParentFirstName", urgency.ParentId);
-            ViewBag.UrgencyCategoryId = new SelectList(db.UrgencyCategories, "UrgencyCategoryId", "UrgencyCategoryDescription", urgency.UrgencyCategoryId);
-            ViewBag.UrgencySeverityId = new SelectList(db.UrgencySeverities, "UrgencySeverityId", "UrgencySeverityDescription", urgency.UrgencySeverityId);
-            return View(urgency);
+            ViewBag.MedicalInstitutionId = new SelectList(db.MedicalInstitutions, "MedicalInstitutionId", "MedicalInstitutionName", view.MedicalInstitutionId);
+            ViewBag.ParentId = new SelectList(db.Parents, "ParentId", "ParentFirstName", view.ParentId);
+            ViewBag.UrgencyCategoryId = new SelectList(db.UrgencyCategories, "UrgencyCategoryId", "UrgencyCategoryDescription", view.UrgencyCategoryId);
+            ViewBag.UrgencySeverityId = new SelectList(db.UrgencySeverities, "UrgencySeverityId", "UrgencySeverityDescription", view.UrgencySeverityId);
+            return View(view);
         }
 
         // GET: Urgencies/Delete/5

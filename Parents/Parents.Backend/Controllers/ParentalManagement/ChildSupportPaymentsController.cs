@@ -10,6 +10,8 @@ using System.Web.Mvc;
 using Parents.Domain;
 using Parents.Domain.ParentalManagement.Helpers;
 using Parents.Backend.Models;
+using Parents.Backend.Models.ParentalManagement;
+using Parents.Backend.Helpers;
 
 namespace Parents.Backend.Controllers.ParentalManagement
 {
@@ -50,16 +52,40 @@ namespace Parents.Backend.Controllers.ParentalManagement
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(ChildSupportPayment childSupportPayment)
+        public async Task<ActionResult> Create(ChildSupportPaymentView view)
         {
             if (ModelState.IsValid)
             {
+                var pic = string.Empty;
+                var folder = "~/Content/Images";
+
+                if (view.ImageFile != null)
+                {
+                    pic = FilesHelper.UploadPhoto(view.ImageFile, folder);
+                    pic = string.Format("{0}/{1}", folder, pic);
+                }
+
+                var childSupportPayment = ToChildSupportPayment(view);
+                childSupportPayment.ChildSupportPaymentImage = pic;
+
                 db.ChildSupportPayments.Add(childSupportPayment);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            return View(childSupportPayment);
+            return View(view);
+        }
+
+        private ChildSupportPayment ToChildSupportPayment(ChildSupportPaymentView view)
+        {
+            return new ChildSupportPayment
+            {
+                ChildSupportPaymentDate = view.ChildSupportPaymentDate,
+                ChildSupportPaymentId = view.ChildSupportPaymentId,
+                ChildSupportPaymentRemarks = view.ChildSupportPaymentRemarks,
+                ChildSupportPaymentValue = view.ChildSupportPaymentValue,
+                ChildSupportPaymentImage = view.ChildSupportPaymentImage
+            };
         }
 
         // GET: ChildSupportPayments/Edit/5
@@ -74,7 +100,22 @@ namespace Parents.Backend.Controllers.ParentalManagement
             {
                 return HttpNotFound();
             }
-            return View(childSupportPayment);
+
+            var view = ToView(childSupportPayment);
+
+            return View(view);
+        }
+
+        private ChildSupportPaymentView ToView(ChildSupportPayment childSupportPayment)
+        {
+            return new ChildSupportPaymentView
+            {
+                ChildSupportPaymentDate = childSupportPayment.ChildSupportPaymentDate,
+                ChildSupportPaymentId = childSupportPayment.ChildSupportPaymentId,
+                ChildSupportPaymentRemarks = childSupportPayment.ChildSupportPaymentRemarks,
+                ChildSupportPaymentValue = childSupportPayment.ChildSupportPaymentValue,
+                ChildSupportPaymentImage = childSupportPayment.ChildSupportPaymentImage
+            };
         }
 
         // POST: ChildSupportPayments/Edit/5
@@ -82,15 +123,28 @@ namespace Parents.Backend.Controllers.ParentalManagement
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(ChildSupportPayment childSupportPayment)
+        public async Task<ActionResult> Edit(ChildSupportPaymentView view)
         {
             if (ModelState.IsValid)
             {
+                var pic = view.ChildSupportPaymentImage;
+                var folder = "~/Content/Images";
+
+                if (view.ImageFile != null)
+                {
+                    pic = FilesHelper.UploadPhoto(view.ImageFile, folder);
+                    pic = string.Format("{0}/{1}", folder, pic);
+                }
+
+                var childSupportPayment = ToChildSupportPayment(view);
+                childSupportPayment.ChildSupportPaymentImage = pic;
+
+
                 db.Entry(childSupportPayment).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(childSupportPayment);
+            return View(view);
         }
 
         // GET: ChildSupportPayments/Delete/5

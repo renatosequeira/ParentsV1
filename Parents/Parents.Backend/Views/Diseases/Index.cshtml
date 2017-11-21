@@ -44,6 +44,9 @@
         <th>
             @Html.DisplayNameFor(model => model.HasAssociatedMedicines)
         </th>
+        <th>
+            Image
+        </th>
         <th></th>
     </tr>
 
@@ -81,6 +84,12 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.HasAssociatedMedicines)
+        </td>
+        <td>
+            @if (!string.IsNullOrEmpty(item.DiseaseImage))
+            {
+                <img src="@Url.Content(item.DiseaseImage)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
+            }
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.DiseaseId }) |

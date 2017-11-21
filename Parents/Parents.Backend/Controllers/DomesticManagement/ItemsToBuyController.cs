@@ -10,6 +10,8 @@ using System.Web.Mvc;
 using Parents.Domain;
 using Parents.Domain.DomesticManagement;
 using Parents.Backend.Models;
+using Parents.Backend.Helpers;
+using Parents.Backend.Models.DomesticManagement;
 
 namespace Parents.Backend.Controllers.DomesticManagement
 {
@@ -52,17 +54,45 @@ namespace Parents.Backend.Controllers.DomesticManagement
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(ItemToBuy itemToBuy)
+        public async Task<ActionResult> Create(ItemsToBuyView view)
         {
             if (ModelState.IsValid)
             {
+                var pic = string.Empty;
+                var folder = "~/Content/Images";
+
+                if (view.ImageFile != null)
+                {
+                    pic = FilesHelper.UploadPhoto(view.ImageFile, folder);
+                    pic = string.Format("{0}/{1}", folder, pic);
+                }
+
+                var itemToBuy = ToItemToBuy(view);
+                itemToBuy.Image = pic;
+
                 db.ItemToBuys.Add(itemToBuy);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ItemCategoryId = new SelectList(db.ItemsCategories, "ItemCategoryId", "ItemCategoryDescription", itemToBuy.ItemCategoryId);
-            return View(itemToBuy);
+            ViewBag.ItemCategoryId = new SelectList(db.ItemsCategories, "ItemCategoryId", "ItemCategoryDescription", view.ItemCategoryId);
+            return View(view);
+        }
+
+        private ItemToBuy ToItemToBuy(ItemsToBuyView view)
+        {
+            return new ItemToBuy
+            {
+                Image = view.Image,
+                ItemCategoryId = view.ItemCategoryId,
+                ItemsCategory = view.ItemsCategory,
+                ItemToBuyAssignment = view.ItemToBuyAssignment,
+                ItemToBuyDateAdded = view.ItemToBuyDateAdded,
+                ItemToBuyDescription = view.ItemToBuyDescription,
+                ItemToBuyId = view.ItemToBuyId,
+                ItemToBuyOwner = view.ItemToBuyOwner,
+                ItemToBuyStatus = view.ItemToBuyStatus
+            };
         }
 
         // GET: ItemsToBuy/Edit/5
@@ -78,7 +108,26 @@ namespace Parents.Backend.Controllers.DomesticManagement
                 return HttpNotFound();
             }
             ViewBag.ItemCategoryId = new SelectList(db.ItemsCategories, "ItemCategoryId", "ItemCategoryDescription", itemToBuy.ItemCategoryId);
-            return View(itemToBuy);
+
+            var view = ToView(itemToBuy);
+
+            return View(view);
+        }
+
+        private ItemsToBuyView ToView(ItemToBuy itemToBuy)
+        {
+            return new ItemsToBuyView
+            {
+                Image = itemToBuy.Image,
+                ItemCategoryId = itemToBuy.ItemCategoryId,
+                ItemsCategory = itemToBuy.ItemsCategory,
+                ItemToBuyAssignment = itemToBuy.ItemToBuyAssignment,
+                ItemToBuyDateAdded = itemToBuy.ItemToBuyDateAdded,
+                ItemToBuyDescription = itemToBuy.ItemToBuyDescription,
+                ItemToBuyId = itemToBuy.ItemToBuyId,
+                ItemToBuyOwner = itemToBuy.ItemToBuyOwner,
+                ItemToBuyStatus = itemToBuy.ItemToBuyStatus
+            };
         }
 
         // POST: ItemsToBuy/Edit/5
@@ -86,16 +135,29 @@ namespace Parents.Backend.Controllers.DomesticManagement
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(ItemToBuy itemToBuy)
+        public async Task<ActionResult> Edit(ItemsToBuyView view)
         {
             if (ModelState.IsValid)
             {
+                var pic = view.Image;
+                var folder = "~/Content/Images";
+
+                if (view.ImageFile != null)
+                {
+                    pic = FilesHelper.UploadPhoto(view.ImageFile, folder);
+                    pic = string.Format("{0}/{1}", folder, pic);
+                }
+
+                var itemToBuy = ToItemToBuy(view);
+                itemToBuy.Image = pic;
+
+
                 db.Entry(itemToBuy).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.ItemCategoryId = new SelectList(db.ItemsCategories, "ItemCategoryId", "ItemCategoryDescription", itemToBuy.ItemCategoryId);
-            return View(itemToBuy);
+            ViewBag.ItemCategoryId = new SelectList(db.ItemsCategories, "ItemCategoryId", "ItemCategoryDescription", view.ItemCategoryId);
+            return View(view);
         }
 
         // GET: ItemsToBuy/Delete/5

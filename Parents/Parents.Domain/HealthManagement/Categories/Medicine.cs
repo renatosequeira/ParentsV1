@@ -21,5 +21,8 @@ namespace Parents.Domain.HealthManagement.Categories
 
         [JsonIgnore]
         public virtual ICollection<Disease> Disease { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Treatment> Treatment { get; set; }
     }
 }

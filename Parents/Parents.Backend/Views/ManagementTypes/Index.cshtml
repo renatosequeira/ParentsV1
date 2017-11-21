@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Parents.Domain.AppCore.Helpers.ManagementType>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ManagementTypeDescription)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ManagementTypeDescription)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ManagementTypreId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ManagementTypreId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ManagementTypreId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -27,5 +27,7 @@
 
         [JsonIgnore]
         public virtual ItemsCategory ItemsCategory { get; set; }
+
+        public string Image { get; set; }
     }
 }

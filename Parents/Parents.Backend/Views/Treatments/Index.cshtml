@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Parents.Domain.HealthManagement.Categories.Treatment>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Medicine.MedicineName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MedicineDosage.MedicineDosageDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MedicinePharmaceuticalForm.MedicinePharmaceuticalFormDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TreatmentRemarks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TreatmentStartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TreatmentEndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TreatmentStartHour)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TreatmentRepeatsPerDay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TreatmentDosagePerRepeat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TreatmentStarted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TreadmentFinished)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Medicine.MedicineName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MedicineDosage.MedicineDosageDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MedicinePharmaceuticalForm.MedicinePharmaceuticalFormDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TreatmentRemarks)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TreatmentStartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TreatmentEndDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TreatmentStartHour)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TreatmentRepeatsPerDay)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TreatmentDosagePerRepeat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TreatmentStarted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TreadmentFinished)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TreatmentId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TreatmentId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TreatmentId })
+        </td>
+    </tr>
+}
+
+</table>

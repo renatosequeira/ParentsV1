@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using Parents.Domain.AppCore.Helpers;
+using Parents.Domain.HealthManagement.Categories;
 using Parents.Domain.ParentalManagement.Helpers;
 using System;
 using System.Collections.Generic;
@@ -51,6 +53,16 @@ namespace Parents.Domain.AppCore
         public int? ParentalGuardTermId { get; set; }
         [JsonIgnore]
         public virtual ParentalGuardTerm ParentalGuardTerm { get; set; }
+
+        public int? ManagementTypreId { get; set; }
+        [JsonIgnore]
+        public virtual ManagementType ManagementType { get; set; }
+
+        public int? BoodInformationId { get; set; }
+        [JsonIgnore]
+        public virtual BloodInformation BloodInformation { get; set; }
+
+        public string Image { get; set; }
 
     }
 

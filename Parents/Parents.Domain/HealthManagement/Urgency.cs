@@ -25,7 +25,8 @@ namespace Parents.Domain.HealthManagement
         [Required(ErrorMessage = "{0} is mandatory!")]
         public DateTime UrgencyDateIn { get; set; }
 
-        public DateTime UrgencyDateOut { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime? UrgencyDateOut { get; set; }
 
         public bool UrgencyStatus { get; set; }
 
@@ -54,6 +55,7 @@ namespace Parents.Domain.HealthManagement
 
         #endregion
 
+        public string UrgencyImage { get; set; }
 
     }
 }

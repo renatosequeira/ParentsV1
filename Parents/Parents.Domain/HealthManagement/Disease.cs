@@ -46,7 +46,10 @@ namespace Parents.Domain.HealthManagement
 
         [JsonIgnore]
         public virtual MedicinePharmaceuticalForm MedicinePharmaceuticalForm { get; set; }
-        
+
+        [JsonIgnore]
+        public virtual ICollection<Treatment> Treatment { get; set; }
+
         #endregion
 
 
@@ -64,6 +67,8 @@ namespace Parents.Domain.HealthManagement
 
         public bool IsTreatable { get; set; }
         public bool HasAssociatedMedicines{ get; set; }
+
+        public string DiseaseImage { get; set; }
 
     }
 }

@@ -23,5 +23,7 @@ namespace Parents.Domain.HealthManagement
 
         [JsonIgnore]
         public virtual AlergyType AlergyTypes { get; set; }
+
+        public string AlergyImage { get; set; }
     }
 }

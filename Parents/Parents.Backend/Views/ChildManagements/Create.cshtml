@@ -1,4 +1,4 @@
-﻿@model Parents.Domain.AppCore.ChildManagement
+﻿@model Parents.Backend.Models.AppCore.ChildManagementView
 
 @{
     ViewBag.Title = "Create";
@@ -7,7 +7,7 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "ChildManagements", FormMethod.Post, new { enctype = "multipart/form-data"}))
 {
     @Html.AntiForgeryToken()
     
@@ -15,6 +15,16 @@
         <h4>ChildManagement</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ImageFile, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <span class="btn btn-default btn-file">
+                    @Html.TextBoxFor(modelo => modelo.ImageFile, new { type = "file" })
+                </span>
+            </div>
+        </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.ChildrenId, "ChildrenId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -44,6 +54,14 @@
             <div class="col-md-10">
                 @Html.DropDownList("ChildSupportVisitTypeId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ChildSupportVisitTypeId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ManagementType, "ManagementTypreId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ManagementTypreId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ManagementType, "", new { @class = "text-danger" })
             </div>
         </div>
 

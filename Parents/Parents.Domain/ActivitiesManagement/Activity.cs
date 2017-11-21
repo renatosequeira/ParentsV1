@@ -54,5 +54,7 @@ namespace Parents.Domain.ActivitiesManagement
         public virtual ActivityInstitutionType ActivityInstitutionType { get; set; }
 
         public string ActivityAddress { get; set; }
+
+        public string Image { get; set; }
     }
 }

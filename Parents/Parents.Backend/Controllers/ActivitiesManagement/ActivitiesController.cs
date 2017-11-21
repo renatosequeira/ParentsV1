@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using Parents.Domain;
-using Parents.Domain.ActivitiesManagement;
-using Parents.Backend.Models;
-
-namespace Parents.Backend.Controllers.ActivitiesManagement
+﻿namespace Parents.Backend.Controllers.ActivitiesManagement
 {
+    using System.Data.Entity;
+    using System.Threading.Tasks;
+    using System.Net;
+    using System.Web.Mvc;
+    using Parents.Domain.ActivitiesManagement;
+    using Parents.Backend.Models;
+    using Parents.Backend.Models.ActivitiesManagement;
+    using Parents.Backend.Helpers;
+
     [Authorize]
     public class ActivitiesController : Controller
     {
@@ -56,21 +52,56 @@ namespace Parents.Backend.Controllers.ActivitiesManagement
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Activity activity)
+        public async Task<ActionResult> Create(ActivitiesView view)
         {
             if (ModelState.IsValid)
             {
+                var pic = string.Empty;
+                var folder = "~/Content/Images";
+
+                if (view.ImageFile != null)
+                {
+                    pic = FilesHelper.UploadPhoto(view.ImageFile, folder);
+                    pic = string.Format("{0}/{1}", folder, pic);
+                }
+
+                var activity = ToActivity(view);
+                activity.Image = pic;
+
                 db.Activities.Add(activity);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ActivityFamilyId = new SelectList(db.ActivityFamilies, "ActivityFamilyId", "ActivityFamilyDescription", activity.ActivityFamilyId);
-            ViewBag.ActivityInstitutionTypeId = new SelectList(db.ActivityInstitutionTypes, "ActivityInstitutionTypeId", "ActivityInstitutionTypeDescription", activity.ActivityInstitutionTypeId);
-            ViewBag.ActivityPeriodicityId = new SelectList(db.ActivityPeriodicities, "ActivityPeriodicityId", "ActivityPeriodicityDescription", activity.ActivityPeriodicityId);
-            ViewBag.ActivityTypeId = new SelectList(db.ActivityTypes, "ActivityTypeId", "ActivityTypeDescription", activity.ActivityTypeId);
-            ViewBag.ParentId = new SelectList(db.Parents, "ParentId", "ParentFirstName", activity.ParentId);
-            return View(activity);
+            ViewBag.ActivityFamilyId = new SelectList(db.ActivityFamilies, "ActivityFamilyId", "ActivityFamilyDescription", view.ActivityFamilyId);
+            ViewBag.ActivityInstitutionTypeId = new SelectList(db.ActivityInstitutionTypes, "ActivityInstitutionTypeId", "ActivityInstitutionTypeDescription", view.ActivityInstitutionTypeId);
+            ViewBag.ActivityPeriodicityId = new SelectList(db.ActivityPeriodicities, "ActivityPeriodicityId", "ActivityPeriodicityDescription", view.ActivityPeriodicityId);
+            ViewBag.ActivityTypeId = new SelectList(db.ActivityTypes, "ActivityTypeId", "ActivityTypeDescription", view.ActivityTypeId);
+            ViewBag.ParentId = new SelectList(db.Parents, "ParentId", "ParentFirstName", view.ParentId);
+            return View(view);
+        }
+
+        private Activity ToActivity(ActivitiesView view)
+        {
+            return new Activity
+            {
+                ActivityAddress = view.ActivityAddress,
+                ActivityDateEnd = view.ActivityDateEnd,
+                ActivityDateStart = view.ActivityDateStart,
+                ActivityDescription = view.ActivityDescription,
+                ActivityFamily = view.ActivityFamily,
+                ActivityFamilyId = view.ActivityFamilyId,
+                ActivityId = view.ActivityId,
+                ActivityInstitutionType = view.ActivityInstitutionType,
+                ActivityInstitutionTypeId = view.ActivityInstitutionTypeId,
+                ActivityPeriodicity = view.ActivityPeriodicity,
+                ActivityPeriodicityId = view.ActivityPeriodicityId,
+                ActivityRemarks = view.ActivityRemarks,
+                ActivityType = view.ActivityType,
+                ActivityTypeId = view.ActivityTypeId,
+                ParentId = view.ParentId,
+                ParentInCharge = view.ParentInCharge
+            };
         }
 
         // GET: Activities/Edit/5
@@ -90,7 +121,33 @@ namespace Parents.Backend.Controllers.ActivitiesManagement
             ViewBag.ActivityPeriodicityId = new SelectList(db.ActivityPeriodicities, "ActivityPeriodicityId", "ActivityPeriodicityDescription", activity.ActivityPeriodicityId);
             ViewBag.ActivityTypeId = new SelectList(db.ActivityTypes, "ActivityTypeId", "ActivityTypeDescription", activity.ActivityTypeId);
             ViewBag.ParentId = new SelectList(db.Parents, "ParentId", "ParentFirstName", activity.ParentId);
-            return View(activity);
+
+            var view = ToView(activity);
+
+            return View(view);
+        }
+
+        private ActivitiesView ToView(Activity activity)
+        {
+            return new ActivitiesView
+            {
+                ActivityAddress = activity.ActivityAddress,
+                ActivityDateEnd = activity.ActivityDateEnd,
+                ActivityDateStart = activity.ActivityDateStart,
+                ActivityDescription = activity.ActivityDescription,
+                ActivityFamily = activity.ActivityFamily,
+                ActivityFamilyId = activity.ActivityFamilyId,
+                ActivityId = activity.ActivityId,
+                ActivityInstitutionType = activity.ActivityInstitutionType,
+                ActivityInstitutionTypeId = activity.ActivityInstitutionTypeId,
+                ActivityPeriodicity = activity.ActivityPeriodicity,
+                ActivityPeriodicityId = activity.ActivityPeriodicityId,
+                ActivityRemarks = activity.ActivityRemarks,
+                ActivityType = activity.ActivityType,
+                ActivityTypeId = activity.ActivityTypeId,
+                ParentId = activity.ParentId,
+                ParentInCharge = activity.ParentInCharge
+            };
         }
 
         // POST: Activities/Edit/5
@@ -98,20 +155,33 @@ namespace Parents.Backend.Controllers.ActivitiesManagement
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Activity activity)
+        public async Task<ActionResult> Edit(ActivitiesView view)
         {
             if (ModelState.IsValid)
             {
+
+                var pic = view.Image;
+                var folder = "~/Content/Images";
+
+                if (view.ImageFile != null)
+                {
+                    pic = FilesHelper.UploadPhoto(view.ImageFile, folder);
+                    pic = string.Format("{0}/{1}", folder, pic);
+                }
+
+                var activity = ToActivity(view);
+                activity.Image = pic;
+
                 db.Entry(activity).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.ActivityFamilyId = new SelectList(db.ActivityFamilies, "ActivityFamilyId", "ActivityFamilyDescription", activity.ActivityFamilyId);
-            ViewBag.ActivityInstitutionTypeId = new SelectList(db.ActivityInstitutionTypes, "ActivityInstitutionTypeId", "ActivityInstitutionTypeDescription", activity.ActivityInstitutionTypeId);
-            ViewBag.ActivityPeriodicityId = new SelectList(db.ActivityPeriodicities, "ActivityPeriodicityId", "ActivityPeriodicityDescription", activity.ActivityPeriodicityId);
-            ViewBag.ActivityTypeId = new SelectList(db.ActivityTypes, "ActivityTypeId", "ActivityTypeDescription", activity.ActivityTypeId);
-            ViewBag.ParentId = new SelectList(db.Parents, "ParentId", "ParentFirstName", activity.ParentId);
-            return View(activity);
+            ViewBag.ActivityFamilyId = new SelectList(db.ActivityFamilies, "ActivityFamilyId", "ActivityFamilyDescription", view.ActivityFamilyId);
+            ViewBag.ActivityInstitutionTypeId = new SelectList(db.ActivityInstitutionTypes, "ActivityInstitutionTypeId", "ActivityInstitutionTypeDescription", view.ActivityInstitutionTypeId);
+            ViewBag.ActivityPeriodicityId = new SelectList(db.ActivityPeriodicities, "ActivityPeriodicityId", "ActivityPeriodicityDescription", view.ActivityPeriodicityId);
+            ViewBag.ActivityTypeId = new SelectList(db.ActivityTypes, "ActivityTypeId", "ActivityTypeDescription", view.ActivityTypeId);
+            ViewBag.ParentId = new SelectList(db.Parents, "ParentId", "ParentFirstName", view.ParentId);
+            return View(view);
         }
 
         // GET: Activities/Delete/5

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Parents.Domain.AppCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,9 +9,9 @@ using System.Web;
 namespace Parents.Backend.Models.AppCore
 {
     [NotMapped]
-    public class ChildManagementView
+    public class ChildManagementView : ChildManagement
     {
         [Display(Name = "Image")]
-        public HttpPostedFileBase Image { get; set; }
+        public HttpPostedFileBase ImageFile { get; set; }
     }
 }

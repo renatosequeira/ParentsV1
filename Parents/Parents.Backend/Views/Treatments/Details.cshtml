@@ -1,0 +1,106 @@
+﻿@model Parents.Domain.HealthManagement.Categories.Treatment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Treatment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Medicine.MedicineName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Medicine.MedicineName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MedicineDosage.MedicineDosageDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedicineDosage.MedicineDosageDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MedicinePharmaceuticalForm.MedicinePharmaceuticalFormDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedicinePharmaceuticalForm.MedicinePharmaceuticalFormDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentRemarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentRemarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentStartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentStartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentEndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentEndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentStartHour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentStartHour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentRepeatsPerDay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentRepeatsPerDay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentDosagePerRepeat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentDosagePerRepeat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentStarted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentStarted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreadmentFinished)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreadmentFinished)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TreatmentId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

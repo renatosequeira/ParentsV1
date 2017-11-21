@@ -31,5 +31,7 @@ namespace Parents.Domain.TasksManagement
 
         [DataType(DataType.MultilineText)]
         public string TaskRemarks { get; set; }
+
+        public string TaskFunctionImage { get; set; }
     }
 }

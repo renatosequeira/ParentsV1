@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Parents.Domain;
 using Parents.Domain.AppCore;
 using Parents.Backend.Models;
+using Parents.Backend.Models.AppCore;
+using Parents.Backend.Helpers;
+using System;
 
 namespace Parents.Backend.Controllers.AppCore
 {
@@ -50,6 +47,7 @@ namespace Parents.Backend.Controllers.AppCore
             ViewBag.ParentalGuardTermId = new SelectList(db.ParentalGuardTerms, "ParentalGuardTermId", "ParentalGuardTermDescription");
             ViewBag.ParentalTypeId = new SelectList(db.ParentalTypes, "ParentalTypeId", "ParentalTypeDescription");
             ViewBag.MatrimonialStateId = new SelectList(db.MatrimonialStates, "MatrimonialStateId", "MatrimonialStateDescription");
+            ViewBag.ManagementTypreId = new SelectList(db.ManagementTypes, "ManagementTypreId", "ManagementTypeDescription");
             return View();
         }
 
@@ -58,23 +56,61 @@ namespace Parents.Backend.Controllers.AppCore
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(ChildManagement childManagement)
+        public async Task<ActionResult> Create(ChildManagementView view)
         {
             if (ModelState.IsValid)
             {
+                var pic = string.Empty;
+                var folder = "~/Content/Images";
+
+                if (view.ImageFile != null)
+                {
+                    pic = FilesHelper.UploadPhoto(view.ImageFile, folder);
+                    pic = string.Format("{0}/{1}", folder, pic);
+                }
+
+                var childManagement = ToChildManagement(view);
+                childManagement.Image = pic;
+
                 db.ChildManagements.Add(childManagement);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ChildrenId = new SelectList(db.Children, "ChildrenId", "ChildrenFirstName", childManagement.ChildrenId);
-            ViewBag.ChildSupportVisitId = new SelectList(db.ChildSupportVisits, "ChildSupportVisitId", "ChildSupportVisitId", childManagement.ChildSupportVisitId);
-            ViewBag.ChildSupportVisitTypeId = new SelectList(db.ChildSupportVisitTypes, "ChildSupportVisitTypeId", "ChildSupportVisitTypeDescription", childManagement.ChildSupportVisitTypeId);
-            ViewBag.ParentId = new SelectList(db.Parents, "ParentId", "ParentFirstName", childManagement.ParentId);
-            ViewBag.ParentalGuardTermId = new SelectList(db.ParentalGuardTerms, "ParentalGuardTermId", "ParentalGuardTermDescription", childManagement.ParentalGuardTermId);
-            ViewBag.ParentalTypeId = new SelectList(db.ParentalTypes, "ParentalTypeId", "ParentalTypeDescription", childManagement.ParentalTypeId);
-            ViewBag.MatrimonialStateId = new SelectList(db.MatrimonialStates, "MatrimonialStateId", "MatrimonialStateDescription", childManagement.MatrimonialStateId);
-            return View(childManagement);
+            ViewBag.ChildrenId = new SelectList(db.Children, "ChildrenId", "ChildrenFirstName", view.ChildrenId);
+            ViewBag.ChildSupportVisitId = new SelectList(db.ChildSupportVisits, "ChildSupportVisitId", "ChildSupportVisitId", view.ChildSupportVisitId);
+            ViewBag.ChildSupportVisitTypeId = new SelectList(db.ChildSupportVisitTypes, "ChildSupportVisitTypeId", "ChildSupportVisitTypeDescription", view.ChildSupportVisitTypeId);
+            ViewBag.ParentId = new SelectList(db.Parents, "ParentId", "ParentFirstName", view.ParentId);
+            ViewBag.ParentalGuardTermId = new SelectList(db.ParentalGuardTerms, "ParentalGuardTermId", "ParentalGuardTermDescription", view.ParentalGuardTermId);
+            ViewBag.ParentalTypeId = new SelectList(db.ParentalTypes, "ParentalTypeId", "ParentalTypeDescription", view.ParentalTypeId);
+            ViewBag.MatrimonialStateId = new SelectList(db.MatrimonialStates, "MatrimonialStateId", "MatrimonialStateDescription", view.MatrimonialStateId);
+            ViewBag.ManagementTypreId = new SelectList(db.ManagementTypes, "ManagementTypreId", "ManagementTypeDescription", view.ManagementTypreId);
+            return View(view);
+        }
+
+        private ChildManagement ToChildManagement(ChildManagementView view)
+        {
+            return new ChildManagement
+            {
+                ChildManagementId = view.ChildManagementId,
+                Children = view.Children,
+                ChildrenId = view.ChildrenId,
+                ChildSupportAgreedValue = view.ChildSupportAgreedValue,
+                ChildSupportLastVisit = view.ChildSupportLastVisit,
+                ChildSupportVisitId = view.ChildSupportVisitId,
+                ChildSupportVisitType = view.ChildSupportVisitType,
+                ChildSupportVisitTypeId = view.ChildSupportVisitTypeId,
+                MatrimonialStateId = view.MatrimonialStateId,
+                Parent = view.Parent,
+                ManagementType = view.ManagementType,
+                ManagementTypreId = view.ManagementTypreId,
+                ParentalGuardTerm = view.ParentalGuardTerm,
+                ParentalGuardTermId = view.ParentalGuardTermId,
+                ParentalType = view.ParentalType,
+                ParentalTypeId = view.ParentalTypeId,
+                ParentId = view.ParentId,
+                ParentsMatrimonialState = view.ParentsMatrimonialState
+            };
         }
 
         // GET: ChildManagements/Edit/5
@@ -96,7 +132,35 @@ namespace Parents.Backend.Controllers.AppCore
             ViewBag.ParentalGuardTermId = new SelectList(db.ParentalGuardTerms, "ParentalGuardTermId", "ParentalGuardTermDescription", childManagement.ParentalGuardTermId);
             ViewBag.ParentalTypeId = new SelectList(db.ParentalTypes, "ParentalTypeId", "ParentalTypeDescription", childManagement.ParentalTypeId);
             ViewBag.MatrimonialStateId = new SelectList(db.MatrimonialStates, "MatrimonialStateId", "MatrimonialStateDescription", childManagement.MatrimonialStateId);
-            return View(childManagement);
+            ViewBag.ManagementTypreId = new SelectList(db.ManagementTypes, "ManagementTypreId", "ManagementTypeDescription");
+            var view = ToView(childManagement);
+
+            return View(view);
+        }
+
+        private ChildManagementView ToView(ChildManagement childManagement)
+        {
+            return new ChildManagementView
+            {
+                ChildManagementId = childManagement.ChildManagementId,
+                Children = childManagement.Children,
+                ChildrenId = childManagement.ChildrenId,
+                ChildSupportAgreedValue = childManagement.ChildSupportAgreedValue,
+                ChildSupportLastVisit = childManagement.ChildSupportLastVisit,
+                ChildSupportVisitId = childManagement.ChildSupportVisitId,
+                ChildSupportVisitType = childManagement.ChildSupportVisitType,
+                ChildSupportVisitTypeId = childManagement.ChildSupportVisitTypeId,
+                MatrimonialStateId = childManagement.MatrimonialStateId,
+                Parent = childManagement.Parent,
+                ManagementType = childManagement.ManagementType,
+                ManagementTypreId = childManagement.ManagementTypreId,
+                ParentalGuardTerm = childManagement.ParentalGuardTerm,
+                ParentalGuardTermId = childManagement.ParentalGuardTermId,
+                ParentalType = childManagement.ParentalType,
+                ParentalTypeId = childManagement.ParentalTypeId,
+                ParentId = childManagement.ParentId,
+                ParentsMatrimonialState = childManagement.ParentsMatrimonialState
+            };
         }
 
         // POST: ChildManagements/Edit/5
@@ -104,22 +168,35 @@ namespace Parents.Backend.Controllers.AppCore
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(ChildManagement childManagement)
+        public async Task<ActionResult> Edit(ChildManagementView view)
         {
             if (ModelState.IsValid)
             {
+                var pic = view.Image;
+                var folder = "~/Content/Images";
+
+                if (view.ImageFile != null)
+                {
+                    pic = FilesHelper.UploadPhoto(view.ImageFile, folder);
+                    pic = string.Format("{0}/{1}", folder, pic);
+                }
+
+                var childManagement = ToChildManagement(view);
+                childManagement.Image = pic;
+
                 db.Entry(childManagement).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.ChildrenId = new SelectList(db.Children, "ChildrenId", "ChildrenFirstName", childManagement.ChildrenId);
-            ViewBag.ChildSupportVisitId = new SelectList(db.ChildSupportVisits, "ChildSupportVisitId", "ChildSupportVisitId", childManagement.ChildSupportVisitId);
-            ViewBag.ChildSupportVisitTypeId = new SelectList(db.ChildSupportVisitTypes, "ChildSupportVisitTypeId", "ChildSupportVisitTypeDescription", childManagement.ChildSupportVisitTypeId);
-            ViewBag.ParentId = new SelectList(db.Parents, "ParentId", "ParentFirstName", childManagement.ParentId);
-            ViewBag.ParentalGuardTermId = new SelectList(db.ParentalGuardTerms, "ParentalGuardTermId", "ParentalGuardTermDescription", childManagement.ParentalGuardTermId);
-            ViewBag.ParentalTypeId = new SelectList(db.ParentalTypes, "ParentalTypeId", "ParentalTypeDescription", childManagement.ParentalTypeId);
-            ViewBag.MatrimonialStateId = new SelectList(db.MatrimonialStates, "MatrimonialStateId", "MatrimonialStateDescription", childManagement.MatrimonialStateId);
-            return View(childManagement);
+            ViewBag.ChildrenId = new SelectList(db.Children, "ChildrenId", "ChildrenFirstName", view.ChildrenId);
+            ViewBag.ChildSupportVisitId = new SelectList(db.ChildSupportVisits, "ChildSupportVisitId", "ChildSupportVisitId", view.ChildSupportVisitId);
+            ViewBag.ChildSupportVisitTypeId = new SelectList(db.ChildSupportVisitTypes, "ChildSupportVisitTypeId", "ChildSupportVisitTypeDescription", view.ChildSupportVisitTypeId);
+            ViewBag.ParentId = new SelectList(db.Parents, "ParentId", "ParentFirstName", view.ParentId);
+            ViewBag.ParentalGuardTermId = new SelectList(db.ParentalGuardTerms, "ParentalGuardTermId", "ParentalGuardTermDescription", view.ParentalGuardTermId);
+            ViewBag.ParentalTypeId = new SelectList(db.ParentalTypes, "ParentalTypeId", "ParentalTypeDescription", view.ParentalTypeId);
+            ViewBag.MatrimonialStateId = new SelectList(db.MatrimonialStates, "MatrimonialStateId", "MatrimonialStateDescription", view.MatrimonialStateId);
+            ViewBag.ManagementTypreId = new SelectList(db.ManagementTypes, "ManagementTypreId", "ManagementTypeDescription");
+            return View(view);
         }
 
         // GET: ChildManagements/Delete/5

@@ -197,6 +197,7 @@
     <Compile Include="Controllers\ActivitiesManagement\Helpers\ActivitiesTypeController.cs" />
     <Compile Include="Controllers\AppCore\ChildManagementsController.cs" />
     <Compile Include="Controllers\AppCore\ChildrensController.cs" />
+    <Compile Include="Controllers\AppCore\Helpers\ManagementTypesController.cs" />
     <Compile Include="Controllers\AppCore\ParentsController.cs" />
     <Compile Include="Controllers\DomesticManagement\ItemsCategoriesController.cs" />
     <Compile Include="Controllers\DomesticManagement\ItemsToBuyController.cs" />
@@ -212,6 +213,7 @@
     <Compile Include="Controllers\HealthManagement\Helpers\MedicinePharmaceuticalFormsController.cs" />
     <Compile Include="Controllers\HealthManagement\Helpers\MedicinesController.cs" />
     <Compile Include="Controllers\HealthManagement\Helpers\PhysicalCharacteristicTypesController.cs" />
+    <Compile Include="Controllers\HealthManagement\Helpers\TreatmentsController.cs" />
     <Compile Include="Controllers\HealthManagement\Helpers\UrgencyCategoriesController.cs" />
     <Compile Include="Controllers\HealthManagement\Helpers\UrgencySeveritiesController.cs" />
     <Compile Include="Controllers\HealthManagement\PhysicalCharacteristicsController.cs" />
@@ -235,6 +237,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\FilesHelper.cs" />
     <Compile Include="Migrations\201711180018453_test.cs" />
     <Compile Include="Migrations\201711180018453_test.Designer.cs">
       <DependentUpon>201711180018453_test.cs</DependentUpon>
@@ -261,6 +264,27 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\AbsoluteLayout2.png" />
+    <Content Include="Content\Images\Alergico PENICILINA.jpg" />
+    <Content Include="Content\Images\allstar.jpg" />
+    <Content Include="Content\Images\Capturar2.PNG" />
+    <Content Include="Content\Images\catia_neves.jpg" />
+    <Content Include="Content\Images\comichao-pele.png" />
+    <Content Include="Content\Images\DemoImage.jpg" />
+    <Content Include="Content\Images\dorNoPeito.jpg" />
+    <Content Include="Content\Images\Infectious-Disease.jpg" />
+    <Content Include="Content\Images\jeans.jpg" />
+    <Content Include="Content\Images\limões.jpg" />
+    <Content Include="Content\Images\ls_timeperception_free.jpg" />
+    <Content Include="Content\Images\MalaB&amp;L.jpg" />
+    <Content Include="Content\Images\nodoaNegra.jpg" />
+    <Content Include="Content\Images\recibo.jpg" />
+    <Content Include="Content\Images\recibo_compra_selo_continente_20131201.jpg" />
+    <Content Include="Content\Images\Renas.jpg" />
+    <Content Include="Content\Images\skinSign.jpg" />
+    <Content Include="Content\Images\task.jpg" />
+    <Content Include="Content\Images\tratamento-da-artrite-500x302.jpg" />
+    <Content Include="Content\Images\urgency.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -517,6 +541,16 @@
     <Content Include="Views\TaskFunctions\Details.cshtml" />
     <Content Include="Views\TaskFunctions\Edit.cshtml" />
     <Content Include="Views\TaskFunctions\Index.cshtml" />
+    <Content Include="Views\ManagementTypes\Create.cshtml" />
+    <Content Include="Views\ManagementTypes\Delete.cshtml" />
+    <Content Include="Views\ManagementTypes\Details.cshtml" />
+    <Content Include="Views\ManagementTypes\Edit.cshtml" />
+    <Content Include="Views\ManagementTypes\Index.cshtml" />
+    <Content Include="Views\Treatments\Create.cshtml" />
+    <Content Include="Views\Treatments\Delete.cshtml" />
+    <Content Include="Views\Treatments\Details.cshtml" />
+    <Content Include="Views\Treatments\Edit.cshtml" />
+    <Content Include="Views\Treatments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

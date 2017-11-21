@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Parents.Domain.TasksManagement;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,9 +9,9 @@ using System.Web;
 namespace Parents.Backend.Models.TaskManagement
 {
     [NotMapped]
-    public class TaskFunctionView
+    public class TaskFunctionView : TaskFunction
     {
         [Display(Name = "Image")]
-        public HttpPostedFileBase Image { get; set; }
+        public HttpPostedFileBase ImageFile { get; set; }
     }
 }

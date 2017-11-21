@@ -12,6 +12,6 @@ namespace Parents.Backend.Models.AppCore
     public class ParentView : Parent
     {
         [Display(Name = "Image")]
-        public HttpPostedFileBase Image { get; set; }
+        public HttpPostedFileBase ImageFile { get; set; }
     }
 }

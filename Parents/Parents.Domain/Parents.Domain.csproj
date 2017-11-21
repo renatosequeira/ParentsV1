@@ -57,6 +57,7 @@
     <Compile Include="ActivitiesManagement\Helpers\ActivityType.cs" />
     <Compile Include="AppCore\ChildManagement.cs" />
     <Compile Include="AppCore\Children.cs" />
+    <Compile Include="AppCore\Helpers\ManagementType.cs" />
     <Compile Include="AppCore\Parent.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="DomesticManagement\ItemsCategory.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="HealthManagement\Categories\MedicineDosage.cs" />
     <Compile Include="HealthManagement\Categories\MedicinePharmaceuticalForm.cs" />
     <Compile Include="HealthManagement\Categories\PhysicalCharacteristicType.cs" />
+    <Compile Include="HealthManagement\Categories\Treatment.cs" />
     <Compile Include="HealthManagement\Categories\UrgencyCategory.cs" />
     <Compile Include="HealthManagement\Categories\UrgencySeverity.cs" />
     <Compile Include="HealthManagement\Disease.cs" />

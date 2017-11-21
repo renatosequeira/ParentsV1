@@ -12,6 +12,9 @@
 <table class="table">
     <tr>
         <th>
+            Image
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.ParentalType.ParentalTypeDescription)
         </th>
         <th>
@@ -43,6 +46,12 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @if (!string.IsNullOrEmpty(item.ParentImage))
+            {
+                <img src="@Url.Content(item.ParentImage)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
+            }
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.ParentalType.ParentalTypeDescription)
         </td>

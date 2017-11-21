@@ -98,6 +98,31 @@
             @Html.DisplayFor(model => model.HasAssociatedMedicines)
         </dd>
 
+        <dt>
+            Treatments
+        </dt>
+        <dd>
+            
+            @if (Model.Treatment != null)
+            {
+                <table>
+                    <tr>
+                        <th>Title </th>
+                    </tr>
+                    @foreach (var treat in Model.Treatment)
+                    {
+                        <tr>
+                            <td>@treat.TreatmentRemarks</td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <p>No jobs found</p>
+            }
+        </dd>
+
     </dl>
 </div>
 <p>

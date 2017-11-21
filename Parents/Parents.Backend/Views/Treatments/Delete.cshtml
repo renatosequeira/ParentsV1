@@ -1,0 +1,112 @@
+﻿@model Parents.Domain.HealthManagement.Categories.Treatment
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Treatment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Medicine.MedicineName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Medicine.MedicineName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MedicineDosage.MedicineDosageDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedicineDosage.MedicineDosageDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MedicinePharmaceuticalForm.MedicinePharmaceuticalFormDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedicinePharmaceuticalForm.MedicinePharmaceuticalFormDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentRemarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentRemarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentStartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentStartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentEndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentEndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentStartHour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentStartHour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentRepeatsPerDay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentRepeatsPerDay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentDosagePerRepeat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentDosagePerRepeat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentStarted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentStarted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreadmentFinished)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreadmentFinished)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

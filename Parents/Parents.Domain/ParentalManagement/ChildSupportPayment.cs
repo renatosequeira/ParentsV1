@@ -20,10 +20,12 @@ namespace Parents.Domain.ParentalManagement.Helpers
         [Display(Name = "Payed amount")]
         public double ChildSupportPaymentValue { get; set; }
 
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         public DateTime ChildSupportPaymentDate { get; set; }
 
         [Display(Name ="Remarks")]
         public string ChildSupportPaymentRemarks { get; set; }
+
+        public string ChildSupportPaymentImage { get; set; }
     }
 }

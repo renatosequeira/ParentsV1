@@ -28,5 +28,6 @@ namespace Parents.Domain.HealthManagement
         [JsonIgnore]
         public virtual HumanBodyAreas HumanBodyAreas { get; set; }
 
+        public string PhysicalCharacteristicImage { get; set; }
     }
 }

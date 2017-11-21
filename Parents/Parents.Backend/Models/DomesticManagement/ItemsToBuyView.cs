@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Parents.Domain.DomesticManagement;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Web;
+
 
 namespace Parents.Backend.Models.DomesticManagement
 {
     [NotMapped]
-    public class ItemsToBuyView
+    public class ItemsToBuyView : ItemToBuy
     {
         [Display(Name = "Image")]
-        public HttpPostedFileBase Image { get; set; }
+        public HttpPostedFileBase ImageFile { get; set; }
     }
 }

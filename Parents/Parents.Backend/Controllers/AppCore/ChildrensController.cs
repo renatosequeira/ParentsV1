@@ -9,7 +9,9 @@
     using Parents.Domain.HealthManagement.Categories;
     using System.Collections.Generic;
     using System.Linq;
-   
+    using Parents.Backend.Models.AppCore;
+    using Parents.Backend.Helpers;
+    using System;
 
     [Authorize]
     public class ChildrensController : Controller
@@ -61,12 +63,8 @@
         // GET: Childrens/Create
         public ActionResult Create()
         {
-
-
-            ViewBag.BloodInformation = new SelectList(db.BloodInformations, "BoodInformationId", "BloodInformationDescription");
-            //ViewBag.BoodInformationId = new SelectList(GetBloodInformation().ToList(), "BoodInformationId", "BloodInformationDescription");
-
-            
+            ViewBag.ParentId = new SelectList(db.Parents, "ParentId", "ParentFirstName");
+            ViewBag.BoodInformationId = new SelectList(db.BloodInformations, "BoodInformationId", "BloodInformationDescription");
             ViewBag.MatrimonialStateId = new SelectList(db.MatrimonialStates, "MatrimonialStateId", "MatrimonialStateDescription");
 
             return View();
@@ -77,18 +75,62 @@
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Children children)
+        public async Task<ActionResult> Create(ChildrenView view)
         {
             if (ModelState.IsValid)
             {
+                var pic = string.Empty;
+                var folder = "~/Content/Images";
+
+                if (view.ImageFile != null)
+                {
+                    pic = FilesHelper.UploadPhoto(view.ImageFile, folder);
+                    pic = string.Format("{0}/{1}", folder, pic);
+                }
+
+                var children = ToChildren(view);
+                children.ChildrenImage = pic;
+
                 db.Children.Add(children);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.BloodInformation = new SelectList(db.BloodInformations, "BoodInformationId", "BloodInformationDescription", 3);
-            ViewBag.MatrimonialStateId = new SelectList(db.MatrimonialStates, "MatrimonialStateId", "MatrimonialStateDescription", children.MatrimonialStateId);
-            return View(children);
+            ViewBag.ParentId = new SelectList(db.Parents, "ParentId", "ParentFirstName", view.ParentId);
+            ViewBag.BoodInformationId = new SelectList(db.BloodInformations, "BoodInformationId", "BloodInformationDescription", view.BoodInformationId);
+            ViewBag.MatrimonialStateId = new SelectList(db.MatrimonialStates, "MatrimonialStateId", "MatrimonialStateDescription", view.MatrimonialStateId);
+            return View(view);
+        }
+
+        private Children ToChildren(ChildrenView view)
+        {
+            return new Children
+            {
+                BloodInformation = view.BloodInformation,
+                BloodInformationDescription = view.BloodInformationDescription,
+                BoodInformationId = view.BoodInformationId,
+                ChildrenAddress = view.ChildrenAddress,
+                ChildrenBirthDate = view.ChildrenBirthDate,
+                ChildrenEmail = view.ChildrenEmail,
+                ChildrenFamilyDoctor = view.ChildrenFamilyDoctor,
+                ChildrenFirstName = view.ChildrenFirstName,
+                ChildrenId = view.ChildrenId,
+                ChildrenIdentityCard = view.ChildrenIdentityCard,
+                //ChildrenImage = view.ChildrenImage,
+                ChildrenLastName = view.ChildrenLastName,
+                ChildrenMiddleName = view.ChildrenMiddleName,
+                ChildrenMobile = view.ChildrenMobile,
+                CurrentSchool = view.CurrentSchool,
+                Father = view.Father,
+                FatherId = view.FatherId,
+                MatrimonialStateId = view.MatrimonialStateId,
+                Mother = view.Mother,
+                MotherId = view.MotherId,
+                Parent = view.Parent,
+                ParentId = view.ParentId,
+                ParentsMatrimonialState = view.ParentsMatrimonialState,
+                SchoolContact = view.SchoolContact
+            };
         }
 
         // GET: Childrens/Edit/5
@@ -105,7 +147,41 @@
             }
             ViewBag.BoodInformationId = new SelectList(db.BloodInformations, "BoodInformationId", "BloodInformationDescription", children.BoodInformationId);
             ViewBag.MatrimonialStateId = new SelectList(db.MatrimonialStates, "MatrimonialStateId", "MatrimonialStateDescription", children.MatrimonialStateId);
-            return View(children);
+
+            var view = ToView(children);
+
+            return View(view);
+        }
+
+        private ChildrenView ToView(Children children)
+        {
+            return new ChildrenView
+            {
+                BloodInformation = children.BloodInformation,
+                BloodInformationDescription = children.BloodInformationDescription,
+                BoodInformationId = children.BoodInformationId,
+                ChildrenAddress = children.ChildrenAddress,
+                ChildrenBirthDate = children.ChildrenBirthDate,
+                ChildrenEmail = children.ChildrenEmail,
+                ChildrenFamilyDoctor = children.ChildrenFamilyDoctor,
+                ChildrenFirstName = children.ChildrenFirstName,
+                ChildrenId = children.ChildrenId,
+                ChildrenIdentityCard = children.ChildrenIdentityCard,
+                //ChildrenImage = children.ChildrenImage,
+                ChildrenLastName = children.ChildrenLastName,
+                ChildrenMiddleName = children.ChildrenMiddleName,
+                ChildrenMobile = children.ChildrenMobile,
+                CurrentSchool = children.CurrentSchool,
+                Father = children.Father,
+                FatherId = children.FatherId,
+                MatrimonialStateId = children.MatrimonialStateId,
+                Mother = children.Mother,
+                MotherId = children.MotherId,
+                Parent = children.Parent,
+                ParentId = children.ParentId,
+                ParentsMatrimonialState = children.ParentsMatrimonialState,
+                SchoolContact = children.SchoolContact
+            };
         }
 
         // POST: Childrens/Edit/5
@@ -113,17 +189,30 @@
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Children children)
+        public async Task<ActionResult> Edit(ChildrenView view)
         {
             if (ModelState.IsValid)
             {
+                var pic = view.ChildrenImage;
+                var folder = "~/Content/Images";
+
+                if (view.ImageFile != null)
+                {
+                    pic = FilesHelper.UploadPhoto(view.ImageFile, folder);
+                    pic = string.Format("{0}/{1}", folder, pic);
+                }
+
+                var children = ToChildren(view);
+                children.ChildrenImage = pic;
+
+
                 db.Entry(children).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.BoodInformationId = new SelectList(db.BloodInformations, "BoodInformationId", "BloodInformationDescription", children.BoodInformationId);
-            ViewBag.MatrimonialStateId = new SelectList(db.MatrimonialStates, "MatrimonialStateId", "MatrimonialStateDescription", children.MatrimonialStateId);
-            return View(children);
+            ViewBag.BoodInformationId = new SelectList(db.BloodInformations, "BoodInformationId", "BloodInformationDescription", view.BoodInformationId);
+            ViewBag.MatrimonialStateId = new SelectList(db.MatrimonialStates, "MatrimonialStateId", "MatrimonialStateDescription", view.MatrimonialStateId);
+            return View(view);
         }
 
         // GET: Childrens/Delete/5

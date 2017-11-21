@@ -24,5 +24,6 @@ namespace Parents.Domain.HealthManagement.Categories
 
         [JsonIgnore]
         public virtual ICollection<Alergy> Alergy { get; set; }
+
     }
 }
