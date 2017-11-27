@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Parents.Views.LoginView"
+             BindingContext="{Binding Main,Source={StaticResource Locator}}"
+             Title="Login">
+    
+    <ContentPage.Content>
+        <StackLayout
+            BindingContext="{Binding Login}"
+            Padding="10"
+            Spacing="20"
+            Margin="0,20,15,5">
+
+
+            <Image
+                Margin="40"
+                Source="logo"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                WidthRequest="150"/>
+
+            <Grid
+                Margin="10,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <!--<Label
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    Text="Email:"
+                    VerticalOptions="Center">
+                </Label>-->
+
+                <Image
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    Source="ic_email"
+                    VerticalOptions="Center"
+                    WidthRequest="40">
+                    
+                </Image>
+                
+                <Entry
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    Keyboard="Email"
+                    Placeholder="enter email..."
+                    Text="{Binding Email, Mode=TwoWay}">
+                </Entry>
+                
+                <!--<Label
+                    Grid.Column="0"
+                    Grid.Row="1"
+                    Text="Password:"
+                    VerticalOptions="Center">
+                </Label>-->
+
+                <Image
+                    Grid.Column="0"
+                    Grid.Row="1"
+                    Source="ic_vpn_key"
+                    VerticalOptions="Center"
+                    WidthRequest="40">
+
+                </Image>
+                
+                <Entry
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    IsPassword="True"
+                    Placeholder="enter password..."
+                    Text="{Binding Password, Mode=TwoWay}">
+                </Entry>
+
+            </Grid>
+
+            <StackLayout
+                Orientation="Horizontal"
+                HorizontalOptions="Center">
+                <Label
+                    Text="Remember me"
+                    VerticalOptions="Center">
+                </Label>
+                <Switch
+                    IsToggled="{Binding IsToggled, Mode=TwoWay}">
+                    
+                </Switch>
+            </StackLayout>
+
+            <Label
+                HorizontalOptions="Center"
+                Text="Forgot password?"
+                TextColor="Blue">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RecoverPasswordCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+            
+            <ActivityIndicator
+                IsRunning="{Binding IsRunning, Mode=TwoWay}">
+                
+            </ActivityIndicator>
+
+            <StackLayout>
+                <Button
+                    BackgroundColor="#EE9D31"
+                    BorderRadius="23"
+                    Command="{Binding LoginCommand}"
+                    FontAttributes="Bold"
+                    HeightRequest="46"
+                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                    Margin="50,0"
+                    Text="Login"
+                    TextColor="White">
+                </Button>
+                <Button
+                    BackgroundColor="White"
+                    BorderColor="#F26C1A"
+                    BorderWidth="1"
+                    BorderRadius="23"
+                    Command="{Binding RegisterNewUserCommand}"
+                    FontAttributes="Bold"
+                    HeightRequest="46"
+                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                    Margin="50,0"
+                    Text="Register new user"
+                    TextColor="#F26C1A">
+                </Button>
+                <Button
+                    BackgroundColor="#4267B2"
+                    BorderRadius="23"
+                    Command="{Binding LoginWithFacebookCommand}"
+                    FontAttributes="Bold"
+                    HeightRequest="46"
+                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                    Image="facebookSmall"
+                    Margin="50,0"
+                    Text="Login with facebook"
+                    TextColor="White">
+                </Button>
+            </StackLayout>
+           
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

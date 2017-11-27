@@ -1,0 +1,41 @@
+﻿namespace Parents.Views.Childrens
+{
+    using global::Parents.Views.Activities;
+    using System;
+    using Xamarin.Forms;
+    using Xamarin.Forms.Xaml;
+
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class ChildrenDetails : ContentPage
+	{
+		public ChildrenDetails ()
+		{
+			InitializeComponent ();
+		}
+
+        private void ChildrensListButton_Clicked(object sender, EventArgs e)
+        {
+            PlaceHolder.Content = null;
+
+            this.Navigation.PopAsync();
+            var childrensList = new ChildrensList();
+            PlaceHolder.Content = childrensList.Content;
+        }
+
+        private void ActivitiesButton_Clicked(object sender, EventArgs e)
+        {
+        //    var activities = new ActivitiesView();
+        //    PlaceHolder.Content = activities.Content;
+        }
+
+        private void TapGestureRecognizer_Tapped_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TapGestureRecognizer_Tapped_3(object sender, EventArgs e)
+        {
+
+        }
+    }
+}

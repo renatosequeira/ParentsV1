@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Parents.Views.Childrens.ChildrensList"
+              BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="Childrens">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="ic_add_child" Activated="ToolbarItem_Activated"/>
+    </ContentPage.ToolbarItems>
+
+
+    <Grid ColumnSpacing="0" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <ContentView x:Name="PlaceHolder" Grid.Row="0"/>
+        <BoxView BackgroundColor="#22395C" Grid.Row="1"/>
+
+        <!--CHILDRENS LIST-->
+        <StackLayout
+            BindingContext="{Binding Childrens}"
+            Padding="5">
+
+            <ListView
+                ItemsSource="{Binding Childrens}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label 
+                                    Grid.Column="0" 
+                                    HorizontalOptions="FillAndExpand" 
+                                    FontSize="Large" 
+                                    Text="{Binding ChildrenFirstName}" 
+                                    VerticalOptions="Center">
+                                </Label>
+                                <Image 
+                                    HorizontalOptions="End" 
+                                    Source="see_child_details"
+                                    HeightRequest="50">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SelectChildrenCommand}"/>
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+
+        <!--BOTTOM MENU-->
+        
+        <Grid ColumnSpacing="0" RowSpacing="0" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+
+            </Grid.ColumnDefinitions>
+
+            <StackLayout
+                Spacing="0"
+                Grid.Column="0"
+                BackgroundColor="#7DBEA5">
+
+                <Image 
+                    HeightRequest="40"
+                    Source="ic_home"/>
+
+                <Label 
+                    Text="HOME" 
+                    FontSize="10" 
+                    HorizontalOptions="Center"
+                    TextColor="#22395C"/>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="btnHomeButton_Clicked" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+            <StackLayout
+                Spacing="0"
+                Grid.Column="1"
+                BackgroundColor="#7DBEA5">
+
+                <Image HeightRequest="40"
+                    Source="ic_add_child"/>
+
+                <Label 
+                    Text="ADD CHILD" 
+                    FontSize="10" 
+                    HorizontalOptions="Center"
+                    TextColor="#22395C"/>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="btnHomeButton_Clicked" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+
+
+        </Grid>
+
+        <StackLayout
+            VerticalOptions="End"
+            HorizontalOptions="End">
+            <Image 
+                Source="kids"
+                WidthRequest="250"/>
+        </StackLayout>
+    </Grid>
+</ContentPage>

@@ -12,6 +12,7 @@
     using Parents.Backend.Models.AppCore;
     using Parents.Backend.Helpers;
     using System;
+    using Microsoft.AspNet.Identity;
 
     [Authorize]
     public class ChildrensController : Controller
@@ -37,12 +38,12 @@
             return response; //Here CityName is not virtual so will not cause exception. 
         }
 
-
         // GET: Childrens
         public async Task<ActionResult> Index()
         {
+            string userId = User.Identity.GetUserId();
             var children = db.Children.Include(c => c.BloodInformation).Include(c => c.ParentsMatrimonialState);
-            return View(await children.ToListAsync());
+            return View(await children.Where(child => child.FirstParentId == userId || child.SecondParendId == userId).ToListAsync());
         }
 
         // GET: Childrens/Details/5
@@ -91,6 +92,9 @@
                 var children = ToChildren(view);
                 children.ChildrenImage = pic;
 
+                string parentId = User.Identity.GetUserId();
+                children.FirstParentId = parentId;
+
                 db.Children.Add(children);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -122,14 +126,15 @@
                 ChildrenMobile = view.ChildrenMobile,
                 CurrentSchool = view.CurrentSchool,
                 Father = view.Father,
-                FatherId = view.FatherId,
+                FirstParentId = view.FirstParentId,
                 MatrimonialStateId = view.MatrimonialStateId,
                 Mother = view.Mother,
-                MotherId = view.MotherId,
+                SecondParendId = view.SecondParendId,
                 Parent = view.Parent,
                 ParentId = view.ParentId,
                 ParentsMatrimonialState = view.ParentsMatrimonialState,
-                SchoolContact = view.SchoolContact
+                SchoolContact = view.SchoolContact,
+                ChildrenSex = view.ChildrenSex
             };
         }
 
@@ -173,14 +178,15 @@
                 ChildrenMobile = children.ChildrenMobile,
                 CurrentSchool = children.CurrentSchool,
                 Father = children.Father,
-                FatherId = children.FatherId,
+                FirstParentId = children.FirstParentId,
                 MatrimonialStateId = children.MatrimonialStateId,
                 Mother = children.Mother,
-                MotherId = children.MotherId,
+                SecondParendId = children.SecondParendId,
                 Parent = children.Parent,
                 ParentId = children.ParentId,
                 ParentsMatrimonialState = children.ParentsMatrimonialState,
-                SchoolContact = children.SchoolContact
+                SchoolContact = children.SchoolContact,
+                ChildrenSex = children.ChildrenSex
             };
         }
 

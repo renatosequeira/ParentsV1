@@ -57,10 +57,10 @@
             @Html.DisplayNameFor(model => model.SchoolContact)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FatherId)
+            @Html.DisplayNameFor(model => model.FirstParentId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MotherId)
+            @Html.DisplayNameFor(model => model.SecondParendId)
         </th>
         <th></th>
     </tr>
@@ -117,10 +117,10 @@
             @Html.DisplayFor(modelItem => item.SchoolContact)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FatherId)
+            @Html.DisplayFor(modelItem => item.FirstParentId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.MotherId)
+            @Html.DisplayFor(modelItem => item.SecondParendId)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ChildrenId }) |
