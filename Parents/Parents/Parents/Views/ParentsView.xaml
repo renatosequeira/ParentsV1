@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Parents.Views.ParentsView"
+             BindingContext="{Binding Main,Source={StaticResource Locator}}"
+             Title="Parents">
+
+    <Grid ColumnSpacing="0" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <ContentView x:Name="PlaceHolder" Grid.Row="0"/>
+        <BoxView BackgroundColor="#22395C" Grid.Row="1"/>
+
+
+    <Grid ColumnSpacing="0" RowSpacing="0" Grid.Row="2">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+    
+    <StackLayout
+        Spacing="0"
+        Grid.Column="0"
+        BackgroundColor="White">
+        
+        <Image HeightRequest="40"
+            Source="ic_search"/>
+        
+        <Label 
+            Text="SEARCH" 
+            FontSize="10" 
+            HorizontalOptions="Center"
+            TextColor="#22395C"/>
+        
+        <StackLayout.GestureRecognizers>
+             <TapGestureRecognizer Tapped="ParentsSearchIcon_Tapped" />
+        </StackLayout.GestureRecognizers>
+    </StackLayout>
+
+    <StackLayout
+        Spacing="0"
+        Grid.Column="1"
+        BackgroundColor="White">
+        
+        <Image HeightRequest="40"
+            Source="ic_person_add"/>
+        <Label 
+            Text="INVITE" 
+            FontSize="10" 
+            HorizontalOptions="Center"
+            TextColor="#22395C"/>
+        
+        <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ParentsInviteIcon_Tapped" />
+        </StackLayout.GestureRecognizers>
+    </StackLayout>
+
+    <StackLayout
+        Spacing="0"
+        Grid.Column="2"
+        BackgroundColor="White">
+        
+        <Image HeightRequest="40"
+            Source="ic_notifications_active"/>
+        
+        <Label 
+            Text="NOTIFY" 
+            FontSize="10" 
+            HorizontalOptions="Center"
+            TextColor="#22395C"/>
+        
+        <StackLayout.GestureRecognizers>
+             <TapGestureRecognizer Tapped="ParentsNotifyIcon_Tapped" />
+        </StackLayout.GestureRecognizers>
+    </StackLayout>
+
+    <StackLayout
+        Spacing="0"
+        Grid.Column="3"
+        BackgroundColor="White">
+        
+        <Image 
+            HeightRequest="40"
+            Source="ic_message"/>
+        
+        <Label 
+            Text="MESSAGE" 
+            FontSize="10" 
+            HorizontalOptions="Center"
+            TextColor="#22395C"/>
+        
+        <StackLayout.GestureRecognizers>
+            <TapGestureRecognizer Tapped="ParentsMessageIcon_Tapped" />
+        </StackLayout.GestureRecognizers>
+    </StackLayout>
+
+    
+    </Grid>
+</Grid>
+</ContentPage>

@@ -140,18 +140,18 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.FatherId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.FirstParentId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.FatherId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FatherId, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.FirstParentId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FirstParentId, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MotherId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.SecondParendId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.MotherId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MotherId, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.SecondParendId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SecondParendId, "", new { @class = "text-danger" })
             </div>
         </div>
 

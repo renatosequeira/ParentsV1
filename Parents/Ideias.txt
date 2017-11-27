@@ -1,0 +1,8 @@
+1- Icones a serem colocados no homescreen
+
+- Childrens
+- Parents
+- Configuration
+- Diary
+
+- Gifts List (In Childrens Menu)

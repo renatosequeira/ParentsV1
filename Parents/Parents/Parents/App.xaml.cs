@@ -1,19 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Xamarin.Forms;
-
-namespace Parents
+﻿namespace Parents
 {
+    using Parents.Services;
+    using Parents.Views;
+    using Xamarin.Forms;
+
+
     public partial class App : Application
     {
+        #region Services
+        ApiService apiService;
+
+        DialogService dialogService;
+
+        #endregion
+
         public App()
         {
             InitializeComponent();
 
-            MainPage = new Parents.MainPage();
+            apiService = new ApiService();
+            dialogService = new DialogService();
+
+            MainPage = new NavigationPage(new LoginView())
+            {
+
+                BarBackgroundColor = Color.FromHex("#7DBEA5"),
+                BarTextColor = Color.FromHex("#5A392B")
+            };
+
         }
 
         protected override void OnStart()
@@ -30,5 +44,7 @@ namespace Parents
         {
             // Handle when your app resumes
         }
+
+        
     }
 }

@@ -39,12 +39,14 @@
         [Required(ErrorMessage = "The field {0} is required")]
         [DataType(DataType.Date)]
         public DateTime ChildrenBirthDate { get; set; }
+
+        [Required(ErrorMessage = "The field {0} is required")]
+        [Display(Name ="Sex")]
+        public string ChildrenSex { get; set; }
         #endregion
 
         #region HealthInformation
         public string ChildrenFamilyDoctor { get; set; }
-        
-
         #endregion
 
         #region ContactInformation
@@ -59,8 +61,9 @@
         #endregion
 
         #region ParentsInformation
-        public string FatherId { get; set; }
-        public string MotherId { get; set; }
+        public string FirstParentId { get; set; }
+        public string SecondParendId { get; set; }
+
         [JsonIgnore]
         public virtual Parent Father { get; set; }
         [JsonIgnore]

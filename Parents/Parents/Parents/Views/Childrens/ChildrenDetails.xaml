@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Parents.Views.Childrens.ChildrenDetails"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="Children Details">
+    
+    <Grid ColumnSpacing="0" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <ContentView x:Name="PlaceHolder" Grid.Row="0"/>
+        <BoxView BackgroundColor="#22395C" Grid.Row="1"/>
+
+        <!--CHILDREN DETAILS-->
+        <StackLayout
+            BindingContext="{Binding Childrens}"
+            Padding="8"
+            Spacing="16"
+            Margin="0">
+
+            <Image
+            Source="http://parents.outstandservices.pt/Content/Images/ls_timeperception_free.jpg"
+            VerticalOptions="Start"
+            HorizontalOptions="CenterAndExpand">
+
+            </Image>
+
+            <Label
+            Text="Tomás Neves Sequeira"
+            FontAttributes="Bold"
+            FontSize="Large"
+            HorizontalOptions="Center">
+
+            </Label>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+
+                </Grid.ColumnDefinitions>
+                <Label
+            Text="Birth Date: "
+                Grid.Column="0"
+                Grid.Row="0"
+                FontAttributes="Bold">
+                </Label>
+
+                <Label
+                Text="01-01-2017"
+                Grid.Column="1"
+                Grid.Row="0"
+                HorizontalOptions="End">
+
+                </Label>
+
+            </Grid>
+
+
+        </StackLayout>
+        
+        <!--BOTTOM MENU-->
+        <Grid ColumnSpacing="0" RowSpacing="0" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <StackLayout
+                Spacing="0"
+                Grid.Column="0"
+                BackgroundColor="#7DBEA5">
+
+                <Image 
+                    HeightRequest="40"
+                    Source="ic_format_list_bulleted"/>
+
+                <Label 
+                    Text="CHILDRENS" 
+                    FontSize="10" 
+                    HorizontalOptions="Center"
+                    TextColor="#22395C"/>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ChildrensListButton_Clicked" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+            <StackLayout
+                Spacing="0"
+                Grid.Column="1"
+                BackgroundColor="#7DBEA5">
+
+                <Image HeightRequest="40"
+                    Source="ic_fitness_center"/>
+
+                <Label 
+                    Text="ACTIVITIES" 
+                    FontSize="10" 
+                    HorizontalOptions="Center"
+                    TextColor="#22395C"/>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ActivitiesButton_Clicked" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+            <StackLayout
+                Spacing="0"
+                Grid.Column="2"
+                BackgroundColor="#7DBEA5">  
+
+                <Image 
+                    HeightRequest="40"
+                    Source="ic_local_hospital"/>
+
+                <Label 
+                    Text="HEALTH" 
+                    FontSize="10" 
+                    HorizontalOptions="Center"
+                    TextColor="#22395C"/>   
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_2" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+            <StackLayout
+                Spacing="0"
+                Grid.Column="3"
+                BackgroundColor="#7DBEA5">
+
+                <Image 
+                    HeightRequest="40"
+                    Source="ic_accessibility_blue"/>
+
+                <Label 
+                    Text="PARENTAL" 
+                    FontSize="10" 
+                    HorizontalOptions="Center"
+                    TextColor="#22395C"/>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_3" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+            <StackLayout
+                Spacing="0"
+                Grid.Column="4"
+                BackgroundColor="#7DBEA5">
+
+                <Image 
+                    HeightRequest="40"
+                    Source="ic_school_BLUE"/>
+
+                <Label 
+                    Text="SCHOOL" 
+                    FontSize="10" 
+                    HorizontalOptions="Center"
+                    TextColor="#22395C"/>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_3" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+            <StackLayout
+                Spacing="0"
+                Grid.Column="5"
+                BackgroundColor="#7DBEA5">
+
+                <Image 
+                    HeightRequest="40"
+                    Source="ic_playlist_add_check"/>
+
+                <Label 
+                    Text="TASKS" 
+                    FontSize="10" 
+                    HorizontalOptions="Center"
+                    TextColor="#22395C"/>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_3" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+        </Grid>
+
+        <StackLayout
+            VerticalOptions="End"
+            HorizontalOptions="End">
+            <Image 
+                Source="child_boy"
+                WidthRequest="100"/>
+        </StackLayout>
+
+    </Grid>
+
+</ContentPage>

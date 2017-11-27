@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Parents.Views.ChildrensView"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="Childrens"
+             xmlns:fab="clr-namespace:Refractored.FabControl;assembly=Refractored.FabControl"
+             >
+
+    <!--<ContentPage.Content>
+        <StackLayout
+            BindingContext="{Binding Childrens}"
+            Padding="5">
+
+            <ListView
+                ItemsSource="{Binding Childrens}">
+
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>-->
+
+    <!--<ContentPage.Content>
+        <AbsoluteLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <ListView 
+						  AbsoluteLayout.LayoutFlags="All"
+						  AbsoluteLayout.LayoutBounds="0,0,1,1">
+
+            </ListView>
+            
+            <fab:FloatingActionButtonView
+				ImageName="ic_email"
+				ColorNormal="Blue"
+				ColorPressed="Red"
+				ColorRipple="Orange"
+				x:Name="FloatingActionButtonAdd"
+				IsVisible="False"
+				AbsoluteLayout.LayoutFlags="PositionProportional"
+				AbsoluteLayout.LayoutBounds="1, 1, AutoSize, AutoSize"
+                BackgroundColor="Red"/>
+        </AbsoluteLayout>
+    </ContentPage.Content>-->
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="ic_add_child" Activated="ToolbarItem_Activated"/>
+    </ContentPage.ToolbarItems>
+    
+
+    <Grid ColumnSpacing="0" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <ContentView x:Name="PlaceHolder" Grid.Row="0"/>
+        <BoxView BackgroundColor="#22395C" Grid.Row="1"/>
+
+
+        <Grid ColumnSpacing="0" RowSpacing="0" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+
+            <StackLayout
+                Spacing="0"
+                Grid.Column="0"
+                BackgroundColor="#7DBEA5">
+
+                <Image 
+                    HeightRequest="40"
+                    Source="ic_format_list_bulleted"/>
+                
+                <Label 
+                    Text="MY CHILDRENS" 
+                    FontSize="10" 
+                    HorizontalOptions="Center"
+                    TextColor="#22395C"/>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="btnMyChildrens_Clicked" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+            <StackLayout
+                Spacing="0"
+                Grid.Column="1"
+                BackgroundColor="#7DBEA5">
+
+                <Image HeightRequest="40"
+                    Source="ic_fitness_center"/>
+                    
+                <Label 
+                    Text="ACTIVITIES" 
+                    FontSize="10" 
+                    HorizontalOptions="Center"
+                    TextColor="#22395C"/>   
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="btnMyChildrens_Clicked" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+            <StackLayout
+        Spacing="0"
+        Grid.Column="2"
+        BackgroundColor="#7DBEA5">
+
+                <Image HeightRequest="40"
+            Source="ic_notifications_active"/>
+
+                <Label 
+            Text="NOTIFY" 
+            FontSize="10" 
+            HorizontalOptions="Center"
+            TextColor="#22395C"/>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="btnMyChildrens_Clicked" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+            <StackLayout
+        Spacing="0"
+        Grid.Column="3"
+        BackgroundColor="#7DBEA5">
+
+                <Image 
+            HeightRequest="40"
+            Source="ic_message"/>
+
+                <Label 
+            Text="MESSAGE" 
+            FontSize="10" 
+            HorizontalOptions="Center"
+            TextColor="#22395C"/>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="btnMyChildrens_Clicked" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+
+        </Grid>
+    </Grid>
+    
+</ContentPage>

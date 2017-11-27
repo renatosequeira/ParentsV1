@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Parents.Domain;
+using Parents.API.Models.AppCore;
+using Microsoft.AspNet.Identity;
 
 namespace Parents.API.Controllers.AppCore
 {
@@ -19,9 +21,38 @@ namespace Parents.API.Controllers.AppCore
         private DataContext db = new DataContext();
 
         // GET: api/Childrens
-        public IQueryable<Children> GetChildren()
+        public async Task<IHttpActionResult> GetChildren()
         {
-            return db.Children;
+
+            var userId = User.Identity.GetUserId();
+            var childrens = await db.Children.Where(child => child.FirstParentId == userId ||
+            child.SecondParendId == userId).ToListAsync();
+            var childrensResponse = new List<ChildrenResponse>();
+
+            foreach (var children in childrens)
+            {
+                childrensResponse.Add(new ChildrenResponse
+                {
+                    BloodInformationDescription = children.BloodInformationDescription,
+                    ChildrenAddress = children.ChildrenAddress,
+                    ChildrenBirthDate = children.ChildrenBirthDate,
+                    ChildrenEmail = children.ChildrenEmail,
+                    ChildrenFamilyDoctor = children.ChildrenFamilyDoctor,
+                    ChildrenFirstName = children.ChildrenFirstName,
+                    ChildrenId = children.ChildrenId,
+                    ChildrenIdentityCard = children.ChildrenIdentityCard,
+                    ChildrenImage = children.ChildrenImage,
+                    ChildrenLastName = children.ChildrenLastName,
+                    ChildrenMiddleName = children.ChildrenMiddleName,
+                    ChildrenMobile = children.ChildrenMobile,
+                    CurrentSchool = children.CurrentSchool,
+                    FirstParentId = children.FirstParentId,
+                    SecondParentId = children.SecondParendId,
+                    SchoolContact = children.SchoolContact
+                });
+            }
+
+            return Ok(childrensResponse);
         }
 
         // GET: api/Childrens/5
@@ -80,6 +111,9 @@ namespace Parents.API.Controllers.AppCore
             {
                 return BadRequest(ModelState);
             }
+
+            string parentId = User.Identity.GetUserId();
+            children.FirstParentId = parentId;
 
             db.Children.Add(children);
             await db.SaveChangesAsync();

@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Parents.Views.HomeView"
+             BindingContext="{Binding Main,Source={StaticResource Locator}}"
+             Title="Login"
+             BackgroundImage="backgroud4">
+
+    <ContentPage.Content>
+
+        <StackLayout
+            BindingContext="{Binding HomePage}"
+            Padding="8"
+            Spacing="30">
+
+            
+            <Grid
+                Margin="20,30"
+                RowSpacing="50">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                
+                <Button  
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    x:Name="btn1" 
+                    ContentLayout="Top,0" 
+                    Image="childrens" 
+                    BackgroundColor="Transparent" 
+                    HorizontalOptions="CenterAndExpand" 
+                    Text="Childrens" 
+                    TextColor="#5A392B" 
+                    Clicked="btnChildrens_Clicked"/>
+
+                <Button  
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    x:Name="btn2" 
+                    ContentLayout="Top,0" 
+                    Image="parents" 
+                    BackgroundColor="Transparent" 
+                    HorizontalOptions="CenterAndExpand" 
+                    Text="Parents" 
+                    TextColor="#5A392B" 
+                    Clicked="btnParents_Clicked"/>
+
+                <Button  
+                    Grid.Column="0"
+                    Grid.Row="1"
+                    x:Name="btn3" 
+                    ContentLayout="Top,0" 
+                    Image="diary" 
+                    BackgroundColor="Transparent" 
+                    HorizontalOptions="CenterAndExpand" 
+                    Text="DIARY" 
+                    TextColor="#5A392B" 
+                   />
+
+                <Button  
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    x:Name="btn4" 
+                    ContentLayout="Top,0" 
+                    Image="configuration" 
+                    BackgroundColor="Transparent" 
+                    HorizontalOptions="CenterAndExpand" 
+                    Text="CONFIGURATION" 
+                    TextColor="#5A392B" 
+            />
+
+
+
+            </Grid>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
