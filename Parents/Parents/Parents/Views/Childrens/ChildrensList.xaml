@@ -25,11 +25,25 @@
             Padding="5">
 
             <ListView
-                ItemsSource="{Binding ChildrensList}"
-                HasUnevenRows="True">
+                IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+                HasUnevenRows="True"
+                IsPullToRefreshEnabled="True"
+                RefreshCommand="{Binding RefreshCommand}"
+                ItemsSource="{Binding ChildrensList}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
+
+                            <ViewCell.ContextActions>
+                                <MenuItem
+                                    Command="{Binding EditCommand}"
+                                    Text="Edit"/>
+                                <MenuItem
+                                    Command="{Binding DeleteCommand}"
+                                    IsDestructive="True"
+                                    Text="Delete"/>
+                            </ViewCell.ContextActions>
+                            
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>

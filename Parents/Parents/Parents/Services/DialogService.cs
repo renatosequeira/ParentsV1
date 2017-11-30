@@ -13,5 +13,11 @@ namespace Parents.Services
         {
             await Application.Current.MainPage.DisplayAlert(title, message, "OK");
         }
+
+        public async Task<bool> ShowConfirm(string title, string message)
+        {
+            return await Application.Current.MainPage.DisplayAlert(title, message, "Yes", "No");
+            
+        }
     }
 }

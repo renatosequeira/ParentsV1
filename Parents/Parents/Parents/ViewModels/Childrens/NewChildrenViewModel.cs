@@ -265,7 +265,7 @@
 
             children = (Children)response.Result;
             var childrensViewModel = ChildrensViewModel.GetInstance();
-            childrensViewModel.Add(children);
+            childrensViewModel.AddChildren(children);
 
             await navigationService.Back();
 

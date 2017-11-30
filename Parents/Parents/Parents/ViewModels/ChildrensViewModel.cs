@@ -6,6 +6,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using Services;
+    using System.Windows.Input;
+    using GalaSoft.MvvmLight.Command;
+    using System.Threading.Tasks;
 
     public class ChildrensViewModel : INotifyPropertyChanged
     {
@@ -21,6 +24,7 @@
         #region Attributes
         ObservableCollection<Children> _childrens;
         List<Children> childrens;
+        bool _isRefreshing;
         #endregion
 
         #region Properties
@@ -41,6 +45,24 @@
                 }
             }
         }
+
+        public bool IsRefreshing
+        {
+            get
+            {
+                return _isRefreshing;
+            }
+            set
+            {
+                if (_isRefreshing != value)
+                {
+                    _isRefreshing = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(IsRefreshing)));
+                }
+            }
+        }
         #endregion
 
         #region Constructors
@@ -55,19 +77,88 @@
         }
         #endregion
 
-        #region Methods
-        public void Add(Children children)
+        #region Sigleton
+        static ChildrensViewModel instance;
+
+        public static ChildrensViewModel GetInstance()
         {
-            //IsRefreshing = true;
+            if (instance == null)
+            {
+                return new ChildrensViewModel();
+            }
+
+            return instance;
+        }
+        #endregion
+
+        #region Methods
+        public void AddChildren(Children children)
+        {
+            IsRefreshing = true;
             childrens.Add(children);
             ChildrensList = new ObservableCollection<Children>(
                 childrens.OrderBy(c => c.ChildrenFirstName));
-            //IsRefreshing = false;
+            IsRefreshing = false;
         }
 
+        public void UpdateChildren(Children children)
+        {
+            IsRefreshing = true;
+            var oldChildren = childrens.Where(c => c.ChildrenId == children.ChildrenId).FirstOrDefault();
+            oldChildren = children;
+
+            ChildrensList = new ObservableCollection<Children>(
+                childrens.OrderBy(c => c.ChildrenFirstName));
+            IsRefreshing = false;
+        }
+
+        public async Task DeleteChildren(Children children)
+        {
+            IsRefreshing = true;
+
+            //verificar se existe ligação à internet
+            var connection = await apiService.CheckConnection();
+
+            //se não houver ligação à internet, popup com erro e sai do método
+            if (!connection.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error", connection.Message);
+
+                IsRefreshing = false;
+                return;
+            }
+
+           
+
+            var mainViewModel = MainViewModel.GetInstance();
+
+            //se existir ligação à internet guarda token na variavel response
+            var response = await apiService.Delete(
+                "http://api.parents.outstandservices.pt",
+                "/api",
+                "/Childrens",
+                mainViewModel.Token.TokenType,
+                mainViewModel.Token.AccessToken,
+                children);
+
+            //se a resposta (Token) for nulo ou estiver vazia, significa que o email ou a pass estão errados
+            if (!response.IsSuccess)
+            {
+                IsRefreshing = false;
+                await dialogService.ShowMessage("Error", response.Message);
+                return;
+            }
+
+            childrens.Remove(children);
+
+            ChildrensList = new ObservableCollection<Children>(
+                childrens.OrderBy(c => c.ChildrenFirstName));
+            IsRefreshing = false;
+        }
 
         async void LoadChildrens()
         {
+            IsRefreshing = true;
             var connection = await apiService.CheckConnection();
             if (!connection.IsSuccess)
             {
@@ -93,24 +184,22 @@
             childrens = (List<Children>)response.Result;
 
             ChildrensList = new ObservableCollection<Children>(childrens.OrderBy(c => c.ChildrenFirstName));
-           
+
+            IsRefreshing = false;
         }
 
 
         #endregion
 
-        #region Sigleton
-        static ChildrensViewModel instance;
-
-        public static ChildrensViewModel GetInstance()
+        #region Commands
+        public ICommand RefreshCommand
         {
-            if (instance == null)
+            get
             {
-                return new ChildrensViewModel();
+                return new RelayCommand(LoadChildrens);
             }
-
-            return instance;
         }
         #endregion
+
     }
 }

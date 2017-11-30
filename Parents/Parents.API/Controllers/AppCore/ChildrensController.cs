@@ -22,10 +22,10 @@
         // GET: api/Childrens
         public async Task<IHttpActionResult> GetChildren()
         {
-
             var userId = User.Identity.GetUserId();
             var childrens = await db.Children.Where(child => child.FirstParentId == userId ||
             child.SecondParendId == userId).ToListAsync();
+
             var childrensResponse = new List<ChildrenResponse>();
 
             foreach (var children in childrens)
@@ -125,8 +125,8 @@
             {
 
                 if (ex.InnerException != null &&
-                                    ex.InnerException.InnerException != null &&
-                                    ex.InnerException.InnerException.Message.Contains("Index"))
+                    ex.InnerException.InnerException != null &&
+                    ex.InnerException.InnerException.Message.Contains("Index"))
                 {
                     return BadRequest("This Identification Number is already registered!");
                 }

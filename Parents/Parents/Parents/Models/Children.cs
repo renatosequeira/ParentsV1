@@ -52,16 +52,52 @@
 
         #region Services
         NavigationService navigationService;
+        DialogService dialogService;
         #endregion
 
         #region Constructors
         public Children()
         {
             navigationService = new NavigationService();
+            dialogService = new DialogService();
         }
         #endregion
 
         #region Commands
+        public ICommand DeleteCommand
+        {
+            get
+            {
+                return new RelayCommand(DeleteChildren);
+            }
+        }
+
+        async void DeleteChildren()
+        {
+            var response = await dialogService.ShowConfirm("Confirm", "Are you sure to delete this record?");
+
+            if (!response)
+            {
+                return;
+            }
+
+            ChildrensViewModel.GetInstance().DeleteChildren(this);
+        }
+
+        public ICommand EditCommand
+        {
+            get
+            {
+                return new RelayCommand(EditChildren);
+            }
+        }
+
+        async void EditChildren()
+        {
+            MainViewModel.GetInstance().EditChildren = new EditChildrenViewModel(this);
+            await navigationService.Navigate("ChildrenDetails");
+        }
+
         public ICommand SelectChildrenCommand {
             get
             {
@@ -74,15 +110,16 @@
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.Childrens = new ChildrensViewModel();
             await navigationService.Navigate("ChildrenDetails");
+            
         }
         #endregion
 
-       // #region Methods
-       //public override int GetHashCode()
-       //  {
-       //     return ChildrenId;
-       //}
-    //#endregion
+        #region Methods
+        public override int GetHashCode()
+        {
+            return ChildrenId;
+        }
+        #endregion
 
     }
 }
