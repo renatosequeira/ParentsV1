@@ -2,12 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Parents.Views.Childrens.ChildrensList"
-              BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
              Title="Childrens">
 
-    <ContentPage.ToolbarItems>
+    <!--<ContentPage.ToolbarItems>
         <ToolbarItem Icon="ic_add_child" Activated="ToolbarItem_Activated"/>
-    </ContentPage.ToolbarItems>
+    </ContentPage.ToolbarItems>-->
 
 
     <Grid ColumnSpacing="0" RowSpacing="0">
@@ -25,25 +25,37 @@
             Padding="5">
 
             <ListView
-                ItemsSource="{Binding Childrens}">
+                ItemsSource="{Binding ChildrensList}"
+                HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-
-                                    <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
+                                
+                                <Image
+                                    HorizontalOptions="Start"
+                                    HeightRequest="100"
+                                    Grid.Column="0"
+                                    VerticalOptions="Center"
+                                    Source="{Binding ChildrenImageFullPath}"
+                                    WidthRequest="100"/>
+
                                 <Label 
-                                    Grid.Column="0" 
+                                    Grid.Column="1" 
                                     HorizontalOptions="FillAndExpand" 
                                     FontSize="Large" 
                                     Text="{Binding ChildrenFirstName}" 
                                     VerticalOptions="Center">
                                 </Label>
-                                <Image 
+                                
+                                <Image
+                                    Grid.Column="2"
                                     HorizontalOptions="End" 
                                     Source="see_child_details"
                                     HeightRequest="50">
@@ -53,6 +65,7 @@
                                 </Image>
                             </Grid>
                         </ViewCell>
+
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
@@ -83,7 +96,7 @@
                     TextColor="#22395C"/>
 
                 <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="btnHomeButton_Clicked" />
+                    <TapGestureRecognizer Command="{Binding HomeViewCommand}" />
                 </StackLayout.GestureRecognizers>
             </StackLayout>
 
@@ -102,7 +115,8 @@
                     TextColor="#22395C"/>
 
                 <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="btnHomeButton_Clicked" />
+                    <TapGestureRecognizer 
+                        Command="{Binding NewChildrenCommand}"/>
                 </StackLayout.GestureRecognizers>
             </StackLayout>
 

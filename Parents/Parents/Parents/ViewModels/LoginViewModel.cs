@@ -5,8 +5,7 @@
     using System.Windows.Input;
     using System;
     using Services;
-    using Xamarin.Forms;
-    using Parents.Views;
+    using Parents.ViewModels.School;
 
     public class LoginViewModel : INotifyPropertyChanged
     {
@@ -17,6 +16,7 @@
         #region Services
         DialogService dialogService;
         ApiService apiService;
+        NavigationService navigationService;
         #endregion
 
         #region Attributes
@@ -123,6 +123,7 @@
         {
             dialogService = new DialogService();
             apiService = new ApiService();
+            navigationService = new NavigationService();
 
             IsEnabled = true; //bool are disabled by default. This will enable buttons
             IsToggled = true;
@@ -195,14 +196,14 @@
 
             //chamar o singleton - assegura-se que o objecto ParentsViewModel é instanciado antes de ser aberto
             var mainViewModel = MainViewModel.GetInstance();
+
             mainViewModel.Token = response; //guarda Token no mainviewmodel
             mainViewModel.Parents = new ParentsViewModel();
             mainViewModel.Childrens = new ChildrensViewModel();
-
-            //await Application.Current.MainPage.Navigation.PushAsync(new ParentsView());
-            await Application.Current.MainPage.Navigation.PushAsync(new HomeView());
-            //await Application.Current.MainPage.Navigation.PushAsync(new ChildrensView());
-
+            mainViewModel.Disciplines = new DisciplinesViewModel();
+            
+            await navigationService.Navigate("HomeView");
+      
             Email = null;
             Password = null;
 

@@ -15,11 +15,11 @@
         [Key]
         public int ChildrenId { get; set; }
 
-        public int ParentId { get; set; }
+        public int? ParentId { get; set; }
 
-        public int BoodInformationId { get; set; }
+        public int? BoodInformationId { get; set; }
 
-        public int MatrimonialStateId { get; set; }
+        public int? MatrimonialStateId { get; set; }
 
         [Required(ErrorMessage = "The field {0} is required")]
         [MaxLength(50,ErrorMessage = "Please insert a {0} with less than {1} characters")]
@@ -36,9 +36,9 @@
         [Index("Children_ChildrenIdentityCard_Index", IsUnique = true)]
         public string ChildrenIdentityCard { get; set; }
 
-        [Required(ErrorMessage = "The field {0} is required")]
+        //[Required(ErrorMessage = "The field {0} is required")]
         [DataType(DataType.Date)]
-        public DateTime ChildrenBirthDate { get; set; }
+        public DateTime? ChildrenBirthDate { get; set; }
 
         [Required(ErrorMessage = "The field {0} is required")]
         [Display(Name ="Sex")]

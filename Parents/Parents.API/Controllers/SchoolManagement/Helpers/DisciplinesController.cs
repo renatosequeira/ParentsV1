@@ -1,28 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Web.Http;
-using System.Web.Http.Description;
-using Parents.Domain;
-using Parents.Domain.SchoolManagement.Helpers;
-
-namespace Parents.API.Controllers.SchoolManagement.Helpers
+﻿namespace Parents.API.Controllers.SchoolManagement.Helpers
 {
+    using System.Data.Entity;
+    using System.Data.Entity.Infrastructure;
+    using System.Linq;
+    using System.Net;
+    using System.Threading.Tasks;
+    using System.Web.Http;
+    using System.Web.Http.Description;
+    using Parents.Domain;
+    using Parents.Domain.SchoolManagement.Helpers;
+    using System.Collections.Generic;
+    using Parents.API.Models.SchoolManagement.Helpers;
+
     [Authorize]
     public class DisciplinesController : ApiController
     {
         private DataContext db = new DataContext();
 
         // GET: api/Disciplines
-        public IQueryable<Discipline> GetDisciplines()
+        public async Task<IHttpActionResult> GetDisciplines()
         {
-            return db.Disciplines;
+            var disciplines = await db.Disciplines.ToListAsync();
+
+            var disciplinesResponse = new List<DisciplineResponse>();
+
+
+            foreach (var discipline in disciplines)
+            {
+                disciplinesResponse.Add(new DisciplineResponse
+                {
+                    DisciplineId = discipline.DisciplineId,
+                    DisciplineDescription = discipline.DisciplineDescription,
+                    DisciplineRemarks = discipline.DisciplineRemarks
+                });
+            }
+            return Ok(disciplinesResponse);
         }
 
         // GET: api/Disciplines/5

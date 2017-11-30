@@ -17,15 +17,5 @@ namespace Parents.Views.Childrens
 			InitializeComponent ();
 		}
 
-        private async void btnHomeButton_Clicked()
-        {
-            await Navigation.PopAsync();
-            await Application.Current.MainPage.Navigation.PushAsync(new HomeView());
-        }
-
-        private void ToolbarItem_Activated(object sender, EventArgs e)
-        {
-
-        }
     }
 }

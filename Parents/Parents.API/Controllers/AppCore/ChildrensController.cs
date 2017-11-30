@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Web.Http;
-using System.Web.Http.Description;
-using Parents.Domain;
-using Parents.API.Models.AppCore;
-using Microsoft.AspNet.Identity;
-
-namespace Parents.API.Controllers.AppCore
+﻿namespace Parents.API.Controllers.AppCore
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Data.Entity;
+    using System.Data.Entity.Infrastructure;
+    using System.Linq;
+    using System.Net;
+    using System.Threading.Tasks;
+    using System.Web.Http;
+    using System.Web.Http.Description;
+    using Parents.Domain;
+    using Parents.API.Models.AppCore;
+    using Microsoft.AspNet.Identity;
+
     [Authorize]
     public class ChildrensController : ApiController
     {
@@ -35,7 +34,7 @@ namespace Parents.API.Controllers.AppCore
                 {
                     BloodInformationDescription = children.BloodInformationDescription,
                     ChildrenAddress = children.ChildrenAddress,
-                    ChildrenBirthDate = children.ChildrenBirthDate,
+                    ChildrenBirthDate = (DateTime)children.ChildrenBirthDate,
                     ChildrenEmail = children.ChildrenEmail,
                     ChildrenFamilyDoctor = children.ChildrenFamilyDoctor,
                     ChildrenFirstName = children.ChildrenFirstName,
@@ -48,7 +47,8 @@ namespace Parents.API.Controllers.AppCore
                     CurrentSchool = children.CurrentSchool,
                     FirstParentId = children.FirstParentId,
                     SecondParentId = children.SecondParendId,
-                    SchoolContact = children.SchoolContact
+                    SchoolContact = children.SchoolContact,
+                    ChildrenSex = children.ChildrenSex
                 });
             }
 
@@ -116,7 +116,25 @@ namespace Parents.API.Controllers.AppCore
             children.FirstParentId = parentId;
 
             db.Children.Add(children);
-            await db.SaveChangesAsync();
+
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+
+                if (ex.InnerException != null &&
+                                    ex.InnerException.InnerException != null &&
+                                    ex.InnerException.InnerException.Message.Contains("Index"))
+                {
+                    return BadRequest("This Identification Number is already registered!");
+                }
+                else
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = children.ChildrenId }, children);
         }

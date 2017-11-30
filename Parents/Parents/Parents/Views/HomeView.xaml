@@ -68,7 +68,8 @@
                     BackgroundColor="Transparent" 
                     HorizontalOptions="CenterAndExpand" 
                     Text="CONFIGURATION" 
-                    TextColor="#5A392B" 
+                    TextColor="#5A392B"
+                    Clicked="btn4_Clicked"
             />
 
 

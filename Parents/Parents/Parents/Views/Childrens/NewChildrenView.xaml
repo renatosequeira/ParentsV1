@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Parents.Views.Childrens.NewChildrenView"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="ADD CHILDREN">
+
+    <ContentPage.Content>
+        <StackLayout 
+            BindingContext="{Binding NewChildren}"
+            Padding="10">
+
+            <Label
+                Text="Children First Name:">
+                
+            </Label>
+
+            <Entry
+                Placeholder="Enter children first name"
+                Text="{Binding ChildrenFirstName, Mode=TwoWay}">
+            </Entry>
+
+            <Label
+                Text="Children Last Name:">
+
+            </Label>
+
+            <Entry
+                Placeholder="Enter children last name"
+                Text="{Binding ChildrenLastName, Mode=TwoWay}">
+            </Entry>
+
+            <Label
+                Text="Children ID card:">
+
+            </Label>
+
+            <Entry
+                Placeholder="Enter children id card"
+                Text="{Binding ChildrenIdentityCard, Mode=TwoWay}">
+            </Entry>
+
+          
+            <Label
+                Text="Children Sex:">
+
+            </Label>
+
+
+            <Entry
+                Placeholder="Enter children sex"
+                Text="{Binding ChildrenSex, Mode=TwoWay}">
+            </Entry>
+
+            <ActivityIndicator
+                IsRunning="{Binding IsRunning, Mode=TwoWay}"
+                VerticalOptions="CenterAndExpand">
+                
+            </ActivityIndicator>
+
+            <Button
+                Command="{Binding SaveCommand}"
+                BackgroundColor="Navy"
+                BorderRadius="23"
+                FontAttributes="Bold"
+                HeightRequest="46"
+                IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                Text="Save"
+                TextColor="White"
+                Margin="50,0"
+                VerticalOptions="EndAndExpand">
+                
+            </Button>
+            
+        </StackLayout>
+    </ContentPage.Content>
+    
+</ContentPage>

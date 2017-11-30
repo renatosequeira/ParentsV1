@@ -1,14 +1,10 @@
-﻿using Newtonsoft.Json;
-using Parents.Domain.SchoolManagement.Helpers;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Parents.Domain.SchoolManagement
+﻿namespace Parents.Domain.SchoolManagement
 {
+    using Newtonsoft.Json;
+    using Parents.Domain.SchoolManagement.Helpers;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+
     public class School
     {
         [Key]

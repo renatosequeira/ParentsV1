@@ -15,53 +15,11 @@
         <BoxView BackgroundColor="#22395C" Grid.Row="1"/>
 
         <!--CHILDREN DETAILS-->
-        <StackLayout
-            BindingContext="{Binding Childrens}"
-            Padding="8"
-            Spacing="16"
-            Margin="0">
-
-            <Image
-            Source="http://parents.outstandservices.pt/Content/Images/ls_timeperception_free.jpg"
-            VerticalOptions="Start"
-            HorizontalOptions="CenterAndExpand">
-
-            </Image>
-
-            <Label
-            Text="Tomás Neves Sequeira"
-            FontAttributes="Bold"
-            FontSize="Large"
-            HorizontalOptions="Center">
-
-            </Label>
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-
-                </Grid.ColumnDefinitions>
-                <Label
-            Text="Birth Date: "
-                Grid.Column="0"
-                Grid.Row="0"
-                FontAttributes="Bold">
-                </Label>
-
-                <Label
-                Text="01-01-2017"
-                Grid.Column="1"
-                Grid.Row="0"
-                HorizontalOptions="End">
-
-                </Label>
-
-            </Grid>
 
 
-        </StackLayout>
-        
+
+
+
         <!--BOTTOM MENU-->
         <Grid ColumnSpacing="0" RowSpacing="0" Grid.Row="2">
             <Grid.ColumnDefinitions>

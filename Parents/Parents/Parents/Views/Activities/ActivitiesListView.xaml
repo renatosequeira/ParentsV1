@@ -1,16 +1,120 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Parents.Views.Activities.ActivitiesListView">
 
-    <ContentPage Title="List" Icon="ic_fitness_center">
-        <ContentPage.Content>
-            <StackLayout>
-                <Label Text="Activity List"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+    <StackLayout>
+        <Label Text="ACTIVITIES LIST"/>
+    </StackLayout>
+
+    <Grid 
+        ColumnSpacing="0" 
+        RowSpacing="0" 
+        Grid.Row="6">
+
+        <StackLayout
+            x:Name="contents">
+            <Label Text="GLOBAL LIST"/>
+        </StackLayout>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackLayout
+            VerticalOptions="End"
+            HorizontalOptions="End">
+            
+            <StackLayout
+                Padding="0"
+                Grid.Row="0">
+
+            <!--BOTÕES DE MENU ESCONDIDOS-->
+                <Label
+                    x:Name="menuLabel"
+                    IsVisible="False"
+                    Text="ACTIVITY"
+                    BackgroundColor="DarkGray"
+                    TextColor="White"
+                    HorizontalTextAlignment="Center"
+                    FontAttributes="Bold"
+                    FontSize="Large"
+                    Opacity="0"/>
+
+                <Button 
+                    x:Name="btnAddAnniversary"
+                    Image="anniversary_orange"
+                    Clicked="btnAddAnniversary_Clicked"
+                    BackgroundColor="Transparent"
+                    IsVisible="False"
+                    Text="ANNIVERSARY"
+                    FontAttributes="Bold"
+                    TextColor="DarkGray"
+                    Opacity="0"/>
+
+
+                <Button 
+                    x:Name="btnAddEvent"
+                    Image="event_orange"
+                    Clicked="btnAddEvent_Clicked"
+                    BackgroundColor="Transparent"
+                    IsVisible="False"
+                    Text="EVENT"
+                    FontAttributes="Bold"
+                    TextColor="DarkGray"
+                    Opacity="0"/>
+
+                <Button 
+                    x:Name="btnAddSchoolActivity"
+                    Image="school_activities_orange"
+                    Clicked="btnAddSchoolActivity_Clicked"
+                    BackgroundColor="Transparent"
+                    IsVisible="False"
+                    Text="SCHOOL"
+                    FontAttributes="Bold"
+                    TextColor="DarkGray"
+                    Opacity="0"/>
+
+                <Button 
+                    x:Name="btnAddSportActivity"
+                    Image="soccer_player_orange"
+                    Clicked="btnAddSportActivity_Clicked"
+                    BackgroundColor="Transparent"
+                    IsVisible="False"
+                    Text="SPORTS"
+                    FontAttributes="Bold"
+                    TextColor="DarkGray"
+                    Opacity="0"/>
+
+
+                <Button 
+                    x:Name="btnOtherActvity"
+                    Image="other_activity_orange"
+                    Clicked="btnOtherActvity_Clicked"
+                    BackgroundColor="Transparent"
+                    IsVisible="False"
+                    Text="OTHER"
+                    FontAttributes="Bold"
+                    TextColor="DarkGray"
+                    Opacity="0"/>
+
             </StackLayout>
-        </ContentPage.Content>
-    </ContentPage>
+
+            <!--BOTÃO DE MENU-->
+            <StackLayout
+                Padding="5"
+                Grid.Row="1">
+                <Button 
+                    x:Name="buttonAdd"
+                    Image="add_closed_orange"
+                    Clicked="buttonAdd_Clicked"
+                    BackgroundColor="Transparent"
+                    HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+        </StackLayout>
+
+    </Grid>
+
     
-</TabbedPage>
+    
+</ContentPage>

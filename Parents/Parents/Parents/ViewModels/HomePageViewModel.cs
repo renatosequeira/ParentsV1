@@ -1,9 +1,8 @@
 ﻿namespace Parents.ViewModels
 {
     using GalaSoft.MvvmLight.Command;
-    using Parents.Views;
+    using Views;
     using Services;
-    using System;
     using System.Windows.Input;
     using Xamarin.Forms;
 

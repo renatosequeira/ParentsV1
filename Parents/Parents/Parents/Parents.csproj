@@ -40,24 +40,44 @@
     </Compile>
     <Compile Include="Infrsstructure\InstanceLocator.cs" />
     <Compile Include="Models\Children.cs" />
+    <Compile Include="Models\Discipline.cs" />
     <Compile Include="Models\Parent.cs" />
     <Compile Include="Models\Response.cs" />
     <Compile Include="Models\TokenResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ApiService.cs" />
     <Compile Include="Services\DialogService.cs" />
+    <Compile Include="Services\NavigationService.cs" />
     <Compile Include="ViewModels\ChildrensViewModel.cs" />
     <Compile Include="ViewModels\Childrens\ChildrenDetailsViewModel.cs" />
-    <Compile Include="ViewModels\Childrens\ChildrensListViewModel.cs" />
+    <Compile Include="ViewModels\Childrens\EditChildrenViewModel.cs" />
+    <Compile Include="ViewModels\Childrens\NewChildrenViewModel.cs" />
     <Compile Include="ViewModels\HomePageViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ParentsViewModel.cs" />
+    <Compile Include="ViewModels\School\DisciplinesViewModel.cs" />
+    <Compile Include="ViewModels\School\NewDisciplineViewModel.cs" />
     <Compile Include="Views\Activities\ActivitiesListView.xaml.cs">
       <DependentUpon>ActivitiesListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Activities\ActivitiesView.xaml.cs">
       <DependentUpon>ActivitiesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Activities\AnniversariesListView.xaml.cs">
+      <DependentUpon>AnniversariesListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Activities\EventsListView.xaml.cs">
+      <DependentUpon>EventsListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Activities\OtherActivitiesView.xaml.cs">
+      <DependentUpon>OtherActivitiesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Activities\SchoolActivitiesListView.xaml.cs">
+      <DependentUpon>SchoolActivitiesListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Activities\SportsActivitiesListView.xaml.cs">
+      <DependentUpon>SportsActivitiesListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ChildrensView.xaml.cs">
       <DependentUpon>ChildrensView.xaml</DependentUpon>
@@ -67,6 +87,9 @@
     </Compile>
     <Compile Include="Views\Childrens\ChildrensList.xaml.cs">
       <DependentUpon>ChildrensList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Childrens\NewChildrenView.xaml.cs">
+      <DependentUpon>NewChildrenView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
@@ -88,6 +111,12 @@
     </Compile>
     <Compile Include="Views\Parents\ParentsSearch.xaml.cs">
       <DependentUpon>ParentsSearch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\School\DisciplinesView.xaml.cs">
+      <DependentUpon>DisciplinesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\School\NewDisciplineView.xaml.cs">
+      <DependentUpon>NewDisciplineView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +237,54 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Activities\ActivitiesView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Activities\SportsActivitiesListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Activities\AnniversariesListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Activities\EventsListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Activities\SchoolActivitiesListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Activities\OtherActivitiesView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Childrens\NewChildrenView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\School\DisciplinesView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\School\NewDisciplineView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

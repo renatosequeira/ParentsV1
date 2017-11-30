@@ -24,8 +24,7 @@
 
         private void ActivitiesButton_Clicked(object sender, EventArgs e)
         {
-        //    var activities = new ActivitiesView();
-        //    PlaceHolder.Content = activities.Content;
+            Application.Current.MainPage.Navigation.PushAsync(new ActivitiesView());
         }
 
         private void TapGestureRecognizer_Tapped_2(object sender, EventArgs e)

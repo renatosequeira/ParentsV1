@@ -1,14 +1,10 @@
-﻿using Newtonsoft.Json;
-using Parents.Domain.ActivitiesManagement.Helpers;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Parents.Domain.ActivitiesManagement
+﻿namespace Parents.Domain.ActivitiesManagement
 {
+    using Newtonsoft.Json;
+    using Parents.Domain.ActivitiesManagement.Helpers;
+    using System;
+    using System.ComponentModel.DataAnnotations;
+
     public class Activity
     {
         [Key]

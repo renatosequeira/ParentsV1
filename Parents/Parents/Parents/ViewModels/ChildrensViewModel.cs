@@ -1,21 +1,16 @@
 ﻿namespace Parents.ViewModels
 {
-    using Parents.Models;
+    using Models;
     using System.Collections.ObjectModel;
-    using Services;
     using System.ComponentModel;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Threading.Tasks;
-    using Xamarin.Forms;
-    using System.Collections;
-    using Refractored.FabControl;
+    using Services;
 
     public class ChildrensViewModel : INotifyPropertyChanged
     {
         #region Events
         public event PropertyChangedEventHandler PropertyChanged;
-
         #endregion
 
         #region Services
@@ -25,10 +20,12 @@
 
         #region Attributes
         ObservableCollection<Children> _childrens;
+        List<Children> childrens;
         #endregion
 
         #region Properties
-        public ObservableCollection<Children> Childrens {
+        public ObservableCollection<Children> ChildrensList
+        {
             get
             {
                 return _childrens;
@@ -40,7 +37,7 @@
                     _childrens = value;
                     PropertyChanged?.Invoke(
                         this,
-                        new PropertyChangedEventArgs(nameof(Childrens)));
+                        new PropertyChangedEventArgs(nameof(ChildrensList)));
                 }
             }
         }
@@ -49,15 +46,26 @@
         #region Constructors
         public ChildrensViewModel()
         {
+            instance = this;
+
             apiService = new ApiService();
             dialogService = new DialogService();
+
             LoadChildrens();
         }
         #endregion
 
-       
-
         #region Methods
+        public void Add(Children children)
+        {
+            //IsRefreshing = true;
+            childrens.Add(children);
+            ChildrensList = new ObservableCollection<Children>(
+                childrens.OrderBy(c => c.ChildrenFirstName));
+            //IsRefreshing = false;
+        }
+
+
         async void LoadChildrens()
         {
             var connection = await apiService.CheckConnection();
@@ -70,7 +78,7 @@
             var mainViewModel = MainViewModel.GetInstance();
 
             var response = await apiService.GetList<Children>(
-                "http://api.parents.outstandservices.pt",
+               "http://api.parents.outstandservices.pt",
                 "/api",
                 "/Childrens",
                 mainViewModel.Token.TokenType,
@@ -82,12 +90,27 @@
                 return;
             }
 
-            var childrens = (List<Children>)response.Result;
+            childrens = (List<Children>)response.Result;
 
-            Childrens = new ObservableCollection<Children>(childrens.OrderBy(c => c.ChildrenFirstName));
+            ChildrensList = new ObservableCollection<Children>(childrens.OrderBy(c => c.ChildrenFirstName));
+           
         }
+
+
         #endregion
 
-       
+        #region Sigleton
+        static ChildrensViewModel instance;
+
+        public static ChildrensViewModel GetInstance()
+        {
+            if (instance == null)
+            {
+                return new ChildrensViewModel();
+            }
+
+            return instance;
+        }
+        #endregion
     }
 }

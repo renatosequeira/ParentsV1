@@ -9,26 +9,37 @@
     {
         #region Services
         ApiService apiService;
-
+        NavigationService navigationService;
         DialogService dialogService;
 
         #endregion
 
+        #region Properties
+        public static NavigationPage Navigator
+        {
+            get;
+            internal set;
+        }
+        #endregion
+
+        #region Constructor
         public App()
         {
             InitializeComponent();
 
             apiService = new ApiService();
             dialogService = new DialogService();
+            navigationService = new NavigationService();
 
             MainPage = new NavigationPage(new LoginView())
             {
 
-                BarBackgroundColor = Color.FromHex("#7DBEA5"),
-                BarTextColor = Color.FromHex("#5A392B")
+                BarBackgroundColor = Color.FromHex("#5A392B"),
+                BarTextColor = Color.FromHex("#FFFFFF")
             };
 
-        }
+        } 
+        #endregion
 
         protected override void OnStart()
         {

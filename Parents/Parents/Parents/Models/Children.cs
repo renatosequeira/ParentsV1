@@ -1,11 +1,11 @@
 ﻿namespace Parents.Models
 {
     using GalaSoft.MvvmLight.Command;
+    using Parents.Services;
     using Parents.ViewModels;
-    using Parents.Views.Childrens;
+    using Parents.ViewModels.Childrens;
     using System;
     using System.Windows.Input;
-    using Xamarin.Forms;
 
     public class Children
     {
@@ -19,25 +19,45 @@
         public string ChildrenLastName { get; set; }
         public string ChildrenIdentityCard { get; set; }
         public DateTime ChildrenBirthDate { get; set; }
-        public object ChildrenFamilyDoctor { get; set; }
-        public object ChildrenEmail { get; set; }
-        public object ChildrenMobile { get; set; }
-        public object ChildrenAddress { get; set; }
-        public object CurrentSchool { get; set; }
-        public object SchoolContact { get; set; }
-        public object FirstParentId { get; set; }
-        public object SecondParentId { get; set; }
-        public object BloodInformationDescription { get; set; }
+        public string ChildrenFamilyDoctor { get; set; }
+        public string ChildrenEmail { get; set; }
+        public string ChildrenMobile { get; set; }
+        public string ChildrenAddress { get; set; }
+        public string CurrentSchool { get; set; }
+        public string SchoolContact { get; set; }
+        public string FirstParentId { get; set; }
+        public string SecondParentId { get; set; }
+        public string BloodInformationDescription { get; set; }
         public string ChildrenImage { get; set; }
         public string ChildrenSex { get; set; }
 
         public string ChildrenImageFullPath
         {
+
             get
             {
-                return string.Format("http://parents.outstandservices.pt/Content/Images/{0}", ChildrenImage.Substring(1));
+                if (string.IsNullOrEmpty(ChildrenImage))
+                {
+                    return "no_image";
+                    //return null;
+                }
+
+                return string.Format(
+                    "http://parents.outstandservices.pt/{0}",
+                    ChildrenImage.Substring(1));
             }
 
+        }
+        #endregion
+
+        #region Services
+        NavigationService navigationService;
+        #endregion
+
+        #region Constructors
+        public Children()
+        {
+            navigationService = new NavigationService();
         }
         #endregion
 
@@ -53,9 +73,16 @@
         {
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.Childrens = new ChildrensViewModel();
-
-            await Application.Current.MainPage.Navigation.PushAsync(new ChildrenDetails());
+            await navigationService.Navigate("ChildrenDetails");
         }
         #endregion
+
+       // #region Methods
+       //public override int GetHashCode()
+       //  {
+       //     return ChildrenId;
+       //}
+    //#endregion
+
     }
 }

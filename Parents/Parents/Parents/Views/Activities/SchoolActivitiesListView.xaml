@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Parents.Views.Activities.SchoolActivitiesListView">
+
+    <Grid 
+        ColumnSpacing="0" 
+        RowSpacing="0" 
+        Grid.Row="2">
+
+        <StackLayout
+        x:Name="contents">
+            <Label Text="SCHOOL ACTIVITIES LIST"/>
+        </StackLayout>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackLayout
+            VerticalOptions="End"
+            HorizontalOptions="End">
+            <StackLayout
+            Padding="0"
+            Grid.Row="0">
+
+                <Button 
+                x:Name="btnAddSchoolActivity"
+                Image="school_activities_orange"
+                Clicked="btnAddSchoolActivity_Clicked"
+                BackgroundColor="Transparent"
+                IsVisible="False"
+                Text="ADD ACTIVITY"
+                FontAttributes="Bold"
+                TextColor="DarkGray"
+                Opacity="0"/>
+
+            </StackLayout>
+
+            <StackLayout
+                Padding="5"
+                Grid.Row="1">
+                <Button 
+                    x:Name="buttonAdd"
+                    Image="add_closed_orange"
+                    Clicked="buttonAdd_Clicked"
+                    BackgroundColor="Transparent"
+                    HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+        </StackLayout>
+
+    </Grid>
+    
+</ContentPage>

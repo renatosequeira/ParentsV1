@@ -8,10 +8,7 @@
     <ContentPage.Content>
         <StackLayout
             BindingContext="{Binding Login}"
-            Padding="10"
-            Spacing="20"
-            Margin="0,20,15,5">
-
+            Spacing="10">
 
             <Image
                 Margin="40"
@@ -21,46 +18,34 @@
                 WidthRequest="150"/>
 
             <Grid
-                Margin="10,10">
+                Margin="0,0,30,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
-                <!--<Label
-                    Grid.Column="0"
-                    Grid.Row="0"
-                    Text="Email:"
-                    VerticalOptions="Center">
-                </Label>-->
-
+                
                 <Image
                     Grid.Column="0"
                     Grid.Row="0"
-                    Source="ic_email"
+                    Source="ic_username"
                     VerticalOptions="Center"
                     WidthRequest="40">
                     
                 </Image>
-                
+
                 <Entry
                     Grid.Column="1"
                     Grid.Row="0"
                     Keyboard="Email"
                     Placeholder="enter email..."
-                    Text="{Binding Email, Mode=TwoWay}">
+                    Text="{Binding Email, Mode=TwoWay}"
+                    TextColor="DarkGray">
                 </Entry>
-                
-                <!--<Label
-                    Grid.Column="0"
-                    Grid.Row="1"
-                    Text="Password:"
-                    VerticalOptions="Center">
-                </Label>-->
 
                 <Image
                     Grid.Column="0"
                     Grid.Row="1"
-                    Source="ic_vpn_key"
+                    Source="ic_password"
                     VerticalOptions="Center"
                     WidthRequest="40">
 
@@ -71,7 +56,8 @@
                     Grid.Row="1"
                     IsPassword="True"
                     Placeholder="enter password..."
-                    Text="{Binding Password, Mode=TwoWay}">
+                    Text="{Binding Password, Mode=TwoWay}"
+                    TextColor="DarkGray">
                 </Entry>
 
             </Grid>
@@ -97,13 +83,13 @@
                     <TapGestureRecognizer Command="{Binding RecoverPasswordCommand}" />
                 </Label.GestureRecognizers>
             </Label>
-            
+
             <ActivityIndicator
                 IsRunning="{Binding IsRunning, Mode=TwoWay}">
-                
             </ActivityIndicator>
 
-            <StackLayout>
+            <StackLayout
+                Margin="50,0,50,0">
                 <Button
                     BackgroundColor="#EE9D31"
                     BorderRadius="23"
@@ -111,7 +97,6 @@
                     FontAttributes="Bold"
                     HeightRequest="46"
                     IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                    Margin="50,0"
                     Text="Login"
                     TextColor="White">
                 </Button>
@@ -124,7 +109,6 @@
                     FontAttributes="Bold"
                     HeightRequest="46"
                     IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                    Margin="50,0"
                     Text="Register new user"
                     TextColor="#F26C1A">
                 </Button>
@@ -136,7 +120,6 @@
                     HeightRequest="46"
                     IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
                     Image="facebookSmall"
-                    Margin="50,0"
                     Text="Login with facebook"
                     TextColor="White">
                 </Button>

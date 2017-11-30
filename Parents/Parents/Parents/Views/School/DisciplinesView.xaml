@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Parents.Views.School.DisciplinesView"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="Childrens">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+            Command="{Binding NewDisciplineCommand}"
+            Text="Add"/>
+    </ContentPage.ToolbarItems>
+
+    <StackLayout
+            BindingContext="{Binding Disciplines}"
+            Padding="5">
+
+        <ListView
+                ItemsSource="{Binding DisciplinesList}"
+                HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label 
+                                    Grid.Column="1" 
+                                    HorizontalOptions="FillAndExpand" 
+                                    FontSize="Large" 
+                                    Text="{Binding DisciplineDescription}" 
+                                    VerticalOptions="Center">
+                            </Label>
+
+                            <Image
+                                    Grid.Column="2"
+                                    HorizontalOptions="End" 
+                                    Source="see_child_details"
+                                    HeightRequest="50">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectDiscipline}"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+                        </Grid>
+                    </ViewCell>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+
+</ContentPage>

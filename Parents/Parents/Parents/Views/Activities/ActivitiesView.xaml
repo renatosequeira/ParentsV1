@@ -4,16 +4,16 @@
              x:Class="Parents.Views.Activities.ActivitiesView"
             xmlns:local="clr-namespace:Parents.Views.Activities"
             BindingContext="{Binding Main, Source={StaticResource Locator}}"
-             Title="Childrens">
+             Title="ACTIVITIES"
+            xmlns:renderer="clr-namespace:Parents;assembly=Parents">
 
-    <ContentPage Title="List" Icon="ic_fitness_center">
-        <ContentPage.Content>
-            <StackLayout>
-                <Label Text="Activity List"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-            </StackLayout>
-        </ContentPage.Content>
-    </ContentPage>
+    <TabbedPage.Children>
+        <local:ActivitiesListView Title="LIST" Icon="ic_format_list_bulleted_white"/>
+        <local:AnniversariesListView Title="ANNIVERSARIES" Icon="ic_cake"/>
+        <local:EventsListView Title="EVENTS" Icon="ic_movie_filter"/>
+        <local:SchoolActivitiesListView Title="SCHOOL" Icon="ic_school"/>
+        <local:SportsActivitiesListView Title="SPORTS" Icon="ic_pool"/>
+        <local:OtherActivitiesView Title="OTHERS" Icon="ic_chat_bubble_outline"/>
+    </TabbedPage.Children>
 
 </TabbedPage>
