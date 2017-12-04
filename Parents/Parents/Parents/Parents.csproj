@@ -43,6 +43,8 @@
     <Compile Include="Models\Discipline.cs" />
     <Compile Include="Models\Parent.cs" />
     <Compile Include="Models\Response.cs" />
+    <Compile Include="Models\Settings\SettingsMenu.cs" />
+    <Compile Include="Models\Settings\SystemMenu.cs" />
     <Compile Include="Models\TokenResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ApiService.cs" />
@@ -58,6 +60,8 @@
     <Compile Include="ViewModels\ParentsViewModel.cs" />
     <Compile Include="ViewModels\School\DisciplinesViewModel.cs" />
     <Compile Include="ViewModels\School\NewDisciplineViewModel.cs" />
+    <Compile Include="ViewModels\Settings\ApplicationSettingsCoreViewModel.cs" />
+    <Compile Include="ViewModels\Settings\SettingsHomeViewModel.cs" />
     <Compile Include="Views\Activities\ActivitiesListView.xaml.cs">
       <DependentUpon>ActivitiesListView.xaml</DependentUpon>
     </Compile>
@@ -117,6 +121,21 @@
     </Compile>
     <Compile Include="Views\School\NewDisciplineView.xaml.cs">
       <DependentUpon>NewDisciplineView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\ApplicationSettingCoreView.xaml.cs">
+      <DependentUpon>ApplicationSettingCoreView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\DisciplinesSettingsView.xaml.cs">
+      <DependentUpon>DisciplinesSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\EducationSettingsView.xaml.cs">
+      <DependentUpon>EducationSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\SettingsHomeView.xaml.cs">
+      <DependentUpon>SettingsHomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\SystemSettingsView.xaml.cs">
+      <DependentUpon>SystemSettingsView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -285,6 +304,36 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\School\NewDisciplineView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Settings\SettingsHomeView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Settings\ApplicationSettingCoreView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Settings\SystemSettingsView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Settings\DisciplinesSettingsView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Settings\EducationSettingsView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

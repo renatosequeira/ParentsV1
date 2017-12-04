@@ -84,19 +84,38 @@
 
             db.Entry(children).State = EntityState.Modified;
 
+            //try
+            //{
+            //    await db.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!ChildrenExists(id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
+
             try
             {
                 await db.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception ex)
             {
-                if (!ChildrenExists(id))
+
+                if (ex.InnerException != null &&
+                    ex.InnerException.InnerException != null &&
+                    ex.InnerException.InnerException.Message.Contains("Index"))
                 {
-                    return NotFound();
+                    return BadRequest("This Identification Number is already registered to another children!");
                 }
                 else
                 {
-                    throw;
+                    return BadRequest(ex.Message);
                 }
             }
 
@@ -128,7 +147,7 @@
                     ex.InnerException.InnerException != null &&
                     ex.InnerException.InnerException.Message.Contains("Index"))
                 {
-                    return BadRequest("This Identification Number is already registered!");
+                    return BadRequest("This Identification Number is already registered to another children!");
                 }
                 else
                 {
@@ -150,7 +169,24 @@
             }
 
             db.Children.Remove(children);
-            await db.SaveChangesAsync();
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+
+                if (ex.InnerException != null &&
+                    ex.InnerException.InnerException != null &&
+                    ex.InnerException.InnerException.Message.Contains("REFERENCE"))
+                {
+                    return BadRequest("You can't delete this record because it has related records!");
+                }
+                else
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
 
             return Ok(children);
         }

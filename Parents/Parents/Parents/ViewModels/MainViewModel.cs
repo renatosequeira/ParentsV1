@@ -6,6 +6,7 @@
     using Parents.ViewModels.Childrens;
     using Parents.Models;
     using Parents.ViewModels.School;
+    using Parents.ViewModels.Settings;
 
     public class MainViewModel
     {
@@ -25,6 +26,8 @@
         public NewChildrenViewModel NewChildren { get; set; }
         public DisciplinesViewModel Disciplines { get; set; }
         public NewDisciplineViewModel NewDiscipline { get; set; }
+        //public SettingsHomeViewModel SettingsHome { get; set; }
+        //public ApplicationSettingsCoreViewModel ApplicationSettingsCore { get; set; }
 
 
         #endregion
@@ -65,7 +68,7 @@
 
         async void GoToNewDiscipline()
         {
-            //NewDiscipline = new NewDisciplineViewModel();
+            NewDiscipline = new NewDisciplineViewModel();
             await navigationService.Navigate("NewDisciplineView");
         }
 

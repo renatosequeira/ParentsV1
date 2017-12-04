@@ -6,6 +6,7 @@
     using Xamarin.Forms;
     using System;
     using Parents.Views.School;
+    using Parents.Views.Settings;
 
     public class NavigationService
     {
@@ -37,6 +38,21 @@
                     break;
                 case "NewDisciplineView":
                     await Application.Current.MainPage.Navigation.PushAsync(new NewDisciplineView());
+                    break;
+                case "SettingsView":
+                    await Application.Current.MainPage.Navigation.PushAsync(new SettingsHomeView());
+                    break;
+                case "Application Core":
+                    await Application.Current.MainPage.Navigation.PushAsync(new ApplicationSettingCoreView());
+                    break;
+                case "Education":
+                    await Application.Current.MainPage.Navigation.PushAsync(new EducationSettingsView());
+                    break;
+                case "System":
+                    await Application.Current.MainPage.Navigation.PushAsync(new SystemSettingsView());
+                    break;
+                case "Disciplines":
+                    await Application.Current.MainPage.Navigation.PushAsync(new DisciplinesView());
                     break;
             }
 

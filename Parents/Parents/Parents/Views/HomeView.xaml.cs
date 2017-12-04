@@ -36,7 +36,7 @@
 
         private async void btn4_Clicked(object sender, EventArgs e)
         {
-            await navigationService.Navigate("DisciplinesView");
+            await navigationService.Navigate("SettingsView");
         }
     }
 }

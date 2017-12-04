@@ -12,7 +12,6 @@
 
         }
 
-
         public DbSet<ChildManagement> ChildManagements { get; set; }
 
         public DbSet<Children> Children { get; set; }

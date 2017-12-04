@@ -81,7 +81,7 @@
                 return;
             }
 
-            ChildrensViewModel.GetInstance().DeleteChildren(this);
+            await ChildrensViewModel.GetInstance().DeleteChildren(this);
         }
 
         public ICommand EditCommand

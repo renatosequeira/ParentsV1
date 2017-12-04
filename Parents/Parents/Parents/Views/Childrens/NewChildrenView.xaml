@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Parents.Views.Childrens.NewChildrenView"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              Title="ADD CHILDREN">
 
     <ContentPage.Content>
@@ -30,6 +31,7 @@
                 Text="{Binding ChildrenLastName, Mode=TwoWay}">
             </Entry>
 
+
             <Label
                 Text="Children ID card:">
 
@@ -40,9 +42,34 @@
                 Text="{Binding ChildrenIdentityCard, Mode=TwoWay}">
             </Entry>
 
-          
             <Label
-                Text="Children Sex:">
+                Text="Birth Date">
+                
+            </Label>
+
+            <DatePicker
+                VerticalOptions="CenterAndExpand" 
+                Date="{x:Static sys:DateTime.Now}">
+                <DatePicker.Format>dd-MM-yyyy</DatePicker.Format>
+                <DatePicker.MinimumDate>
+                    <sys:DateTime x:FactoryMethod="Parse">
+                        <x:Arguments>
+                            <x:String>Jan 1 2000</x:String>
+                        </x:Arguments>
+                    </sys:DateTime>
+                </DatePicker.MinimumDate>
+                <DatePicker.MaximumDate>
+                    <sys:DateTime x:FactoryMethod="Parse">
+                        <x:Arguments>
+                            <x:String>Dec 31 2050</x:String>
+                        </x:Arguments>
+                    </sys:DateTime>
+                </DatePicker.MaximumDate>
+            </DatePicker>
+
+            
+            <Label
+                Text="Children Gender:">
 
             </Label>
 

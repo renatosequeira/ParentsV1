@@ -129,7 +129,7 @@ namespace Parents.ViewModels.School
         {
             if (string.IsNullOrEmpty(DisciplineDescription))
             {
-                await dialogService.ShowMessage("Error", "Please insert Children First Name");
+                await dialogService.ShowMessage("Error", "Please insert discipline description");
                 return;
             }
 

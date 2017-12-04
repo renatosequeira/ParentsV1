@@ -30,7 +30,7 @@
                             <Label 
                                     Grid.Column="1" 
                                     HorizontalOptions="FillAndExpand" 
-                                    FontSize="Large" 
+                                    FontSize="Medium" 
                                     Text="{Binding DisciplineDescription}" 
                                     VerticalOptions="Center">
                             </Label>
@@ -38,8 +38,8 @@
                             <Image
                                     Grid.Column="2"
                                     HorizontalOptions="End" 
-                                    Source="see_child_details"
-                                    HeightRequest="50">
+                                    Source="edit_no_border"
+                                    HeightRequest="30">
                                 <Image.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding SelectDiscipline}"/>
                                 </Image.GestureRecognizers>

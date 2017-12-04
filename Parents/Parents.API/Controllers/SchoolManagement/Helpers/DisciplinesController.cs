@@ -11,6 +11,7 @@
     using Parents.Domain.SchoolManagement.Helpers;
     using System.Collections.Generic;
     using Parents.API.Models.SchoolManagement.Helpers;
+    using System;
 
     [Authorize]
     public class DisciplinesController : ApiController
@@ -95,7 +96,24 @@
             }
 
             db.Disciplines.Add(discipline);
-            await db.SaveChangesAsync();
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+
+                if (ex.InnerException != null &&
+                    ex.InnerException.InnerException != null &&
+                    ex.InnerException.InnerException.Message.Contains("Index"))
+                {
+                    return BadRequest("There is a discipline with this description in Database already. Registry can't be added");
+                }
+                else
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = discipline.DisciplineId }, discipline);
         }
