@@ -7,6 +7,9 @@
     using System.ComponentModel;
     using System;
     using System.Linq;
+    using System.Threading.Tasks;
+    using System.Windows.Input;
+    using GalaSoft.MvvmLight.Command;
 
     public class DisciplinesViewModel : INotifyPropertyChanged
     {
@@ -22,6 +25,7 @@
         #region Attributes
         ObservableCollection<Discipline> _disciplines;
         List<Discipline> disciplines;
+        bool _isRefreshing;
         #endregion
 
         #region Properties
@@ -39,6 +43,24 @@
                     PropertyChanged?.Invoke(
                         this,
                         new PropertyChangedEventArgs(nameof(DisciplinesList)));
+                }
+            }
+        }
+
+        public bool IsRefreshing
+        {
+            get
+            {
+                return _isRefreshing;
+            }
+            set
+            {
+                if (_isRefreshing != value)
+                {
+                    _isRefreshing = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(IsRefreshing)));
                 }
             }
         }
@@ -61,15 +83,17 @@
         #region Methods
         public void Add(Discipline discipline)
         {
-            //IsRefreshing = true;
+            IsRefreshing = true;
             disciplines.Add(discipline);
             DisciplinesList = new ObservableCollection<Discipline>(
                 disciplines.OrderBy(c => c.DisciplineDescription));
-            //IsRefreshing = false;
+            IsRefreshing = false;
         }
 
         async void LoadDisciplines()
         {
+            IsRefreshing = true;
+
             var connection = await apiService.CheckConnection();
             if (!connection.IsSuccess)
             {
@@ -96,9 +120,63 @@
 
             DisciplinesList = new ObservableCollection<Discipline>(disciplines.OrderBy(c => c.DisciplineDescription));
 
+            IsRefreshing = false;
         }
 
+        public void UpdateDiscipline(Discipline discipline)
+        {
+            IsRefreshing = true;
+            var oldDiscipline = disciplines.Where(c => c.DisciplineId == discipline.DisciplineId).FirstOrDefault();
+            oldDiscipline = discipline;
 
+            DisciplinesList = new ObservableCollection<Discipline>(
+                disciplines.OrderBy(c => c.DisciplineDescription));
+            IsRefreshing = false;
+        }
+
+        public async Task DeleteDiscipline(Discipline discipline)
+        {
+            IsRefreshing = true;
+
+            //verificar se existe ligação à internet
+            var connection = await apiService.CheckConnection();
+
+            //se não houver ligação à internet, popup com erro e sai do método
+            if (!connection.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error", connection.Message);
+
+                IsRefreshing = false;
+                return;
+            }
+
+
+
+            var mainViewModel = MainViewModel.GetInstance();
+
+            //se existir ligação à internet guarda token na variavel response
+            var response = await apiService.Delete(
+                "http://api.parents.outstandservices.pt",
+                "/api",
+                "/Disciplines",
+                mainViewModel.Token.TokenType,
+                mainViewModel.Token.AccessToken,
+                discipline);
+
+            //se a resposta (Token) for nulo ou estiver vazia, significa que o email ou a pass estão errados
+            if (!response.IsSuccess)
+            {
+                IsRefreshing = false;
+                await dialogService.ShowMessage("Error", response.Message);
+                return;
+            }
+
+            disciplines.Remove(discipline);
+
+            DisciplinesList = new ObservableCollection<Discipline>(
+                disciplines.OrderBy(c => c.DisciplineDescription));
+            IsRefreshing = false;
+        }
         #endregion
 
         #region Sigleton
@@ -112,6 +190,16 @@
             }
 
             return instance;
+        }
+        #endregion
+
+        #region Commands
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                return new RelayCommand(LoadDisciplines);
+            }
         }
         #endregion
     }

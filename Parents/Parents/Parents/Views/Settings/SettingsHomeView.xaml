@@ -107,7 +107,13 @@
 
         </Grid>
 
-       
+        <!--<AbsoluteLayout>
+            <Image 
+            Source="settings_background"
+            AbsoluteLayout.LayoutBounds="1.1,1.1,200,200"
+            AbsoluteLayout.LayoutFlags="PositionProportional"/>
+        </AbsoluteLayout>-->
     </Grid>
 
+   
 </ContentPage>

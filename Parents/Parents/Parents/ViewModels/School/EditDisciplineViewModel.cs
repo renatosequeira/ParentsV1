@@ -1,13 +1,14 @@
-﻿namespace Parents.ViewModels.Childrens
+﻿namespace Parents.ViewModels.Settings
 {
     using GalaSoft.MvvmLight.Command;
+    using Parents.Models;
+    using Parents.Services;
     using System.ComponentModel;
     using System.Windows.Input;
     using System;
-    using Services;
-    using Parents.Models;
+    using Parents.ViewModels.School;
 
-    public class EditChildrenViewModel : INotifyPropertyChanged
+    public class EditDisciplineViewModel
     {
 
         #region Events
@@ -21,38 +22,20 @@
         #endregion
 
         #region Attributes
-        Children children;
+        Discipline discipline;
         bool _isRunning;
         bool _isEnabled;
         #endregion
 
         #region Properties
 
-        public string ChildrenFirstName
+        public string DisciplineDescription
         {
             get;
             set;
         }
 
-        public string ChildrenLastName
-        {
-            get;
-            set;
-        }
-
-        public string ChildrenIdentityCard
-        {
-            get;
-            set;
-        }
-
-        public string ChildrenBirthDate
-        {
-            get;
-            set;
-        }
-
-        public string ChildrenSex
+        public string DisciplineRemarks
         {
             get;
             set;
@@ -97,18 +80,16 @@
         #endregion
 
         #region Constructors
-        public EditChildrenViewModel(Children children)
+        public EditDisciplineViewModel(Discipline discipline)
         {
-            this.children = children;
+            this.discipline = discipline;
             dialogService = new DialogService();
             apiService = new ApiService();
             navigationService = new NavigationService();
 
-            ChildrenFirstName = children.ChildrenFirstName;
-            ChildrenLastName = children.ChildrenLastName;
-            ChildrenIdentityCard = children.ChildrenIdentityCard;
-            ChildrenSex = children.ChildrenSex;
-
+            DisciplineDescription = discipline.DisciplineDescription;
+            DisciplineRemarks = discipline.DisciplineRemarks;
+            
             IsEnabled = true;
         }
         #endregion
@@ -122,29 +103,11 @@
             }
         }
 
-        async void Save()
+        private async void Save()
         {
-            if (string.IsNullOrEmpty(ChildrenFirstName))
+            if (string.IsNullOrEmpty(DisciplineDescription))
             {
-                await dialogService.ShowMessage("Error", "Please insert Children First Name");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(ChildrenLastName))
-            {
-                await dialogService.ShowMessage("Error", "Please insert Children Last Name");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(ChildrenIdentityCard))
-            {
-                await dialogService.ShowMessage("Error", "Please insert Children ID card number");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(ChildrenSex))
-            {
-                await dialogService.ShowMessage("Error", "Please insert Children Gender");
+                await dialogService.ShowMessage("Error", "Discipline description is missing");
                 return;
             }
 
@@ -164,23 +127,8 @@
                 return;
             }
 
-            children.ChildrenFirstName = ChildrenFirstName;
-            children.ChildrenLastName = ChildrenLastName;
-            children.ChildrenIdentityCard = ChildrenIdentityCard;
-            children.ChildrenSex = ChildrenSex;
-            children.ChildrenBirthDate = DateTime.Today;
-            children.BloodInformationDescription = "";
-            children.BoodInformationId = 1;
-            children.ChildrenAddress = "";
-            children.ChildrenEmail = "";
-            children.ChildrenFamilyDoctor = "";
-            children.ChildrenImage = "";
-            children.ChildrenMiddleName = "";
-            children.ChildrenMobile = "";
-            children.CurrentSchool = "";
-            children.MatrimonialStateId = 1;
-            children.SchoolContact = "";
-            
+            discipline.DisciplineDescription = DisciplineDescription;
+            discipline.DisciplineRemarks = DisciplineRemarks;
 
             var mainViewModel = MainViewModel.GetInstance();
 
@@ -188,10 +136,10 @@
             var response = await apiService.Put(
                 "http://api.parents.outstandservices.pt",
                 "/api",
-                "/Childrens",
+                "/Disciplines",
                 mainViewModel.Token.TokenType,
                 mainViewModel.Token.AccessToken,
-                children);
+                discipline);
 
             //se a resposta (Token) for nulo ou estiver vazia, significa que o email ou a pass estão errados
             if (!response.IsSuccess)
@@ -202,13 +150,14 @@
                 return;
             }
 
-            var childrensViewModel = ChildrensViewModel.GetInstance();
-            childrensViewModel.UpdateChildren(children);
+            var disciplineViewModel = DisciplinesViewModel.GetInstance();
+            disciplineViewModel.UpdateDiscipline(discipline);
 
             await navigationService.Back();
 
             IsRunning = false;
             IsEnabled = true;
+
         }
         #endregion
     }

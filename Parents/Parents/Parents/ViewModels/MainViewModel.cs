@@ -28,7 +28,7 @@
         public NewDisciplineViewModel NewDiscipline { get; set; }
         //public SettingsHomeViewModel SettingsHome { get; set; }
         //public ApplicationSettingsCoreViewModel ApplicationSettingsCore { get; set; }
-
+        public EditDisciplineViewModel EditDiscipline { get; set; }
 
         #endregion
 

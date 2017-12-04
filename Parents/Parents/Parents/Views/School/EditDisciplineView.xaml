@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Parents.Views.School.EditDisciplineView"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="DISCIPLINE DETAILS">
+
+    <Grid ColumnSpacing="0" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <ContentView x:Name="PlaceHolder" Grid.Row="0"/>
+        <BoxView BackgroundColor="#22395C" Grid.Row="1"/>
+
+        <!--DISCIPLINE DETAILS-->
+
+        <StackLayout 
+            BindingContext="{Binding EditDiscipline}"
+            Padding="10">
+
+            <Label
+                Text="Children First Name:">
+
+            </Label>
+
+            <Entry
+                Placeholder="Enter disciplone description"
+                Text="{Binding DisciplineDescription, Mode=TwoWay}">
+            </Entry>
+
+            <Label
+                Text="Children Last Name:">
+
+            </Label>
+
+            <Entry
+                Placeholder="Enter discipline remarks"
+                Text="{Binding DisciplineRemarks, Mode=TwoWay}">
+            </Entry>
+
+            <ActivityIndicator
+                IsRunning="{Binding IsRunning, Mode=TwoWay}"
+                VerticalOptions="CenterAndExpand">
+
+            </ActivityIndicator>
+
+            <Button
+                Command="{Binding SaveCommand}"
+                BackgroundColor="Navy"
+                BorderRadius="23"
+                FontAttributes="Bold"
+                HeightRequest="46"
+                IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                Text="Save"
+                TextColor="White"
+                Margin="50,0"
+                VerticalOptions="EndAndExpand">
+
+            </Button>
+
+        </StackLayout>
+
+
+    </Grid>
+    
+</ContentPage>

@@ -34,7 +34,7 @@
                     await Application.Current.MainPage.Navigation.PushAsync(new NewChildrenView());
                     break;
                 case "DisciplinesView":
-                    await Application.Current.MainPage.Navigation.PushAsync(new DisciplinesView());
+                    await Application.Current.MainPage.Navigation.PushAsync(new DisciplineDetailsViews());
                     break;
                 case "NewDisciplineView":
                     await Application.Current.MainPage.Navigation.PushAsync(new NewDisciplineView());
@@ -53,6 +53,9 @@
                     break;
                 case "Disciplines":
                     await Application.Current.MainPage.Navigation.PushAsync(new DisciplinesView());
+                    break;
+                case "EditDiscipline":
+                    await Application.Current.MainPage.Navigation.PushAsync(new EditDisciplineView());
                     break;
             }
 

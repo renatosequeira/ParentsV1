@@ -9,16 +9,21 @@
         <StackLayout 
             BindingContext="{Binding NewDiscipline}"
             Padding="10">
+            
+            <RelativeLayout>
+                <Image Source="discipline_description_namer"></Image>
+                <StackLayout
+                          RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, Constant=8}"
+                          RelativeLayout.YConstraint="{ConstraintExpression Type=Constant, Constant=8}"
+                          RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Constant=-16}"
+                          RelativeLayout.HeightConstraint="{ConstraintExpression Type=Constant, Constant=48}"
+                          Orientation="Horizontal">
+                    <Image Source="discipline_description_name" Scale="1"></Image>
+                    <Entry Placeholder="Enter discipline name" HorizontalOptions="FillAndExpand" Text="{Binding DisciplineDescription, Mode=TwoWay}"></Entry>
+                </StackLayout>
+            </RelativeLayout>
 
-            <Label
-                Text="Children First Name:">
 
-            </Label>
-
-            <Entry
-                Placeholder="Enter DISCIPLINE name"
-                Text="{Binding DisciplineDescription, Mode=TwoWay}">
-            </Entry>
 
             <Label
                 Text="Children Last Name:">

@@ -2,6 +2,7 @@
 using Parents.Services;
 using Parents.ViewModels;
 using Parents.ViewModels.School;
+using Parents.ViewModels.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,16 +25,52 @@ namespace Parents.Models
 
         #region Services
         NavigationService navigationService;
+        DialogService dialogService;
         #endregion
 
         #region Constructors
         public Discipline()
         {
             navigationService = new NavigationService();
+            dialogService = new DialogService();
         }
         #endregion
 
         #region Commands
+        public ICommand DeleteCommand
+        {
+            get
+            {
+                return new RelayCommand(DeleteDiscipline);
+            }
+        }
+
+        async void DeleteDiscipline()
+        {
+            var response = await dialogService.ShowConfirm("Confirm", "Are you sure to delete this record?");
+
+            if (!response)
+            {
+                return;
+            }
+
+            await DisciplinesViewModel.GetInstance().DeleteDiscipline(this);
+        }
+
+        public ICommand EditCommand
+        {
+            get
+            {
+                return new RelayCommand(EditDiscipline);
+            }
+        }
+
+        async void EditDiscipline()
+        {
+            MainViewModel.GetInstance().EditDiscipline = new EditDisciplineViewModel(this);
+            await navigationService.Navigate("EditDiscipline");
+        }
+
         public ICommand SelectDiscipline
         {
             get
@@ -45,9 +82,18 @@ namespace Parents.Models
         async void ViewDiscipline()
         {
             var mainViewModel = MainViewModel.GetInstance();
-            mainViewModel.Disciplines = new DisciplinesViewModel();
+            mainViewModel.EditDiscipline = new EditDisciplineViewModel(this);
             await navigationService.Navigate("DisciplinesView");
         }
         #endregion
+
+        #region Methods
+        public override int GetHashCode()
+        {
+            return DisciplineId;
+        }
+        #endregion
+
+    
     }
 }

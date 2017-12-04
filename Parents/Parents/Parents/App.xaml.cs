@@ -33,8 +33,8 @@
 
             MainPage = new NavigationPage(new LoginView())
             {
-
-                BarBackgroundColor = Color.FromHex("#5A392B"),
+                //#5A392B
+                BarBackgroundColor = Color.FromHex("#2C3E50"),
                 BarTextColor = Color.FromHex("#FFFFFF")
             };
 

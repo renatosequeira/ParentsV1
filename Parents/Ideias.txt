@@ -6,3 +6,6 @@
 - Diary
 
 - Gifts List (In Childrens Menu)
+
+XAMARIN FORMS EXAMPLES
+https://github.com/xamarin/xamarin-forms-samples
