@@ -17,17 +17,27 @@
         <!--DISCIPLINE DETAILS-->
 
         <StackLayout 
-            BindingContext="{Binding EditActivityFamily}"
+            BindingContext="{Binding EditDiscipline}"
             Padding="10">
 
             <Label
-                Text="Activity family description:">
+                Text="Discipline description:">
 
             </Label>
 
             <Entry
                 Placeholder="Enter Activity Family description"
-                Text="{Binding ActivityFamilyDescription, Mode=TwoWay}">
+                Text="{Binding DisciplineDescription, Mode=TwoWay}">
+            </Entry>
+
+            <Label
+                Text="Discipline remarks:">
+
+            </Label>
+
+            <Entry
+                Placeholder="Enter Activity Family description"
+                Text="{Binding DisciplineRemarks, Mode=TwoWay}">
             </Entry>
 
             <ActivityIndicator

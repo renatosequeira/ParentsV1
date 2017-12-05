@@ -10,6 +10,7 @@ using Parents.Domain.ActivitiesManagement.Helpers;
 using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
 using Parents.API.Models.ActivitiesManagement.Helpers;
+using System;
 
 namespace Parents.API.Controllers.ActivitiesManagement.Helpers
 {
@@ -67,19 +68,37 @@ namespace Parents.API.Controllers.ActivitiesManagement.Helpers
 
             db.Entry(activityFamily).State = EntityState.Modified;
 
+            //try
+            //{
+            //    await db.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!ActivityFamilyExists(id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
             try
             {
                 await db.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception ex)
             {
-                if (!ActivityFamilyExists(id))
+
+                if (ex.InnerException != null &&
+                    ex.InnerException.InnerException != null &&
+                    ex.InnerException.InnerException.Message.Contains("Index"))
                 {
-                    return NotFound();
+                    return BadRequest("There is a activity family with this description in Database already. Registry can't be added");
                 }
                 else
                 {
-                    throw;
+                    return BadRequest(ex.Message);
                 }
             }
 
@@ -99,7 +118,23 @@ namespace Parents.API.Controllers.ActivitiesManagement.Helpers
             activityFamily.userId = userId;
 
             db.ActivityFamilies.Add(activityFamily);
-            await db.SaveChangesAsync();
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null &&
+                   ex.InnerException.InnerException != null &&
+                   ex.InnerException.InnerException.Message.Contains("Index"))
+                {
+                    return BadRequest("There is a activity family with this description in Database already. Registry can't be added");
+                }
+                else
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = activityFamily.ActivityFamilyId }, activityFamily);
         }
