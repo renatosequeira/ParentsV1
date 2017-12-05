@@ -12,6 +12,7 @@
     using System.Collections.Generic;
     using Parents.API.Models.SchoolManagement.Helpers;
     using System;
+    using Microsoft.AspNet.Identity;
 
     [Authorize]
     public class DisciplinesController : ApiController
@@ -24,7 +25,7 @@
             var disciplines = await db.Disciplines.ToListAsync();
 
             var disciplinesResponse = new List<DisciplineResponse>();
-
+            
 
             foreach (var discipline in disciplines)
             {
@@ -32,7 +33,8 @@
                 {
                     DisciplineId = discipline.DisciplineId,
                     DisciplineDescription = discipline.DisciplineDescription,
-                    DisciplineRemarks = discipline.DisciplineRemarks
+                    DisciplineRemarks = discipline.DisciplineRemarks,
+                    userId = discipline.userId
                 });
             }
             return Ok(disciplinesResponse);
@@ -94,6 +96,9 @@
             {
                 return BadRequest(ModelState);
             }
+
+            string userId = User.Identity.GetUserId();
+            discipline.userId = userId;
 
             db.Disciplines.Add(discipline);
             try

@@ -1,16 +1,13 @@
-﻿namespace Parents.ViewModels.Settings
+﻿using GalaSoft.MvvmLight.Command;
+using Parents.Models.ActivitiesManagement.Helpers;
+using Parents.Services;
+using System.ComponentModel;
+using System.Windows.Input;
+
+namespace Parents.ViewModels.Activities.Helpers
 {
-    using GalaSoft.MvvmLight.Command;
-    using Parents.Models;
-    using Parents.Services;
-    using System.ComponentModel;
-    using System.Windows.Input;
-    using System;
-    using Parents.ViewModels.School;
-
-    public class EditDisciplineViewModel : INotifyPropertyChanged
+    public class EditActivityFamilyViewModel : INotifyPropertyChanged
     {
-
         #region Events
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
@@ -22,25 +19,19 @@
         #endregion
 
         #region Attributes
-        Discipline discipline;
+        ActivityFamily activityFamily;
         bool _isRunning;
         bool _isEnabled;
         #endregion
 
         #region Properties
 
-        public string DisciplineDescription
+        public string ActivityFamilyDescription
         {
             get;
             set;
         }
-
-        public string DisciplineRemarks
-        {
-            get;
-            set;
-        }
-
+        
         public bool IsRunning
         {
             get
@@ -80,16 +71,14 @@
         #endregion
 
         #region Constructors
-        public EditDisciplineViewModel(Discipline discipline)
+        public EditActivityFamilyViewModel(ActivityFamily _activityFamily)
         {
-            this.discipline = discipline;
+            this.activityFamily = _activityFamily;   
             dialogService = new DialogService();
             apiService = new ApiService();
             navigationService = new NavigationService();
 
-            DisciplineDescription = discipline.DisciplineDescription;
-            DisciplineRemarks = discipline.DisciplineRemarks;
-            
+            ActivityFamilyDescription = _activityFamily.ActivityFamilyDescription;
             IsEnabled = true;
         }
         #endregion
@@ -105,7 +94,7 @@
 
         private async void Save()
         {
-            if (string.IsNullOrEmpty(DisciplineDescription))
+            if (string.IsNullOrEmpty(ActivityFamilyDescription))
             {
                 await dialogService.ShowMessage("Error", "Discipline description is missing");
                 return;
@@ -127,8 +116,7 @@
                 return;
             }
 
-            discipline.DisciplineDescription = DisciplineDescription;
-            discipline.DisciplineRemarks = DisciplineRemarks;
+            activityFamily.ActivityFamilyDescription = ActivityFamilyDescription;
 
             var mainViewModel = MainViewModel.GetInstance();
 
@@ -136,10 +124,10 @@
             var response = await apiService.Put(
                 "http://api.parents.outstandservices.pt",
                 "/api",
-                "/Disciplines",
+                "/ActivitiesFamily",
                 mainViewModel.Token.TokenType,
                 mainViewModel.Token.AccessToken,
-                discipline);
+                activityFamily);
 
             //se a resposta (Token) for nulo ou estiver vazia, significa que o email ou a pass estão errados
             if (!response.IsSuccess)
@@ -150,8 +138,8 @@
                 return;
             }
 
-            var disciplineViewModel = DisciplinesViewModel.GetInstance();
-            disciplineViewModel.UpdateDiscipline(discipline);
+            var activityFamilyViewModel = ActivityFamilyViewModel.GetInstance();
+            activityFamilyViewModel.UpdateActivityFamily(activityFamily);
 
             await navigationService.Back();
 

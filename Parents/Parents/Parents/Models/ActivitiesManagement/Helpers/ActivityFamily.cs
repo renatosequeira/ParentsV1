@@ -1,26 +1,18 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using Parents.Services;
 using Parents.ViewModels;
-using Parents.ViewModels.School;
-using Parents.ViewModels.Settings;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Parents.ViewModels.Activities;
+using Parents.ViewModels.Activities.Helpers;
 using System.Windows.Input;
 
-namespace Parents.Models
+namespace Parents.Models.ActivitiesManagement.Helpers
 {
-    public class Discipline
+    public class ActivityFamily
     {
         #region Properties
+        public int ActivityFamilyId { get; set; }
 
-        public int DisciplineId { get; set; }
-
-        public string DisciplineDescription { get; set; }
-
-        public string DisciplineRemarks { get; set; }
+        public string ActivityFamilyDescription { get; set; }
 
         public string userId { get; set; }
         #endregion
@@ -31,7 +23,7 @@ namespace Parents.Models
         #endregion
 
         #region Constructors
-        public Discipline()
+        public ActivityFamily()
         {
             navigationService = new NavigationService();
             dialogService = new DialogService();
@@ -43,11 +35,11 @@ namespace Parents.Models
         {
             get
             {
-                return new RelayCommand(DeleteDiscipline);
+                return new RelayCommand(DeleteActivityFamily);
             }
         }
 
-        async void DeleteDiscipline()
+        async void DeleteActivityFamily()
         {
             var response = await dialogService.ShowConfirm("Confirm", "Are you sure to delete this record?");
 
@@ -56,48 +48,46 @@ namespace Parents.Models
                 return;
             }
 
-            await DisciplinesViewModel.GetInstance().DeleteDiscipline(this);
+            await ActivityFamilyViewModel.GetInstance().DeleteActivityFamily(this);
         }
 
         public ICommand EditCommand
         {
             get
             {
-                return new RelayCommand(EditDiscipline);
+                return new RelayCommand(EditActivityFamily);
             }
         }
 
-        async void EditDiscipline()
+        async void EditActivityFamily()
         {
-            MainViewModel.GetInstance().EditDiscipline = new EditDisciplineViewModel(this);
-            await navigationService.Navigate("EditDiscipline");
+            MainViewModel.GetInstance().EditActivityFamily = new EditActivityFamilyViewModel(this);
+            await navigationService.Navigate("EditActivityFamilyViewModel");
+
         }
 
-        public ICommand SelectDiscipline
+        public ICommand SelectActivityFamily
         {
             get
             {
-                return new RelayCommand(ViewDiscipline);
+                return new RelayCommand(SelectActivityFamilyItem);
             }
         }
 
-        async void ViewDiscipline()
+        async void SelectActivityFamilyItem()
         {
             var mainViewModel = MainViewModel.GetInstance();
-            mainViewModel.EditDiscipline = new EditDisciplineViewModel(this);
-            await navigationService.Navigate("DisciplinesView");
-        }
+            mainViewModel.EditActivityFamily = new EditActivityFamilyViewModel(this);
+            await navigationService.Navigate("Activities Family Details");
 
-       
+        }
         #endregion
 
         #region Methods
         public override int GetHashCode()
         {
-            return DisciplineId;
+            return ActivityFamilyId;
         }
         #endregion
-
-    
     }
 }

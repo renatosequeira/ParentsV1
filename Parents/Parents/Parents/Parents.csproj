@@ -39,6 +39,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Infrsstructure\InstanceLocator.cs" />
+    <Compile Include="Models\ActivitiesManagement\Helpers\ActivityFamily.cs" />
     <Compile Include="Models\Children.cs" />
     <Compile Include="Models\Discipline.cs" />
     <Compile Include="Models\Parent.cs" />
@@ -50,6 +51,9 @@
     <Compile Include="Services\ApiService.cs" />
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\NavigationService.cs" />
+    <Compile Include="ViewModels\Activities\Helpers\ActivityFamilyViewModel.cs" />
+    <Compile Include="ViewModels\Activities\Helpers\EditActivityFamilyViewModel.cs" />
+    <Compile Include="ViewModels\Activities\Helpers\NewActivityFamilyViewModel.cs" />
     <Compile Include="ViewModels\ChildrensViewModel.cs" />
     <Compile Include="ViewModels\Childrens\ChildrenDetailsViewModel.cs" />
     <Compile Include="ViewModels\Childrens\EditChildrenViewModel.cs" />
@@ -74,6 +78,18 @@
     </Compile>
     <Compile Include="Views\Activities\EventsListView.xaml.cs">
       <DependentUpon>EventsListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Activities\Helpers\ActivitiesFamilyListView.xaml.cs">
+      <DependentUpon>ActivitiesFamilyListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Activities\Helpers\DetailsActivityFamilyView.xaml.cs">
+      <DependentUpon>DetailsActivityFamilyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Activities\Helpers\EditActivityFamilyView.xaml.cs">
+      <DependentUpon>EditActivityFamilyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Activities\Helpers\NewActivityFamilyView.xaml.cs">
+      <DependentUpon>NewActivityFamilyView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Activities\OtherActivitiesView.xaml.cs">
       <DependentUpon>OtherActivitiesView.xaml</DependentUpon>
@@ -128,6 +144,9 @@
     </Compile>
     <Compile Include="Views\School\NewDisciplineView.xaml.cs">
       <DependentUpon>NewDisciplineView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\Activities\ActivitiesSettingsView.xaml.cs">
+      <DependentUpon>ActivitiesSettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Settings\ApplicationSettingCoreView.xaml.cs">
       <DependentUpon>ApplicationSettingCoreView.xaml</DependentUpon>
@@ -353,6 +372,36 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\School\DisciplineDetailsViews.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Activities\Helpers\ActivitiesFamilyListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Settings\Activities\ActivitiesSettingsView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Activities\Helpers\NewActivityFamilyView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Activities\Helpers\EditActivityFamilyView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Activities\Helpers\DetailsActivityFamilyView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

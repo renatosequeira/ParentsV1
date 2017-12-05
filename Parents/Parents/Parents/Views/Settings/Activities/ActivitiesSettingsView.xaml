@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Parents.Views.Settings.DisciplinesSettingsView"
+             x:Class="Parents.Views.Settings.Activities.ActivitiesSettingsView"           
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
-             Title="DISCIPLINES SETTINGS">
+             Title="ACTIVITIES SETTINGS">
 
     <Grid ColumnSpacing="0" RowSpacing="0">
         <Grid.RowDefinitions>
@@ -15,7 +15,7 @@
         <BoxView BackgroundColor="#22395C" Grid.Row="1"/>
 
         <ListView 
-            x:Name="settingsMenu" 
+            x:Name="activitySettingsMenu" 
             HasUnevenRows="True"
             ItemSelected="settingsMenu_ItemSelected"
             ItemTapped="settingsMenu_ItemTapped">
@@ -33,18 +33,18 @@
                                 Orientation="Vertical"
                                 HorizontalOptions="StartAndExpand">
                                 <Label 
-                                    Text="{Binding MenuName}" 
-                                    TextColor="#5A392B" 
-                                    HorizontalOptions="StartAndExpand" 
-                                    VerticalOptions="Center"
-                                    FontSize="Medium"
-                                    Margin="5,0,0,0"/>
+                                Text="{Binding MenuName}" 
+                                TextColor="#5A392B" 
+                                HorizontalOptions="StartAndExpand" 
+                                VerticalOptions="Center"
+                                FontSize="Medium"
+                                Margin="5,0,0,0"/>
                                 <Label
-                                    Text="{Binding MenuDescription}"
-                                    TextColor="Gray"
-                                    HorizontalOptions="StartAndExpand"
-                                    FontSize="Small"
-                                    Margin="5,0,0,0"/>
+                                Text="{Binding MenuDescription}"
+                                TextColor="Gray"
+                                HorizontalOptions="StartAndExpand"
+                                FontSize="Small"
+                                Margin="5,0,0,0"/>
                             </StackLayout>
 
                         </StackLayout>
@@ -108,5 +108,5 @@
 
 
     </Grid>
-    
+
 </ContentPage>

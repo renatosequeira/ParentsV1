@@ -7,6 +7,9 @@
     using Parents.Models;
     using Parents.ViewModels.School;
     using Parents.ViewModels.Settings;
+    using Parents.ViewModels.Activities;
+    using Parents.ViewModels.Activities.Helpers;
+    using Parents.Views.Activities.Helpers;
 
     public class MainViewModel
     {
@@ -26,10 +29,10 @@
         public NewChildrenViewModel NewChildren { get; set; }
         public DisciplinesViewModel Disciplines { get; set; }
         public NewDisciplineViewModel NewDiscipline { get; set; }
-        //public SettingsHomeViewModel SettingsHome { get; set; }
-        //public ApplicationSettingsCoreViewModel ApplicationSettingsCore { get; set; }
         public EditDisciplineViewModel EditDiscipline { get; set; }
-
+        public ActivityFamilyViewModel ActivityFamily { get; set; }
+        public NewActivityFamilyViewModel NewActvityFamily { get; set; }
+        public EditActivityFamilyViewModel EditActivityFamily { get; set; }
         #endregion
 
         #region Constructors
@@ -58,6 +61,20 @@
 
 
         #region Commands
+        public ICommand NewActivityFamilyCommand
+        {
+            get
+            {
+                return new RelayCommand(GoToNewActivityFamily);
+            }
+        }
+
+        async void GoToNewActivityFamily()
+        {
+            NewActvityFamily = new NewActivityFamilyViewModel();
+            await navigationService.Navigate("NewActivityFamily");
+        }
+
         public ICommand NewDisciplineCommand
         {
             get

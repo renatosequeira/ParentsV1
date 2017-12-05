@@ -26,5 +26,7 @@ namespace Parents.Domain.ActivitiesManagement.Helpers
 
         [JsonIgnore]
         public ICollection<Activity> Activity { get; set; }
+
+        public string userId { get; set; }
     }
 }

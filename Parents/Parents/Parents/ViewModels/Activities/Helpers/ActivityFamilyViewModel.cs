@@ -1,17 +1,18 @@
-﻿namespace Parents.ViewModels.School
+﻿namespace Parents.ViewModels.Activities
 {
-    using Parents.Models;
-    using Parents.Services;
+    using Models.ActivitiesManagement.Helpers;
+    using Services;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
+    using Parents.Models;
     using System;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Windows.Input;
     using GalaSoft.MvvmLight.Command;
 
-    public class DisciplinesViewModel : INotifyPropertyChanged
+    public class ActivityFamilyViewModel : INotifyPropertyChanged
     {
         #region Events
         public event PropertyChangedEventHandler PropertyChanged;
@@ -23,26 +24,26 @@
         #endregion
 
         #region Attributes
-        ObservableCollection<Discipline> _disciplines;
-        List<Discipline> disciplines;
+        ObservableCollection<ActivityFamily> _activitiesFamily;
+        List<ActivityFamily> activitiesFamily;
         bool _isRefreshing;
         #endregion
 
         #region Properties
-        public ObservableCollection<Discipline> DisciplinesList
+        public ObservableCollection<ActivityFamily> ActivitiesFamilyList
         {
             get
             {
-                return _disciplines;
+                return _activitiesFamily;
             }
             set
             {
-                if (_disciplines != value)
+                if (_activitiesFamily != value)
                 {
-                    _disciplines = value;
+                    _activitiesFamily = value;
                     PropertyChanged?.Invoke(
                         this,
-                        new PropertyChangedEventArgs(nameof(DisciplinesList)));
+                        new PropertyChangedEventArgs(nameof(ActivitiesFamilyList)));
                 }
             }
         }
@@ -67,30 +68,28 @@
         #endregion
 
         #region Constructors
-        public DisciplinesViewModel()
+        public ActivityFamilyViewModel()
         {
             instance = this;
 
             apiService = new ApiService();
             dialogService = new DialogService();
 
-            LoadDisciplines();
+            LoadActivitiesFamily();
         }
-
-
         #endregion
 
         #region Methods
-        public void Add(Discipline discipline)
+        public void Add(ActivityFamily activityFamily)
         {
             IsRefreshing = true;
-            disciplines.Add(discipline);
-            DisciplinesList = new ObservableCollection<Discipline>(
-                disciplines.OrderBy(c => c.DisciplineDescription));
+            activitiesFamily.Add(activityFamily);
+            ActivitiesFamilyList = new ObservableCollection<ActivityFamily>(
+                activitiesFamily.OrderBy(c => c.ActivityFamilyDescription));
             IsRefreshing = false;
         }
 
-        async void LoadDisciplines()
+        async void LoadActivitiesFamily()
         {
             IsRefreshing = true;
 
@@ -103,10 +102,10 @@
 
             var mainViewModel = MainViewModel.GetInstance();
 
-            var response = await apiService.GetList<Discipline>(
+            var response = await apiService.GetList<ActivityFamily>(
                "http://api.parents.outstandservices.pt",
                 "/api",
-                "/Disciplines",
+                "/ActivitiesFamily",
                 mainViewModel.Token.TokenType,
                 mainViewModel.Token.AccessToken);
 
@@ -116,25 +115,25 @@
                 return;
             }
 
-            disciplines = (List<Discipline>)response.Result;
+            activitiesFamily = (List<ActivityFamily>)response.Result;
 
-             DisciplinesList = new ObservableCollection<Discipline>(disciplines.OrderBy(c => c.DisciplineDescription));
+            ActivitiesFamilyList = new ObservableCollection<ActivityFamily>(activitiesFamily.OrderBy(c => c.ActivityFamilyDescription));
 
             IsRefreshing = false;
         }
 
-        public void UpdateDiscipline(Discipline discipline)
+        public void UpdateActivityFamily(ActivityFamily activityFamily)
         {
             IsRefreshing = true;
-            var oldDiscipline = disciplines.Where(c => c.DisciplineId == discipline.DisciplineId).FirstOrDefault();
-            oldDiscipline = discipline;
+            var oldActivityFamily = activitiesFamily.Where(c => c.ActivityFamilyId == activityFamily.ActivityFamilyId).FirstOrDefault();
+            oldActivityFamily = activityFamily;
 
-            DisciplinesList = new ObservableCollection<Discipline>(
-                disciplines.OrderBy(c => c.DisciplineDescription));
+            ActivitiesFamilyList = new ObservableCollection<ActivityFamily>(
+                activitiesFamily.OrderBy(c => c.ActivityFamilyDescription));
             IsRefreshing = false;
         }
 
-        public async Task DeleteDiscipline(Discipline discipline)
+        public async Task DeleteActivityFamily(ActivityFamily activityFamily)
         {
             IsRefreshing = true;
 
@@ -158,10 +157,10 @@
             var response = await apiService.Delete(
                 "http://api.parents.outstandservices.pt",
                 "/api",
-                "/Disciplines",
+                "/ActivitiesFamily",
                 mainViewModel.Token.TokenType,
                 mainViewModel.Token.AccessToken,
-                discipline);
+                activityFamily);
 
             //se a resposta (Token) for nulo ou estiver vazia, significa que o email ou a pass estão errados
             if (!response.IsSuccess)
@@ -171,22 +170,22 @@
                 return;
             }
 
-            disciplines.Remove(discipline);
+            activitiesFamily.Remove(activityFamily);
 
-            DisciplinesList = new ObservableCollection<Discipline>(
-                disciplines.OrderBy(c => c.DisciplineDescription));
+            ActivitiesFamilyList = new ObservableCollection<ActivityFamily>(
+                activitiesFamily.OrderBy(c => c.ActivityFamilyDescription));
             IsRefreshing = false;
         }
         #endregion
 
         #region Sigleton
-        static DisciplinesViewModel instance;
+        static ActivityFamilyViewModel instance;
 
-        public static DisciplinesViewModel GetInstance()
+        public static ActivityFamilyViewModel GetInstance()
         {
             if (instance == null)
             {
-                return new DisciplinesViewModel();
+                return new ActivityFamilyViewModel();
             }
 
             return instance;
@@ -198,7 +197,7 @@
         {
             get
             {
-                return new RelayCommand(LoadDisciplines);
+                return new RelayCommand(LoadActivitiesFamily);
             }
         }
         #endregion

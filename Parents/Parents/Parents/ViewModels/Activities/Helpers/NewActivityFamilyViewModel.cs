@@ -1,16 +1,18 @@
-﻿namespace Parents.ViewModels.Settings
+﻿using GalaSoft.MvvmLight.Command;
+using Parents.Models.ActivitiesManagement.Helpers;
+using Parents.Services;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
+
+namespace Parents.ViewModels.Activities.Helpers
 {
-    using GalaSoft.MvvmLight.Command;
-    using Parents.Models;
-    using Parents.Services;
-    using System.ComponentModel;
-    using System.Windows.Input;
-    using System;
-    using Parents.ViewModels.School;
-
-    public class EditDisciplineViewModel : INotifyPropertyChanged
+    public class NewActivityFamilyViewModel : INotifyPropertyChanged
     {
-
         #region Events
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
@@ -22,23 +24,28 @@
         #endregion
 
         #region Attributes
-        Discipline discipline;
+        string _activityFamilyDescription;
         bool _isRunning;
         bool _isEnabled;
         #endregion
 
         #region Properties
-
-        public string DisciplineDescription
+        public string ActivityFamilyDescription
         {
-            get;
-            set;
-        }
-
-        public string DisciplineRemarks
-        {
-            get;
-            set;
+            get
+            {
+                return _activityFamilyDescription;
+            }
+            set
+            {
+                if (_activityFamilyDescription != value)
+                {
+                    _activityFamilyDescription = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(ActivityFamilyDescription)));
+                }
+            }
         }
 
         public bool IsRunning
@@ -76,21 +83,17 @@
                 }
             }
         }
-
         #endregion
 
         #region Constructors
-        public EditDisciplineViewModel(Discipline discipline)
+        public NewActivityFamilyViewModel()
         {
-            this.discipline = discipline;
             dialogService = new DialogService();
             apiService = new ApiService();
             navigationService = new NavigationService();
 
-            DisciplineDescription = discipline.DisciplineDescription;
-            DisciplineRemarks = discipline.DisciplineRemarks;
-            
-            IsEnabled = true;
+            IsEnabled = true; //bool are disabled by default. This will enable buttons
+
         }
         #endregion
 
@@ -103,11 +106,11 @@
             }
         }
 
-        private async void Save()
+        async void Save()
         {
-            if (string.IsNullOrEmpty(DisciplineDescription))
+            if (string.IsNullOrEmpty(ActivityFamilyDescription))
             {
-                await dialogService.ShowMessage("Error", "Discipline description is missing");
+                await dialogService.ShowMessage("Error", "Please insert Activity Family description");
                 return;
             }
 
@@ -127,19 +130,21 @@
                 return;
             }
 
-            discipline.DisciplineDescription = DisciplineDescription;
-            discipline.DisciplineRemarks = DisciplineRemarks;
+            var activityFamily = new ActivityFamily
+            {
+                ActivityFamilyDescription = ActivityFamilyDescription
+            };
 
             var mainViewModel = MainViewModel.GetInstance();
 
             //se existir ligação à internet guarda token na variavel response
-            var response = await apiService.Put(
+            var response = await apiService.Post(
                 "http://api.parents.outstandservices.pt",
                 "/api",
-                "/Disciplines",
+                "/ActivitiesFamily",
                 mainViewModel.Token.TokenType,
                 mainViewModel.Token.AccessToken,
-                discipline);
+                activityFamily);
 
             //se a resposta (Token) for nulo ou estiver vazia, significa que o email ou a pass estão errados
             if (!response.IsSuccess)
@@ -150,14 +155,14 @@
                 return;
             }
 
-            var disciplineViewModel = DisciplinesViewModel.GetInstance();
-            disciplineViewModel.UpdateDiscipline(discipline);
+            activityFamily = (ActivityFamily)response.Result;
+            var activityFamilyViwModel = ActivityFamilyViewModel.GetInstance();
+            activityFamilyViwModel.Add(activityFamily);
 
             await navigationService.Back();
 
             IsRunning = false;
             IsEnabled = true;
-
         }
         #endregion
     }

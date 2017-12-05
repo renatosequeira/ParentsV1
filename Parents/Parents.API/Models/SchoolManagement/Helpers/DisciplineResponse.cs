@@ -12,5 +12,7 @@ namespace Parents.API.Models.SchoolManagement.Helpers
         public string DisciplineDescription { get; set; }
 
         public string DisciplineRemarks { get; set; }
+
+        public string userId { get; set; }
     }
 }

@@ -1,12 +1,14 @@
 ﻿namespace Parents.Services
 {
-    using Parents.Views;
-    using Parents.Views.Childrens;
+    using Views;
+    using Views.Childrens;
     using System.Threading.Tasks;
     using Xamarin.Forms;
     using System;
-    using Parents.Views.School;
-    using Parents.Views.Settings;
+    using Views.School;
+    using Views.Settings;
+    using Views.Settings.Activities;
+    using Parents.Views.Activities.Helpers;
 
     public class NavigationService
     {
@@ -56,6 +58,21 @@
                     break;
                 case "EditDiscipline":
                     await Application.Current.MainPage.Navigation.PushAsync(new EditDisciplineView());
+                    break;
+                case "Activities Family":
+                    await Application.Current.MainPage.Navigation.PushAsync(new ActivitiesFamilyListView());
+                    break;
+                case "Activities":
+                    await Application.Current.MainPage.Navigation.PushAsync(new ActivitiesSettingsView());
+                    break;
+                case "NewActivityFamily":
+                    await Application.Current.MainPage.Navigation.PushAsync(new NewActivityFamilyView());
+                    break;
+                case "EditActivityFamilyViewModel":
+                    await Application.Current.MainPage.Navigation.PushAsync(new EditActivityFamilyView());
+                    break;
+                case "Activities Family Details":
+                    await Application.Current.MainPage.Navigation.PushAsync(new DetailsActivityFamilyView());
                     break;
             }
 

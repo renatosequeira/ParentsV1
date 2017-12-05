@@ -20,5 +20,8 @@
 
         [JsonIgnore]
         public virtual ICollection<Exam> Exam { get; set; }
+
+        public string userId { get; set; }
+
     }
 }

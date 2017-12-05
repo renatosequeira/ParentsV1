@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Parents.Domain;
 using Parents.Domain.ActivitiesManagement.Helpers;
+using Microsoft.AspNet.Identity;
+using System.Collections.Generic;
+using Parents.API.Models.ActivitiesManagement.Helpers;
 
 namespace Parents.API.Controllers.ActivitiesManagement.Helpers
 {
@@ -20,9 +19,23 @@ namespace Parents.API.Controllers.ActivitiesManagement.Helpers
         private DataContext db = new DataContext();
 
         // GET: api/ActivitiesFamily
-        public IQueryable<ActivityFamily> GetActivityFamilies()
+        public async Task<IHttpActionResult> GetActivityFamilies()
         {
-            return db.ActivityFamilies;
+            var activityFamilies = await db.ActivityFamilies.ToListAsync();
+
+            var activityFamiliesResponse = new List<ActivityFamilyResponse>();
+
+            foreach (var activity in activityFamilies)
+            {
+                activityFamiliesResponse.Add(new ActivityFamilyResponse
+                {
+                    ActivityFamilyId = activity.ActivityFamilyId,
+                    ActivityFamilyDescription = activity.ActivityFamilyDescription,
+                    userId = activity.userId
+                });
+            }
+
+            return Ok(activityFamiliesResponse);
         }
 
         // GET: api/ActivitiesFamily/5
@@ -81,6 +94,9 @@ namespace Parents.API.Controllers.ActivitiesManagement.Helpers
             {
                 return BadRequest(ModelState);
             }
+
+            string userId = User.Identity.GetUserId();
+            activityFamily.userId = userId;
 
             db.ActivityFamilies.Add(activityFamily);
             await db.SaveChangesAsync();

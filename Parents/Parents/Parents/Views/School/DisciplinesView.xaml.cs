@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Parents.ViewModels;
+using Parents.ViewModels.School;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +17,11 @@ namespace Parents.Views.School
         public DisciplinesView()
         {
             InitializeComponent();
+        }
+
+        private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            DisciplinesList.SelectedItem = null;
         }
     }
 }

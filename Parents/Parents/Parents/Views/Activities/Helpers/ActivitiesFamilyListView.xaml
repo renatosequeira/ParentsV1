@@ -1,31 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Parents.Views.School.DisciplinesView"
+             x:Class="Parents.Views.Activities.Helpers.ActivitiesFamilyListView"   
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
-             Title="DISCIPLINES">
+             Title="ACTIVITIES FAMILY LIST">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem 
-            Command="{Binding NewDisciplineCommand}"
+            Command="{Binding NewActivityFamilyCommand}"
             Icon="ic_add_white"/>
     </ContentPage.ToolbarItems>
 
     <StackLayout
-        BindingContext="{Binding Disciplines}"
+        BindingContext="{Binding ActivityFamily}"
         Padding="5"
         Spacing="8">
 
         <ListView
             IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
-            ItemsSource="{Binding DisciplinesList}"
-            ItemSelected="ListView_ItemSelected"
+            ItemsSource="{Binding ActivitiesFamilyList}"
+            ItemSelected="DisciplinesList_ItemSelected"
             IsPullToRefreshEnabled="True"
             RefreshCommand="{Binding RefreshCommand}"
             HasUnevenRows="True"
-            x:Name="DisciplinesList">
+            x:Name="ActivityList">
             <ListView.ItemTemplate>
-                <DataTemplate>
+
+            <DataTemplate>
                     <ViewCell>
 
                         <ViewCell.ContextActions>
@@ -39,7 +40,7 @@
                                 Icon="ic_delete_red"
                                 Text="Delete"/>
                         </ViewCell.ContextActions>
-                        
+
                         <Grid
                             VerticalOptions="Center">
                             <Grid.ColumnDefinitions>
@@ -52,21 +53,21 @@
                             </Grid.RowDefinitions>
 
                             <Label 
-                                Grid.Column="1" 
-                                HorizontalOptions="FillAndExpand" 
-                                FontSize="Medium" 
-                                Text="{Binding DisciplineDescription}" 
-                                VerticalOptions="Center">
+                                    Grid.Column="1" 
+                                    HorizontalOptions="FillAndExpand" 
+                                    FontSize="Medium" 
+                                    Text="{Binding ActivityFamilyDescription}" 
+                                    VerticalOptions="Center">
                             </Label>
 
                             <Image
                                 Grid.Column="2"
                                 HorizontalOptions="End" 
-                                Source="ic_edit_brown"
+                                Source="ic_eye_brown"
                                 VerticalOptions="Center"
                                 HeightRequest="40">
                                 <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding SelectDiscipline}"/>
+                                    <TapGestureRecognizer Command="{Binding SelectActivityFamily}"/>
                                 </Image.GestureRecognizers>
                             </Image>
                         </Grid>

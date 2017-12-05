@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Parents.Domain;
 using Parents.Domain.SchoolManagement.Helpers;
 using Parents.Backend.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Parents.Backend.Controllers.SchoolManagement.Helpers
 {
@@ -54,6 +49,9 @@ namespace Parents.Backend.Controllers.SchoolManagement.Helpers
         {
             if (ModelState.IsValid)
             {
+                string userId = User.Identity.GetUserId();
+                discipline.userId = userId;
+
                 db.Disciplines.Add(discipline);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
