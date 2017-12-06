@@ -1,28 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Web.Http;
-using System.Web.Http.Description;
-using Parents.Domain;
-using Parents.Domain.ActivitiesManagement.Helpers;
-
-namespace Parents.API.Controllers.ActivitiesManagement.Helpers
+﻿namespace Parents.API.Controllers.ActivitiesManagement.Helpers
 {
+    using System.Data.Entity;
+    using System.Data.Entity.Infrastructure;
+    using System.Linq;
+    using System.Net;
+    using System.Threading.Tasks;
+    using System.Web.Http;
+    using System.Web.Http.Description;
+    using Parents.Domain;
+    using Parents.Domain.ActivitiesManagement.Helpers;
+    using System.Collections.Generic;
+    using Parents.API.Models.ActivitiesManagement.Helpers;
+    using System;
+    using Microsoft.AspNet.Identity;
+
     [Authorize]
     public class ActivitiesInstitutionTypesController : ApiController
     {
         private DataContext db = new DataContext();
 
         // GET: api/ActivitiesInstitutionTypes
-        public IQueryable<ActivityInstitutionType> GetActivityInstitutionTypes()
+        public async Task<IHttpActionResult> GetActivityInstitutionTypes()
         {
-            return db.ActivityInstitutionTypes;
+            var activityInstitutionTypes = await db.ActivityInstitutionTypes.ToListAsync();
+
+            var activityInstitutionTypesResponse = new List<ActivityInstitutionTypeResponse>();
+
+            foreach (var activityIntitutionType in activityInstitutionTypes)
+            {
+                activityInstitutionTypesResponse.Add(new ActivityInstitutionTypeResponse
+                {
+                    ActivityInstitutionTypeDescription = activityIntitutionType.ActivityInstitutionTypeDescription,
+                    userId = activityIntitutionType.userId,
+                    ActivityInstitutionTypeId = activityIntitutionType.ActivityInstitutionTypeId
+                });
+            }
+
+            return Ok(activityInstitutionTypesResponse);
         }
 
         // GET: api/ActivitiesInstitutionTypes/5
@@ -54,20 +68,34 @@ namespace Parents.API.Controllers.ActivitiesManagement.Helpers
 
             db.Entry(activityInstitutionType).State = EntityState.Modified;
 
-            try
+            string currentUser = User.Identity.GetUserId();
+            string userId = activityInstitutionType.userId;
+
+            if (currentUser == userId)
             {
-                await db.SaveChangesAsync();
+                try
+                {
+                    await db.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+
+                    if (ex.InnerException != null &&
+                        ex.InnerException.InnerException != null &&
+                        ex.InnerException.InnerException.Message.Contains("Index"))
+                    {
+                        return BadRequest("There activity institution type already exists. Please use search function or add another one!");
+                    }
+                    else
+                    {
+                        return BadRequest(ex.Message);
+                    }
+                }
             }
-            catch (DbUpdateConcurrencyException)
+            else
             {
-                if (!ActivityInstitutionTypeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return BadRequest("You are not the proprietary of this topic. Only owner can change it");
+                
             }
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -83,7 +111,23 @@ namespace Parents.API.Controllers.ActivitiesManagement.Helpers
             }
 
             db.ActivityInstitutionTypes.Add(activityInstitutionType);
-            await db.SaveChangesAsync();
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null &&
+                  ex.InnerException.InnerException != null &&
+                  ex.InnerException.InnerException.Message.Contains("Index"))
+                {
+                    return BadRequest("There activity institution type already exists. Please use search function or add another one!");
+                }
+                else
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = activityInstitutionType.ActivityInstitutionTypeId }, activityInstitutionType);
         }

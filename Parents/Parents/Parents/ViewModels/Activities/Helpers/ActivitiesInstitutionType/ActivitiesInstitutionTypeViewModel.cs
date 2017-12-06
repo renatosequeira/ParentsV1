@@ -1,18 +1,16 @@
-﻿namespace Parents.ViewModels.Activities
+﻿namespace Parents.ViewModels.Activities.Helpers.ActivitiesInstitutionType
 {
-    using Models.ActivitiesManagement.Helpers;
     using Services;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
-    using Models;
-    using System;
+    using Models.ActivitiesManagement.Helpers;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Windows.Input;
     using GalaSoft.MvvmLight.Command;
 
-    public class ActivityFamilyViewModel : INotifyPropertyChanged
+    public class ActivitiesInstitutionTypeViewModel : INotifyPropertyChanged
     {
         #region Events
         public event PropertyChangedEventHandler PropertyChanged;
@@ -24,26 +22,26 @@
         #endregion
 
         #region Attributes
-        ObservableCollection<ActivityFamily> _activitiesFamily;
-        List<ActivityFamily> activitiesFamily;
+        ObservableCollection<ActivityInstitutionType> _activitiesInstitutionType;
+        List<ActivityInstitutionType> activitiesInstitutionType;
         bool _isRefreshing;
         #endregion
 
         #region Properties
-        public ObservableCollection<ActivityFamily> ActivitiesFamilyList
+        public ObservableCollection<ActivityInstitutionType> ActivitiesInstitutionTypeList
         {
             get
             {
-                return _activitiesFamily;
+                return _activitiesInstitutionType;
             }
             set
             {
-                if (_activitiesFamily != value)
+                if (_activitiesInstitutionType != value)
                 {
-                    _activitiesFamily = value;
+                    _activitiesInstitutionType = value;
                     PropertyChanged?.Invoke(
                         this,
-                        new PropertyChangedEventArgs(nameof(ActivitiesFamilyList)));
+                        new PropertyChangedEventArgs(nameof(ActivitiesInstitutionTypeList)));
                 }
             }
         }
@@ -68,28 +66,28 @@
         #endregion
 
         #region Constructors
-        public ActivityFamilyViewModel()
+        public ActivitiesInstitutionTypeViewModel()
         {
             instance = this;
 
             apiService = new ApiService();
             dialogService = new DialogService();
 
-            LoadActivitiesFamily();
+            LoadActivitiesInstitutionTypes();
         }
         #endregion
 
         #region Methods
-        public void Add(ActivityFamily activityFamily)
+        public void Add(ActivityInstitutionType activityInstitutionType)
         {
             IsRefreshing = true;
-            activitiesFamily.Add(activityFamily);
-            ActivitiesFamilyList = new ObservableCollection<ActivityFamily>(
-                activitiesFamily.OrderBy(c => c.ActivityFamilyDescription));
+            activitiesInstitutionType.Add(activityInstitutionType);
+            ActivitiesInstitutionTypeList = new ObservableCollection<ActivityInstitutionType>(
+                activitiesInstitutionType.OrderBy(c => c.ActivityInstitutionTypeDescription));
             IsRefreshing = false;
         }
 
-        async void LoadActivitiesFamily()
+        async void LoadActivitiesInstitutionTypes()
         {
             IsRefreshing = true;
 
@@ -102,10 +100,10 @@
 
             var mainViewModel = MainViewModel.GetInstance();
 
-            var response = await apiService.GetList<ActivityFamily>(
+            var response = await apiService.GetList<ActivityInstitutionType>(
                "http://api.parents.outstandservices.pt",
                 "/api",
-                "/ActivitiesFamily",
+                "/ActivitiesInstitutionTypes",
                 mainViewModel.Token.TokenType,
                 mainViewModel.Token.AccessToken);
 
@@ -115,25 +113,25 @@
                 return;
             }
 
-            activitiesFamily = (List<ActivityFamily>)response.Result;
+            activitiesInstitutionType = (List<ActivityInstitutionType>)response.Result;
 
-            ActivitiesFamilyList = new ObservableCollection<ActivityFamily>(activitiesFamily.OrderBy(c => c.ActivityFamilyDescription));
+            ActivitiesInstitutionTypeList = new ObservableCollection<ActivityInstitutionType>(activitiesInstitutionType.OrderBy(c => c.ActivityInstitutionTypeDescription));
 
             IsRefreshing = false;
         }
 
-        public void UpdateActivityFamily(ActivityFamily activityFamily)
+        public void UpdateActivityInstitutionType(ActivityInstitutionType activityInstitutionType)
         {
             IsRefreshing = true;
-            var oldActivityFamily = activitiesFamily.Where(c => c.ActivityFamilyId == activityFamily.ActivityFamilyId).FirstOrDefault();
-            oldActivityFamily = activityFamily;
+            var oldActivityInstitutionType = activitiesInstitutionType.Where(c => c.ActivityInstitutionTypeId == activityInstitutionType.ActivityInstitutionTypeId).FirstOrDefault();
+            oldActivityInstitutionType = activityInstitutionType;
 
-            ActivitiesFamilyList = new ObservableCollection<ActivityFamily>(
-                activitiesFamily.OrderBy(c => c.ActivityFamilyDescription));
+            ActivitiesInstitutionTypeList = new ObservableCollection<ActivityInstitutionType>(
+                activitiesInstitutionType.OrderBy(c => c.ActivityInstitutionTypeDescription));
             IsRefreshing = false;
         }
 
-        public async Task DeleteActivityFamily(ActivityFamily activityFamily)
+        public async Task DeleteActivityInstitutionType(ActivityInstitutionType activityInstitutionType)
         {
             IsRefreshing = true;
 
@@ -157,10 +155,10 @@
             var response = await apiService.Delete(
                 "http://api.parents.outstandservices.pt",
                 "/api",
-                "/ActivitiesFamily",
+                "/ActivitiesInstitutionTypes",
                 mainViewModel.Token.TokenType,
                 mainViewModel.Token.AccessToken,
-                activityFamily);
+                activityInstitutionType);
 
             //se a resposta (Token) for nulo ou estiver vazia, significa que o email ou a pass estão errados
             if (!response.IsSuccess)
@@ -170,22 +168,22 @@
                 return;
             }
 
-            activitiesFamily.Remove(activityFamily);
+            activitiesInstitutionType.Remove(activityInstitutionType);
 
-            ActivitiesFamilyList = new ObservableCollection<ActivityFamily>(
-                activitiesFamily.OrderBy(c => c.ActivityFamilyDescription));
+            ActivitiesInstitutionTypeList = new ObservableCollection<ActivityInstitutionType>(
+                activitiesInstitutionType.OrderBy(c => c.ActivityInstitutionTypeDescription));
             IsRefreshing = false;
         }
         #endregion
 
         #region Sigleton
-        static ActivityFamilyViewModel instance;
+        static ActivitiesInstitutionTypeViewModel instance;
 
-        public static ActivityFamilyViewModel GetInstance()
+        public static ActivitiesInstitutionTypeViewModel GetInstance()
         {
             if (instance == null)
             {
-                return new ActivityFamilyViewModel();
+                return new ActivitiesInstitutionTypeViewModel();
             }
 
             return instance;
@@ -197,7 +195,7 @@
         {
             get
             {
-                return new RelayCommand(LoadActivitiesFamily);
+                return new RelayCommand(LoadActivitiesInstitutionTypes);
             }
         }
         #endregion

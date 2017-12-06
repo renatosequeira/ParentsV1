@@ -9,6 +9,7 @@
     using Views.Settings;
     using Views.Settings.Activities;
     using Parents.Views.Activities.Helpers;
+    using Parents.Views.Activities.Helpers.ActivitiesInstitutionType;
 
     public class NavigationService
     {
@@ -74,6 +75,18 @@
                 case "Activities Family Details":
                     await Application.Current.MainPage.Navigation.PushAsync(new DetailsActivityFamilyView());
                     break;
+                case "Activity Institution Type":
+                    await Application.Current.MainPage.Navigation.PushAsync(new ActivitiesInstitutionTypeListView());
+                    break;
+                case "EditActivityInstitutionType":
+                    await Application.Current.MainPage.Navigation.PushAsync(new EditActivityInstitutionTypeView());
+                    break;
+                case "NewActivityInstitutionType":
+                    await Application.Current.MainPage.Navigation.PushAsync(new NewActivitiesInstitutionTypeView());
+                    break;
+                case "DetailsActivityInstitutionType":
+                    await Application.Current.MainPage.Navigation.PushAsync(new DetailsActivitiesInstitutionTypeView());
+                    break;
             }
 
         }
@@ -82,5 +95,7 @@
         {
             await Application.Current.MainPage.Navigation.PopAsync();
         }
+
+    
     }
 }

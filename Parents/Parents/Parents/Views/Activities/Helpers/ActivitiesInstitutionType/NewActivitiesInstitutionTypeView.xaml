@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Parents.Views.Activities.Helpers.ActivitiesInstitutionType.NewActivitiesInstitutionTypeView"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="ADD ACTIVITY FAMILY">
+
+    <ContentPage.Content>
+        <StackLayout 
+            BindingContext="{Binding NewActivityInstitutionType}"
+            Padding="10">
+
+            <RelativeLayout>
+                <Image Source="discipline_description_namer"></Image>
+                <StackLayout
+                          RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, Constant=8}"
+                          RelativeLayout.YConstraint="{ConstraintExpression Type=Constant, Constant=8}"
+                          RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Constant=-16}"
+                          RelativeLayout.HeightConstraint="{ConstraintExpression Type=Constant, Constant=48}"
+                          Orientation="Horizontal">
+                    <Image Source="discipline_description_name" Scale="1"></Image>
+                    <Entry 
+                        Placeholder="Enter activity institution type description" 
+                        HorizontalOptions="FillAndExpand" 
+                        Text="{Binding ActivityInstitutionTypeDescription, Mode=TwoWay}">
+                    </Entry>
+                </StackLayout>
+            </RelativeLayout>
+
+            <ActivityIndicator
+                IsRunning="{Binding IsRunning, Mode=TwoWay}"
+                VerticalOptions="CenterAndExpand">
+
+            </ActivityIndicator>
+
+            <Button
+                Command="{Binding SaveCommand}"
+                BackgroundColor="Navy"
+                BorderRadius="23"
+                FontAttributes="Bold"
+                HeightRequest="46"
+                IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                Text="Save"
+                TextColor="White"
+                Margin="50,0"
+                VerticalOptions="EndAndExpand">
+
+            </Button>
+
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>

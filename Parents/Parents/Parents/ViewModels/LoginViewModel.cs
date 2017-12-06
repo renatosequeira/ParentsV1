@@ -7,6 +7,7 @@
     using Services;
     using Parents.ViewModels.School;
     using Parents.ViewModels.Activities;
+    using Parents.ViewModels.Activities.Helpers.ActivitiesInstitutionType;
 
     public class LoginViewModel : INotifyPropertyChanged
     {
@@ -203,6 +204,7 @@
             mainViewModel.Childrens = new ChildrensViewModel();
             mainViewModel.Disciplines = new DisciplinesViewModel();
             mainViewModel.ActivityFamily = new ActivityFamilyViewModel();
+            mainViewModel.ActivitiesInstitutionType = new ActivitiesInstitutionTypeViewModel();
             
             await navigationService.Navigate("HomeView");
       

@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Parents.Views.Activities.Helpers.ActivitiesInstitutionType.DetailsActivitiesInstitutionTypeView"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="DETAILS ACTIVITY INSTITUTION TYPES">
+
+    <Grid ColumnSpacing="0" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <ContentView x:Name="PlaceHolder" Grid.Row="0"/>
+        <BoxView BackgroundColor="#22395C" Grid.Row="1"/>
+
+        <!--ACTIVITY FAMILY DETAILS-->
+
+        <StackLayout 
+            BindingContext="{Binding EditActivitiesInstitutionType}"
+            Padding="10">
+
+            <Label
+                Text="Activity Family description:">
+
+            </Label>
+
+            <Entry
+                IsEnabled="False"
+                Placeholder="Enter Activity Family description"
+                Text="{Binding ActivityInstitutionTypeDescription, Mode=TwoWay}">
+            </Entry>
+
+
+            <ActivityIndicator
+                IsRunning="{Binding IsRunning, Mode=TwoWay}"
+                VerticalOptions="CenterAndExpand">
+
+            </ActivityIndicator>
+
+            <Button
+                Command="{Binding SaveCommand}"
+                BackgroundColor="Navy"
+                BorderRadius="23"
+                FontAttributes="Bold"
+                HeightRequest="46"
+                IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                Text="Save"
+                TextColor="White"
+                Margin="50,0"
+                VerticalOptions="EndAndExpand"
+                IsVisible="False">
+
+            </Button>
+
+        </StackLayout>
+
+
+    </Grid>
+
+</ContentPage>

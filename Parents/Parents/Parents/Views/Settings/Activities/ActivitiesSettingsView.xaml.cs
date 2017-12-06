@@ -23,7 +23,13 @@
                 new SettingsMenu{
                     MenuName = "Activities Family",
                     MenuImageSource ="ic_settings_family",
-                    MenuDescription = "Activities family definitions"}     
+                    MenuDescription = "Activities family definitions"},
+                new SettingsMenu
+                {
+                    MenuName = "Activity Institution Type",
+                    MenuImageSource = "ic_soccer_stadium_brown",
+                    MenuDescription = "Places where activities might occur."
+                }
             };
         }
 
@@ -34,7 +40,8 @@
 
         private async void settingsMenu_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            await navigationService.Navigate("Activities Family");
+            var menuItem = e.Item as SettingsMenu;
+            await navigationService.Navigate(menuItem.MenuName);
         }
     }
 }

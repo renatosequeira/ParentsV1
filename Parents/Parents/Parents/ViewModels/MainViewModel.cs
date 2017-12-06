@@ -3,13 +3,14 @@
     using GalaSoft.MvvmLight.Command;
     using System.Windows.Input;
     using Services;
-    using Parents.ViewModels.Childrens;
-    using Parents.Models;
-    using Parents.ViewModels.School;
-    using Parents.ViewModels.Settings;
-    using Parents.ViewModels.Activities;
-    using Parents.ViewModels.Activities.Helpers;
-    using Parents.Views.Activities.Helpers;
+    using ViewModels.Childrens;
+    using Models;
+    using ViewModels.School;
+    using ViewModels.Settings;
+    using ViewModels.Activities;
+    using ViewModels.Activities.Helpers;
+    using Views.Activities.Helpers;
+    using Parents.ViewModels.Activities.Helpers.ActivitiesInstitutionType;
 
     public class MainViewModel
     {
@@ -33,6 +34,9 @@
         public ActivityFamilyViewModel ActivityFamily { get; set; }
         public NewActivityFamilyViewModel NewActvityFamily { get; set; }
         public EditActivityFamilyViewModel EditActivityFamily { get; set; }
+        public ActivitiesInstitutionTypeViewModel ActivitiesInstitutionType { get; set; }
+        public EditActivitiesInstitutionTypeViewModel EditActivitiesInstitutionType { get; set; }
+        public NewActivityInstitutionTypeViewModel NewActivityInstitutionType { get; set; }
         #endregion
 
         #region Constructors
@@ -58,9 +62,21 @@
         }
         #endregion
 
-
-
         #region Commands
+        public ICommand NewActivityInstitutionTypeCommand
+        {
+            get
+            {
+                return new RelayCommand(GoToNewActivityInstitutionTypeCommand);
+            }
+        }
+
+        async void GoToNewActivityInstitutionTypeCommand()
+        {
+            NewActivityInstitutionType = new NewActivityInstitutionTypeViewModel();
+            await navigationService.Navigate("NewActivityInstitutionType");
+        }
+
         public ICommand NewActivityFamilyCommand
         {
             get
