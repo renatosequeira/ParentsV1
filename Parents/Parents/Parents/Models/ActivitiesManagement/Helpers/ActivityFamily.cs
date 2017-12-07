@@ -14,7 +14,26 @@ namespace Parents.Models.ActivitiesManagement.Helpers
 
         public string ActivityFamilyDescription { get; set; }
 
+        public string ActivityFamilyDescriptionPrivate { get; set; }
+
         public string userId { get; set; }
+
+        public bool Privacy { get; set; }
+
+        public string FamilyItemColor
+        {
+            get
+            {
+                if (Privacy)
+                {
+                    return "Blue";
+                }
+                else
+                {
+                    return "White";
+                }
+            }
+        }
         #endregion
 
         #region Services

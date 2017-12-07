@@ -29,6 +29,12 @@
                     MenuName = "Activity Institution Type",
                     MenuImageSource = "ic_soccer_stadium_brown",
                     MenuDescription = "Places where activities might occur."
+                },
+                new SettingsMenu
+                {
+                    MenuName="Activity Peridiocity",
+                    MenuDescription = "Settings for Activities occurence",
+                    MenuImageSource = "ic_activities_peridiocity"
                 }
             };
         }

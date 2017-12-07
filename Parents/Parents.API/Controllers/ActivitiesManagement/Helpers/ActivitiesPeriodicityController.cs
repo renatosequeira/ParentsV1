@@ -1,28 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Web.Http;
-using System.Web.Http.Description;
-using Parents.Domain;
-using Parents.Domain.ActivitiesManagement.Helpers;
-
+﻿
 namespace Parents.API.Controllers.ActivitiesManagement.Helpers
 {
+    using System.Data.Entity;
+    using System.Data.Entity.Infrastructure;
+    using System.Linq;
+    using System.Net;
+    using System.Threading.Tasks;
+    using System.Web.Http;
+    using System.Web.Http.Description;
+    using Parents.Domain;
+    using Parents.Domain.ActivitiesManagement.Helpers;
+    using Parents.API.Models.ActivitiesManagement.Helpers;
+    using System.Collections.Generic;
+    using System;
+    using Microsoft.AspNet.Identity;
+
     [Authorize]
     public class ActivitiesPeriodicityController : ApiController
     {
         private DataContext db = new DataContext();
 
         // GET: api/ActivitiesPeriodicity
-        public IQueryable<ActivityPeriodicity> GetActivityPeriodicities()
+        public async Task<IHttpActionResult> GetActivityPeriodicities()
         {
-            return db.ActivityPeriodicities;
+            var activityPeridiocity = await db.ActivityPeriodicities.ToListAsync();
+
+            var activityPeridiocityResponse = new List<ActivityPeridiocityResponse>();
+
+            foreach (var activity in activityPeridiocity)
+            {
+                activityPeridiocityResponse.Add(new ActivityPeridiocityResponse
+                {
+                    ActivityPeriodicityDescription = activity.ActivityPeriodicityDescription,
+                    ActivityPeriodicityId = activity.ActivityPeriodicityId,
+                    userId = activity.userId
+                });
+            }
+
+            return Ok(activityPeridiocityResponse);
         }
 
         // GET: api/ActivitiesPeriodicity/5
@@ -54,20 +69,34 @@ namespace Parents.API.Controllers.ActivitiesManagement.Helpers
 
             db.Entry(activityPeriodicity).State = EntityState.Modified;
 
-            try
+            string currentUser = User.Identity.GetUserId();
+            string userId = activityPeriodicity.userId;
+
+            if (currentUser == userId)
             {
-                await db.SaveChangesAsync();
+                try
+                {
+                    await db.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+
+                    if (ex.InnerException != null &&
+                        ex.InnerException.InnerException != null &&
+                        ex.InnerException.InnerException.Message.Contains("Index"))
+                    {
+                        return BadRequest("A Period with same description was already found. Couldn't be edited.");
+                    }
+                    else
+                    {
+                        return BadRequest(ex.Message);
+                    }
+                } 
             }
-            catch (DbUpdateConcurrencyException)
+            else
             {
-                if (!ActivityPeriodicityExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return BadRequest("You are not the proprietary of this topic. Only owner can change it");
+
             }
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -83,7 +112,23 @@ namespace Parents.API.Controllers.ActivitiesManagement.Helpers
             }
 
             db.ActivityPeriodicities.Add(activityPeriodicity);
-            await db.SaveChangesAsync();
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null &&
+                  ex.InnerException.InnerException != null &&
+                  ex.InnerException.InnerException.Message.Contains("Index"))
+                {
+                    return BadRequest("A Period with same description was already found. Couldn't be added.");
+                }
+                else
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = activityPeriodicity.ActivityPeriodicityId }, activityPeriodicity);
         }

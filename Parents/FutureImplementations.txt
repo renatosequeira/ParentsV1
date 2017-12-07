@@ -1,0 +1,1 @@
+1- Setup cells based on private or public configuration

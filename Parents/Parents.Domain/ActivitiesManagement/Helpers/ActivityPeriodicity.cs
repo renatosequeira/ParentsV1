@@ -1,14 +1,10 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Parents.Domain.ActivitiesManagement.Helpers
+﻿namespace Parents.Domain.ActivitiesManagement.Helpers
 {
+    using Newtonsoft.Json;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public class ActivityPeriodicity
     {
         [Key]
@@ -21,5 +17,7 @@ namespace Parents.Domain.ActivitiesManagement.Helpers
 
         [JsonIgnore]
         public virtual ICollection<Activity> Activity { get; set; }
+
+        public string userId { get; set; }
     }
 }

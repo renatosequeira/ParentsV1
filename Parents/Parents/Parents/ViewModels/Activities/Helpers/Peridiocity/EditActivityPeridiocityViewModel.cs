@@ -1,12 +1,17 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using Parents.Models.ActivitiesManagement.Helpers;
 using Parents.Services;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Parents.ViewModels.Activities.Helpers
+namespace Parents.ViewModels.Activities.Helpers.Peridiocity
 {
-    public class EditActivityFamilyViewModel : INotifyPropertyChanged
+    public class EditActivityPeridiocityViewModel : INotifyPropertyChanged
     {
         #region Events
         public event PropertyChangedEventHandler PropertyChanged;
@@ -19,37 +24,19 @@ namespace Parents.ViewModels.Activities.Helpers
         #endregion
 
         #region Attributes
-        ActivityFamily activityFamily;
-        bool _privacy;
+        ActivityPeridiocity activityPeridiocity;
         bool _isRunning;
         bool _isEnabled;
         #endregion
 
         #region Properties
-        public bool Privacy
-        {
-            get
-            {
-                return _privacy;
-            }
-            set
-            {
-                if (_privacy != value)
-                {
-                    _privacy = value;
-                    PropertyChanged?.Invoke(
-                        this,
-                        new PropertyChangedEventArgs(nameof(Privacy)));
-                }
-            }
-        }
 
-        public string ActivityFamilyDescription
+        public string ActivityPeriodicityDescription
         {
             get;
             set;
         }
-        
+
         public bool IsRunning
         {
             get
@@ -89,15 +76,14 @@ namespace Parents.ViewModels.Activities.Helpers
         #endregion
 
         #region Constructors
-        public EditActivityFamilyViewModel(ActivityFamily _activityFamily)
+        public EditActivityPeridiocityViewModel(ActivityPeridiocity activityPeridiocity)
         {
-            this.activityFamily = _activityFamily;   
+            this.activityPeridiocity = activityPeridiocity;
             dialogService = new DialogService();
             apiService = new ApiService();
             navigationService = new NavigationService();
 
-            ActivityFamilyDescription = _activityFamily.ActivityFamilyDescription;
-            Privacy = _activityFamily.Privacy;
+            ActivityPeriodicityDescription = activityPeridiocity.ActivityPeriodicityDescription;
             IsEnabled = true;
         }
         #endregion
@@ -113,9 +99,9 @@ namespace Parents.ViewModels.Activities.Helpers
 
         private async void Save()
         {
-            if (string.IsNullOrEmpty(ActivityFamilyDescription))
+            if (string.IsNullOrEmpty(ActivityPeriodicityDescription))
             {
-                await dialogService.ShowMessage("Error", "Activity Family is missing.");
+                await dialogService.ShowMessage("Error", "Peridiocity description is missing!");
                 return;
             }
 
@@ -135,8 +121,7 @@ namespace Parents.ViewModels.Activities.Helpers
                 return;
             }
 
-            activityFamily.ActivityFamilyDescription = ActivityFamilyDescription;
-            activityFamily.Privacy = Privacy;
+            activityPeridiocity.ActivityPeriodicityDescription = ActivityPeriodicityDescription;
 
             var mainViewModel = MainViewModel.GetInstance();
 
@@ -144,10 +129,10 @@ namespace Parents.ViewModels.Activities.Helpers
             var response = await apiService.Put(
                 "http://api.parents.outstandservices.pt",
                 "/api",
-                "/ActivitiesFamily",
+                "/ActivitiesPeriodicity",
                 mainViewModel.Token.TokenType,
                 mainViewModel.Token.AccessToken,
-                activityFamily);
+                activityPeridiocity);
 
             //se a resposta (Token) for nulo ou estiver vazia, significa que o email ou a pass estão errados
             if (!response.IsSuccess)
@@ -158,8 +143,8 @@ namespace Parents.ViewModels.Activities.Helpers
                 return;
             }
 
-            var activityFamilyViewModel = ActivityFamilyViewModel.GetInstance();
-            activityFamilyViewModel.UpdateActivityFamily(activityFamily);
+            var activityPeridiocityViewModel = ActivityPeridiocityViewModel.GetInstance();
+            activityPeridiocityViewModel.UpdateActivityPeridiocity(activityPeridiocity);
 
             await navigationService.Back();
 

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Parents.Views.Activities.Helpers.EditActivityFamilyView"
+             x:Class="Parents.Views.Activities.Helpers.Peridiocity.ActivityPeridiocityDetailsView"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
-             Title="EDIT ACTIVITY FAMILY">
+             Title="DETAILS ACTIVITY PERIDIOCITIES">
 
     <Grid ColumnSpacing="0" RowSpacing="0">
         <Grid.RowDefinitions>
@@ -17,28 +17,19 @@
         <!--ACTIVITY FAMILY DETAILS-->
 
         <StackLayout 
-            BindingContext="{Binding EditActivityFamily}"
+            BindingContext="{Binding EditActivityPeridiocity}"
             Padding="10">
 
             <Label
-                Text="Activity Family description:">
+                Text="Activity peridiocity description:">
 
             </Label>
 
             <Entry
-                Placeholder="Enter Activity Family description"
-                Text="{Binding ActivityFamilyDescription, Mode=TwoWay}">
+                IsEnabled="False"
+                Placeholder="Enter Activity peridiocity description"
+                Text="{Binding ActivityPeriodicityDescription, Mode=TwoWay}">
             </Entry>
-
-            <Label
-                        Text="Privacy"
-                        HorizontalOptions="StartAndExpand"
-                        VerticalOptions="Center"/>
-            <Switch
-                IsToggled="{Binding Privacy}"
-                HorizontalOptions="End"
-                Toggled="Switch_Toggled"
-                x:Name="changePrivacy"/>
 
 
             <ActivityIndicator
@@ -57,7 +48,8 @@
                 Text="Save"
                 TextColor="White"
                 Margin="50,0"
-                VerticalOptions="EndAndExpand">
+                VerticalOptions="EndAndExpand"
+                IsVisible="False">
 
             </Button>
 

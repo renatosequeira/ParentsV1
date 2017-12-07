@@ -22,18 +22,23 @@ namespace Parents.API.Controllers.ActivitiesManagement.Helpers
         // GET: api/ActivitiesFamily
         public async Task<IHttpActionResult> GetActivityFamilies()
         {
-            var activityFamilies = await db.ActivityFamilies.ToListAsync();
+            var userId = User.Identity.GetUserId();
+            //var activityFamilies = await db.ActivityFamilies.ToListAsync();
+            var activityFamilies = await db.ActivityFamilies.Where(family => family.userId == userId || family.userId == null).ToListAsync();
 
             var activityFamiliesResponse = new List<ActivityFamilyResponse>();
 
             foreach (var activity in activityFamilies)
             {
-                activityFamiliesResponse.Add(new ActivityFamilyResponse
-                {
-                    ActivityFamilyId = activity.ActivityFamilyId,
-                    ActivityFamilyDescription = activity.ActivityFamilyDescription,
-                    userId = activity.userId
-                });
+
+                    activityFamiliesResponse.Add(new ActivityFamilyResponse
+                    {
+                        ActivityFamilyId = activity.ActivityFamilyId,
+                        ActivityFamilyDescription = activity.ActivityFamilyDescription,
+                        userId = activity.userId,
+                        Privacy = activity.Privacy
+                    });
+
             }
 
             return Ok(activityFamiliesResponse);
@@ -68,21 +73,46 @@ namespace Parents.API.Controllers.ActivitiesManagement.Helpers
 
             db.Entry(activityFamily).State = EntityState.Modified;
 
-            //try
-            //{
-            //    await db.SaveChangesAsync();
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!ActivityFamilyExists(id))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
+            //START - CHECK DATABASE FOR EXISTING ACTIVITY FAMILIES
+
+            var userId = User.Identity.GetUserId();
+            var enteredDescription = activityFamily.ActivityFamilyDescription;
+            var IsPrivate = activityFamily.Privacy;
+
+            //ja sabemos que é privada
+
+            //verificar se item existe na bd pública
+            //publico
+            object databasePrivacyForCurrentItem = db.ActivityFamilies.Where(
+                b => b.ActivityFamilyDescription == enteredDescription &&
+                b.Privacy == false).FirstOrDefault();
+
+            //privado
+            //object userDatabaseDescription = db.ActivityFamilies.Where(
+            //    b => b.ActivityFamilyDescription == enteredDescription &&
+            //    b.Privacy == true &&
+            //    b.userId == userId).FirstOrDefault();
+
+            if (databasePrivacyForCurrentItem != null)
+            {
+                return BadRequest("There is a activity family with this description in Database already. Registry can't be added");
+            }
+            else
+            {
+                if(IsPrivate != true)
+                {
+                    activityFamily.Privacy = IsPrivate;
+                    activityFamily.userId = null;
+                }
+                else
+                {
+                    return BadRequest("If you want to make Family public, please change it before proceeding.");
+                }
+            }
+
+            //END - CHECK DATABASE FOR EXISTING ACTIVITY FAMILIES
+
+
             try
             {
                 await db.SaveChangesAsync();
@@ -114,10 +144,57 @@ namespace Parents.API.Controllers.ActivitiesManagement.Helpers
                 return BadRequest(ModelState);
             }
 
+            bool privateActivity = activityFamily.Privacy;
             string userId = User.Identity.GetUserId();
-            activityFamily.userId = userId;
+
+            if (privateActivity)
+            {
+                activityFamily.userId = userId;
+            }
+            else
+            {
+                activityFamily.userId = null;
+            }
+
+
+            //START - CHECK DATABASE FOR EXISTING ACTIVITY FAMILIES
+
+            var enteredDescription = activityFamily.ActivityFamilyDescription;
+            var IsPrivate = activityFamily.Privacy;
+
+            //publico
+            object databasePrivacyForCurrentItem = db.ActivityFamilies.Where(
+                b => b.ActivityFamilyDescription == enteredDescription &&
+                b.Privacy == false).FirstOrDefault();
+
+            //privado
+            object userDatabaseDescription = db.ActivityFamilies.Where(
+                b => b.ActivityFamilyDescription == enteredDescription &&
+                b.Privacy == true &&
+                b.userId == userId).FirstOrDefault();
+
+            //verifica se é privado ou publico
+            if (IsPrivate)
+            {
+                if (userDatabaseDescription != null)
+                {
+                    return BadRequest("This user already has this item in Database. Registry can't be added");
+                }
+            }
+            else
+            {
+                if (databasePrivacyForCurrentItem != null) //se existir na base de dados
+                {
+
+                    return BadRequest("There is a activity family with this description in Database already. Registry can't be added");
+
+                }
+            }
+
+            //END - CHECK DATABASE FOR EXISTING ACTIVITY FAMILIES
 
             db.ActivityFamilies.Add(activityFamily);
+
             try
             {
                 await db.SaveChangesAsync();
@@ -137,6 +214,11 @@ namespace Parents.API.Controllers.ActivitiesManagement.Helpers
             }
 
             return CreatedAtRoute("DefaultApi", new { id = activityFamily.ActivityFamilyId }, activityFamily);
+        }
+
+        private void CheckDatabaseForExistingActivityFamilies()
+        {
+            throw new NotImplementedException();
         }
 
         // DELETE: api/ActivitiesFamily/5

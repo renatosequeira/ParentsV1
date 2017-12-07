@@ -1,39 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Parents.Views.Activities.Helpers.NewActivityFamilyView"  
+             x:Class="Parents.Views.Activities.Helpers.Peridiocity.NewActivityPeridiocityView"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
              Title="ADD ACTIVITY FAMILY">
 
     <ContentPage.Content>
         <StackLayout 
-            BindingContext="{Binding NewActvityFamily}"
+            BindingContext="{Binding NewActivityPeridiocity}"
             Padding="10">
 
             <RelativeLayout>
                 <Image Source="discipline_description_namer"></Image>
                 <StackLayout
-                    Orientation="Vertical">
-                    <StackLayout
                           RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, Constant=8}"
                           RelativeLayout.YConstraint="{ConstraintExpression Type=Constant, Constant=8}"
                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Constant=-16}"
                           RelativeLayout.HeightConstraint="{ConstraintExpression Type=Constant, Constant=48}"
                           Orientation="Horizontal">
-                        <Image Source="discipline_description_name" Scale="1"></Image>
-                        <Entry 
-                        Placeholder="Enter activity family description" 
+                    <Image Source="discipline_description_name" Scale="1"></Image>
+                    <Entry 
+                        Placeholder="Enter activity peridiocity description" 
                         HorizontalOptions="FillAndExpand" 
-                        Text="{Binding ActivityFamilyDescription, Mode=TwoWay}">
-                        </Entry>
-                    </StackLayout>
-                    <Label
-                        Text="Privacy"
-                        HorizontalOptions="StartAndExpand"
-                        VerticalOptions="Center"/>
-                    <Switch
-                        IsToggled="{Binding Privacy}"
-                        HorizontalOptions="End"/>
+                        Text="{Binding ActivityPeriodicityDescription, Mode=TwoWay}">
+                    </Entry>
                 </StackLayout>
             </RelativeLayout>
 

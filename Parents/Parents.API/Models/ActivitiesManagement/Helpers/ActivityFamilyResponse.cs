@@ -11,6 +11,10 @@ namespace Parents.API.Models.ActivitiesManagement.Helpers
 
         public string ActivityFamilyDescription { get; set; }
 
+        public string ActivityFamilyDescriptionPrivate { get; set; }
+
         public string userId { get; set; }
+
+        public bool Privacy { get; set; }
     }
 }

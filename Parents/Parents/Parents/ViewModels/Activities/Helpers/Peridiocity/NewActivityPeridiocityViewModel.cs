@@ -9,9 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Parents.ViewModels.Activities.Helpers
+namespace Parents.ViewModels.Activities.Helpers.Peridiocity
 {
-    public class NewActivityFamilyViewModel : INotifyPropertyChanged
+    public class NewActivityPeridiocityViewModel : INotifyPropertyChanged
     {
         #region Events
         public event PropertyChangedEventHandler PropertyChanged;
@@ -24,49 +24,28 @@ namespace Parents.ViewModels.Activities.Helpers
         #endregion
 
         #region Attributes
-        string _activityFamilyDescription;
-        bool _privacy;
+        string _activityPeriodicityDescription;
         bool _isRunning;
         bool _isEnabled;
         #endregion
 
         #region Properties
-        public bool Privacy
+        public string ActivityPeriodicityDescription
         {
             get
             {
-                return _privacy;
+                return _activityPeriodicityDescription;
             }
             set
             {
-                if (_privacy != value)
+                if (_activityPeriodicityDescription != value)
                 {
-                    _privacy = value;
+                    _activityPeriodicityDescription = value;
                     PropertyChanged?.Invoke(
                         this,
-                        new PropertyChangedEventArgs(nameof(Privacy)));
+                        new PropertyChangedEventArgs(nameof(ActivityPeriodicityDescription)));
                 }
             }
-        }
-
-        public string ActivityFamilyDescription
-        {
-            
-            get
-            {
-                return _activityFamilyDescription;
-            }
-            set
-            {
-                if (_activityFamilyDescription != value)
-                {
-                    _activityFamilyDescription = value;
-                    PropertyChanged?.Invoke(
-                        this,
-                        new PropertyChangedEventArgs(nameof(ActivityFamilyDescription)));
-                }
-            }
-
         }
 
         public bool IsRunning
@@ -107,15 +86,14 @@ namespace Parents.ViewModels.Activities.Helpers
         #endregion
 
         #region Constructors
-        public NewActivityFamilyViewModel()
+        public NewActivityPeridiocityViewModel()
         {
             dialogService = new DialogService();
             apiService = new ApiService();
             navigationService = new NavigationService();
 
             IsEnabled = true; //bool are disabled by default. This will enable buttons
-            Privacy = false;
-   
+
         }
         #endregion
 
@@ -130,9 +108,9 @@ namespace Parents.ViewModels.Activities.Helpers
 
         async void Save()
         {
-            if (string.IsNullOrEmpty(ActivityFamilyDescription))
+            if (string.IsNullOrEmpty(ActivityPeriodicityDescription))
             {
-                await dialogService.ShowMessage("Error", "Please insert Activity Family description");
+                await dialogService.ShowMessage("Error", "Please insert Activity peridiocity description");
                 return;
             }
 
@@ -151,44 +129,40 @@ namespace Parents.ViewModels.Activities.Helpers
                 IsEnabled = true;
                 return;
             }
-           
-                var activityFamily = new ActivityFamily
-                {
-                    ActivityFamilyDescription = ActivityFamilyDescription,
-                    Privacy = Privacy
-                };
 
-                var mainViewModel = MainViewModel.GetInstance();
+            var activityPeridiocity = new ActivityPeridiocity
+            {
+                ActivityPeriodicityDescription = ActivityPeriodicityDescription
+            };
 
-                //se existir ligação à internet guarda token na variavel response
-                var response = await apiService.Post(
-                    "http://api.parents.outstandservices.pt",
-                    "/api",
-                    "/ActivitiesFamily",
-                    mainViewModel.Token.TokenType,
-                    mainViewModel.Token.AccessToken,
-                    activityFamily); 
-         
+            var mainViewModel = MainViewModel.GetInstance();
 
-                //se a resposta (Token) for nulo ou estiver vazia, significa que o email ou a pass estão errados
-                if (!response.IsSuccess)
-                {
-                    IsRunning = false;
-                    IsEnabled = true;
-                    await dialogService.ShowMessage("Error", response.Message);
-                    return;
-                }
+            //se existir ligação à internet guarda token na variavel response
+            var response = await apiService.Post(
+                "http://api.parents.outstandservices.pt",
+                "/api",
+                "/ActivitiesPeriodicity",
+                mainViewModel.Token.TokenType,
+                mainViewModel.Token.AccessToken,
+                activityPeridiocity);
 
-                activityFamily = (ActivityFamily)response.Result;
-                var activityFamilyViwModel = ActivityFamilyViewModel.GetInstance();
-                activityFamilyViwModel.Add(activityFamily);
-
-                await navigationService.Back();
-
+            //se a resposta (Token) for nulo ou estiver vazia, significa que o email ou a pass estão errados
+            if (!response.IsSuccess)
+            {
                 IsRunning = false;
                 IsEnabled = true;
-            
-          
+                await dialogService.ShowMessage("Error", response.Message);
+                return;
+            }
+
+            activityPeridiocity = (ActivityPeridiocity)response.Result;
+            var activityPeridiocityViewModel = ActivityPeridiocityViewModel.GetInstance();
+            activityPeridiocityViewModel.Add(activityPeridiocity);
+
+            await navigationService.Back();
+
+            IsRunning = false;
+            IsEnabled = true;
         }
         #endregion
     }
