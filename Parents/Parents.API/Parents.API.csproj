@@ -282,6 +282,7 @@
     <Compile Include="Models\ActivitiesManagement\Helpers\ActivityFamilyResponse.cs" />
     <Compile Include="Models\ActivitiesManagement\Helpers\ActivityInstitutionTypeResponse.cs" />
     <Compile Include="Models\ActivitiesManagement\Helpers\ActivityPeridiocityResponse.cs" />
+    <Compile Include="Models\ActivitiesManagement\Helpers\ActivityTypeResponse.cs" />
     <Compile Include="Models\AppCore\ChildrenResponse.cs" />
     <Compile Include="Models\AppCore\ParentResponse.cs" />
     <Compile Include="Models\IdentityModels.cs" />

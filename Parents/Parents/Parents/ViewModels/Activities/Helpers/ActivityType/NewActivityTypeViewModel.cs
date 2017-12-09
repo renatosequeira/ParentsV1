@@ -1,12 +1,12 @@
-﻿using GalaSoft.MvvmLight.Command;
-using Parents.Models.ActivitiesManagement.Helpers;
-using Parents.Services;
-using System.ComponentModel;
-using System.Windows.Input;
-
-namespace Parents.ViewModels.Activities.Helpers
+﻿namespace Parents.ViewModels.Activities.Helpers.ActivityType
 {
-    public class NewActivityFamilyViewModel : INotifyPropertyChanged
+    using GalaSoft.MvvmLight.Command;
+    using Models.ActivitiesManagement.Helpers;
+    using Services;
+    using System.ComponentModel;
+    using System.Windows.Input;
+
+    public class NewActivityTypeViewModel : INotifyPropertyChanged
     {
         #region Events
         public event PropertyChangedEventHandler PropertyChanged;
@@ -19,46 +19,46 @@ namespace Parents.ViewModels.Activities.Helpers
         #endregion
 
         #region Attributes
-        string _activityFamilyDescription;
-        bool _privacy;
+        string _activityTypeDescription;
+        bool _activityTypePrivacy;
         bool _isRunning;
         bool _isEnabled;
         #endregion
 
         #region Properties
-        public bool Privacy
+        public bool ActivityTypePrivacy
         {
             get
             {
-                return _privacy;
+                return _activityTypePrivacy;
             }
             set
             {
-                if (_privacy != value)
+                if (_activityTypePrivacy != value)
                 {
-                    _privacy = value;
+                    _activityTypePrivacy = value;
                     PropertyChanged?.Invoke(
                         this,
-                        new PropertyChangedEventArgs(nameof(Privacy)));
+                        new PropertyChangedEventArgs(nameof(ActivityTypePrivacy)));
                 }
             }
         }
 
-        public string ActivityFamilyDescription
+        public string ActivityTypeDescription
         {
-            
+
             get
             {
-                return _activityFamilyDescription;
+                return _activityTypeDescription;
             }
             set
             {
-                if (_activityFamilyDescription != value)
+                if (_activityTypeDescription != value)
                 {
-                    _activityFamilyDescription = value;
+                    _activityTypeDescription = value;
                     PropertyChanged?.Invoke(
                         this,
-                        new PropertyChangedEventArgs(nameof(ActivityFamilyDescription)));
+                        new PropertyChangedEventArgs(nameof(ActivityTypeDescription)));
                 }
             }
 
@@ -102,15 +102,15 @@ namespace Parents.ViewModels.Activities.Helpers
         #endregion
 
         #region Constructors
-        public NewActivityFamilyViewModel()
+        public NewActivityTypeViewModel()
         {
             dialogService = new DialogService();
             apiService = new ApiService();
             navigationService = new NavigationService();
 
             IsEnabled = true; //bool are disabled by default. This will enable buttons
-            Privacy = false;
-   
+            ActivityTypePrivacy = false;
+
         }
         #endregion
 
@@ -125,9 +125,9 @@ namespace Parents.ViewModels.Activities.Helpers
 
         async void Save()
         {
-            if (string.IsNullOrEmpty(ActivityFamilyDescription))
+            if (string.IsNullOrEmpty(ActivityTypeDescription))
             {
-                await dialogService.ShowMessage("Error", "Please insert Activity Family description");
+                await dialogService.ShowMessage("Error", "Please insert Activity Type description");
                 return;
             }
 
@@ -146,44 +146,44 @@ namespace Parents.ViewModels.Activities.Helpers
                 IsEnabled = true;
                 return;
             }
-           
-                var activityFamily = new ActivityFamily
-                {
-                    ActivityFamilyDescription = ActivityFamilyDescription,
-                    Privacy = Privacy
-                };
 
-                var mainViewModel = MainViewModel.GetInstance();
+            var activityType = new ActivityType
+            {
+                ActivityTypeDescription = ActivityTypeDescription,
+                ActivityTypePrivacy = ActivityTypePrivacy
+            };
 
-                //se existir ligação à internet guarda token na variavel response
-                var response = await apiService.Post(
-                    "http://api.parents.outstandservices.pt",
-                    "/api",
-                    "/ActivitiesFamily",
-                    mainViewModel.Token.TokenType,
-                    mainViewModel.Token.AccessToken,
-                    activityFamily); 
-         
+            var mainViewModel = MainViewModel.GetInstance();
 
-                //se a resposta (Token) for nulo ou estiver vazia, significa que o email ou a pass estão errados
-                if (!response.IsSuccess)
-                {
-                    IsRunning = false;
-                    IsEnabled = true;
-                    await dialogService.ShowMessage("Error", response.Message);
-                    return;
-                }
+            //se existir ligação à internet guarda token na variavel response
+            var response = await apiService.Post(
+                "http://api.parents.outstandservices.pt",
+                "/api",
+                "/ActivitiesTypes",
+                mainViewModel.Token.TokenType,
+                mainViewModel.Token.AccessToken,
+                activityType);
 
-                activityFamily = (ActivityFamily)response.Result;
-                var activityFamilyViwModel = ActivityFamilyViewModel.GetInstance();
-                activityFamilyViwModel.Add(activityFamily);
 
-                await navigationService.Back();
-
+            //se a resposta (Token) for nulo ou estiver vazia, significa que o email ou a pass estão errados
+            if (!response.IsSuccess)
+            {
                 IsRunning = false;
                 IsEnabled = true;
-            
-          
+                await dialogService.ShowMessage("Error", response.Message);
+                return;
+            }
+
+            activityType = (ActivityType)response.Result;
+            var activityTypeViewModel = ActivityTypeViewModel.GetInstance();
+            activityTypeViewModel.Add(activityType);
+
+            await navigationService.Back();
+
+            IsRunning = false;
+            IsEnabled = true;
+
+
         }
         #endregion
     }

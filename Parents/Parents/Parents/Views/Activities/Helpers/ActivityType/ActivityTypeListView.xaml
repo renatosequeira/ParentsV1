@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Parents.Views.Activities.Helpers.ActivityType.ActivityTypeListView"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="ACTIVITY TYPES LIST">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+            Command="{Binding NewActivityTypeCommand}"
+            Icon="ic_add_white"/>
+    </ContentPage.ToolbarItems>
+
+    <StackLayout
+        BindingContext="{Binding ActivityType}"
+        Padding="5"
+        Spacing="8">
+
+        <ListView
+            IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+            ItemsSource="{Binding ActivityTypesList}"
+            ItemSelected="ActivityInstitutionTypeList_ItemSelected"
+            IsPullToRefreshEnabled="True"
+            RefreshCommand="{Binding RefreshCommand}"
+            HasUnevenRows="True"
+            x:Name="ActivityTypeList">
+            <ListView.ItemTemplate>
+
+                <DataTemplate>
+                    <ViewCell>
+
+                        <ViewCell.ContextActions>
+                            <MenuItem
+                                Command="{Binding EditCommand}"
+                                Icon="ic_edit_white_border"
+                                Text="Edit"/>
+                            <MenuItem
+                                Command="{Binding DeleteCommand}"
+                                IsDestructive="True"
+                                Icon="ic_delete_red"
+                                Text="Delete"/>
+                        </ViewCell.ContextActions>
+
+                        <Grid
+                            VerticalOptions="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+
+                            <Label 
+                                    Grid.Column="1" 
+                                    HorizontalOptions="FillAndExpand" 
+                                    FontSize="Medium" 
+                                    Text="{Binding ActivityTypeDescription}" 
+                                    VerticalOptions="Center">
+                            </Label>
+
+                            <Image
+                                Grid.Column="2"
+                                HorizontalOptions="End" 
+                                Source="ic_eye_brown"
+                                VerticalOptions="Center"
+                                HeightRequest="40">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectActivityInstitutionType}"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+                        </Grid>
+                    </ViewCell>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+
+</ContentPage>

@@ -28,28 +28,24 @@ namespace Parents.Views.Activities.Helpers
             dialogService = new DialogService();
             currentState = changePrivacy.IsToggled;
         }
-    
+
         #endregion
 
-        async void Switch_Toggled(object sender, ToggledEventArgs e)
+      
+
+        private async void changePrivacy_Toggled(object sender, ToggledEventArgs e)
         {
-            //var response = await dialogService.ShowConfirm("Change privacy", "Are you sure to change turn this Family State?");
+           //bool selectedValue = e.Value;
 
-            //if (currentState)
-            //{
-            //    if (response)
-            //    {
-            //        changePrivacy.IsToggled = true;
-            //    }
-            //    else
-            //    {
-            //        changePrivacy.IsToggled = false;
-                   
-            //    }
-
-
-            //}
-
+           // if (currentState != selectedValue)
+           // {
+           //     changePrivacy.IsToggled = await dialogService.ShowConfirm("Change privacy", "Are you sure to change Family privacy?");
+           // }
+           // else
+           // {
+           //     changePrivacy.IsToggled = await dialogService.ShowConfirm("Change privacy", "Are you sure to change Family privacy again?");
+           // }
+           // return;
         }
 
     }

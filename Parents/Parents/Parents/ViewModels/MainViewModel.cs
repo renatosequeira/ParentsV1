@@ -13,6 +13,7 @@
     using Parents.ViewModels.Activities.Helpers.ActivitiesInstitutionType;
     using Parents.ViewModels.Activities.Helpers.Peridiocity;
     using System;
+    using Parents.ViewModels.Activities.Helpers.ActivityType;
 
     public class MainViewModel
     {
@@ -41,6 +42,9 @@
         public ActivityPeridiocityViewModel ActivityPeridiocity { get; set; }
         public EditActivityPeridiocityViewModel EditActivityPeridiocity { get; set; }
         public NewActivityPeridiocityViewModel NewActivityPeridiocity { get; set; }
+        public ActivityTypeViewModel ActivityType { get; set; }
+        public NewActivityTypeViewModel NewActivityType { get; set; }
+        public EditActivityTypeViewModel EditActivityType { get; set; }
         #endregion
 
         #region Constructors
@@ -67,7 +71,20 @@
         #endregion
 
         #region Commands
-     
+        public ICommand NewActivityTypeCommand
+        {
+            get
+            {
+                return new RelayCommand(GoToNewActivityTypeCommand);
+            }
+        }
+
+        async void GoToNewActivityTypeCommand()
+        {
+            NewActivityType = new NewActivityTypeViewModel();
+            await navigationService.Navigate("NewActicityType");
+        }
+
 
         public ICommand NewActivityPericiocityCommand
         {

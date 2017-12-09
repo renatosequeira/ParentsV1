@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Parents.Views.Activities.Helpers.EditActivityFamilyView"
+             x:Class="Parents.Views.Activities.Helpers.ActivityType.EditActivityTypeView"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
              Title="EDIT ACTIVITY FAMILY">
 
@@ -17,33 +17,34 @@
         <!--ACTIVITY FAMILY DETAILS-->
 
         <StackLayout 
-            BindingContext="{Binding EditActivityFamily}"
+            BindingContext="{Binding EditActivityType}"
             Padding="10">
 
             <Label
-                Text="Activity Family description:">
+                Text="Activity type description:">
 
             </Label>
 
             <Entry
                 Placeholder="Enter Activity Family description"
-                Text="{Binding ActivityFamilyDescription, Mode=TwoWay}">
+                Text="{Binding ActivityTypeDescription, Mode=TwoWay}">
             </Entry>
 
             <StackLayout
                 Orientation="Horizontal">
                 <Label
-                Text="Privacy"
+                Text="Activity Type"
                 HorizontalOptions="StartAndExpand"
-                VerticalOptions="Center"/>
+                VerticalOptions="Center"
+                x:Name="PrivacyName"/>
+                
                 <Switch
-                IsToggled="{Binding Privacy, Mode=TwoWay}"
+                IsToggled="{Binding ActivityTypePrivacy, Mode=TwoWay}"
                 HorizontalOptions="End"
                 x:Name="changePrivacy"
                 Toggled="changePrivacy_Toggled"/>
             </StackLayout>
-            
-
+          
 
             <ActivityIndicator
                 IsRunning="{Binding IsRunning, Mode=TwoWay}"

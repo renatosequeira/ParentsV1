@@ -42,6 +42,7 @@
     <Compile Include="Models\ActivitiesManagement\Helpers\ActivityFamily.cs" />
     <Compile Include="Models\ActivitiesManagement\Helpers\ActivityInstitutionType.cs" />
     <Compile Include="Models\ActivitiesManagement\Helpers\ActivityPeridiocity.cs" />
+    <Compile Include="Models\ActivitiesManagement\Helpers\ActivityType.cs" />
     <Compile Include="Models\Children.cs" />
     <Compile Include="Models\Discipline.cs" />
     <Compile Include="Models\Parent.cs" />
@@ -57,6 +58,9 @@
     <Compile Include="ViewModels\Activities\Helpers\ActivitiesInstitutionType\EditActivitiesInstitutionTypeViewModel.cs" />
     <Compile Include="ViewModels\Activities\Helpers\ActivitiesInstitutionType\NewActivityInstitutionTypeViewModel.cs" />
     <Compile Include="ViewModels\Activities\Helpers\ActivityFamilyViewModel.cs" />
+    <Compile Include="ViewModels\Activities\Helpers\ActivityType\ActivityTypeViewModel.cs" />
+    <Compile Include="ViewModels\Activities\Helpers\ActivityType\EditActivityTypeViewModel.cs" />
+    <Compile Include="ViewModels\Activities\Helpers\ActivityType\NewActivityTypeViewModel.cs" />
     <Compile Include="ViewModels\Activities\Helpers\EditActivityFamilyViewModel.cs" />
     <Compile Include="ViewModels\Activities\Helpers\NewActivityFamilyViewModel.cs" />
     <Compile Include="ViewModels\Activities\Helpers\Peridiocity\ActivityPeridiocityViewModel.cs" />
@@ -101,6 +105,18 @@
     </Compile>
     <Compile Include="Views\Activities\Helpers\ActivitiesInstitutionType\NewActivitiesInstitutionTypeView.xaml.cs">
       <DependentUpon>NewActivitiesInstitutionTypeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Activities\Helpers\ActivityType\ActivityTypeDetails.xaml.cs">
+      <DependentUpon>ActivityTypeDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Activities\Helpers\ActivityType\ActivityTypeListView.xaml.cs">
+      <DependentUpon>ActivityTypeListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Activities\Helpers\ActivityType\EditActivityTypeView.xaml.cs">
+      <DependentUpon>EditActivityTypeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Activities\Helpers\ActivityType\NewActivityTypeView.xaml.cs">
+      <DependentUpon>NewActivityTypeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Activities\Helpers\DetailsActivityFamilyView.xaml.cs">
       <DependentUpon>DetailsActivityFamilyView.xaml</DependentUpon>
@@ -482,6 +498,30 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Activities\Helpers\Peridiocity\EditActivityPeridiocityView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Activities\Helpers\ActivityType\ActivityTypeListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Activities\Helpers\ActivityType\NewActivityTypeView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Activities\Helpers\ActivityType\EditActivityTypeView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Activities\Helpers\ActivityType\ActivityTypeDetails.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

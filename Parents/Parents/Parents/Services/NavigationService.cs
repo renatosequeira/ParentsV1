@@ -11,6 +11,7 @@
     using Parents.Views.Activities.Helpers;
     using Parents.Views.Activities.Helpers.ActivitiesInstitutionType;
     using Parents.Views.Activities.Helpers.Peridiocity;
+    using Parents.Views.Activities.Helpers.ActivityType;
 
     public class NavigationService
     {
@@ -99,6 +100,15 @@
                     break;
                 case "Activity Peridiocity":
                     await Application.Current.MainPage.Navigation.PushAsync(new ActivityPeridiocityListView());
+                    break;
+                case "Activity Type":
+                    await Application.Current.MainPage.Navigation.PushAsync(new ActivityTypeListView());
+                    break;
+                case "EditActivityType":
+                    await Application.Current.MainPage.Navigation.PushAsync(new EditActivityTypeView());
+                    break;
+                case "NewActicityType":
+                    await Application.Current.MainPage.Navigation.PushAsync(new NewActivityTypeView());
                     break;
             }
 

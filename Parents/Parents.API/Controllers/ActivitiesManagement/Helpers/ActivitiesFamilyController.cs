@@ -88,25 +88,48 @@ namespace Parents.API.Controllers.ActivitiesManagement.Helpers
                 b.Privacy == false).FirstOrDefault();
 
             //privado
-            //object userDatabaseDescription = db.ActivityFamilies.Where(
-            //    b => b.ActivityFamilyDescription == enteredDescription &&
-            //    b.Privacy == true &&
-            //    b.userId == userId).FirstOrDefault();
+            object userDatabaseDescription = db.ActivityFamilies.Where(
+                b => b.ActivityFamilyDescription == enteredDescription &&
+                b.Privacy == true &&
+                b.userId == userId).FirstOrDefault();
 
-            if (databasePrivacyForCurrentItem != null)
+            if (!IsPrivate)
             {
-                return BadRequest("There is a activity family with this description in Database already. Registry can't be added");
-            }
-            else
-            {
-                if(IsPrivate != true)
+                if (databasePrivacyForCurrentItem != null)
                 {
-                    activityFamily.Privacy = IsPrivate;
-                    activityFamily.userId = null;
+                    return BadRequest("There is a activity family with this description in Database already. Registry can't be added");
                 }
                 else
                 {
-                    return BadRequest("If you want to make Family public, please change it before proceeding.");
+                    if (IsPrivate != true)
+                    {
+                        activityFamily.Privacy = IsPrivate;
+                        activityFamily.userId = null;
+                    }
+                    else
+                    {
+                        return BadRequest("If you want to make Family public, please change it before proceeding.");
+                    }
+                }
+
+            }
+            else
+            {
+                if (userDatabaseDescription != null)
+                {
+                    return BadRequest("There is a activity family for this user already. Registry can't be added");
+                }
+                else
+                {
+                    if (IsPrivate == true)
+                    {
+                        activityFamily.Privacy = IsPrivate;
+                        activityFamily.userId = userId;
+                    }
+                    else
+                    {
+                        return BadRequest("If you want to make Family private, please change it before proceeding.");
+                    }
                 }
             }
 

@@ -1,13 +1,12 @@
-﻿namespace Parents.ViewModels.Activities.Helpers.ActivitiesInstitutionType
+﻿namespace Parents.ViewModels.Activities.Helpers.ActivityType
 {
-    using GalaSoft.MvvmLight.Command;
-    using Parents.Models.ActivitiesManagement.Helpers;
-    using Parents.Services;
+    using Services;
     using System.ComponentModel;
+    using Models.ActivitiesManagement.Helpers;
     using System.Windows.Input;
-    using System;
+    using GalaSoft.MvvmLight.Command;
 
-    public class EditActivitiesInstitutionTypeViewModel : INotifyPropertyChanged
+    public class EditActivityTypeViewModel : INotifyPropertyChanged
     {
         #region Events
         public event PropertyChangedEventHandler PropertyChanged;
@@ -20,14 +19,32 @@
         #endregion
 
         #region Attributes
-        ActivityInstitutionType activityInstitutionType;
+        ActivityType activityType;
+        bool _activityTypePrivacy;
         bool _isRunning;
         bool _isEnabled;
         #endregion
 
         #region Properties
+        public bool ActivityTypePrivacy
+        {
+            get
+            {
+                return _activityTypePrivacy;
+            }
+            set
+            {
+                if (_activityTypePrivacy != value)
+                {
+                    _activityTypePrivacy = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(ActivityTypePrivacy)));
+                }
+            }
+        }
 
-        public string ActivityInstitutionTypeDescription
+        public string ActivityTypeDescription
         {
             get;
             set;
@@ -72,32 +89,20 @@
         #endregion
 
         #region Constructors
-        public EditActivitiesInstitutionTypeViewModel(ActivityInstitutionType activityInstitutionType)
+        public EditActivityTypeViewModel(ActivityType _activityType)
         {
-            this.activityInstitutionType = activityInstitutionType;
+            this.activityType = _activityType;
             dialogService = new DialogService();
             apiService = new ApiService();
             navigationService = new NavigationService();
 
-            ActivityInstitutionTypeDescription = activityInstitutionType.ActivityInstitutionTypeDescription;
+            ActivityTypeDescription = _activityType.ActivityTypeDescription;
+            ActivityTypePrivacy = _activityType.ActivityTypePrivacy;
             IsEnabled = true;
         }
         #endregion
 
         #region Commands
-        public ICommand SwitchPrivacyCommand
-        {
-            get
-            {
-                return new RelayCommand(SwitchPrivacy);
-            }
-        }
-
-        async void SwitchPrivacy()
-        {
-            await dialogService.ShowMessage("teste", "teste");
-        }
-
         public ICommand SaveCommand
         {
             get
@@ -108,9 +113,9 @@
 
         private async void Save()
         {
-            if (string.IsNullOrEmpty(ActivityInstitutionTypeDescription))
+            if (string.IsNullOrEmpty(ActivityTypeDescription))
             {
-                await dialogService.ShowMessage("Error", "Institution type description is missing!");
+                await dialogService.ShowMessage("Error", "Activity Type is missing.");
                 return;
             }
 
@@ -130,7 +135,8 @@
                 return;
             }
 
-            activityInstitutionType.ActivityInstitutionTypeDescription = ActivityInstitutionTypeDescription;
+            activityType.ActivityTypeDescription = ActivityTypeDescription;
+            activityType.ActivityTypePrivacy = ActivityTypePrivacy;
 
             var mainViewModel = MainViewModel.GetInstance();
 
@@ -138,10 +144,10 @@
             var response = await apiService.Put(
                 "http://api.parents.outstandservices.pt",
                 "/api",
-                "/ActivitiesInstitutionTypes",
+                "/ActivitiesTypes",
                 mainViewModel.Token.TokenType,
                 mainViewModel.Token.AccessToken,
-                activityInstitutionType);
+                activityType);
 
             //se a resposta (Token) for nulo ou estiver vazia, significa que o email ou a pass estão errados
             if (!response.IsSuccess)
@@ -152,8 +158,8 @@
                 return;
             }
 
-            var activityInstitutionTypeViewModel = ActivitiesInstitutionTypeViewModel.GetInstance();
-            activityInstitutionTypeViewModel.UpdateActivityInstitutionType(activityInstitutionType);
+            var activityTypeViewModel = ActivityTypeViewModel.GetInstance();
+            activityTypeViewModel.UpdateActivityType(activityType);
 
             await navigationService.Back();
 

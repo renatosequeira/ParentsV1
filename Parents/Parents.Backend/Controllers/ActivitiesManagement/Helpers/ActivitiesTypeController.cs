@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using Parents.Domain;
 using Parents.Domain.ActivitiesManagement.Helpers;
 using Parents.Backend.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Parents.Backend.Controllers.ActivitiesManagement.Helpers
 {
@@ -54,6 +55,9 @@ namespace Parents.Backend.Controllers.ActivitiesManagement.Helpers
         {
             if (ModelState.IsValid)
             {
+                string userId = User.Identity.GetUserId();
+                activityType.userId = userId;
+
                 db.ActivityTypes.Add(activityType);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

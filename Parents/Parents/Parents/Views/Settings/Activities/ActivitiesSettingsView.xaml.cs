@@ -35,6 +35,12 @@
                     MenuName="Activity Peridiocity",
                     MenuDescription = "Settings for Activities occurence",
                     MenuImageSource = "ic_activities_peridiocity"
+                },
+                new SettingsMenu
+                {
+                    MenuName="Activity Type",
+                    MenuDescription = "Study trips, Workgroups, Parents Meetings",
+                    MenuImageSource = "ic_study_brown"
                 }
             };
         }
