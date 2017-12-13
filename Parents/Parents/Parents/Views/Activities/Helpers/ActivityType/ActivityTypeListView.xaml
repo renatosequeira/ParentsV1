@@ -49,16 +49,33 @@
                             </Grid.ColumnDefinitions>
 
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
-                            <Label 
-                                    Grid.Column="1" 
-                                    HorizontalOptions="FillAndExpand" 
-                                    FontSize="Medium" 
-                                    Text="{Binding ActivityTypeDescription}" 
-                                    VerticalOptions="Center">
-                            </Label>
+                                <StackLayout
+                                    Orientation="Vertical"
+                                    HorizontalOptions="StartAndExpand">
+                                    <Label 
+                                        Grid.Column="1" 
+                                        Grid.Row="0"
+                                        HorizontalOptions="FillAndExpand" 
+                                        FontSize="Medium"
+                                        FontAttributes="Bold"
+                                        Text="{Binding ActivityTypeDescription}" 
+                                        VerticalOptions="Center">
+                                    </Label>
+
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        FontSize="Small"
+                                        Text="{Binding TypeAlternateDescription}">
+                                        
+                                    </Label>
+                                </StackLayout>
+                              
+
+
 
                             <Image
                                 Grid.Column="2"

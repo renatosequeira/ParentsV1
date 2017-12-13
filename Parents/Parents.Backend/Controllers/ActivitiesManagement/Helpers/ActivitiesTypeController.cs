@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Parents.Domain;
 using Parents.Domain.ActivitiesManagement.Helpers;
 using Parents.Backend.Models;
 using Microsoft.AspNet.Identity;

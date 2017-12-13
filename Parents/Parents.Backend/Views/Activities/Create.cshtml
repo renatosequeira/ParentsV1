@@ -26,6 +26,24 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.ChildrenId, "Children", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ChildrenId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ChildrenId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ActivityPrivacy, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.ActivityPrivacy)
+                    @Html.ValidationMessageFor(model => model.ActivityPrivacy, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.ActivityFamilyId, "ActivityFamilyId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("ActivityFamilyId", null, htmlAttributes: new { @class = "form-control" })

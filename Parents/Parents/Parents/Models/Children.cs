@@ -3,9 +3,14 @@
     using GalaSoft.MvvmLight.Command;
     using Parents.Services;
     using Parents.ViewModels;
+    using Parents.ViewModels.Activities;
     using Parents.ViewModels.Childrens;
+    using Parents.Views.Activities;
     using System;
+    using System.Collections.Generic;
     using System.Windows.Input;
+    using Xamarin.Forms;
+    using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
     public class Children
     {
@@ -30,6 +35,8 @@
         public string BloodInformationDescription { get; set; }
         public string ChildrenImage { get; set; }
         public string ChildrenSex { get; set; }
+
+        public List<Activity> Activities { get; set; }
 
         public string ChildrenImageFullPath
         {
@@ -105,12 +112,18 @@
             }
         }
 
+
+
+
         async void SelectChildren()
         {
+            Application.Current.Properties["childrenIdentityCard"] = ChildrenIdentityCard;
             var mainViewModel = MainViewModel.GetInstance();
-            mainViewModel.Childrens = new ChildrensViewModel();
+            mainViewModel.Activities = new ActivitiesViewModel();
+            //mainViewModel.Children = this;
+            mainViewModel.EditChildren = new EditChildrenViewModel(this);
             await navigationService.Navigate("ChildrenDetails");
-            
+
         }
         #endregion
 

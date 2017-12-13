@@ -9,6 +9,7 @@
     using System.Windows.Input;
     using GalaSoft.MvvmLight.Command;
     using System.Threading.Tasks;
+    using Xamarin.Forms;
 
     public class ChildrensViewModel : INotifyPropertyChanged
     {

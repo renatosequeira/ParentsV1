@@ -52,5 +52,28 @@
         public string ActivityAddress { get; set; }
 
         public string Image { get; set; }
+
+        public string userId { get; set; }
+
+        public bool ActivityPrivacy { get; set; }
+
+        public string relatedChildrenIdentitiCard { get; set; }
+
+        public int ChildrenId { get; set; }
+
+        public string ChildrenActivityType { get; set; }
+
+        public string ChildrenActivityFamily{ get; set; }
+
+        [JsonIgnore]
+        public virtual Children Children { get; set; }
+
+        #region Invitation
+        public string invitedUserId { get; set; }
+        public bool invitationAcknowledged { get; set; }
+        #endregion
+
+        public bool Status { get; set; }
+
     }
 }

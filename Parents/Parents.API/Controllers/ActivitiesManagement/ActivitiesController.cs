@@ -7,8 +7,13 @@
     using System.Threading.Tasks;
     using System.Web.Http;
     using System.Web.Http.Description;
-    using Parents.Domain;
-    using Parents.Domain.ActivitiesManagement;
+    using Domain;
+    using Domain.ActivitiesManagement;
+    using Microsoft.AspNet.Identity;
+    using System.Collections.Generic;
+    using API.Models.ActivitiesManagement;
+    using System;
+    using System.Diagnostics;
 
     [Authorize]
     public class ActivitiesController : ApiController
@@ -16,16 +21,54 @@
         private DataContext db = new DataContext();
 
         // GET: api/Activities
-        public IQueryable<Activity> GetActivities()
+        public async Task<IHttpActionResult> GetActivities()
         {
-            return db.Activities;
+            var userId = User.Identity.GetUserId();
+            
+            //var activities = await db.Activities.Where((act => act.userId == userId && act.relatedChildrenIdentitiCard == "10788194" || act.invitedUserId == userId && act.relatedChildrenIdentitiCard == "10788194")).ToListAsync();
+            var activities = await db.Activities.Where(act => act.userId == userId || act.invitedUserId == userId).ToListAsync();
+
+            var activityResponse = new List<ActivityResponse>();
+
+            foreach (var activity in activities)
+            {
+
+                activityResponse.Add(new ActivityResponse
+                {
+                    ActivityAddress = activity.ActivityAddress,
+                    ActivityDateEnd = activity.ActivityDateEnd,
+                    ActivityDateStart = activity.ActivityDateStart,
+                    ActivityDescription = activity.ActivityDescription,
+                    ActivityId = activity.ActivityId,
+                    ActivityPrivacy = activity.ActivityPrivacy,
+                    ActivityRemarks = activity.ActivityRemarks,
+                    Image = activity.Image,
+                    invitationAcknowledged = activity.invitationAcknowledged,
+                    invitedUserId = activity.invitedUserId,
+                    relatedChildrenIdentitiCard = activity.relatedChildrenIdentitiCard,
+                    userId = activity.userId,
+                    ChildrenId = activity.ChildrenId,
+                    Status = activity.Status,
+                    ChildrenActivityFamily = activity.ChildrenActivityFamily,
+                    ChildrenActivityType = activity.ChildrenActivityType
+                });
+
+            }
+
+            return Ok(activityResponse);
         }
 
+        // GET: api/Products
+        //public IQueryable<Domain.ActivitiesManagement.Activity> GetActivities()
+        //{
+        //    return db.Activities;
+        //}
+
         // GET: api/Activities/5
-        [ResponseType(typeof(Activity))]
+        [ResponseType(typeof(Domain.ActivitiesManagement.Activity))]
         public async Task<IHttpActionResult> GetActivity(int id)
         {
-            Activity activity = await db.Activities.FindAsync(id);
+            Domain.ActivitiesManagement.Activity activity = await db.Activities.FindAsync(id);
             if (activity == null)
             {
                 return NotFound();
@@ -36,7 +79,7 @@
 
         // PUT: api/Activities/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutActivity(int id, Activity activity)
+        public async Task<IHttpActionResult> PutActivity(int id, Domain.ActivitiesManagement.Activity activity)
         {
             if (!ModelState.IsValid)
             {
@@ -70,12 +113,30 @@
         }
 
         // POST: api/Activities
-        [ResponseType(typeof(Activity))]
-        public async Task<IHttpActionResult> PostActivity(Activity activity)
+        [ResponseType(typeof(Domain.ActivitiesManagement.Activity))]
+        public async Task<IHttpActionResult> PostActivity(Domain.ActivitiesManagement.Activity activity)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
+            }
+
+            bool privateActivity = activity.ActivityPrivacy;
+            string userId = User.Identity.GetUserId();
+            string invitedUserId = activity.invitedUserId;
+
+            activity.userId = userId;
+
+            try
+            {
+                activity.invitedUserId = invitedUserId;
+            }
+            catch (Exception ex)
+            {
+                if (invitedUserId != null)
+                    activity.invitedUserId = null;
+
+                Debug.WriteLine(ex.Message);
             }
 
             db.Activities.Add(activity);
@@ -85,10 +146,10 @@
         }
 
         // DELETE: api/Activities/5
-        [ResponseType(typeof(Activity))]
+        [ResponseType(typeof(Domain.ActivitiesManagement.Activity))]
         public async Task<IHttpActionResult> DeleteActivity(int id)
         {
-            Activity activity = await db.Activities.FindAsync(id);
+            Domain.ActivitiesManagement.Activity activity = await db.Activities.FindAsync(id);
             if (activity == null)
             {
                 return NotFound();

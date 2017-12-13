@@ -17,12 +17,7 @@
         <th>
             @Html.DisplayNameFor(model => model.BloodInformation.BloodInformationDescription)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ParentsMatrimonialState.MatrimonialStateDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ParentId)
-        </th>
+
         <th>
             @Html.DisplayNameFor(model => model.ChildrenFirstName)
         </th>
@@ -73,15 +68,6 @@
                 <img src="@Url.Content(item.ChildrenImage)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
             }
 
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BloodInformation.BloodInformationDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ParentsMatrimonialState.MatrimonialStateDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ParentId)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ChildrenFirstName)

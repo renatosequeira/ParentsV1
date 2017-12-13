@@ -180,7 +180,7 @@ namespace Parents.API.Controllers.ActivitiesManagement.Helpers
             }
 
 
-            //START - CHECK DATABASE FOR EXISTING ACTIVITY FAMILIES
+            //START - CHECK DATABASE FOR EXISTING ACTIVITY FAMILIES WITH SAME DESCRIPTION
 
             var enteredDescription = activityFamily.ActivityFamilyDescription;
             var IsPrivate = activityFamily.Privacy;

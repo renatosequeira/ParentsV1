@@ -42,7 +42,7 @@
         public async Task<ActionResult> Index()
         {
             string userId = User.Identity.GetUserId();
-            var children = db.Children.Include(c => c.BloodInformation).Include(c => c.ParentsMatrimonialState);
+            var children = db.Children.Include(c => c.BloodInformation);
             return View(await children.Where(child => child.FirstParentId == userId || child.SecondParendId == userId).ToListAsync());
         }
 
@@ -64,7 +64,7 @@
         // GET: Childrens/Create
         public ActionResult Create()
         {
-            ViewBag.ParentId = new SelectList(db.Parents, "ParentId", "ParentFirstName");
+
             ViewBag.BoodInformationId = new SelectList(db.BloodInformations, "BoodInformationId", "BloodInformationDescription");
             ViewBag.MatrimonialStateId = new SelectList(db.MatrimonialStates, "MatrimonialStateId", "MatrimonialStateDescription");
 
@@ -100,9 +100,7 @@
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ParentId = new SelectList(db.Parents, "ParentId", "ParentFirstName", view.ParentId);
             ViewBag.BoodInformationId = new SelectList(db.BloodInformations, "BoodInformationId", "BloodInformationDescription", view.BoodInformationId);
-            ViewBag.MatrimonialStateId = new SelectList(db.MatrimonialStates, "MatrimonialStateId", "MatrimonialStateDescription", view.MatrimonialStateId);
             return View(view);
         }
 
@@ -125,14 +123,8 @@
                 ChildrenMiddleName = view.ChildrenMiddleName,
                 ChildrenMobile = view.ChildrenMobile,
                 CurrentSchool = view.CurrentSchool,
-                Father = view.Father,
                 FirstParentId = view.FirstParentId,
-                MatrimonialStateId = view.MatrimonialStateId,
-                Mother = view.Mother,
                 SecondParendId = view.SecondParendId,
-                Parent = view.Parent,
-                ParentId = view.ParentId,
-                ParentsMatrimonialState = view.ParentsMatrimonialState,
                 SchoolContact = view.SchoolContact,
                 ChildrenSex = view.ChildrenSex
             };
@@ -151,7 +143,6 @@
                 return HttpNotFound();
             }
             ViewBag.BoodInformationId = new SelectList(db.BloodInformations, "BoodInformationId", "BloodInformationDescription", children.BoodInformationId);
-            ViewBag.MatrimonialStateId = new SelectList(db.MatrimonialStates, "MatrimonialStateId", "MatrimonialStateDescription", children.MatrimonialStateId);
 
             var view = ToView(children);
 
@@ -177,14 +168,8 @@
                 ChildrenMiddleName = children.ChildrenMiddleName,
                 ChildrenMobile = children.ChildrenMobile,
                 CurrentSchool = children.CurrentSchool,
-                Father = children.Father,
                 FirstParentId = children.FirstParentId,
-                MatrimonialStateId = children.MatrimonialStateId,
-                Mother = children.Mother,
                 SecondParendId = children.SecondParendId,
-                Parent = children.Parent,
-                ParentId = children.ParentId,
-                ParentsMatrimonialState = children.ParentsMatrimonialState,
                 SchoolContact = children.SchoolContact,
                 ChildrenSex = children.ChildrenSex
             };
@@ -217,7 +202,6 @@
                 return RedirectToAction("Index");
             }
             ViewBag.BoodInformationId = new SelectList(db.BloodInformations, "BoodInformationId", "BloodInformationDescription", view.BoodInformationId);
-            ViewBag.MatrimonialStateId = new SelectList(db.MatrimonialStates, "MatrimonialStateId", "MatrimonialStateDescription", view.MatrimonialStateId);
             return View(view);
         }
 

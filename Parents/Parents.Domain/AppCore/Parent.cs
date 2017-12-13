@@ -66,10 +66,13 @@
 
         [JsonIgnore]
         public virtual ICollection<Urgency> Urgency { get; set; }
+
         [JsonIgnore]
         public virtual ICollection<Children> Children { get; set; }
+
         [JsonIgnore]
         public virtual ICollection<Activity> Activity { get; set; }
+
         [JsonIgnore]
         public virtual ICollection<ParentsMeeting> ParentsMeeting { get; set; }
 

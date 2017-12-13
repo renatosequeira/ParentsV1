@@ -5,9 +5,10 @@
     using System.Net;
     using System.Web.Mvc;
     using Parents.Domain.ActivitiesManagement;
-    using Parents.Backend.Models;
-    using Parents.Backend.Models.ActivitiesManagement;
-    using Parents.Backend.Helpers;
+    using Backend.Models;
+    using Backend.Models.ActivitiesManagement;
+    using Backend.Helpers;
+    using Microsoft.AspNet.Identity;
 
     [Authorize]
     public class ActivitiesController : Controller
@@ -39,6 +40,7 @@
         // GET: Activities/Create
         public ActionResult Create()
         {
+            ViewBag.ChildrenId = new SelectList(db.Children, "ChildrenId", "ChildrenFirstName");
             ViewBag.ActivityFamilyId = new SelectList(db.ActivityFamilies, "ActivityFamilyId", "ActivityFamilyDescription");
             ViewBag.ActivityInstitutionTypeId = new SelectList(db.ActivityInstitutionTypes, "ActivityInstitutionTypeId", "ActivityInstitutionTypeDescription");
             ViewBag.ActivityPeriodicityId = new SelectList(db.ActivityPeriodicities, "ActivityPeriodicityId", "ActivityPeriodicityDescription");
@@ -56,6 +58,11 @@
         {
             if (ModelState.IsValid)
             {
+                string userId = User.Identity.GetUserId();
+                view.userId = userId;
+                view.invitedUserId = null;
+                
+
                 var pic = string.Empty;
                 var folder = "~/Content/Images";
 
@@ -73,6 +80,7 @@
                 return RedirectToAction("Index");
             }
 
+            ViewBag.ChildrenId = new SelectList(db.Children, "ChildrenIdentityCard", "ChildrenIdentityCard");
             ViewBag.ActivityFamilyId = new SelectList(db.ActivityFamilies, "ActivityFamilyId", "ActivityFamilyDescription", view.ActivityFamilyId);
             ViewBag.ActivityInstitutionTypeId = new SelectList(db.ActivityInstitutionTypes, "ActivityInstitutionTypeId", "ActivityInstitutionTypeDescription", view.ActivityInstitutionTypeId);
             ViewBag.ActivityPeriodicityId = new SelectList(db.ActivityPeriodicities, "ActivityPeriodicityId", "ActivityPeriodicityDescription", view.ActivityPeriodicityId);
@@ -100,7 +108,18 @@
                 ActivityType = view.ActivityType,
                 ActivityTypeId = view.ActivityTypeId,
                 ParentId = view.ParentId,
-                ParentInCharge = view.ParentInCharge
+                ParentInCharge = view.ParentInCharge,
+                ActivityPrivacy = view.ActivityPrivacy,
+                userId = view.userId,
+                relatedChildrenIdentitiCard = view.relatedChildrenIdentitiCard,
+                Children = view.Children,
+                ChildrenId = view.ChildrenId,
+                Image = view.Image,
+                invitationAcknowledged = view.invitationAcknowledged,
+                invitedUserId = view.invitedUserId,
+                ChildrenActivityFamily = view.ChildrenActivityFamily,
+                ChildrenActivityType = view.ChildrenActivityType,
+                Status = view.Status
             };
         }
 
@@ -146,7 +165,18 @@
                 ActivityType = activity.ActivityType,
                 ActivityTypeId = activity.ActivityTypeId,
                 ParentId = activity.ParentId,
-                ParentInCharge = activity.ParentInCharge
+                ParentInCharge = activity.ParentInCharge,
+                ActivityPrivacy = activity.ActivityPrivacy,
+                relatedChildrenIdentitiCard = activity.relatedChildrenIdentitiCard,
+                userId = activity.userId,
+                Children = activity.Children,
+                ChildrenActivityFamily = activity.ChildrenActivityFamily,
+                ChildrenActivityType = activity.ChildrenActivityType,
+                ChildrenId = activity.ChildrenId,
+                Image = activity.Image,
+                invitationAcknowledged = activity.invitationAcknowledged,
+                invitedUserId = activity.invitedUserId,
+                Status = activity.Status                
             };
         }
 

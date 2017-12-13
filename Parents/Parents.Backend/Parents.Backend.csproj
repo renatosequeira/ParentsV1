@@ -238,10 +238,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\FilesHelper.cs" />
-    <Compile Include="Migrations\201711180018453_test.cs" />
-    <Compile Include="Migrations\201711180018453_test.Designer.cs">
-      <DependentUpon>201711180018453_test.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActivitiesManagement\ActivitiesView.cs" />
@@ -573,11 +569,6 @@
       <Project>{182bdc44-f225-46a3-bf9b-2d1e8ccfe734}</Project>
       <Name>Parents.Domain</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201711180018453_test.resx">
-      <DependentUpon>201711180018453_test.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -21,6 +21,24 @@ namespace Parents.Models.ActivitiesManagement.Helpers
 
         public bool ActivityTypePrivacy { get; set; }
 
+        public string TypeAlternateDescription
+        {
+
+            get
+            {
+                if (ActivityTypePrivacy)
+                {
+                    return "Private";
+                }
+                else
+                {
+                    return "Public";
+                }
+
+            }
+
+        }
+
         #region Services
         NavigationService navigationService;
         DialogService dialogService;
@@ -65,6 +83,13 @@ namespace Parents.Models.ActivitiesManagement.Helpers
 
         async void EditActivityType()
         {
+    
+            if (!ActivityTypePrivacy)
+            {
+                await dialogService.ShowMessage("Error", "Registry is public and can't be edited");
+                return;
+            }
+
             MainViewModel.GetInstance().EditActivityType = new EditActivityTypeViewModel(this);
             await navigationService.Navigate("EditActivityType");
 

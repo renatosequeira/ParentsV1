@@ -4,15 +4,15 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Data.Entity;
-    using System.Data.Entity.Infrastructure;
     using System.Linq;
     using System.Net;
     using System.Threading.Tasks;
     using System.Web.Http;
     using System.Web.Http.Description;
-    using Parents.Domain;
-    using Parents.API.Models.AppCore;
+    using Domain;
+    using API.Models.AppCore;
     using Microsoft.AspNet.Identity;
+    using API.Models.ActivitiesManagement;
 
     [Authorize]
     public class ChildrensController : ApiController
@@ -23,13 +23,38 @@
         public async Task<IHttpActionResult> GetChildren()
         {
             var userId = User.Identity.GetUserId();
+
             var childrens = await db.Children.Where(child => child.FirstParentId == userId ||
             child.SecondParendId == userId).ToListAsync();
-
+            //var childrens = await db.Children.ToListAsync();
             var childrensResponse = new List<ChildrenResponse>();
+
 
             foreach (var children in childrens)
             {
+                //var activitiesResponse = new List<ActivityResponse>();
+
+                //foreach (var activity1 in children.Activities)
+                //{
+                //    activitiesResponse.Add(new ActivityResponse
+                //    {
+                //        ActivityAddress = activity1.ActivityAddress,
+                //        ActivityDateEnd = activity1.ActivityDateEnd,
+                //        ActivityDateStart = activity1.ActivityDateStart,
+                //        ActivityDescription = activity1.ActivityDescription,
+                //        ActivityId = activity1.ActivityId,
+                //        ActivityPrivacy = activity1.ActivityPrivacy,
+                //        ActivityRemarks = activity1.ActivityRemarks,
+                //        Image = activity1.Image,
+                //        invitationAcknowledged = activity1.invitationAcknowledged,
+                //        invitedUserId = activity1.invitedUserId,
+                //        relatedChildrenIdentitiCard = activity1.relatedChildrenIdentitiCard,
+                //        userId = activity1.userId,
+                //        ChildrenId = activity1.ChildrenId,
+                //    });
+                //}
+
+
                 childrensResponse.Add(new ChildrenResponse
                 {
                     BloodInformationDescription = children.BloodInformationDescription,
@@ -48,7 +73,8 @@
                     FirstParentId = children.FirstParentId,
                     SecondParentId = children.SecondParendId,
                     SchoolContact = children.SchoolContact,
-                    ChildrenSex = children.ChildrenSex
+                    ChildrenSex = children.ChildrenSex,
+                    //Activities = activitiesResponse,
                 });
             }
 
@@ -64,6 +90,8 @@
             {
                 return NotFound();
             }
+
+            
 
             return Ok(children);
         }
@@ -84,21 +112,7 @@
 
             db.Entry(children).State = EntityState.Modified;
 
-            //try
-            //{
-            //    await db.SaveChangesAsync();
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!ChildrenExists(id))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
+           
 
             try
             {

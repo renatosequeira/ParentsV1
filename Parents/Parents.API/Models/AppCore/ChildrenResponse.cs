@@ -1,6 +1,8 @@
 ﻿namespace Parents.API.Models.AppCore
 {
+    using Parents.API.Models.ActivitiesManagement;
     using System;
+    using System.Collections.Generic;
 
     public class ChildrenResponse
     {
@@ -41,9 +43,10 @@
         public string SecondParentId { get; set; }
         #endregion
 
-
         public string BloodInformationDescription { get; set; }
 
         public string ChildrenImage { get; set; }
+
+        public List<ActivityResponse> Activities { get; set; }
     }
 }

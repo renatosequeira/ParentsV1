@@ -104,5 +104,21 @@ namespace Parents.Views.Activities
         {
 
         }
+
+        private void ActivitiesList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            ActivitiesList.SelectedItem = null;
+        }
+
+        private void CheckBox_CheckedChanged(object sender, XLabs.EventArgs<bool> e)
+        {
+            
+            
+        }
+
+        private void ActivitiesList_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            
+        }
     }
 }

@@ -1,3 +1,8 @@
 1- Scrollable TabbedPages
 https://www.youtube.com/watch?v=ux09gAB13kQ
 
+2- XLABS extended Pickers
+https://www.youtube.com/watch?v=x_-EUbyufew
+
+3- XLABS checkbox
+https://github.com/XLabs/Xamarin-Forms-Labs/blob/master/src/Forms/XLabs.Forms/Controls/CheckBox.cs

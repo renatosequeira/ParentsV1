@@ -19,6 +19,7 @@
     {
         #region Services
         NavigationService navigationService;
+        DialogService dialogService;
         #endregion
 
         #region Properties
@@ -45,6 +46,8 @@
         public ActivityTypeViewModel ActivityType { get; set; }
         public NewActivityTypeViewModel NewActivityType { get; set; }
         public EditActivityTypeViewModel EditActivityType { get; set; }
+        public ActivitiesViewModel Activities { get; set; }
+        public Children Children { get; set; } //objetivo é nao perder de vista o objecto Children
         #endregion
 
         #region Constructors
@@ -53,6 +56,7 @@
             instance = this;
             Login = new LoginViewModel();
             navigationService = new NavigationService();
+            dialogService = new DialogService();
         }
         #endregion
 
@@ -71,6 +75,21 @@
         #endregion
 
         #region Commands
+        public ICommand FilterActivities
+        {
+            get
+            {
+                return new RelayCommand(GoToFilterActivities);
+            }
+        }
+
+        async void GoToFilterActivities()
+        {
+            //NewActivityType = new NewActivityTypeViewModel();
+            //await navigationService.Navigate("NewActicityType");
+            await dialogService.ShowMessage("Under development", "Filtering function is under development");
+        }
+
         public ICommand NewActivityTypeCommand
         {
             get

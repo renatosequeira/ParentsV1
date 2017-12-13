@@ -1,5 +1,8 @@
 ﻿namespace Parents.Views.Childrens
 {
+    using global::Parents.Models;
+    using global::Parents.ViewModels;
+    using global::Parents.ViewModels.Activities;
     using global::Parents.Views.Activities;
     using System;
     using Xamarin.Forms;
@@ -11,7 +14,8 @@
 		public ChildrenDetails ()
 		{
 			InitializeComponent ();
-		}
+            
+        }
 
         private void ChildrensListButton_Clicked(object sender, EventArgs e)
         {
@@ -36,5 +40,6 @@
         {
 
         }
+
     }
 }
