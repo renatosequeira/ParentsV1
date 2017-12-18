@@ -25,12 +25,12 @@
         [MaxLength(250, ErrorMessage = "The field {0} only can contain {1} characters lenght.")]
         public string ActivityDescription { get; set; }
 
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         [Display(Name = "Activity date start")]
         public DateTime ActivityDateStart { get; set; }
 
-        [DataType(DataType.Date)]
-        [Display(Name = "Activity date start")]
+        [DataType(DataType.DateTime)]
+        [Display(Name = "Activity date end")]
         public Nullable<DateTime> ActivityDateEnd { get; set; }
 
         [DataType(DataType.MultilineText)]
@@ -75,5 +75,12 @@
 
         public bool Status { get; set; }
 
+        public string ActivityPriority { get; set; }
+
+        public string ActivityStartTime { get; set; }
+
+        public string ActivityEndTime { get; set; }
+
+        public string ActivityRecurring { get; set; }
     }
 }

@@ -50,19 +50,17 @@
                     ChildrenId = activity.ChildrenId,
                     Status = activity.Status,
                     ChildrenActivityFamily = activity.ChildrenActivityFamily,
-                    ChildrenActivityType = activity.ChildrenActivityType
+                    ChildrenActivityType = activity.ChildrenActivityType,
+                    ActivityPriority = activity.ActivityPriority,
+                    ActivityStartTime = activity.ActivityStartTime,
+                    ActivityEndTime = activity.ActivityEndTime,
+                    ActivityRecurring = activity.ActivityRecurring
                 });
 
             }
 
             return Ok(activityResponse);
         }
-
-        // GET: api/Products
-        //public IQueryable<Domain.ActivitiesManagement.Activity> GetActivities()
-        //{
-        //    return db.Activities;
-        //}
 
         // GET: api/Activities/5
         [ResponseType(typeof(Domain.ActivitiesManagement.Activity))]

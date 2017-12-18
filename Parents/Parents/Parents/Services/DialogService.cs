@@ -19,5 +19,16 @@ namespace Parents.Services
             return await Application.Current.MainPage.DisplayAlert(title, message, "Yes", "No");
             
         }
+
+        public async Task<string> ShowImageOptions()
+        {
+            return await Application.Current.MainPage.DisplayActionSheet(
+                "Where do you take the image?",
+                "Cancel",
+                null,
+                "From Gallery",
+                "From Camera");
+        }
+
     }
 }

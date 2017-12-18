@@ -12,6 +12,7 @@
     using Parents.Views.Activities.Helpers.ActivitiesInstitutionType;
     using Parents.Views.Activities.Helpers.Peridiocity;
     using Parents.Views.Activities.Helpers.ActivityType;
+    using Parents.Views.Activities.HelpersPages;
 
     public class NavigationService
     {
@@ -109,6 +110,21 @@
                     break;
                 case "NewActicityType":
                     await Application.Current.MainPage.Navigation.PushAsync(new NewActivityTypeView());
+                    break;
+                case "AddAnniversaryActivity":
+                    await Application.Current.MainPage.Navigation.PushAsync(new NewActivityView());
+                    break;
+
+                case "ActivityTypeHelperPage":
+                    await Application.Current.MainPage.Navigation.PushAsync(new ActivityTypeHelperPageView());
+                    break;
+
+                case "ActivityPriorityHelperPage":
+                    await Application.Current.MainPage.Navigation.PushAsync(new ActivityPriorityHelperPageView());
+                    break;
+
+                case "ActivityLocationHelperPage":
+                    await Application.Current.MainPage.Navigation.PushAsync(new ActivityLocationHelperPageView());
                     break;
             }
 

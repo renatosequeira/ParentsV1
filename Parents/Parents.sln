@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parents.API", "Parents.API\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "References", "References", "{928AAB40-277B-460C-B520-69D02A7291FE}"
 	ProjectSection(SolutionItems) = preProject
+		CalendarViews.txt = CalendarViews.txt
+		CustomRenderers.txt = CustomRenderers.txt
 		DatabaseRelatedIssues.txt = DatabaseRelatedIssues.txt
 		FutureImplementations.txt = FutureImplementations.txt
 		Ideias.txt = Ideias.txt

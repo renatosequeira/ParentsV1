@@ -6,11 +6,21 @@ using System.Threading.Tasks;
 using Parents.ViewModels.Activities;
 using System.Globalization;
 using Xamarin.Forms;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
+using Parents.Services;
+using Parents.ViewModels;
+using Parents.ViewModels.Childrens;
 
 namespace Parents.Models
 {
     public class Activity
     {
+        #region Services
+        NavigationService navigationService;
+        DialogService dialogService;
+        #endregion
+
         #region Properties
         public int ActivityId { get; set; }
         public int ChildrenId { get; set; }
@@ -28,6 +38,29 @@ namespace Parents.Models
         public bool Status { get; set; }
         public string ChildrenActivityType { get; set; }
         public string ChildrenActivityFamily { get; set; }
+        public string ActivityPriority { get; set; }
+        public string ActivityStartTime { get; set; }
+        public string ActivityEndTime { get; set; }
+        public string ActivityRecurring { get; set; }
+        public byte[] ImageArray { get; set; }
+
+        public string ActivityImageFullPath
+        {
+
+            get
+            {
+                if (string.IsNullOrEmpty(Image))
+                {
+                    return "no_image";
+                    //return null;
+                }
+
+                return string.Format(
+                    "http://api.parents.outstandservices.pt/{0}",
+                    Image.Substring(1));
+            }
+
+        }
 
         public string convertedDate
         {
@@ -116,7 +149,7 @@ namespace Parents.Models
             get
             {
                 string color = "#666";
-                if (convertedDate == "Tomorrow")
+                if (convertedDate == "Tomorrow" || convertedDate == "Today")
                 {
                     color = "#7DBEA5";
                 }else if(convertedDate == "Overdue")
@@ -130,6 +163,74 @@ namespace Parents.Models
 
                 return color;
             }
+        }
+        #endregion
+
+        #region Constructors
+        public Activity()
+        {
+            navigationService = new NavigationService();
+            dialogService = new DialogService();
+            ActivityDateStart = DateTime.Today;
+        }
+        #endregion
+
+        #region Commands
+        public ICommand DeleteCommand
+        {
+            get
+            {
+                return new RelayCommand(DeleteChildren);
+            }
+        }
+
+        async void DeleteChildren()
+        {
+            var response = await dialogService.ShowConfirm("Confirm", "Are you sure to delete this record?");
+
+            if (!response)
+            {
+                return;
+            }
+
+            //await ActivitiesViewModel.GetInstance().DeleteChildren(this);
+        }
+
+        public ICommand EditCommand
+        {
+            get
+            {
+                return new RelayCommand(EditChildren);
+            }
+        }
+
+        async void EditChildren()
+        {
+        //    MainViewModel.GetInstance().EditChildren = new EditChildrenViewModel(this);
+        //    await navigationService.Navigate("ChildrenDetails");
+        }
+
+        public ICommand SelectActivityCommand
+        {
+            get
+            {
+                return new RelayCommand(SelectActivity);
+            }
+        }
+
+
+
+
+        async void SelectActivity()
+        {
+            
+            var mainViewModel = MainViewModel.GetInstance();
+            mainViewModel.Activities = new ActivitiesViewModel();
+            mainViewModel.NewActivity = new NewActivityViewModel();
+            //mainViewModel.Children = this;
+            //mainViewModel.EditChildren = new EditChildrenViewModel(this);
+            //await navigationService.Navigate("ChildrenDetails");
+
         }
         #endregion
     }

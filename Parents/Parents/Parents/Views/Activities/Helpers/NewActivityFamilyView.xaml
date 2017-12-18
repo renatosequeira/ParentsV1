@@ -32,7 +32,7 @@
                         HorizontalOptions="StartAndExpand"
                         VerticalOptions="Center"/>
                     <Switch
-                        IsToggled="{Binding Privacy}"
+                        IsToggled="{Binding Privacy, Mode=TwoWay}"
                         HorizontalOptions="End"/>
                 </StackLayout>
             </RelativeLayout>

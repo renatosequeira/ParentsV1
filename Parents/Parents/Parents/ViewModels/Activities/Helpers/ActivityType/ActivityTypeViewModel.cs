@@ -16,7 +16,7 @@
     {
         #region Events
         public event PropertyChangedEventHandler PropertyChanged;
-        #endregion
+# endregion
 
         #region Services
         ApiService apiService;

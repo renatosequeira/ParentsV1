@@ -6,3 +6,4 @@ https://www.youtube.com/watch?v=x_-EUbyufew
 
 3- XLABS checkbox
 https://github.com/XLabs/Xamarin-Forms-Labs/blob/master/src/Forms/XLabs.Forms/Controls/CheckBox.cs
+

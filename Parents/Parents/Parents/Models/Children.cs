@@ -4,6 +4,8 @@
     using Parents.Services;
     using Parents.ViewModels;
     using Parents.ViewModels.Activities;
+
+    using Parents.ViewModels.Activities.Helpers.ActivityType;
     using Parents.ViewModels.Childrens;
     using Parents.Views.Activities;
     using System;
@@ -120,6 +122,7 @@
             Application.Current.Properties["childrenIdentityCard"] = ChildrenIdentityCard;
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.Activities = new ActivitiesViewModel();
+            mainViewModel.NewActivity = new NewActivityViewModel();
             //mainViewModel.Children = this;
             mainViewModel.EditChildren = new EditChildrenViewModel(this);
             await navigationService.Navigate("ChildrenDetails");

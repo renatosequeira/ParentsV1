@@ -1,30 +1,61 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using Parents.Services;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace Parents.Views.Activities
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ActivitiesListView : ContentPage
 	{
-		public ActivitiesListView ()
-		{
-			InitializeComponent ();
-		}
+        #region Services
+        NavigationService navigationService;
+        #endregion
 
+
+        #region Constructor
+        public ActivitiesListView()
+        {
+            InitializeComponent();
+            navigationService = new NavigationService();
+        }
+        #endregion
+
+        #region ClickEvents
         private void btnOtherActvity_Clicked(object sender, EventArgs e)
         {
 
         }
 
-        private void btnAddAnniversary_Clicked(object sender, EventArgs e)
+        private async void btnAddAnniversary_Clicked(object sender, EventArgs e)
         {
+            await navigationService.Navigate("AddAnniversaryActivity");
 
+            buttonAdd.Image = "add_closed_orange";
+            contents.Opacity = 1;
+
+            buttonAdd.Rotation = 270;
+            await buttonAdd.RotateTo(0, 250);
+
+            await menuLabel.FadeTo(0, 0, Easing.SinOut);
+            menuLabel.IsVisible = false;
+
+            await btnAddAnniversary.FadeTo(0, 0, Easing.SinOut);
+            btnAddAnniversary.IsVisible = false;
+
+            await btnAddEvent.FadeTo(0, 0, Easing.SinOut);
+            btnAddEvent.IsVisible = false;
+
+            await btnAddSchoolActivity.FadeTo(0, 0, Easing.SinOut);
+            btnAddSchoolActivity.IsVisible = false;
+
+            await btnAddSportActivity.FadeTo(0, 0, Easing.SinOut);
+            btnAddSportActivity.IsVisible = false;
+
+            await btnOtherActvity.FadeTo(0, 0, Easing.SinOut);
+            btnOtherActvity.IsVisible = false;
+
+            await buttonAdd.TranslateTo(0, 0, 250, Easing.Linear);
         }
 
         private void btnAddEvent_Clicked(object sender, EventArgs e)
@@ -45,7 +76,7 @@ namespace Parents.Views.Activities
             {
 
                 buttonAdd.Image = "add_opened_orange";
-                contents.Opacity = 0.3;
+                contents.Opacity = 0.1;
 
                 await buttonAdd.TranslateTo(-80, 0, 250, Easing.Linear);
 
@@ -112,13 +143,16 @@ namespace Parents.Views.Activities
 
         private void CheckBox_CheckedChanged(object sender, XLabs.EventArgs<bool> e)
         {
-            
-            
+
+
         }
 
         private void ActivitiesList_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            
-        }
+
+        } 
+        #endregion
+
+
     }
 }

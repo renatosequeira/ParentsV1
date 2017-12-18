@@ -36,5 +36,12 @@ namespace Parents.API.Models.ActivitiesManagement
 
         public string ChildrenActivityFamily { get; set; }
 
+        public string ActivityPriority { get; set; }
+
+        public string ActivityStartTime { get; set; }
+
+        public string ActivityEndTime { get; set; }
+
+        public string ActivityRecurring { get; set; }
     }
 }

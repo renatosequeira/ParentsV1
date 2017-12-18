@@ -26,7 +26,8 @@
         Spacing="8"
             x:Name="contents">
 
-            <ListView
+
+                <ListView
                 IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
                 ItemsSource="{Binding ActivitiesList}"
                 ItemSelected="ActivitiesList_ItemSelected"
@@ -35,91 +36,85 @@
                 HasUnevenRows="True"
                 x:Name="ActivitiesList"
                 ItemTapped="ActivitiesList_ItemTapped">
-                <ListView.ItemTemplate>
+                    <ListView.ItemTemplate>
 
-                    <DataTemplate>
-                        <ViewCell>
+                        <DataTemplate>
+                            <ViewCell>
 
-                            <ViewCell.ContextActions>
-                                <MenuItem
+                                <ViewCell.ContextActions>
+                                    <MenuItem
                                 Command="{Binding EditCommand}"
                                 Icon="ic_edit_white_border"
                                 Text="Edit"/>
-                                <MenuItem
+                                    <MenuItem
                                 Command="{Binding DeleteCommand}"
                                 IsDestructive="True"
                                 Icon="ic_delete_red"
                                 Text="Delete"/>
-                            </ViewCell.ContextActions>
+                                </ViewCell.ContextActions>
 
-                            <Grid
-                            VerticalOptions="Center">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
+                            <Frame
+                                HasShadow="True">
+                                
+                                <Grid
+                                    VerticalOptions="Center">
+                                    
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
 
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="50"/>
-                                </Grid.RowDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
 
-                                <!--<controls:CheckBox
-                                   FontName="AmericanTypewriter"
-                                   FontSize="25"
-                                   HorizontalOptions="Start"
-                                   TextColor="Green"
-                                   CheckedChanged="CheckBox_CheckedChanged"
-                                   />-->
+                                    <StackLayout
+                                        Orientation="Vertical">
 
-                                <StackLayout
-                                    Orientation="Vertical">
-                                    <Label 
+                                        <Label 
                                         Grid.Column="1" 
                                         HorizontalOptions="FillAndExpand" 
                                         FontSize="Medium" 
                                         Text="{Binding ActivityDescription}" 
                                         VerticalOptions="Center"
                                         FontAttributes="Bold">
-                                    </Label>
+                                        </Label>
 
-                                    <Label
+                                        <Label
                                         Grid.Column="1"
                                         HorizontalOptions="FillAndExpand"
                                         FontSize="Small"
                                         Text="{Binding convertedDate}"
                                         VerticalOptions="Center"
                                         TextColor="{Binding EndDateColor}">
-                                        
-                                    </Label>
-                                </StackLayout>
 
-                                <Image
-                                    Grid.Column="2" 
-                                    Source="{Binding activityTypeImage}"
-                                    VerticalOptions="Center"
-                                    HeightRequest="40"
-                                    HorizontalOptions="End" >
-                                    <Image.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding SelectActivityInstitutionType}"/>
-                                    </Image.GestureRecognizers>
-                                </Image>
+                                        </Label>
+                                    </StackLayout>
 
-                                <!--<Image
-                                    Grid.Column="2"
-                                    HorizontalOptions="End" 
-                                    Source="ic_eye_brown"
-                                    VerticalOptions="Center"
-                                    HeightRequest="40">
-                                    <Image.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding SelectActivityInstitutionType}"/>
-                                    </Image.GestureRecognizers>
-                                </Image>-->
-                            </Grid>
-                        </ViewCell>
+                                    <Image
+                                        Grid.Column="2"
+                                        HorizontalOptions="End" 
+                                        Source="ic_eye_brown"
+                                        VerticalOptions="Center"
+                                        HeightRequest="40">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding SelectActivityCommand}"/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                    
+                                </Grid>
+                            </Frame>
 
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                                
+                                
+                            </ViewCell>
+
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+
+
         </StackLayout>
 
         <Grid.ColumnDefinitions>
@@ -129,7 +124,9 @@
         <!--FLOAT BUTTON-->
         <StackLayout
             VerticalOptions="End"
-            HorizontalOptions="End">
+            HorizontalOptions="End"
+            WidthRequest="200"
+            MinimumWidthRequest="200">
             
             <StackLayout
                 Padding="0"
@@ -157,7 +154,6 @@
                     FontAttributes="Bold"
                     TextColor="DarkGray"
                     Opacity="0"/>
-
 
                 <Button 
                     x:Name="btnAddEvent"

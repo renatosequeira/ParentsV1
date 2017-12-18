@@ -15,6 +15,7 @@
     using System;
     using Parents.ViewModels.Activities.Helpers.ActivityType;
 
+
     public class MainViewModel
     {
         #region Services
@@ -48,6 +49,7 @@
         public EditActivityTypeViewModel EditActivityType { get; set; }
         public ActivitiesViewModel Activities { get; set; }
         public Children Children { get; set; } //objetivo é nao perder de vista o objecto Children
+        public NewActivityViewModel NewActivity { get; set; }
         #endregion
 
         #region Constructors

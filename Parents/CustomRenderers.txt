@@ -1,0 +1,8 @@
+1- Buttons
+https://www.fabiosilvalima.com/custom-renderer-button-border-xamarin-forms/
+
+2- Obsolete ButtonRenderer
+https://forums.xamarin.com/discussion/106938/context-is-obsolete-as-of-version-2-5
+
+3- DatePicker Renderer
+https://alexdunn.org/2017/07/25/xamarin-tip-borderless-datepicker/

@@ -110,9 +110,6 @@
 
             var mainViewModel = MainViewModel.GetInstance();
 
-            //var id = mainViewModel.Children.GetHashCode();
-            //int teste = mainViewModel.Children.ChildrenId;
-
             var response = await apiService.GetList<Activity>(
                "http://api.parents.outstandservices.pt",
                 "/api",
@@ -133,7 +130,6 @@
 
             ActivitiesList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentity));
             //ActivitiesList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateStart));
-
             IsRefreshing = false;
         }
 
