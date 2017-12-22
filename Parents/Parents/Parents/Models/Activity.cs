@@ -39,10 +39,13 @@ namespace Parents.Models
         public string ChildrenActivityType { get; set; }
         public string ChildrenActivityFamily { get; set; }
         public string ActivityPriority { get; set; }
-        public string ActivityStartTime { get; set; }
-        public string ActivityEndTime { get; set; }
-        public string ActivityRecurring { get; set; }
         public byte[] ImageArray { get; set; }
+
+        public TimeSpan ActivityTimeStart { get; set; }
+        public TimeSpan ActivityTimeEnd { get; set; }
+
+        public string ActivityRepeat { get; set; }
+        public string EventId { get; set; }
 
         public string ActivityImageFullPath
         {
@@ -137,7 +140,52 @@ namespace Parents.Models
                         actImage = "event_orange";
                         break;
 
+                    case "Parents Meeting":
+                        actImage = "settings_school";
+                        break;
+
                     default:
+                        break;
+                }
+                return actImage;
+            }
+        }
+
+        public string activityIlustrativeImage
+        {
+            get
+            {
+                string type = ChildrenActivityType;
+                string actImage = "";
+
+                switch (type)
+                {
+                    case "Sports":
+                        actImage = "activity_sports";
+                        break;
+
+                    case "Anniversary":
+                        actImage = "anniversary_baloons";
+                        break;
+
+                    case "Study Trips":
+                        actImage = "activity_castle";
+                        break;
+
+                    case "Workgroup":
+                        actImage = "activity_castle";
+                        break;
+
+                    case "Events":
+                        actImage = "activity_events";
+                        break;
+
+                    case "Parents Meeting":
+                        actImage = "activity_parents_meeting";
+                        break;
+
+                    default:
+                        actImage = "no_image";
                         break;
                 }
                 return actImage;

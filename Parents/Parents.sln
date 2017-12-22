@@ -22,6 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "References", "References", 
 		DatabaseRelatedIssues.txt = DatabaseRelatedIssues.txt
 		FutureImplementations.txt = FutureImplementations.txt
 		Ideias.txt = Ideias.txt
+		JavaRelatedIssues.txt = JavaRelatedIssues.txt
 		MaterialDesigns.txt = MaterialDesigns.txt
 		PUTRelatedIssues.txt = PUTRelatedIssues.txt
 		Tutorials.txt = Tutorials.txt

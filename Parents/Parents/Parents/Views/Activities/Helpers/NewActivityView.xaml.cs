@@ -4,13 +4,13 @@ using Parents.Services;
 using Parents.Views.Activities.HelpersPages;
 using Parents.Models.ActivitiesManagement.Helpers;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using Rg.Plugins.Popup.Extensions;
+using System.Collections.ObjectModel;
 
 namespace Parents.Views.Activities.Helpers
 {
-   
+
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NewActivityView : ContentPage
     {
@@ -23,6 +23,7 @@ namespace Parents.Views.Activities.Helpers
         #region Attributtes
         public static string type { get; set; }
         public static string priority { get; set; }
+        private string _repeat { get; set; }
         #endregion
 
         #region Constructors
@@ -33,18 +34,11 @@ namespace Parents.Views.Activities.Helpers
 
             acvtivityTypeList.Text = "SELECT ACTIVITY TYPE...";
             acvtivityPriorityLabel.Text = "SELECT ACTIVITY PRIORITY...";
+            lblPriority.Text = "PUBLIC";
+            lblRepeat.Text = "SELECT REPEAT...";
             navigationService = new NavigationService();
 
-            startTime.Time = DateTime.Today.TimeOfDay;
-            endTime.Time = DateTime.Today.TimeOfDay;
-
-            _activityPriority = GetActivityPriority();
-
-            foreach (var priority in _activityPriority)
-            {
-                //priorityList.Items.Add(priority.PriorityDescription);
-            }
-
+            
         } 
         #endregion
 
@@ -67,6 +61,17 @@ namespace Parents.Views.Activities.Helpers
 
             string activityTypeProperty = null;
             string activityPriorityProperty = null;
+            string repeatMode = null;
+            string numberOfRepetitions = null;
+
+            try
+            {
+                numberOfRepetitions = Application.Current.Properties["numberOfRepetitions"] as string;
+            }
+            catch (Exception)
+            {
+                numberOfRepetitions = null;
+            }
 
             try
             {
@@ -75,6 +80,47 @@ namespace Parents.Views.Activities.Helpers
             catch (Exception )
             {
                 activityTypeProperty = null;
+            }
+
+            try
+            {
+                repeatMode = Application.Current.Properties["selectedRepeatMode"] as string;
+            }
+            catch (Exception)
+            {
+
+                repeatMode = null;
+            }
+
+            if (!string.IsNullOrEmpty(repeatMode))
+            {
+                repeatMode = Application.Current.Properties["selectedRepeatMode"] as string;
+
+                switch (repeatMode)
+                {
+                    case "Once":
+                        lblRepeat.Text = "ONCE";
+                        break;
+
+                    case "Daily":
+                        lblRepeat.Text = "DAILY";
+                        break;
+
+                    case "Weekly":
+                        lblRepeat.Text = "WEEKLY";
+                        break;
+
+                    case "Monthly":
+                        lblRepeat.Text = "MONTHLY";
+                        break;
+
+                    case "Yearly":
+                        lblRepeat.Text = "YEARLY";
+                        break;
+
+                    default:
+                        break;
+                }
             }
 
             if (!string.IsNullOrEmpty(activityTypeProperty))
@@ -123,6 +169,16 @@ namespace Parents.Views.Activities.Helpers
             else
             {
                 activityTypeResponse = type;
+            }
+
+            try
+            {
+                numberOfRepetitions = Application.Current.Properties["numberOfRepetitions"] as string;
+            }
+            catch (Exception)
+            {
+
+                numberOfRepetitions = null;
             }
 
             try
@@ -179,6 +235,7 @@ namespace Parents.Views.Activities.Helpers
         private void ResetKeys()
         {
             Application.Current.Properties["activityTypeProperty"] = null;
+            Application.Current.Properties["activityPriorityProperty"] = null;
         }
 
         private void priorityList_SelectedIndexChanged(object sender, EventArgs e)
@@ -270,6 +327,7 @@ namespace Parents.Views.Activities.Helpers
         private void ClearEndDateAndTime_Tapped(object sender, EventArgs e)
         {
             DateTime InitialDate = startDate.Date;
+
             endDate.Date = InitialDate.AddDays(1);
             endTime.Time = DateTime.Now.TimeOfDay;
         }
@@ -277,7 +335,7 @@ namespace Parents.Views.Activities.Helpers
         private void ClearStartDateAndTime_Tapped(object sender, EventArgs e)
         {
             startDate.Date = DateTime.Now;
-            startTime.Time = DateTime.Now.TimeOfDay;
+            startTime.Time = DateTime.Now.TimeOfDay;  
         }
 
         private void ActivityRemarksClear_Tapped(object sender, EventArgs e)
@@ -293,6 +351,85 @@ namespace Parents.Views.Activities.Helpers
         private async void SelectActivityLocation_Tapped(object sender, EventArgs e)
         {
             await navigationService.Navigate("ActivityLocationHelperPage");
+        }
+
+        private void statusSwitch_Toggled(object sender, ToggledEventArgs e)
+        {
+            bool statusSwitchEnabled = e.Value;
+
+            if (statusSwitchEnabled)
+            {
+                lblStatus.Text = "CLOSED";
+                statusImage.Source = "status_completed";
+            }
+            else
+            {
+                lblStatus.Text = "ON GOING";
+                statusImage.Source = "status_ongoing";
+            }
+        }
+
+        private void allDaySwitch_Toggled(object sender, ToggledEventArgs e)
+        {
+            bool isChecked = e.Value;
+
+            if (isChecked)
+            {
+                startTime.Time = TimeSpan.Parse("00:00");
+                endTime.Time = TimeSpan.Parse("23:59");
+
+                startTime.IsVisible = false;
+                endTime.IsVisible = false;
+
+                dateTimeSeparator1.IsVisible = false;
+                dateTimeSeparator2.IsVisible = false;
+                timeDemoImage1.IsVisible = false;
+                timeDemoImage2.IsVisible = false;
+            }
+            else
+            {
+                TimeSpan time1 = TimeSpan.FromHours(1);
+                startTime.IsVisible = true;
+                endTime.IsVisible = true;
+                startTime.Time = DateTime.Now.TimeOfDay;
+                endTime.Time = DateTime.Now.TimeOfDay.Add(time1);
+
+                dateTimeSeparator1.IsVisible = true;
+                dateTimeSeparator2.IsVisible = true;
+                timeDemoImage1.IsVisible = true;
+                timeDemoImage2.IsVisible = true;
+            }
+        }
+
+        private void TapGestureRecognizer_Tapped_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void Picker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var popup = new ActivityRepeatHelperPageView();
+            await Navigation.PushPopupAsync(popup);
+        }
+
+        private void ClearActivityRepead_Tapped(object sender, EventArgs e)
+        {
+            lblRepeat.Text = "SELECT REPEAT...";
+        }
+
+        private async void OpenActivityRepeatHelperPage_Tapped(object sender, EventArgs e)
+        {
+            var popup = new ActivityRepeatHelperPageView();
+            await Navigation.PushPopupAsync(popup);
+            
+        }
+
+
+
+        private ObservableCollection<string> Events { get; set; } = new ObservableCollection<string>();
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            lblRepeat.Text = _repeat;
         }
     }
 }

@@ -1,5 +1,10 @@
-﻿using Parents.Services;
+﻿using Parents.Models;
+using Parents.Services;
+using Parents.ViewModels;
+using Parents.ViewModels.Activities;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,7 +16,6 @@ namespace Parents.Views.Activities
         #region Services
         NavigationService navigationService;
         #endregion
-
 
         #region Constructor
         public ActivitiesListView()
@@ -29,7 +33,11 @@ namespace Parents.Views.Activities
 
         private async void btnAddAnniversary_Clicked(object sender, EventArgs e)
         {
+            var mainViewModel = MainViewModel.GetInstance();
+            mainViewModel.NewActivity = new NewActivityViewModel();
+
             await navigationService.Navigate("AddAnniversaryActivity");
+            
 
             buttonAdd.Image = "add_closed_orange";
             contents.Opacity = 1;
@@ -150,9 +158,13 @@ namespace Parents.Views.Activities
         private void ActivitiesList_ItemTapped(object sender, ItemTappedEventArgs e)
         {
 
-        } 
+        }
+
         #endregion
 
-
+        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

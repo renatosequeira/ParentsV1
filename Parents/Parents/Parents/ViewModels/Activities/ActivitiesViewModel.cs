@@ -34,7 +34,22 @@
         {
             get
             {
+                ObservableCollection<Activity> theCollection = new ObservableCollection<Activity>();
+
+                if (_activities != null)
+
+                {
+                    List<Activity> entities = (from e in _activities
+                                               where e.ChildrenActivityType.Contains("ANNIVERSARY")
+                                                 select e).ToList<Activity>();
+                    if (entities != null && entities.Any())
+                    {
+                        theCollection = new ObservableCollection<Activity>(entities);
+                    }
+                }
+
                 return _activities;
+
             }
             set
             {
@@ -44,6 +59,72 @@
                     PropertyChanged?.Invoke(
                         this,
                         new PropertyChangedEventArgs(nameof(ActivitiesList)));
+                }
+            }
+        }
+
+        public ObservableCollection<Activity> AnniversariesList
+        {
+            get
+            {
+                ObservableCollection<Activity> theCollection = new ObservableCollection<Activity>();
+
+                if (_activities != null)
+
+                {
+                    List<Activity> entities = (from e in _activities
+                                               where e.ChildrenActivityType.Contains("ANNIVERSARY")
+                                               select e).ToList<Activity>();
+                    if (entities != null && entities.Any())
+                    {
+                        theCollection = new ObservableCollection<Activity>(entities);
+                    }
+                }
+
+                return theCollection;
+
+            }
+            set
+            {
+                if (_activities != value)
+                {
+                    _activities = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(AnniversariesList)));
+                }
+            }
+        }
+
+        public ObservableCollection<Activity> FilterOpenedActivities
+        {
+            get
+            {
+                ObservableCollection<Activity> openedActivities = new ObservableCollection<Activity>();
+
+                if (_activities != null)
+
+                {
+                    List<Activity> entities = (from e in _activities
+                                               where e.Status.Equals(0)
+                                               select e).ToList<Activity>();
+                    if (entities != null && entities.Any())
+                    {
+                        openedActivities = new ObservableCollection<Activity>(entities);
+                    }
+                }
+
+                return openedActivities;
+
+            }
+            set
+            {
+                if (_activities != value)
+                {
+                    _activities = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(AnniversariesList)));
                 }
             }
         }

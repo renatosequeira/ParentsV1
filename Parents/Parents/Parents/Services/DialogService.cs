@@ -22,6 +22,7 @@ namespace Parents.Services
 
         public async Task<string> ShowImageOptions()
         {
+            var txtInput = new Entry { Text = "" };
             return await Application.Current.MainPage.DisplayActionSheet(
                 "Where do you take the image?",
                 "Cancel",

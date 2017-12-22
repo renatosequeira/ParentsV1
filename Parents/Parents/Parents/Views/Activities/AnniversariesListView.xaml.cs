@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Parents.Models;
+using Parents.ViewModels;
 
 namespace Parents.Views.Activities
 {
@@ -14,7 +13,9 @@ namespace Parents.Views.Activities
     {
         public AnniversariesListView()
         {
+
             InitializeComponent();
+
         }
 
         private void btnAddAnniversary_Clicked(object sender, EventArgs e)
@@ -51,6 +52,16 @@ namespace Parents.Views.Activities
                 btnAddAnniversary.IsVisible = false;
                 await buttonAdd.TranslateTo(0, 0, 250, Easing.Linear);
             }
+        }
+
+        private void AnniversariesList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+
+        }
+
+        private void AnniversariesList_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+
         }
     }
 }

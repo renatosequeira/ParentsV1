@@ -12,7 +12,7 @@ namespace Parents.API.Models.ActivitiesManagement
 
         public DateTime ActivityDateStart { get; set; }
 
-        public DateTime? ActivityDateEnd { get; set; }
+        public DateTime ActivityDateEnd { get; set; }
 
         public string ActivityRemarks { get; set; }
 
@@ -38,10 +38,12 @@ namespace Parents.API.Models.ActivitiesManagement
 
         public string ActivityPriority { get; set; }
 
-        public string ActivityStartTime { get; set; }
+        public TimeSpan ActivityTimeStart { get; set; }
 
-        public string ActivityEndTime { get; set; }
+        public TimeSpan ActivityTimeEnd { get; set; }
 
-        public string ActivityRecurring { get; set; }
+        public string ActivityRepeat { get; set; }
+
+        public string EventId { get; set; }
     }
 }

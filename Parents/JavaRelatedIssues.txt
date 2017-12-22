@@ -1,0 +1,3 @@
+java2.exe error
+
+https://www.telerik.com/forums/ui-for-xamarin-forms-without-enable-multi-dex-in-android-options

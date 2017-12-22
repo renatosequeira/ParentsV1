@@ -14,28 +14,27 @@
             Text="Filter"/>
     </ContentPage.ToolbarItems>
 
-
-    <Grid 
+    <ScrollView>
+        <Grid 
         ColumnSpacing="0" 
         RowSpacing="0" 
         Grid.Row="6">
 
-        <StackLayout
-        BindingContext="{Binding Activities}"
-        Padding="5"
-        Spacing="8"
-            x:Name="contents">
-
+            <StackLayout
+                BindingContext="{Binding Activities}"
+                Padding="5"
+                Spacing="8"
+                x:Name="contents">
 
                 <ListView
-                IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
-                ItemsSource="{Binding ActivitiesList}"
-                ItemSelected="ActivitiesList_ItemSelected"
-                IsPullToRefreshEnabled="True"
-                RefreshCommand="{Binding RefreshCommand}"
-                HasUnevenRows="True"
-                x:Name="ActivitiesList"
-                ItemTapped="ActivitiesList_ItemTapped">
+                    IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+                    ItemsSource="{Binding ActivitiesList}"
+                    ItemSelected="ActivitiesList_ItemSelected"
+                    IsPullToRefreshEnabled="True"
+                    RefreshCommand="{Binding RefreshCommand}"
+                    HasUnevenRows="True"
+                    x:Name="ActivitiesList"
+                    ItemTapped="ActivitiesList_ItemTapped">
                     <ListView.ItemTemplate>
 
                         <DataTemplate>
@@ -43,44 +42,44 @@
 
                                 <ViewCell.ContextActions>
                                     <MenuItem
-                                Command="{Binding EditCommand}"
-                                Icon="ic_edit_white_border"
-                                Text="Edit"/>
+                                        Command="{Binding EditCommand}"
+                                        Icon="ic_edit_white_border"
+                                        Text="Edit"/>
                                     <MenuItem
-                                Command="{Binding DeleteCommand}"
-                                IsDestructive="True"
-                                Icon="ic_delete_red"
-                                Text="Delete"/>
+                                        Command="{Binding DeleteCommand}"
+                                        IsDestructive="True"
+                                        Icon="ic_delete_red"
+                                        Text="Delete"/>
                                 </ViewCell.ContextActions>
 
-                            <Frame
+                                <Frame
                                 HasShadow="True">
-                                
-                                <Grid
+
+                                    <Grid
                                     VerticalOptions="Center">
-                                    
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
 
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
 
-                                    <StackLayout
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <StackLayout
                                         Orientation="Vertical">
 
-                                        <Label 
+                                            <Label 
                                         Grid.Column="1" 
                                         HorizontalOptions="FillAndExpand" 
                                         FontSize="Medium" 
                                         Text="{Binding ActivityDescription}" 
                                         VerticalOptions="Center"
                                         FontAttributes="Bold">
-                                        </Label>
+                                            </Label>
 
-                                        <Label
+                                            <Label
                                         Grid.Column="1"
                                         HorizontalOptions="FillAndExpand"
                                         FontSize="Small"
@@ -88,25 +87,25 @@
                                         VerticalOptions="Center"
                                         TextColor="{Binding EndDateColor}">
 
-                                        </Label>
-                                    </StackLayout>
+                                            </Label>
+                                        </StackLayout>
 
-                                    <Image
+                                        <Image
                                         Grid.Column="2"
                                         HorizontalOptions="End" 
                                         Source="ic_eye_brown"
                                         VerticalOptions="Center"
                                         HeightRequest="40">
-                                        <Image.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding SelectActivityCommand}"/>
-                                        </Image.GestureRecognizers>
-                                    </Image>
-                                    
-                                </Grid>
-                            </Frame>
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding SelectActivityCommand}"/>
+                                            </Image.GestureRecognizers>
+                                        </Image>
 
-                                
-                                
+                                    </Grid>
+                                </Frame>
+
+
+
                             </ViewCell>
 
                         </DataTemplate>
@@ -115,25 +114,25 @@
 
 
 
-        </StackLayout>
+            </StackLayout>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <!--FLOAT BUTTON-->
-        <StackLayout
+            <!--FLOAT BUTTON-->
+            <StackLayout
             VerticalOptions="End"
             HorizontalOptions="End"
             WidthRequest="200"
             MinimumWidthRequest="200">
-            
-            <StackLayout
+
+                <StackLayout
                 Padding="0"
                 Grid.Row="0">
 
-            <!--BOTÕES DE MENU ESCONDIDOS-->
-                <Label
+                    <!--BOTÕES DE MENU ESCONDIDOS-->
+                    <Label
                     x:Name="menuLabel"
                     IsVisible="False"
                     Text="ACTIVITY"
@@ -144,7 +143,7 @@
                     FontSize="Large"
                     Opacity="0"/>
 
-                <Button 
+                    <Button 
                     x:Name="btnAddAnniversary"
                     Image="anniversary_orange"
                     Clicked="btnAddAnniversary_Clicked"
@@ -155,7 +154,7 @@
                     TextColor="DarkGray"
                     Opacity="0"/>
 
-                <Button 
+                    <Button 
                     x:Name="btnAddEvent"
                     Image="event_orange"
                     Clicked="btnAddEvent_Clicked"
@@ -166,7 +165,7 @@
                     TextColor="DarkGray"
                     Opacity="0"/>
 
-                <Button 
+                    <Button 
                     x:Name="btnAddSchoolActivity"
                     Image="school_activities_orange"
                     Clicked="btnAddSchoolActivity_Clicked"
@@ -177,7 +176,7 @@
                     TextColor="DarkGray"
                     Opacity="0"/>
 
-                <Button 
+                    <Button 
                     x:Name="btnAddSportActivity"
                     Image="soccer_player_orange"
                     Clicked="btnAddSportActivity_Clicked"
@@ -189,7 +188,7 @@
                     Opacity="0"/>
 
 
-                <Button 
+                    <Button 
                     x:Name="btnOtherActvity"
                     Image="other_activity_orange"
                     Clicked="btnOtherActvity_Clicked"
@@ -200,23 +199,26 @@
                     TextColor="DarkGray"
                     Opacity="0"/>
 
-            </StackLayout>
+                </StackLayout>
 
-            <!--BOTÃO DE MENU-->
-            <StackLayout
+                <!--BOTÃO DE MENU-->
+                <StackLayout
                 Padding="5"
                 Grid.Row="1">
-                <Button 
+                    <Button 
                     x:Name="buttonAdd"
                     Image="add_closed_orange"
                     Clicked="buttonAdd_Clicked"
                     BackgroundColor="Transparent"
                     HorizontalOptions="EndAndExpand"/>
+                </StackLayout>
             </StackLayout>
-        </StackLayout>
-        <!--FLOAT BUTTON END-->
-        
-    </Grid>
+            <!--FLOAT BUTTON END-->
+
+        </Grid>
+    </ScrollView>
+    
+
 
     
     

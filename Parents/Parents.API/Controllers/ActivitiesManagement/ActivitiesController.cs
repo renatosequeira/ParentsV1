@@ -8,12 +8,13 @@
     using System.Web.Http;
     using System.Web.Http.Description;
     using Domain;
-    using Domain.ActivitiesManagement;
     using Microsoft.AspNet.Identity;
     using System.Collections.Generic;
     using API.Models.ActivitiesManagement;
     using System;
     using System.Diagnostics;
+    using System.IO;
+    using Parents.API.Helpers;
 
     [Authorize]
     public class ActivitiesController : ApiController
@@ -52,9 +53,10 @@
                     ChildrenActivityFamily = activity.ChildrenActivityFamily,
                     ChildrenActivityType = activity.ChildrenActivityType,
                     ActivityPriority = activity.ActivityPriority,
-                    ActivityStartTime = activity.ActivityStartTime,
-                    ActivityEndTime = activity.ActivityEndTime,
-                    ActivityRecurring = activity.ActivityRecurring
+                    ActivityTimeEnd = activity.ActivityTimeEnd,
+                    ActivityTimeStart = activity.ActivityTimeStart,
+                    ActivityRepeat = activity.ActivityRepeat,
+                    EventId = activity.EventId
                 });
 
             }
@@ -112,12 +114,31 @@
 
         // POST: api/Activities
         [ResponseType(typeof(Domain.ActivitiesManagement.Activity))]
-        public async Task<IHttpActionResult> PostActivity(Domain.ActivitiesManagement.Activity activity)
+        public async Task<IHttpActionResult> PostActivity(ActivityRequest activity)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
+            if (activity.ImageArray != null && activity.ImageArray.Length > 0)
+            {
+                var stream = new MemoryStream(activity.ImageArray);
+                var guid = Guid.NewGuid().ToString();
+                var file = string.Format("{0}.jpg", guid);
+                var folder = "~/Content/Images";
+                var fullPath = string.Format("{0}/{1}", folder, file);
+                var response = FilesHelper.UploadPhoto(stream, folder, file);
+
+
+                if (response)
+                {
+                    activity.Image = fullPath;
+                }
+
+            }
+
+            var _activity = ToActivity(activity);
 
             bool privateActivity = activity.ActivityPrivacy;
             string userId = User.Identity.GetUserId();
@@ -137,10 +158,52 @@
                 Debug.WriteLine(ex.Message);
             }
 
-            db.Activities.Add(activity);
+            db.Activities.Add(_activity);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = activity.ActivityId }, activity);
+            return CreatedAtRoute("DefaultApi", new { id = activity.ActivityId }, _activity);
+        }
+
+        private Domain.ActivitiesManagement.Activity ToActivity(ActivityRequest view)
+        {
+            string userId = User.Identity.GetUserId();
+            var eventId = Guid.NewGuid().ToString();
+
+            return new Domain.ActivitiesManagement.Activity
+            {
+                ActivityAddress = view.ActivityAddress,
+                ActivityDateEnd = view.ActivityDateEnd,
+                ActivityDateStart = view.ActivityDateStart,
+                ActivityDescription = view.ActivityDescription,
+                ActivityFamily = view.ActivityFamily,
+                ActivityFamilyId = view.ActivityFamilyId,
+                ActivityId = view.ActivityId,
+                ActivityInstitutionType = view.ActivityInstitutionType,
+                ActivityInstitutionTypeId = view.ActivityInstitutionTypeId,
+                ActivityPeriodicity = view.ActivityPeriodicity,
+                ActivityPeriodicityId = view.ActivityPeriodicityId,
+                ActivityRemarks = view.ActivityRemarks,
+                ActivityType = view.ActivityType,
+                ActivityTypeId = view.ActivityTypeId,
+                ParentId = view.ParentId,
+                ParentInCharge = view.ParentInCharge,
+                ActivityPrivacy = view.ActivityPrivacy,
+                userId = userId,
+                relatedChildrenIdentitiCard = view.relatedChildrenIdentitiCard,
+                Children = view.Children,
+                ChildrenId = view.ChildrenId,
+                Image = view.Image,
+                invitationAcknowledged = view.invitationAcknowledged,
+                invitedUserId = view.invitedUserId,
+                ChildrenActivityFamily = view.ChildrenActivityFamily,
+                ChildrenActivityType = view.ChildrenActivityType,
+                Status = view.Status,
+                ActivityPriority = view.ActivityPriority,
+                ActivityTimeStart = view.ActivityTimeStart,
+                ActivityTimeEnd = view.ActivityTimeEnd,
+                ActivityRepeat = view.ActivityRepeat,
+                EventId = eventId
+            };
         }
 
         // DELETE: api/Activities/5

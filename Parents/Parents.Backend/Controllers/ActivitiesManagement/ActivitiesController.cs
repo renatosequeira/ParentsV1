@@ -9,6 +9,7 @@
     using Backend.Models.ActivitiesManagement;
     using Backend.Helpers;
     using Microsoft.AspNet.Identity;
+    using System;
 
     [Authorize]
     public class ActivitiesController : Controller
@@ -61,7 +62,9 @@
                 string userId = User.Identity.GetUserId();
                 view.userId = userId;
                 view.invitedUserId = null;
-                
+
+                var guid = Guid.NewGuid().ToString();
+                view.EventId = guid;
 
                 var pic = string.Empty;
                 var folder = "~/Content/Images";
@@ -119,7 +122,12 @@
                 invitedUserId = view.invitedUserId,
                 ChildrenActivityFamily = view.ChildrenActivityFamily,
                 ChildrenActivityType = view.ChildrenActivityType,
-                Status = view.Status
+                Status = view.Status,
+                ActivityPriority = view.ActivityPriority,
+                ActivityTimeStart = view.ActivityTimeStart,
+                ActivityTimeEnd = view.ActivityTimeEnd,
+                ActivityRepeat = view.ActivityRepeat,
+                EventId = view.EventId
             };
         }
 

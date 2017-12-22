@@ -122,7 +122,7 @@
             Application.Current.Properties["childrenIdentityCard"] = ChildrenIdentityCard;
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.Activities = new ActivitiesViewModel();
-            mainViewModel.NewActivity = new NewActivityViewModel();
+            //mainViewModel.NewActivity = new NewActivityViewModel();
             //mainViewModel.Children = this;
             mainViewModel.EditChildren = new EditChildrenViewModel(this);
             await navigationService.Navigate("ChildrenDetails");

@@ -14,7 +14,7 @@
     using Parents.ViewModels.Activities.Helpers.Peridiocity;
     using System;
     using Parents.ViewModels.Activities.Helpers.ActivityType;
-
+    using System.Collections.ObjectModel;
 
     public class MainViewModel
     {
