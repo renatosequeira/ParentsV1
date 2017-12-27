@@ -4,7 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
-    x:Class="Parents.Views.Activities.HelpersPages.ActivityRepeatHelperPageView">
+    x:Class="Parents.Views.Activities.HelpersPages.ActivityRepeatHelperPageView"
+    BindingContext="{Binding Main, Source={StaticResource Locator}}">
     
     <pages:PopupPage.Animation>
         <animations:ScaleAnimation 
@@ -40,6 +41,7 @@
                 Orientation="Vertical"
                 Spacing="5">
                 
+                <!--NUMBER OF REPETITIONS-->
                 <StackLayout
                     Orientation="Horizontal"
                     Padding="8">
@@ -59,6 +61,7 @@
                         FontSize="Medium"/>
                 </StackLayout>
 
+                <!--LIST VIEW WITH REPETITIONS-->
                 <ListView 
                     x:Name="activityRepeatMenu" 
                     HasUnevenRows="True"
@@ -74,33 +77,108 @@
                                     Orientation="Vertical"
                                     HorizontalOptions="StartAndExpand">
                                         <Label 
-                                        Text="{Binding RepeatName, Mode=TwoWay}" 
-                                        TextColor="#5A392B" 
-                                        HorizontalOptions="StartAndExpand" 
-                                        VerticalOptions="Center"
-                                        FontSize="Medium"
-                                        Margin="5,0,0,0"/>
+                                            Text="{Binding RepeatName, Mode=TwoWay}" 
+                                            TextColor="#5A392B" 
+                                            HorizontalOptions="StartAndExpand" 
+                                            VerticalOptions="Center"
+                                            FontSize="Medium"
+                                            Margin="5,0,0,0"/>
                                     </StackLayout>
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+                
+                <!--DAYS OF WEEK-->
+
+                <StackLayout
+                    Orientation="Horizontal"
+                    Padding="10,0,10,0"
+                    BindingContext="{Binding NewActivity}">
+
+                    <Image
+                        Source="{Binding MondayImage}"
+                        x:Name="lblMonday">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding MondaySelectedCommand}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <Image
+                        Source="{Binding TuesdayImage}"
+                        x:Name="lblTuesday">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding TuesdaySelectedCommand}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <Image
+                        Source="{Binding WednesdayImage}"
+                        x:Name="lblWednsday">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding WednesdaySelectedCommand}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <Image
+                        Source="{Binding ThursdayImage}"
+                        x:Name="lblThursdat">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ThursdaySelectedCommand}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <Image
+                        Source="ic_friday"
+                        x:Name="lblFriday">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_3"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <Image
+                        Source="ic_saturday"
+                        x:Name="lblSaturday">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_4"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <Image
+                        Source="ic_sunday"
+                        x:Name="lblSunday">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_5"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </StackLayout>
+                
             </StackLayout>
 
             <!--<Button Text="Close" TextColor="#A9D1DE" Clicked="Button_Clicked"></Button>-->
-            <Button
-                BackgroundColor="Transparent"
-                BorderRadius="40"
-                BorderColor="DarkRed"
-                BorderWidth="1"
-                Clicked="Button_Clicked"
-                HorizontalOptions="End"
-                Margin="0,0,10,10"
-                Text="Cancel"
-                />
+            <StackLayout
+                Orientation="Horizontal">
+                    <Button
+                    BackgroundColor="Transparent"
+                    BorderRadius="40"
+                    BorderColor="DarkGreen"
+                    BorderWidth="1"
+                    Clicked="Button_Clicked_1"
+                    HorizontalOptions="End"
+                    Margin="0,0,10,10"
+                    Text="Ok"/>
 
-
+                <Button
+                    BackgroundColor="Transparent"
+                    BorderRadius="40"
+                    BorderColor="DarkRed"
+                    BorderWidth="1"
+                    Clicked="Button_Clicked"
+                    HorizontalOptions="End"
+                    Margin="0,0,10,10"
+                    Text="Cancel"/>
+            </StackLayout>
         </StackLayout>
     </StackLayout>
 </pages:PopupPage>

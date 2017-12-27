@@ -12,73 +12,83 @@
         <ToolbarItem 
             Command="{Binding NewActivity.SaveRepeatedEventsCommand}"
             Icon="ic_save"
-            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"/>
+            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+            Clicked="ToolbarItem_Clicked"/>
     </ContentPage.ToolbarItems>
 
+    <Grid>
 
-    <ScrollView>
-        <StackLayout
+        <ActivityIndicator
+                IsRunning="{Binding IsRunning, Mode=TwoWay}"
+                VerticalOptions="CenterAndExpand">
+
+        </ActivityIndicator>
+
+
+        <ScrollView>
+
+            <StackLayout
                 Orientation="Vertical"
                 Padding="10"
                 Spacing="5"
                 BindingContext="{Binding NewActivity}">
 
-            <!--IMAGE-->
-            <Image
+                <!--IMAGE-->
+                <Image
                     HeightRequest="200"
                     Source="{Binding ImageSource}"
                     WidthRequest="200">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ChangeImageCommand}"/>
-                </Image.GestureRecognizers>
-            </Image>
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ChangeImageCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
 
-            <!--DESCRIPTION-->
-            <StackLayout
+                <!--DESCRIPTION-->
+                <StackLayout
                 Orientation="Horizontal"
                 Padding="14">
 
-                <Image 
+                    <Image 
                     Source="ic_notes"
                     HeightRequest="30"
                     HorizontalOptions="Start"
                     Margin="0,0,5,0"/>
 
-                <Entry
+                    <Entry
                     Placeholder="Activity description"
                     Text="{Binding ActivityDescription, Mode=TwoWay}"
                     Focused="decriptionEntry_Focused"
                     x:Name="decriptionEntry"
                     HorizontalOptions="FillAndExpand"/>
 
-                <Image 
+                    <Image 
                     Source="ic_clear"
                     HeightRequest="20"
                     HorizontalOptions="End"
                     VerticalOptions="Center"
                     x:Name="clearActivityDescription">
 
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1"/>
-                    </Image.GestureRecognizers>
-                </Image>
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1"/>
+                        </Image.GestureRecognizers>
+                    </Image>
 
-            </StackLayout>
+                </StackLayout>
 
-            <!--STATUS-->
-            <StackLayout
+                <!--STATUS-->
+                <StackLayout
                 Orientation="Horizontal"
                 Padding="14"
                 Margin="0,0,10,0">
 
-                <Image
+                    <Image
                     Source="ic_time"
                     HorizontalOptions="Start"
                     HeightRequest="30"
                     Margin="0,0,5,0"
                     VerticalOptions="Center"/>
 
-                <Label
+                    <Label
                     Text="All day"
                     HorizontalOptions="Start"
                     VerticalOptions="Center"
@@ -86,189 +96,193 @@
                     TextColor="DarkGray"
                     x:Name="lblAllDay"/>
 
-                <Switch
+                    <Switch
                     HorizontalOptions="FillAndExpand"
                     x:Name="allDaySwitch"
                     Toggled="allDaySwitch_Toggled"
                     IsToggled="{Binding allDay, Mode=TwoWay}">
-                    <Switch.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding switchAllDayCommand}"/>
-                    </Switch.GestureRecognizers>
-                </Switch>
+                        <Switch.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding switchAllDayCommand}"/>
+                        </Switch.GestureRecognizers>
+                    </Switch>
 
 
-            </StackLayout>
+                </StackLayout>
 
-            <!--DATE START-->
-            <StackLayout
+                <!--DATE START-->
+                <StackLayout
                 Orientation="Horizontal"
                 Padding="14"
                 Margin="0,0,10,0">
 
-                <Image
+                    <Image
                         Source="ic_date_from"
                         HeightRequest="30"
                         HorizontalOptions="Start"
                         Margin="0,0,5,0"/>
 
-                <!--DATE-->
-                <StackLayout
+                    <!--DATE-->
+                    <StackLayout
                         Orientation="Horizontal"
                         HorizontalOptions="FillAndExpand">
 
-                    <local:BorderlessDatePicker
+                        <local:BorderlessDatePicker
                             Date="{Binding ActivityDateStart, Mode=TwoWay}"
                             x:Name="startDate"
                             Margin="0,0,5,0"
-                            Format="dd-MM-yyyy" />
+                            Format="dd-MM-yyyy" 
+                        MinimumDate="01-01-2010"
+                        DateSelected="startDate_DateSelected"/>
 
-                    <Label 
+
+
+                        <Label 
                             Text="-"
                             Margin="0,0,5,0"
                             VerticalOptions="Center"
                         x:Name="dateTimeSeparator1"/>
 
-                    <Image
+                        <Image
                             Source="ic_time"
                             HeightRequest="30"
                             HorizontalOptions="Start"
                             Margin="0,0,5,0"
                         x:Name="timeDemoImage1"/>
 
-                    <local:BorderlessTimePicker
+                        <local:BorderlessTimePicker
                             x:Name="startTime"
                             Time="{Binding ActivityTimeStart, Mode=TwoWay}"
                             Format="HH:mm">
-                    </local:BorderlessTimePicker>
+                        </local:BorderlessTimePicker>
 
-                </StackLayout>
+                    </StackLayout>
 
-                <Image 
+                    <Image 
                         Source="ic_clear"
                         HeightRequest="20"
                         HorizontalOptions="End"
                         VerticalOptions="Center"
                         x:Name="clearStartTimeAndDate">
 
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ClearStartDateAndTime_Tapped"/>
-                    </Image.GestureRecognizers>
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ClearStartDateAndTime_Tapped"/>
+                        </Image.GestureRecognizers>
 
-                </Image>
+                    </Image>
 
-            </StackLayout>
+                </StackLayout>
 
-            <!--DATE END-->
-            <StackLayout
+                <!--DATE END-->
+                <StackLayout
                 Orientation="Horizontal"
                 Padding="14"
                 Margin="0,0,10,0">
 
-                <Image 
+                    <Image 
                     Source="ic_date_to"
                     HeightRequest="30"
                     HorizontalOptions="Start"
                     Margin="0,0,5,0"/>
 
-                <StackLayout
+                    <StackLayout
                     Orientation="Horizontal"
                     HorizontalOptions="FillAndExpand">
 
-                    <local:BorderlessDatePicker
+                        <local:BorderlessDatePicker
                             Date="{Binding ActivityDateEnd,Mode=TwoWay}"
                             x:Name="endDate"
                             Margin="0,0,5,0"
                             Format="dd-MM-yyyy"/>
 
-                    <Label 
+                        <Label 
                             Text="-"
                             Margin="0,0,5,0"
                             VerticalOptions="Center"
                         x:Name="dateTimeSeparator2"/>
 
-                    <Image
+                        <Image
                             Source="ic_time"
                             HeightRequest="30"
                             HorizontalOptions="Start"
                             Margin="0,0,5,0"
                         x:Name="timeDemoImage2"/>
 
-                    <local:BorderlessTimePicker
+                        <local:BorderlessTimePicker
                             x:Name="endTime"
                             Time="{Binding ActivityTimeEnd, Mode=TwoWay}"
                             Format="HH:mm">
-                    </local:BorderlessTimePicker>
+                        </local:BorderlessTimePicker>
 
 
-                </StackLayout>
+                    </StackLayout>
 
-                <Image 
+                    <Image 
                         Source="ic_clear"
                         HeightRequest="20"
                         HorizontalOptions="End"
                         VerticalOptions="Center"
                         x:Name="clearEndTimeAndDate">
 
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ClearEndDateAndTime_Tapped"/>
-                    </Image.GestureRecognizers>
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ClearEndDateAndTime_Tapped"/>
+                        </Image.GestureRecognizers>
 
-                </Image>
+                    </Image>
 
-            </StackLayout>
+                </StackLayout>
 
-            <!--REPEAT-->
-            <StackLayout
+                <!--REPEAT-->
+                <StackLayout
                 Orientation="Horizontal"
                 Padding="14"
                 Margin="0,0,10,0">
 
-                <Image 
+                    <Image 
                     Source="ic_repeat"
                     HeightRequest="30"
                     HorizontalOptions="Start"
                     Margin="0,0,5,0"
                     VerticalOptions="Center"/>
 
-                <Label
+                    <Label
                     x:Name="lblRepeat"
                     Text="{Binding ActivityRepeat, Mode=TwoWay}"
                     VerticalOptions="Center"
                     HorizontalOptions="StartAndExpand"
                     FontSize="Medium">
-                </Label>
+                    </Label>
 
-                <Image 
+                    <Image 
                         Source="ic_arrow_down"
                         HeightRequest="20"
                         HorizontalOptions="End"
                         Margin="0,0,10,0"
                         VerticalOptions="Center"/>
 
-                <Image 
+                    <Image 
                     Source="ic_clear"
                     HeightRequest="20"
                     HorizontalOptions="End"
                     VerticalOptions="Center"
                     x:Name="clearRepeat">
 
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ClearActivityRepead_Tapped"/>
-                    </Image.GestureRecognizers>
-                </Image>
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ClearActivityRepead_Tapped"/>
+                        </Image.GestureRecognizers>
+                    </Image>
 
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OpenActivityRepeatHelperPage_Tapped"/>
-                </StackLayout.GestureRecognizers>
-            </StackLayout>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OpenActivityRepeatHelperPage_Tapped"/>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
 
-            <!--ACTIVITY TYPE-->
-            <StackLayout
+                <!--ACTIVITY TYPE-->
+                <StackLayout
                 Orientation="Horizontal"
                 Padding="14"
                 Margin="0,0,10,0">
 
-                <Image 
+                    <Image 
                     Source="ic_question"
                     HeightRequest="30"
                     HorizontalOptions="Start"
@@ -276,7 +290,7 @@
                     VerticalOptions="Center"
                     x:Name="activityTypeImage"/>
 
-                <Label
+                    <Label
                         x:Name="acvtivityTypeList"
                         VerticalOptions="Center"
                         HorizontalOptions="FillAndExpand"
@@ -284,37 +298,37 @@
                         TextColor="Gray"
                         FontSize="Medium"/>
 
-                <Image 
+                    <Image 
                         Source="ic_arrow_down"
                         HeightRequest="20"
                         HorizontalOptions="End"
                         Margin="0,0,10,0"
                         VerticalOptions="Center"/>
 
-                <Image 
+                    <Image 
                     Source="ic_clear"
                     HeightRequest="20"
                     HorizontalOptions="End"
                     VerticalOptions="Center"
                     x:Name="clearActivityTypeOption">
 
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ClearActivityType_Tapped"/>
-                    </Image.GestureRecognizers>
-                </Image>
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ClearActivityType_Tapped"/>
+                        </Image.GestureRecognizers>
+                    </Image>
 
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="btn1_Clicked"/>
-                </StackLayout.GestureRecognizers>
-            </StackLayout>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="btn1_Clicked"/>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
 
-            <!--PRIORITY-->
-            <StackLayout
+                <!--PRIORITY-->
+                <StackLayout
                 Orientation="Horizontal"
                 Padding="14"
                 Margin="0,0,10,0">
 
-                <Image 
+                    <Image 
                         Source="ic_priority_simple"
                         HeightRequest="30"
                         HorizontalOptions="Start"
@@ -322,7 +336,7 @@
                         VerticalOptions="Center"
                         x:Name="activityPriorityImage"/>
 
-                <Label
+                    <Label
                         x:Name="acvtivityPriorityLabel"
                         VerticalOptions="Center"
                         HorizontalOptions="FillAndExpand"
@@ -330,37 +344,37 @@
                         TextColor="Gray"
                         FontSize="Medium"/>
 
-                <Image 
+                    <Image 
                         Source="ic_arrow_down"
                         HeightRequest="20"
                         HorizontalOptions="End"
                         Margin="0,0,10,0"
                         VerticalOptions="Center"/>
 
-                <Image 
+                    <Image 
                         Source="ic_clear"
                         HeightRequest="20"
                         HorizontalOptions="End"
                         VerticalOptions="Center"
                         x:Name="clearPriorityOption">
 
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ClearPriorityOption_Tapped"/>
-                    </Image.GestureRecognizers>
-                </Image>
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ClearPriorityOption_Tapped"/>
+                        </Image.GestureRecognizers>
+                    </Image>
 
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-                </StackLayout.GestureRecognizers>
-            </StackLayout>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
 
-            <!--PRIVACY-->
-            <StackLayout
+                <!--PRIVACY-->
+                <StackLayout
                 Orientation="Horizontal"
                 Padding="14"
                 Margin="0,0,10,0">
 
-                <Image
+                    <Image
                     Source="ic_eye_darkGray"
                     HorizontalOptions="Start"
                     HeightRequest="30"
@@ -368,7 +382,7 @@
                     Margin="0,0,5,0"
                     VerticalOptions="Center"/>
 
-                <Label
+                    <Label
                         Text="PUBLIC"
                         HorizontalOptions="Start"
                         x:Name="lblPriority"
@@ -376,33 +390,33 @@
                         FontSize="Medium"
                         TextColor="DarkGray"/>
 
-                <Switch
+                    <Switch
                         IsToggled="{Binding ActivityPrivacy, Mode=TwoWay}"
                         HorizontalOptions="FillAndExpand"
                         x:Name="prioritySwitch"
                         Toggled="prioritySwitch_Toggled"/>
 
-            </StackLayout>
+                </StackLayout>
 
-            <!--STATUS-->
-            <StackLayout
+                <!--STATUS-->
+                <StackLayout
                 Orientation="Horizontal"
                 Padding="14"
                 Margin="0,0,10,0">
 
-                <Image
+                    <Image
                     Source="status_ongoing"
                     HorizontalOptions="Start"
                     HeightRequest="30"
                     x:Name="statusImage"
                     Margin="0,0,5,0"
                     VerticalOptions="Center">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="statusSwitch_Toggled"/>
-                    </Image.GestureRecognizers>
-                </Image>
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="statusSwitch_Toggled"/>
+                        </Image.GestureRecognizers>
+                    </Image>
 
-                <Label
+                    <Label
                         Text="ON GOING"
                         HorizontalOptions="Start"
                         x:Name="lblStatus"
@@ -410,21 +424,21 @@
                         FontSize="Medium"
                         TextColor="DarkGray"/>
 
-                <Switch
+                    <Switch
                         IsToggled="{Binding Status, Mode=TwoWay}"
                         HorizontalOptions="FillAndExpand"
                         x:Name="statusSwitch"
                         Toggled="statusSwitch_Toggled"/>
 
-            </StackLayout>
+                </StackLayout>
 
-            <!--LOCATION-->
-            <StackLayout
+                <!--LOCATION-->
+                <StackLayout
                 Orientation="Horizontal"
                 Padding="14"
                 Margin="0,0,10,0">
 
-                <Image 
+                    <Image 
                     Source="ic_address"
                     HeightRequest="30"
                     HorizontalOptions="Start"
@@ -432,7 +446,7 @@
                     VerticalOptions="Center"
                     x:Name="addressImage"/>
 
-                <Label
+                    <Label
                     x:Name="activityLocation"
                     VerticalOptions="Center"
                     HorizontalOptions="FillAndExpand"
@@ -440,37 +454,37 @@
                     TextColor="Gray"
                     FontSize="Medium"/>
 
-                <Image 
+                    <Image 
                     Source="ic_arrow_down"
                     HeightRequest="20"
                     HorizontalOptions="End"
                     Margin="0,0,10,0"
                     VerticalOptions="Center"/>
 
-                <Image 
+                    <Image 
                     Source="ic_clear"
                     HeightRequest="20"
                     HorizontalOptions="End"
                     VerticalOptions="Center"
                     x:Name="clearActivityLocation">
 
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ClearActivityLocation_Tapped"/>
-                    </Image.GestureRecognizers>
-                </Image>
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ClearActivityLocation_Tapped"/>
+                        </Image.GestureRecognizers>
+                    </Image>
 
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="SelectActivityLocation_Tapped"/>
-                </StackLayout.GestureRecognizers>
-            </StackLayout>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="SelectActivityLocation_Tapped"/>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
 
-            <!--INVITE USER-->
-            <StackLayout
+                <!--INVITE USER-->
+                <StackLayout
                 Orientation="Horizontal"
                 Padding="14"
                 Margin="0,0,10,0">
 
-                <Image 
+                    <Image 
                     Source="activity_invite"
                     HeightRequest="30"
                     HorizontalOptions="Start"
@@ -478,77 +492,78 @@
                     VerticalOptions="Center"
                     x:Name="inviteUserImage"/>
 
-                <Entry 
+                    <Entry 
                     Text="{Binding invitedUserId, Mode=TwoWay}"
                       HorizontalOptions="FillAndExpand"
                     Placeholder="Insert user email..."/>
 
-                <Image 
+                    <Image 
                     Source="activity_contacts"
                     HeightRequest="30"
                     HorizontalOptions="End"
                     VerticalOptions="Center"
                     x:Name="accessContactsList">
 
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_2"/>
-                    </Image.GestureRecognizers>
-                </Image>
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_2"/>
+                        </Image.GestureRecognizers>
+                    </Image>
 
 
-                <Image 
+                    <Image 
                     Source="ic_clear"
                     HeightRequest="20"
                     HorizontalOptions="End"
                     VerticalOptions="Center"
                     x:Name="clearInvitedUser">
 
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ClearActivityLocation_Tapped"/>
-                    </Image.GestureRecognizers>
-                </Image>
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ClearActivityLocation_Tapped"/>
+                        </Image.GestureRecognizers>
+                    </Image>
 
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="SelectActivityLocation_Tapped"/>
-                </StackLayout.GestureRecognizers>
-            </StackLayout>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="SelectActivityLocation_Tapped"/>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
 
-            <!--REMARKS-->
-            <StackLayout
+                <!--REMARKS-->
+                <StackLayout
                 Orientation="Horizontal"
                 Padding="14"
                 Margin="0,0,10,0">
 
-                <Image 
+                    <Image 
                     Source="ic_remarks"
                     HeightRequest="30"
                     HorizontalOptions="Start"
                     Margin="0,0,5,0"
                     VerticalOptions="Center"/>
 
-                <Entry
+                    <Entry
                     Text="{Binding ActivityRemarks, Mode=TwoWay}"
                     Placeholder="Enter activity remarks"
                     HorizontalOptions="FillAndExpand"
                     x:Name="activityRemarksEntry"/>
 
-                <Image 
+                    <Image 
                         Source="ic_clear"
                         HeightRequest="20"
                         HorizontalOptions="End"
                         VerticalOptions="Center"
                         x:Name="clearActivityRemarks">
 
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ActivityRemarksClear_Tapped"/>
-                    </Image.GestureRecognizers>
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ActivityRemarksClear_Tapped"/>
+                        </Image.GestureRecognizers>
 
-                </Image>
+                    </Image>
 
-            </StackLayout>
+                </StackLayout>
 
 
-            <!--<Button
+
+                <!--<Button
                 Command="{Binding SaveRepeatedEventsCommand}"
                 BackgroundColor="Navy"
                 BorderRadius="23"
@@ -560,8 +575,48 @@
                 Margin="50,0"
                 VerticalOptions="EndAndExpand"/>-->
 
-        </StackLayout>
-    </ScrollView>
+            </StackLayout>
 
+        </ScrollView>
+
+
+        
+        <!--<RelativeLayout 
+            x:Name="vwLoading" 
+            IsVisible="False" 
+            Opacity="0.3" 
+            BackgroundColor="#f2f2f2">
+            <StackLayout 
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand"                
+                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.4}"                
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.4}">
+                <Frame 
+                    Padding="50" 
+                    AbsoluteLayout.LayoutFlags="All" 
+                    Opacity="1.0" BackgroundColor="Black" 
+                    VerticalOptions="CenterAndExpand" 
+                    HorizontalOptions="CenterAndExpand">
+
+                    <ActivityIndicator
+                IsRunning="{Binding IsRunning, Mode=TwoWay}"
+                VerticalOptions="CenterAndExpand">
+
+                    </ActivityIndicator>
+
+                    <StackLayout>
+
+                        <ActivityIndicator
+                IsRunning="{Binding IsRunning, Mode=TwoWay}"
+                VerticalOptions="CenterAndExpand">
+
+                        </ActivityIndicator>
+                        --><!--<ActivityIndicator x:Name="actIndicator" />
+                        <Label x:Name="lblProgressStatus" />--><!--
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </RelativeLayout>-->
+    </Grid>
 
 </ContentPage>

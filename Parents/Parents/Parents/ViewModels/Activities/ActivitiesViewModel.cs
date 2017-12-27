@@ -34,19 +34,19 @@
         {
             get
             {
-                ObservableCollection<Activity> theCollection = new ObservableCollection<Activity>();
+                //ObservableCollection<Activity> theCollection = new ObservableCollection<Activity>();
 
-                if (_activities != null)
+                //if (_activities != null)
 
-                {
-                    List<Activity> entities = (from e in _activities
-                                               where e.ChildrenActivityType.Contains("ANNIVERSARY")
-                                                 select e).ToList<Activity>();
-                    if (entities != null && entities.Any())
-                    {
-                        theCollection = new ObservableCollection<Activity>(entities);
-                    }
-                }
+                //{
+                //    List<Activity> entities = (from e in _activities
+                //                               where e.ChildrenActivityType.Contains("ANNIVERSARY")
+                //                                 select e).ToList<Activity>();
+                //    if (entities != null && entities.Any())
+                //    {
+                //        theCollection = new ObservableCollection<Activity>(entities);
+                //    }
+                //}
 
                 return _activities;
 

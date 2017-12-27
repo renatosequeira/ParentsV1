@@ -15,7 +15,7 @@ namespace Parents.Views.Activities.Helpers
     public partial class NewActivityView : ContentPage
     {
         private IList<ActivitiesPriority> _activityPriority;
-        
+
         #region Services
         NavigationService navigationService;
         #endregion
@@ -38,8 +38,8 @@ namespace Parents.Views.Activities.Helpers
             lblRepeat.Text = "SELECT REPEAT...";
             navigationService = new NavigationService();
 
-            
-        } 
+
+        }
         #endregion
 
 
@@ -77,7 +77,7 @@ namespace Parents.Views.Activities.Helpers
             {
                 activityTypeProperty = Application.Current.Properties["activityTypeProperty"] as string;
             }
-            catch (Exception )
+            catch (Exception)
             {
                 activityTypeProperty = null;
             }
@@ -335,7 +335,7 @@ namespace Parents.Views.Activities.Helpers
         private void ClearStartDateAndTime_Tapped(object sender, EventArgs e)
         {
             startDate.Date = DateTime.Now;
-            startTime.Time = DateTime.Now.TimeOfDay;  
+            startTime.Time = DateTime.Now.TimeOfDay;
         }
 
         private void ActivityRemarksClear_Tapped(object sender, EventArgs e)
@@ -421,7 +421,7 @@ namespace Parents.Views.Activities.Helpers
         {
             var popup = new ActivityRepeatHelperPageView();
             await Navigation.PushPopupAsync(popup);
-            
+
         }
 
 
@@ -430,6 +430,20 @@ namespace Parents.Views.Activities.Helpers
         private void Button_Clicked(object sender, EventArgs e)
         {
             lblRepeat.Text = _repeat;
+        }
+
+        private void startDate_DateSelected(object sender, DateChangedEventArgs e)
+        {
+
+            if(endDate.Date < startDate.Date)
+                endDate.Date = startDate.Date;
+        }
+
+        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            //vwLoading.IsVisible = true;
+            //lblProgressStatus.Text = "Saving";
+            //actIndicator.Color = Color.Red;
         }
     }
 }

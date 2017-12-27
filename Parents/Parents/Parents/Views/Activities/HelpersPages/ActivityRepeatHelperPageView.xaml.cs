@@ -15,18 +15,18 @@ using Xamarin.Forms.Xaml;
 
 namespace Parents.Views.Activities.HelpersPages
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ActivityRepeatHelperPageView : PopupPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class ActivityRepeatHelperPageView : PopupPage
     {
 
-		public ActivityRepeatHelperPageView ()
-		{
+        public ActivityRepeatHelperPageView()
+        {
             var bc = new NewActivityViewModel();
             BindingContext = bc;
 
             InitializeComponent();
-          
-       
+
+
             activityRepeatMenu.ItemsSource = new List<ActivityRepeat>
             {
                 new ActivityRepeat
@@ -39,7 +39,7 @@ namespace Parents.Views.Activities.HelpersPages
                 },
                 new ActivityRepeat
                 {
-                    RepeatName = "Weekly" 
+                    RepeatName = "Weekly"
                 },
                 new ActivityRepeat
                 {
@@ -55,7 +55,7 @@ namespace Parents.Views.Activities.HelpersPages
                 }
             };
 
-		}
+        }
 
         private void repeatPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -64,8 +64,8 @@ namespace Parents.Views.Activities.HelpersPages
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            
-           await PopupNavigation.PopAsync();
+            //Application.Current.Properties["selectedRepeatMode"] = activityRepeatMenu.SelectedItem;
+            await PopupNavigation.PopAsync();
         }
 
         private void repeatPicker_SelectedIndexChanged_1(object sender, EventArgs e)
@@ -97,7 +97,7 @@ namespace Parents.Views.Activities.HelpersPages
 
             if (string.IsNullOrEmpty(repetitionTimes.Text))
             {
-                _repetitions = "0";
+                _repetitions = "1";
             }
             else
             {
@@ -107,10 +107,54 @@ namespace Parents.Views.Activities.HelpersPages
             MessagingCenter.Send(this, "eventRecurrency", selectedItem);
             MessagingCenter.Send(this, "eventNumberOfOccurencies", _repetitions);
 
-            await PopupNavigation.PopAsync();
+           await PopupNavigation.PopAsync();
         }
 
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
 
+        }
 
+        private void TapGestureRecognizer_Tapped_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TapGestureRecognizer_Tapped_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TapGestureRecognizer_Tapped_3(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TapGestureRecognizer_Tapped_4(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TapGestureRecognizer_Tapped_5(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void Button_Clicked_1(object sender, EventArgs e)
+        {
+            string _repetitions = "";
+
+            if (string.IsNullOrEmpty(repetitionTimes.Text))
+            {
+                _repetitions = "1";
+            }
+            else
+            {
+                _repetitions = repetitionTimes.Text;
+            }
+
+            MessagingCenter.Send(this, "eventNumberOfOccurencies", _repetitions);
+            await PopupNavigation.PopAsync();
+        }
     }
 }
