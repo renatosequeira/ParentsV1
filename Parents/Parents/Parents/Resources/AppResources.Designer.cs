@@ -80,11 +80,29 @@ namespace Parents.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Error.
+        /// </summary>
+        internal static string DialogErrorTitle {
+            get {
+                return ResourceManager.GetString("DialogErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a DIARY.
         /// </summary>
         internal static string DiaryMenu {
             get {
                 return ResourceManager.GetString("DiaryMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a An error occured. Please try again later..
+        /// </summary>
+        internal static string ErrorOcurredTryLater {
+            get {
+                return ResourceManager.GetString("ErrorOcurredTryLater", resourceCulture);
             }
         }
         

@@ -246,7 +246,7 @@
 
                     <Label
                     x:Name="lblRepeat"
-                    Text="{Binding ActivityRepeat, Mode=TwoWay}"
+                    Text="{Binding GhostActivityRepeat, Mode=TwoWay}"
                     VerticalOptions="Center"
                     HorizontalOptions="StartAndExpand"
                     FontSize="Medium">

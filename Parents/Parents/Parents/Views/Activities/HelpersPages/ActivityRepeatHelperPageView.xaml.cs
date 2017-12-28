@@ -140,7 +140,7 @@ namespace Parents.Views.Activities.HelpersPages
 
         }
 
-        private async void Button_Clicked_1(object sender, EventArgs e)
+        private async void btnOK_Clicked(object sender, EventArgs e)
         {
             string _repetitions = "";
 

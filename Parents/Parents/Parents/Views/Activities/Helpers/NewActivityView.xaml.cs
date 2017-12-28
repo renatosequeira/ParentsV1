@@ -42,8 +42,6 @@ namespace Parents.Views.Activities.Helpers
         }
         #endregion
 
-
-
         private async void btn1_Clicked(object sender, System.EventArgs e)
         {
             await navigationService.Navigate("ActivityTypeHelperPage");

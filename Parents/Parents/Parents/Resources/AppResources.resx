@@ -123,8 +123,14 @@
   <data name="ConfigurationMenu" xml:space="preserve">
     <value>CONFIGURATIONS</value>
   </data>
+  <data name="DialogErrorTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
   <data name="DiaryMenu" xml:space="preserve">
     <value>DIARY</value>
+  </data>
+  <data name="ErrorOcurredTryLater" xml:space="preserve">
+    <value>An error occured. Please try again later.</value>
   </data>
   <data name="ParentsMenu" xml:space="preserve">
     <value>PARENTS</value>
