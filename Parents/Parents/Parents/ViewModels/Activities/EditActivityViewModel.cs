@@ -1,19 +1,16 @@
-﻿using GalaSoft.MvvmLight.Command;
-using Parents.Helpers;
-using Parents.Models;
-using Parents.Resources;
-using Parents.Services;
-using Parents.Views.Activities.HelpersPages;
-using Plugin.Media;
-using Plugin.Media.Abstractions;
-using System;
-using System.ComponentModel;
-using System.Windows.Input;
-using Xamarin.Forms;
-
-namespace Parents.ViewModels.Activities
+﻿namespace Parents.ViewModels.Activities
 {
-    public class NewActivityViewModel : INotifyPropertyChanged
+    using GalaSoft.MvvmLight.Command;
+    using Models;
+    using Parents.Helpers;
+    using Plugin.Media.Abstractions;
+    using Services;
+    using System;
+    using System.ComponentModel;
+    using System.Windows.Input;
+    using Xamarin.Forms;
+
+    public class EditActivityViewModel : INotifyPropertyChanged
     {
         #region Events
         public event PropertyChangedEventHandler PropertyChanged;
@@ -26,6 +23,8 @@ namespace Parents.ViewModels.Activities
         #endregion
 
         #region Attributes
+        Activity activity;
+
         string _activityDescription;
         string _activityRemarks;
         DateTime _activityDateStart;
@@ -660,447 +659,25 @@ namespace Parents.ViewModels.Activities
         #endregion
 
         #region Constructors
-        public NewActivityViewModel()
+        public EditActivityViewModel(Activity _activity)
         {
+            this.activity = _activity;
             dialogService = new DialogService();
             apiService = new ApiService();
             navigationService = new NavigationService();
 
-            IsEnabled = true; //bool are disabled by default. This will enable buttons
-
-            TimeSpan time1 = TimeSpan.FromHours(1);
-
-            ActivityDateStart = DateTime.Now;
-            ActivityDateEnd = DateTime.Now;
-            ActivityTimeStart = DateTime.Now.TimeOfDay;
-            //ActivityTimeEnd = DateTime.Now.TimeOfDay.Add(time1);
-
-            string endHours = ActivityDateStart.Hour.ToString();
-
-            if (endHours == "23")
-            {
-                int currentMinute = DateTime.Now.Minute;
-                int minuteResult = 59 - currentMinute;
-
-                ActivityTimeEnd = TimeSpan.FromMinutes(minuteResult);
-                ActivityDateEnd = ActivityDateStart.AddDays(1);
-            }
-            else
-            {
-                ActivityTimeEnd = DateTime.Now.TimeOfDay.Add(time1);
-            }
-
-            #region DaysOfWeekInicializer
-            MondayImage = "ic_monday";
-            TuesdayImage = "ic_tuesday";
-            WednesdayImage = "ic_wednsday";
-            ThursdayImage = "ic_thursday";
-            FridayImage = "ic_friday";
-            SaturdayImage = "ic_saturday";
-            SundayImage = "ic_sunday";
-            #endregion
-
-            _selectedDays = new string[7];
-
-            Status = false;
-
-            string r;
-
-            ImageSource = "no_image";
-
-            MessagingCenter.Subscribe<ActivityRepeatHelperPageView, string>(this, "eventRecurrency", (s, a) => {
-                //EventRecurrencyMC = a.ToString();
-                r = a.ToString();
-                ActivityRepeat = r;
-                GhostActivityRepeat = r;
-                _selectedDays[0] = r;
-
-            });
-
-            MessagingCenter.Subscribe<ActivityRepeatHelperPageView, string>(this, "eventNumberOfOccurencies", (s, a) => {
-                EventRepetitions = a.ToString();
-            });
-
+            ActivityDescription = _activity.ActivityDescription;
+            ActivityDateStart = _activity.ActivityDateStart;
+            ActivityDateEnd = _activity.ActivityDateEnd;
+            ChildrenActivityType = _activity.ChildrenActivityType;
+            ActivityPriority = _activity.ActivityPriority;
+            ActivityPrivacy = _activity.ActivityPrivacy;
+            Status = _activity.Status;
         }
+      
         #endregion
 
         #region Commands
-        public ICommand ValidateWeekDaysCommand
-        {
-            get
-            {
-                return new RelayCommand(_validateWeekDays);
-            }
-        }
-
-        private void _validateWeekDays()
-        {
-            ActivityRepeat = CheckSelectedDays(_selectedDays);
-            GhostActivityRepeat = CheckSelectedDays(_selectedDays);
-        }
-
-        public ICommand MondaySelectedCommand
-        {
-            get
-            {
-                return new RelayCommand(_MondaySelected);
-            }
-        }
-
-        private void _MondaySelected()
-        {
-            if (MondaySelected)
-            {
-                MondaySelected = false;
-                MondayImage = "ic_monday";
-                _selectedDays[0] = null;
-            }
-            else
-            {
-                MondaySelected = true;
-                MondayImage = "ic_monday_selected1";
-                _selectedDays[0] = "2ª, ";
-            }
-
-        }
-
-        public ICommand TuesdaySelectedCommand
-        {
-            get
-            {
-                return new RelayCommand(_TuesdaySelected);
-            }
-        }
-
-        private void _TuesdaySelected()
-        {
-            if (TuesdaySelected)
-            {
-                TuesdaySelected = false;
-                TuesdayImage = "ic_tuesday";
-                _selectedDays[1] = null;
-            }
-            else
-            {
-                TuesdaySelected = true;
-                TuesdayImage = "ic_tuesday_selected";
-                _selectedDays[1] = "3ª, ";
-            }
-        }
-
-        public ICommand WednesdaySelectedCommand
-        {
-            get
-            {
-                return new RelayCommand(_WednesdaySelected);
-            }
-        }
-
-        private void _WednesdaySelected()
-        {
-            if (WednesdaySelected)
-            {
-                WednesdaySelected = false;
-                WednesdayImage = "ic_wednsday";
-                _selectedDays[2] = null;
-            }
-            else
-            {
-                WednesdaySelected = true;
-                WednesdayImage = "ic_wednsday_selected";
-                _selectedDays[2] = "4ª, ";
-            }
-        }
-
-        public ICommand ThursdaySelectedCommand
-        {
-            get
-            {
-                return new RelayCommand(_ThursdaySelected);
-            }
-        }
-
-        private void _ThursdaySelected()
-        {
-            if (ThursdaySelected)
-            {
-                ThursdaySelected = false;
-                ThursdayImage = "ic_thursday";
-                _selectedDays[3] = null;
-            }
-            else
-            {
-                ThursdaySelected = true;
-                ThursdayImage = "ic_thrusday_selected";
-                _selectedDays[3] = "5ª, ";
-            }
-        }
-
-        public ICommand FridaySelectedCommand
-        {
-            get
-            {
-                return new RelayCommand(_FridaySelected);
-            }
-        }
-
-        private void _FridaySelected()
-        {
-            if (FridaySelected)
-            {
-                FridaySelected = false;
-                FridayImage = "ic_friday";
-                _selectedDays[4] = null;
-            }
-            else
-            {
-                FridaySelected = true;
-                FridayImage = "ic_friday_selected";
-                _selectedDays[4] = "6ª, ";
-            }
-        }
-
-        public ICommand SaturdaySelectedCommand
-        {
-            get
-            {
-                return new RelayCommand(_SaturdayCommand);
-            }
-        }
-
-        private void _SaturdayCommand()
-        {
-            if (SaturdaySelected)
-            {
-                SaturdaySelected = false;
-                SaturdayImage = "ic_saturday";
-                _selectedDays[5] = null;
-            }
-            else
-            {
-                SaturdaySelected = true;
-                SaturdayImage = "ic_saturday_selected";
-                _selectedDays[5] = "Sab ";
-            }
-        }
-
-        public ICommand SundaySelectedCommand
-        {
-            get
-            {
-                return new RelayCommand(_SundaySelect);
-            }
-        }
-
-        private void _SundaySelect()
-        {
-            if (SundaySelected)
-            {
-                SundaySelected = false;
-                SundayImage = "ic_sunday";
-                _selectedDays[6] = null;
-            }
-            else
-            {
-                SundaySelected = true;
-                SundayImage = "ic_sunday_selected";
-                _selectedDays[6] = "Dom ";
-                //ActivityRepeat = CheckSelectedDays(_selectedDays);
-            }
-            //CheckSelectedDays(_selectedDays);
-        }
-
-        public ICommand switchAllDayCommand
-        {
-            get
-            {
-                return new RelayCommand(SwitchToAllDay);
-            }
-        }
-
-        private void SwitchToAllDay()
-        {
-            TimeSpan startTime = ActivityTimeStart;
-            TimeSpan endTime = ActivityTimeEnd;
-
-            if (allDay)
-            {
-                ActivityTimeStart = TimeSpan.Parse("00:00");
-                ActivityTimeEnd = TimeSpan.Parse("23:59");
-            }
-
-        }
-
-        public ICommand ClearStartDateAndTimeCommand
-        {
-            get
-            {
-                return new RelayCommand(ClearStartDate);
-            }
-        }
-
-        private void ClearStartDate()
-        {
-            ActivityDateStart = DateTime.Now;
-        }
-
-        public ICommand ChangeImageCommand
-        {
-            get
-            {
-                return new RelayCommand(ChangeImage);
-            }
-        }
-
-        async void ChangeImage()
-        {
-            await CrossMedia.Current.Initialize();
-
-            if (CrossMedia.Current.IsCameraAvailable &&
-                CrossMedia.Current.IsTakePhotoSupported)
-            {
-                var source = await dialogService.ShowImageOptions();
-
-                if (source == "Cancel")
-                {
-                    file = null;
-                    return;
-                }
-
-                if (source == "From Camera")
-                {
-                    file = await CrossMedia.Current.TakePhotoAsync(
-                        new StoreCameraMediaOptions
-                        {
-                            Directory = "Sample",
-                            Name = "test.jpg",
-                            PhotoSize = PhotoSize.Small,
-                        }
-                    );
-                }
-                else
-                {
-                    file = await CrossMedia.Current.PickPhotoAsync();
-                }
-            }
-            else
-            {
-                file = await CrossMedia.Current.PickPhotoAsync();
-            }
-
-            if (file != null)
-            {
-                ImageSource = ImageSource.FromStream(() =>
-                {
-                    var stream = file.GetStream();
-                    return stream;
-                });
-            }
-        }
-
-        public ICommand SaveCommand
-        {
-            get
-            {
-                return new RelayCommand(Save);
-            }
-        }
-
-        async void Save()
-        {
-            if (string.IsNullOrEmpty(ActivityDescription))
-            {
-                await dialogService.ShowMessage("Error", "Please insert Activity description");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(ChildrenActivityType) || ChildrenActivityType == "SELECT ACTIVITY TYPE...")
-            {
-                await dialogService.ShowMessage("Error", "Please select a valid actvity type");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(ActivityPriority) || ActivityPriority == "SELECT ACTIVITY PRIORITY...")
-            {
-                await dialogService.ShowMessage("Error", "Please select a valid actvity priority");
-                return;
-            }
-
-            IsRunning = true;
-            IsEnabled = false;
-
-            //verificar se existe ligação à internet
-            var connection = await apiService.CheckConnection();
-
-            //se não houver ligação à internet, popup com erro e sai do método
-            if (!connection.IsSuccess)
-            {
-                await dialogService.ShowMessage("Error", connection.Message);
-
-                IsRunning = false;
-                IsEnabled = true;
-                return;
-            }
-
-            byte[] imageArray = null;
-
-            if (file != null)
-            {
-                imageArray = FilesHelper.ReadFully(file.GetStream());
-                file.Dispose();
-            }
-
-            string childId = Application.Current.Properties["childrenIdentityCard"] as string;
-
-            var activity = new Activity
-            {
-                ActivityDescription = ActivityDescription,
-                ActivityDateStart = ActivityDateStart,
-                ActivityDateEnd = ActivityDateEnd,
-                ChildrenActivityType = ChildrenActivityType,
-                ActivityRemarks = ActivityRemarks,
-                Status = Status,
-                relatedChildrenIdentitiCard = childId,
-                ImageArray = imageArray,
-                ActivityPrivacy = ActivityPrivacy,
-                ActivityPriority = ActivityPriority,
-                ChildrenId = 2,
-                ActivityTimeStart = ActivityTimeStart,
-                ActivityTimeEnd = ActivityTimeEnd
-            };
-
-            var mainViewModel = MainViewModel.GetInstance();
-
-            //se existir ligação à internet guarda token na variavel response
-            var response = await apiService.Post(
-                "http://api.parents.outstandservices.pt",
-                "/api",
-                "/Activities",
-                mainViewModel.Token.TokenType,
-                mainViewModel.Token.AccessToken,
-                activity);
-
-
-            //se a resposta (Token) for nulo ou estiver vazia, significa que o email ou a pass estão errados
-            if (!response.IsSuccess)
-            {
-                IsRunning = false;
-                IsEnabled = true;
-                await dialogService.ShowMessage("Error", response.Message);
-                return;
-            }
-
-            activity = (Activity)response.Result;
-            var activityViewModel = ActivitiesViewModel.GetInstance();
-            activityViewModel.Add(activity);
-
-            await navigationService.Back();
-
-            IsRunning = false;
-            IsEnabled = true;
-
-        }
-
         public ICommand SaveRepeatedEventsCommand
         {
             get
@@ -1325,7 +902,8 @@ namespace Parents.ViewModels.Activities
 
                                 }
 
-                                if(ActivityRepeat.Contains("4ª")){
+                                if (ActivityRepeat.Contains("4ª"))
+                                {
                                     if (dayOfWeek == "Monday")
                                     {
                                         tempDateStart = ActivityDateStart.AddDays(2); //a data temporaria, tem é incrementada para corresponder a uma terça-feira
@@ -1639,85 +1217,12 @@ namespace Parents.ViewModels.Activities
                         IsRunning = false;
                         IsEnabled = true;
 
-                        }
                     }
                 }
-
-                await navigationService.Back();
             }
 
-        private string CheckSelectedDays(string[] selectedDays)
-        {
-            //ver que dias estão seleccionados
-            string segunda = selectedDays[0];
-            string terca = selectedDays[1];
-            string quarta = selectedDays[2];
-            string quinta = selectedDays[3];
-            string sexta = selectedDays[4];
-            string sabado = selectedDays[5];
-            string domingo = selectedDays[6];
-
-            //imprimir resultados no ActivityRepeat
-            if (string.IsNullOrEmpty(segunda) &&
-                string.IsNullOrEmpty(terca) &&
-                string.IsNullOrEmpty(quarta) &&
-                string.IsNullOrEmpty(quinta) &&
-                string.IsNullOrEmpty(sexta) &&
-                string.IsNullOrEmpty(sabado) &&
-                string.IsNullOrEmpty(domingo))
-            {
-                return ActivityRepeat;
-            }
-            else
-            {
-               
-                return ActivityRepeat = String.Format("{0} {1} {2} {3} {4} {5} {6}",
-                    segunda, terca, quarta, quinta, sexta, sabado, domingo);
-            }
-
+            await navigationService.Back();
         }
-
-        static bool IsNullOrEmpty(string[] myStringArray)
-        {
-            return myStringArray == null || myStringArray.Length < 1;
-        }
-
-
-            #endregion
-
-        #region Methods
-            //async void LoadActivityTypes()
-            //{
-
-
-            //    var connection = await apiService.CheckConnection();
-            //    if (!connection.IsSuccess)
-            //    {
-            //        await dialogService.ShowMessage("Error", connection.Message);
-            //        return;
-            //    }
-
-            //    var mainViewModel = MainViewModel.GetInstance();
-
-            //    var response = await apiService.GetList<ActivityType>(
-            //       "http://api.parents.outstandservices.pt",
-            //        "/api",
-            //        "/ActivitiesTypes",
-            //        mainViewModel.Token.TokenType,
-            //        mainViewModel.Token.AccessToken);
-
-            //    if (!response.IsSuccess)
-            //    {
-            //        await dialogService.ShowMessage("Error", connection.Message);
-            //        return;
-            //    }
-
-            //    activityTypes = (List<ActivityType>)response.Result;
-
-            //    ActType = new ObservableCollection<ActivityType>(activityTypes.OrderBy(c => c.ActivityTypeDescription));
-
-            //}
-            #endregion
-        }
+        #endregion
     }
-
+}

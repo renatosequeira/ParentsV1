@@ -67,21 +67,8 @@
         {
             get
             {
-                ObservableCollection<Activity> theCollection = new ObservableCollection<Activity>();
-
-                if (_activities != null)
-
-                {
-                    List<Activity> entities = (from e in _activities
-                                               where e.ChildrenActivityType.Contains("ANNIVERSARY")
-                                               select e).ToList<Activity>();
-                    if (entities != null && entities.Any())
-                    {
-                        theCollection = new ObservableCollection<Activity>(entities);
-                    }
-                }
-
-                return theCollection;
+              
+                return _activities;
 
             }
             set
@@ -164,6 +151,7 @@
             }
 
             LoadActivities();
+            //LoadAnniversaries();
         }
 
         #endregion
@@ -214,6 +202,41 @@
             IsRefreshing = false;
         }
 
+        async void LoadAnniversaries()
+        {
+            IsRefreshing = true;
+
+            var connection = await apiService.CheckConnection();
+            if (!connection.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error", connection.Message);
+                return;
+            }
+
+            var mainViewModel = MainViewModel.GetInstance();
+
+            var response = await apiService.GetList<Activity>(
+               "http://api.parents.outstandservices.pt",
+                "/api",
+                "/AnniversaryActivities",
+                mainViewModel.Token.TokenType,
+                mainViewModel.Token.AccessToken);
+
+
+            if (!response.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error", connection.Message);
+                return;
+            }
+
+            activities = (List<Activity>)response.Result;
+
+
+
+            ActivitiesList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentity));
+            IsRefreshing = false;
+        }
+
         public void UpdateActivityFamily(Activity activity)
         {
             IsRefreshing = true;
@@ -225,7 +248,7 @@
             IsRefreshing = false;
         }
 
-        public async Task DeleteActivityFamily(Activity activity)
+        public async Task DeleteActivity(Activity activity)
         {
             IsRefreshing = true;
 
@@ -240,8 +263,6 @@
                 IsRefreshing = false;
                 return;
             }
-
-
 
             var mainViewModel = MainViewModel.GetInstance();
 

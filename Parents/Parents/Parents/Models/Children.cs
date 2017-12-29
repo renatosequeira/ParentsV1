@@ -17,6 +17,7 @@
     public class Children
     {
         #region Properties
+ 
         public int ChildrenId { get; set; }
         public int ParentId { get; set; }
         public int BoodInformationId { get; set; }
@@ -120,8 +121,11 @@
         async void SelectChildren()
         {
             Application.Current.Properties["childrenIdentityCard"] = ChildrenIdentityCard;
+            Application.Current.Properties["childrenId"] = ChildrenId;
             var mainViewModel = MainViewModel.GetInstance();
+
             mainViewModel.Activities = new ActivitiesViewModel();
+
             //mainViewModel.NewActivity = new NewActivityViewModel();
             //mainViewModel.Children = this;
             mainViewModel.EditChildren = new EditChildrenViewModel(this);

@@ -126,6 +126,10 @@
                 case "ActivityLocationHelperPage":
                     await Application.Current.MainPage.Navigation.PushAsync(new ActivityLocationHelperPageView());
                     break;
+
+                case "Activity Details":
+                    await Application.Current.MainPage.Navigation.PushAsync(new EditActivityView());
+                    break;
             }
 
         }

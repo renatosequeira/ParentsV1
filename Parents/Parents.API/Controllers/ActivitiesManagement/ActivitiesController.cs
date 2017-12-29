@@ -56,7 +56,54 @@
                     ActivityTimeEnd = activity.ActivityTimeEnd,
                     ActivityTimeStart = activity.ActivityTimeStart,
                     ActivityRepeat = activity.ActivityRepeat,
-                    EventId = activity.EventId
+                    EventId = activity.EventId,
+                    EventSeries = activity.EventSeries
+                });
+
+            }
+
+            return Ok(activityResponse);
+        }
+
+        // GET: api/Activities
+        [Route("api/AnniversaryActivities")]
+        public async Task<IHttpActionResult> GetAnniversaryActivities()
+        {
+            var userId = User.Identity.GetUserId();
+
+            var activities = await db.Activities.Where(act => act.ChildrenActivityType == "ANNIVERSARY" && (act.userId == userId || act.invitedUserId == userId)).ToListAsync();
+
+            //var activities = await db.Activities.Where(act => act.ChildrenActivityType == "ANNIVERSARY").ToListAsync();
+
+            var activityResponse = new List<ActivityResponse>();
+
+            foreach (var activity in activities)
+            {
+
+                activityResponse.Add(new ActivityResponse
+                {
+                    ActivityAddress = activity.ActivityAddress,
+                    ActivityDateEnd = activity.ActivityDateEnd,
+                    ActivityDateStart = activity.ActivityDateStart,
+                    ActivityDescription = activity.ActivityDescription,
+                    ActivityId = activity.ActivityId,
+                    ActivityPrivacy = activity.ActivityPrivacy,
+                    ActivityRemarks = activity.ActivityRemarks,
+                    Image = activity.Image,
+                    invitationAcknowledged = activity.invitationAcknowledged,
+                    invitedUserId = activity.invitedUserId,
+                    relatedChildrenIdentitiCard = activity.relatedChildrenIdentitiCard,
+                    userId = activity.userId,
+                    ChildrenId = activity.ChildrenId,
+                    Status = activity.Status,
+                    ChildrenActivityFamily = activity.ChildrenActivityFamily,
+                    ChildrenActivityType = activity.ChildrenActivityType,
+                    ActivityPriority = activity.ActivityPriority,
+                    ActivityTimeEnd = activity.ActivityTimeEnd,
+                    ActivityTimeStart = activity.ActivityTimeStart,
+                    ActivityRepeat = activity.ActivityRepeat,
+                    EventId = activity.EventId,
+                    EventSeries = activity.EventSeries
                 });
 
             }
@@ -130,7 +177,6 @@
                 var fullPath = string.Format("{0}/{1}", folder, file);
                 var response = FilesHelper.UploadPhoto(stream, folder, file);
 
-
                 if (response)
                 {
                     activity.Image = fullPath;
@@ -202,7 +248,8 @@
                 ActivityTimeStart = view.ActivityTimeStart,
                 ActivityTimeEnd = view.ActivityTimeEnd,
                 ActivityRepeat = view.ActivityRepeat,
-                EventId = eventId
+                EventId = eventId,
+                EventSeries = DateTime.Now.TimeOfDay.ToString()
             };
         }
 

@@ -6,7 +6,8 @@
              Title="ADD ACTIVITY"
              xmlns:local="clr-namespace:Parents.Renderers"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             xmlns:converter="clr-namespace:Parents.Converter.Activities">
+             xmlns:converter="clr-namespace:Parents.Converter.Activities"
+             xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem 
@@ -16,14 +17,9 @@
             Clicked="ToolbarItem_Clicked"/>
     </ContentPage.ToolbarItems>
 
+    
+
     <Grid>
-
-        <ActivityIndicator
-                IsRunning="{Binding IsRunning, Mode=TwoWay}"
-                VerticalOptions="CenterAndExpand">
-
-        </ActivityIndicator>
-
 
         <ScrollView>
 
@@ -43,10 +39,15 @@
                     </Image.GestureRecognizers>
                 </Image>
 
+                <!--<ActivityIndicator 
+                    x:Name="BusyIndicator" 
+                    IsVisible="False"
+                    IsEnabled="False"/>-->
+
                 <!--DESCRIPTION-->
                 <StackLayout
-                Orientation="Horizontal"
-                Padding="14">
+                    Orientation="Horizontal"
+                    Padding="14">
 
                     <Image 
                     Source="ic_notes"
@@ -245,11 +246,11 @@
                     VerticalOptions="Center"/>
 
                     <Label
-                    x:Name="lblRepeat"
-                    Text="{Binding GhostActivityRepeat, Mode=TwoWay}"
-                    VerticalOptions="Center"
-                    HorizontalOptions="StartAndExpand"
-                    FontSize="Medium">
+                        x:Name="lblRepeat"
+                        Text="{Binding ActivityRepeat, Mode=TwoWay}"
+                        VerticalOptions="Center"
+                        HorizontalOptions="StartAndExpand"
+                        FontSize="Medium">
                     </Label>
 
                     <Image 
@@ -579,8 +580,10 @@
 
         </ScrollView>
 
+        <ContentView x:Name="contentView" IsVisible="{Binding NewActivity.IsRunning, Mode=TwoWay}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Black" Opacity="0.5">
+            <busyindicator:SfBusyIndicator x:Name="BusyIndicator" AnimationType="HorizontalPulsingBox" IsBusy="{Binding NewActivity.IsRunning, Mode=TwoWay}" TextColor="White"/>
+        </ContentView>
 
-        
         <!--<RelativeLayout 
             x:Name="vwLoading" 
             IsVisible="False" 

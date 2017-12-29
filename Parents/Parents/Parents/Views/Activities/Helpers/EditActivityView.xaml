@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Parents.Views.Activities.Helpers.EditActivityView"
+               BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="EDIT ACTIVITY FAMILY">
+
+    <Grid ColumnSpacing="0" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <ContentView x:Name="PlaceHolder" Grid.Row="0"/>
+        <BoxView BackgroundColor="#22395C" Grid.Row="1"/>
+
+        <!--ACTIVITY FAMILY DETAILS-->
+
+        <StackLayout 
+            BindingContext="{Binding EditActivity}"
+            Padding="10">
+
+            <Entry
+                Placeholder="Enter Activity Family description"
+                Text="{Binding ActivityDescription, Mode=TwoWay}">
+            </Entry>
+
+            <DatePicker
+                Date="{Binding ActivityDateStart, Mode=TwoWay}">
+            </DatePicker>
+
+            <DatePicker
+                Date="{Binding ActivityDateEnd, Mode=TwoWay}">
+            </DatePicker>
+
+            <Entry
+                Text="{Binding ChildrenActivityType, Mode=TwoWay}">
+            </Entry>
+
+            <Entry
+                Text="{Binding ActivityPriority, Mode=TwoWay}">
+            </Entry>
+            
+            <Switch
+                IsToggled="{Binding ActivityPrivacy, Mode=TwoWay}"
+                HorizontalOptions="End"
+                x:Name="changePrivacy"/>
+
+            <Switch
+                IsToggled="{Binding Status, Mode=TwoWay}"
+                HorizontalOptions="End"/>
+
+
+           <ActivityIndicator
+                IsRunning="{Binding IsRunning, Mode=TwoWay}"
+                VerticalOptions="CenterAndExpand">
+
+            </ActivityIndicator>
+
+            <Button
+                Command="{Binding SaveRepeatedEventsCommand}"
+                BackgroundColor="Navy"
+                BorderRadius="23"
+                FontAttributes="Bold"
+                HeightRequest="46"
+                IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                Text="Save"
+                TextColor="White"
+                Margin="50,0"
+                VerticalOptions="EndAndExpand">
+
+            </Button>
+
+        </StackLayout>
+
+
+    </Grid>
+
+</ContentPage>

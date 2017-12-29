@@ -38,7 +38,6 @@ namespace Parents.Views.Activities
 
             await navigationService.Navigate("AddAnniversaryActivity");
             
-
             buttonAdd.Image = "add_closed_orange";
             contents.Opacity = 1;
 

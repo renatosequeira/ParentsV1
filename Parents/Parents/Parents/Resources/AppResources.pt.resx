@@ -123,10 +123,19 @@
   <data name="ConfigurationMenu" xml:space="preserve">
     <value>DEFINIÇÕES</value>
   </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirmar</value>
+  </data>
+  <data name="ConfirmDeleteRecord" xml:space="preserve">
+    <value>Tem a certeza que deseja apagar este registo?</value>
+  </data>
   <data name="DiaryMenu" xml:space="preserve">
     <value>DIÁRIO</value>
   </data>
   <data name="ParentsMenu" xml:space="preserve">
     <value>PAIS</value>
+  </data>
+  <data name="Saving" xml:space="preserve">
+    <value>A Guardar...</value>
   </data>
 </root>

@@ -66,6 +66,8 @@
                 var guid = Guid.NewGuid().ToString();
                 view.EventId = guid;
 
+                view.EventSeries = DateTime.Now.TimeOfDay.ToString();
+
                 var pic = string.Empty;
                 var folder = "~/Content/Images";
 
@@ -127,7 +129,8 @@
                 ActivityTimeStart = view.ActivityTimeStart,
                 ActivityTimeEnd = view.ActivityTimeEnd,
                 ActivityRepeat = view.ActivityRepeat,
-                EventId = view.EventId
+                EventId = view.EventId,
+                EventSeries = view.EventSeries
             };
         }
 

@@ -86,5 +86,7 @@
 
         [DataType(DataType.Time)]
         public TimeSpan ActivityTimeEnd { get; set; }
+
+        public string EventSeries { get; set; }
     }
 }

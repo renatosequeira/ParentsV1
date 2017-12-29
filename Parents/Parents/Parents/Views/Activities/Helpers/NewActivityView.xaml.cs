@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using Rg.Plugins.Popup.Extensions;
 using System.Collections.ObjectModel;
+using Parents.Resources;
 
 namespace Parents.Views.Activities.Helpers
 {
@@ -39,6 +40,10 @@ namespace Parents.Views.Activities.Helpers
             navigationService = new NavigationService();
 
 
+            MessagingCenter.Subscribe<ActivityRepeatHelperPageView, string>(this, "eventRecurrency", (s, a) => {
+                lblRepeat.Text = a.ToString();
+            });
+
         }
         #endregion
 
@@ -49,7 +54,8 @@ namespace Parents.Views.Activities.Helpers
 
         protected override void OnAppearing()
         {
-            //base.OnAppearing();
+            base.OnAppearing();
+
             type = acvtivityTypeList.Text;
             priority = acvtivityPriorityLabel.Text;
 
@@ -422,17 +428,10 @@ namespace Parents.Views.Activities.Helpers
 
         }
 
-
-
         private ObservableCollection<string> Events { get; set; } = new ObservableCollection<string>();
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-            lblRepeat.Text = _repeat;
-        }
 
         private void startDate_DateSelected(object sender, DateChangedEventArgs e)
         {
-
             if(endDate.Date < startDate.Date)
                 endDate.Date = startDate.Date;
         }
@@ -442,6 +441,12 @@ namespace Parents.Views.Activities.Helpers
             //vwLoading.IsVisible = true;
             //lblProgressStatus.Text = "Saving";
             //actIndicator.Color = Color.Red;
+
+            //contentView.IsVisible = true;
+
+            //this.BusyIndicator.IsVisible = true;
+            //this.BusyIndicator.IsBusy = true;
+            this.BusyIndicator.Title = AppResources.Saving;
         }
     }
 }

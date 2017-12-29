@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Parents.ViewModels.Activities;
 using System.Globalization;
-using Xamarin.Forms;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using Parents.Services;
 using Parents.ViewModels;
-using Parents.ViewModels.Childrens;
+using Parents.Resources;
 
 namespace Parents.Models
 {
@@ -228,11 +223,11 @@ namespace Parents.Models
         {
             get
             {
-                return new RelayCommand(DeleteChildren);
+                return new RelayCommand(DeleteActivity);
             }
         }
 
-        async void DeleteChildren()
+        async void DeleteActivity()
         {
             var response = await dialogService.ShowConfirm("Confirm", "Are you sure to delete this record?");
 
@@ -241,44 +236,30 @@ namespace Parents.Models
                 return;
             }
 
-            //await ActivitiesViewModel.GetInstance().DeleteChildren(this);
-        }
-
-        public ICommand EditCommand
-        {
-            get
-            {
-                return new RelayCommand(EditChildren);
-            }
-        }
-
-        async void EditChildren()
-        {
-        //    MainViewModel.GetInstance().EditChildren = new EditChildrenViewModel(this);
-        //    await navigationService.Navigate("ChildrenDetails");
+            await ActivitiesViewModel.GetInstance().DeleteActivity(this);
         }
 
         public ICommand SelectActivityCommand
         {
             get
             {
-                return new RelayCommand(SelectActivity);
+                return new RelayCommand(SelectActivityItem);
             }
         }
 
-
-
-
-        async void SelectActivity()
+        async void SelectActivityItem()
         {
-            
             var mainViewModel = MainViewModel.GetInstance();
-            mainViewModel.Activities = new ActivitiesViewModel();
-            mainViewModel.NewActivity = new NewActivityViewModel();
-            //mainViewModel.Children = this;
-            //mainViewModel.EditChildren = new EditChildrenViewModel(this);
-            //await navigationService.Navigate("ChildrenDetails");
+            mainViewModel.EditActivity = new EditActivityViewModel(this);
+            await navigationService.Navigate("Activity Details");
 
+        }
+        #endregion
+
+        #region Methods
+        public override int GetHashCode()
+        {
+            return ActivityId;
         }
         #endregion
     }

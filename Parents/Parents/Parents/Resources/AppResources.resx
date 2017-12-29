@@ -123,6 +123,12 @@
   <data name="ConfigurationMenu" xml:space="preserve">
     <value>CONFIGURATIONS</value>
   </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="ConfirmDeleteRecord" xml:space="preserve">
+    <value>Are you sure to delete this record?</value>
+  </data>
   <data name="DialogErrorTitle" xml:space="preserve">
     <value>Error</value>
   </data>
@@ -134,5 +140,8 @@
   </data>
   <data name="ParentsMenu" xml:space="preserve">
     <value>PARENTS</value>
+  </data>
+  <data name="Saving" xml:space="preserve">
+    <value>Saving...</value>
   </data>
 </root>

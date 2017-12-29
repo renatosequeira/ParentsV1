@@ -50,6 +50,7 @@
         public ActivitiesViewModel Activities { get; set; }
         public Children Children { get; set; } //objetivo é nao perder de vista o objecto Children
         public NewActivityViewModel NewActivity { get; set; }
+        public EditActivityViewModel EditActivity { get; set; }
         #endregion
 
         #region Constructors
@@ -105,7 +106,6 @@
             NewActivityType = new NewActivityTypeViewModel();
             await navigationService.Navigate("NewActicityType");
         }
-
 
         public ICommand NewActivityPericiocityCommand
         {

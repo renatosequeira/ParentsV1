@@ -28,7 +28,7 @@
         bool _isRefreshing;
         #endregion
 
-        #region Properties
+        #region Properties       
         public ObservableCollection<Children> ChildrensList
         {
             get

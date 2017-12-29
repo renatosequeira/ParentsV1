@@ -45,5 +45,7 @@ namespace Parents.API.Models.ActivitiesManagement
         public string ActivityRepeat { get; set; }
 
         public string EventId { get; set; }
+
+        public string EventSeries { get; set; }
     }
 }

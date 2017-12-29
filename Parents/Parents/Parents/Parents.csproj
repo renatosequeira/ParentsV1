@@ -74,6 +74,7 @@
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="ViewModels\Activities\ActivitiesViewModel.cs" />
+    <Compile Include="ViewModels\Activities\EditActivityViewModel.cs" />
     <Compile Include="ViewModels\Activities\Helpers\ActivitiesInstitutionType\ActivitiesInstitutionTypeViewModel.cs" />
     <Compile Include="ViewModels\Activities\Helpers\ActivitiesInstitutionType\EditActivitiesInstitutionTypeViewModel.cs" />
     <Compile Include="ViewModels\Activities\Helpers\ActivitiesInstitutionType\NewActivityInstitutionTypeViewModel.cs" />
@@ -105,6 +106,9 @@
     </Compile>
     <Compile Include="Views\Activities\ActivitiesView.xaml.cs">
       <DependentUpon>ActivitiesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Activities\ActivityDetailsView.xaml.cs">
+      <DependentUpon>ActivityDetailsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Activities\AnniversariesListView.xaml.cs">
       <DependentUpon>AnniversariesListView.xaml</DependentUpon>
@@ -156,6 +160,9 @@
     </Compile>
     <Compile Include="Views\Activities\Helpers\EditActivityFamilyView.xaml.cs">
       <DependentUpon>EditActivityFamilyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Activities\Helpers\EditActivityView.xaml.cs">
+      <DependentUpon>EditActivityView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Activities\Helpers\NewActivityFamilyView.xaml.cs">
       <DependentUpon>NewActivityFamilyView.xaml</DependentUpon>
@@ -296,6 +303,9 @@
     </Reference>
     <Reference Include="Rg.Plugins.Popup.Platform, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Rg.Plugins.Popup.1.0.4\lib\portable-win+net45+wp8+win8+wpa81\Rg.Plugins.Popup.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfBusyIndicator.XForms, Version=15.4451.0.20, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Syncfusion.Xamarin.SfBusyIndicator.15.4.0.20\lib\portable-win+net45+wp80+win81+wpa81\Syncfusion.SfBusyIndicator.XForms.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.Extensions, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net45+win8+wpa81\System.Net.Http.Extensions.dll</HintPath>
@@ -636,6 +646,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Activities\HelpersPages\ActivityRepeatHelperPageView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Activities\ActivityDetailsView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Activities\Helpers\EditActivityView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

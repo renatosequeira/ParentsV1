@@ -80,6 +80,24 @@ namespace Parents.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Confirm.
+        /// </summary>
+        internal static string Confirm {
+            get {
+                return ResourceManager.GetString("Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Are you sure to delete this record?.
+        /// </summary>
+        internal static string ConfirmDeleteRecord {
+            get {
+                return ResourceManager.GetString("ConfirmDeleteRecord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Error.
         /// </summary>
         internal static string DialogErrorTitle {
@@ -112,6 +130,15 @@ namespace Parents.Resources {
         internal static string ParentsMenu {
             get {
                 return ResourceManager.GetString("ParentsMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Saving....
+        /// </summary>
+        internal static string Saving {
+            get {
+                return ResourceManager.GetString("Saving", resourceCulture);
             }
         }
     }

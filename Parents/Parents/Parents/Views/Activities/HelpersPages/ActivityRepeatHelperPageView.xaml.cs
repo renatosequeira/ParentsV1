@@ -18,6 +18,14 @@ namespace Parents.Views.Activities.HelpersPages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ActivityRepeatHelperPageView : PopupPage
     {
+        #region Attributes
+        string selectedItem;
+        bool _selectedMonday;
+        bool _selectedTuesday;
+        #endregion
+
+        public bool SelectedMonday { get; set; }
+        public bool SelectedTuesday { get; set; }
 
         public ActivityRepeatHelperPageView()
         {
@@ -57,25 +65,11 @@ namespace Parents.Views.Activities.HelpersPages
 
         }
 
-        private void repeatPicker_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private async void Button_Clicked(object sender, EventArgs e)
         {
             //Application.Current.Properties["selectedRepeatMode"] = activityRepeatMenu.SelectedItem;
             await PopupNavigation.PopAsync();
         }
-
-        private void repeatPicker_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-            //if (repeatPicker.SelectedItem.ToString() == "Custom")
-            //{
-            //    customRepeats.IsVisible = true;
-            //}
-        }
-
 
         private void activityRepeatMenu_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
@@ -85,14 +79,15 @@ namespace Parents.Views.Activities.HelpersPages
         private async void activityRepeatMenu_ItemTapped(object sender, ItemTappedEventArgs e)
         {
 
-            Application.Current.Properties["selectedRepeatMode"] = activityRepeatMenu.SelectedItem;
-            Application.Current.Properties["numberOfRepetitions"] = repetitionTimes.Text;
+            //Application.Current.Properties["selectedRepeatMode"] = activityRepeatMenu.SelectedItem;
+            //Application.Current.Properties["numberOfRepetitions"] = repetitionTimes.Text;
 
             var bc = new NewActivityViewModel();
             BindingContext = bc;
 
             var _selectedItem = e.Item as ActivityRepeat;
-            string selectedItem = _selectedItem.RepeatName;
+            selectedItem = _selectedItem.RepeatName;
+
             string _repetitions = "";
 
             if (string.IsNullOrEmpty(repetitionTimes.Text))
@@ -107,41 +102,25 @@ namespace Parents.Views.Activities.HelpersPages
             MessagingCenter.Send(this, "eventRecurrency", selectedItem);
             MessagingCenter.Send(this, "eventNumberOfOccurencies", _repetitions);
 
-           await PopupNavigation.PopAsync();
+            await PopupNavigation.PopAsync();
         }
 
-        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TapGestureRecognizer_Tapped_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TapGestureRecognizer_Tapped_2(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TapGestureRecognizer_Tapped_3(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TapGestureRecognizer_Tapped_4(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TapGestureRecognizer_Tapped_5(object sender, EventArgs e)
-        {
-
-        }
 
         private async void btnOK_Clicked(object sender, EventArgs e)
         {
+
+            //string selectedDays = "";
+
+            //if (SelectedMonday)
+            //{
+            //    selectedDays = "2ª,";
+            //}
+
+            //if (SelectedTuesday)
+            //{
+            //    selectedDays += "3ª, ";
+            //}
+
             string _repetitions = "";
 
             if (string.IsNullOrEmpty(repetitionTimes.Text))
@@ -153,8 +132,30 @@ namespace Parents.Views.Activities.HelpersPages
                 _repetitions = repetitionTimes.Text;
             }
 
+            //MessagingCenter.Send(this, "eventRecurrency", selectedItem);
             MessagingCenter.Send(this, "eventNumberOfOccurencies", _repetitions);
             await PopupNavigation.PopAsync();
+
+        }
+
+        private void CheckWhatsSelected()
+        {
+
+        }
+
+        private void CheckBox_CheckedChanged(object sender, XLabs.EventArgs<bool> e)
+        {
+            
+        }
+
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            SelectedMonday = true;
+        }
+
+        private void TapGestureRecognizer_Tapped_1(object sender, EventArgs e)
+        {
+            SelectedTuesday = true;
         }
     }
 }
