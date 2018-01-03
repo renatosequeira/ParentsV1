@@ -60,6 +60,8 @@
     <Compile Include="Renderers\BorderlessTimePicker.cs" />
     <Compile Include="Renderers\CustomButton.cs" />
     <Compile Include="Renderers\CustomEntry.cs" />
+    <Compile Include="Renderers\HideableToolbarItem.cs" />
+    <Compile Include="Renderers\Toast.cs" />
     <Compile Include="Resources\AppResources.pt.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -75,6 +77,7 @@
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="ViewModels\Activities\ActivitiesViewModel.cs" />
     <Compile Include="ViewModels\Activities\EditActivityViewModel.cs" />
+    <Compile Include="ViewModels\Activities\HelperPages\ActivityImageMaximizedHelperPageViewModel.cs" />
     <Compile Include="ViewModels\Activities\Helpers\ActivitiesInstitutionType\ActivitiesInstitutionTypeViewModel.cs" />
     <Compile Include="ViewModels\Activities\Helpers\ActivitiesInstitutionType\EditActivitiesInstitutionTypeViewModel.cs" />
     <Compile Include="ViewModels\Activities\Helpers\ActivitiesInstitutionType\NewActivityInstitutionTypeViewModel.cs" />
@@ -115,6 +118,9 @@
     </Compile>
     <Compile Include="Views\Activities\EventsListView.xaml.cs">
       <DependentUpon>EventsListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Activities\HelpersPages\ActivityImageMaximizedHelperPageView.xaml.cs">
+      <DependentUpon>ActivityImageMaximizedHelperPageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Activities\HelpersPages\ActivityLocationHelperPageView.xaml.cs">
       <DependentUpon>ActivityLocationHelperPageView.xaml</DependentUpon>
@@ -658,6 +664,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Activities\Helpers\EditActivityView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Activities\HelpersPages\ActivityImageMaximizedHelperPageView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -6,6 +6,7 @@ using GalaSoft.MvvmLight.Command;
 using Parents.Services;
 using Parents.ViewModels;
 using Parents.Resources;
+using Parents.ViewModels.Activities.HelperPages;
 
 namespace Parents.Models
 {
@@ -251,6 +252,7 @@ namespace Parents.Models
         {
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.EditActivity = new EditActivityViewModel(this);
+            mainViewModel.ActivityImageMaximizedHelper = new ActivityImageMaximizedHelperPageViewModel(this);
             await navigationService.Navigate("Activity Details");
 
         }

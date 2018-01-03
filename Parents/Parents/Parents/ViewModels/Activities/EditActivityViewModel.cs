@@ -3,12 +3,16 @@
     using GalaSoft.MvvmLight.Command;
     using Models;
     using Parents.Helpers;
+    using Parents.ViewModels.Activities.HelperPages;
+    using Parents.Views.Activities.HelpersPages;
+    using Plugin.Media;
     using Plugin.Media.Abstractions;
     using Services;
     using System;
     using System.ComponentModel;
     using System.Windows.Input;
     using Xamarin.Forms;
+    using Renderers;
 
     public class EditActivityViewModel : INotifyPropertyChanged
     {
@@ -34,7 +38,6 @@
 
         bool _isRunning;
         bool _isEnabled;
-        bool _isVisible;
 
         bool _status;
         string _activityType;
@@ -62,14 +65,88 @@
         string _saturdayImage;
         string _sundayImage;
 
-        string[] _selectedDays;
-
         ImageSource _imageSource;
         MediaFile file;
+
+        string _activityTypeImage;
+        string _statusImage;
+        string _priorityImage;
+        string _privacyImage;
 
         #endregion
 
         #region Properties
+        public string ActivityPriorityImage
+        {
+            get
+            {
+                return _priorityImage;
+            }
+            set
+            {
+                if (_priorityImage != value)
+                {
+                    _priorityImage = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(ActivityPriorityImage)));
+                }
+            }
+        }
+
+        public string ActivityStatusImage
+        {
+            get
+            {
+                return _statusImage;
+            }
+            set
+            {
+                if (_statusImage != value)
+                {
+                    _statusImage = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(ActivityStatusImage)));
+                }
+            }
+        }
+
+        public string ActivityPrivacyImage
+        {
+            get
+            {
+                return _privacyImage;
+            }
+            set
+            {
+                if (_privacyImage != value)
+                {
+                    _privacyImage = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(ActivityPrivacyImage)));
+                }
+            }
+        }
+
+        public string ActivityTypeImage
+        {
+            get
+            {
+                return _activityTypeImage;
+            }
+            set
+            {
+                if (_activityTypeImage != value)
+                {
+                    _activityTypeImage = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(ActivityTypeImage)));
+                }
+            }
+        }
 
         public bool MondaySelected
         {
@@ -464,9 +541,16 @@
                 if (_activityPrivacy != value)
                 {
                     _activityPrivacy = value;
+
+                    ActivityPrivacyImage = "ic_private";
+
                     PropertyChanged?.Invoke(
                         this,
                         new PropertyChangedEventArgs(nameof(ActivityPrivacy)));
+                }
+                else
+                {
+                    ActivityPrivacyImage = "ic_public";
                 }
             }
         }
@@ -482,6 +566,23 @@
                 if (_priority != value)
                 {
                     _priority = value;
+
+                    switch (_priority)
+                    {
+                        case "LOW":
+                            ActivityPriorityImage = "ic_priority_low";
+                            break;
+                        case "MEDIUM":
+                            ActivityPriorityImage = "ic_priority_medium";
+                            break;
+                        case "HIGH":
+                            ActivityPriorityImage = "ic_priority_high";
+                            break;
+                        case "IMMEDIATE":
+                            ActivityPriorityImage = "ic_priority_immediate";
+                            break;
+                    }
+
                     PropertyChanged?.Invoke(
                         this,
                         new PropertyChangedEventArgs(nameof(ActivityPriority)));
@@ -518,9 +619,14 @@
                 if (_status != value)
                 {
                     _status = value;
+                    ActivityStatusImage = "status_completed";
                     PropertyChanged?.Invoke(
                         this,
                         new PropertyChangedEventArgs(nameof(Status)));
+                }
+                else
+                {
+                    ActivityStatusImage = "status_ongoing";
                 }
             }
         }
@@ -529,6 +635,18 @@
         {
             get
             {
+                switch (_activityType)
+                {
+                    case "ANNIVERSARY":
+                        ActivityTypeImage = "ic_birthday";
+                        break;
+                    case "EVENT":
+                        ActivityTypeImage = "ic_event";
+                        break;
+
+                    default:
+                        break;
+                }
                 return _activityType;
             }
             set
@@ -666,6 +784,9 @@
             apiService = new ApiService();
             navigationService = new NavigationService();
 
+            IsEnabled = true;
+            IsRunning = false;
+
             ActivityDescription = _activity.ActivityDescription;
             ActivityDateStart = _activity.ActivityDateStart;
             ActivityDateEnd = _activity.ActivityDateEnd;
@@ -673,11 +794,113 @@
             ActivityPriority = _activity.ActivityPriority;
             ActivityPrivacy = _activity.ActivityPrivacy;
             Status = _activity.Status;
+            ImageSource = _activity.ActivityImageFullPath;
         }
-      
+
         #endregion
 
         #region Commands
+        public ICommand PrivacyChangeCommand
+        {
+            get
+            {
+                return new RelayCommand(PrivacyChange);
+                
+            }
+        }
+
+        void PrivacyChange()
+        {
+            if (ActivityPrivacy) //privado
+            { //passa para público
+                ActivityPrivacy = false;
+                ActivityPrivacyImage = "ic_public";
+                //DependencyService.Get<Toast>().Show("Changed");
+            }
+            else //publico
+            { //passa para privado
+                ActivityPrivacy = true;
+                ActivityPrivacyImage = "ic_private";
+                //DependencyService.Get<Toast>().Show("Changed 1");
+            }
+        }
+
+        public ICommand MaximizeActivityPicture
+        {
+            get
+            {
+                return new RelayCommand(MaximizePicture);
+            }
+        }
+
+        async void MaximizePicture()
+        {
+            //var mainViewModel = MainViewModel.GetInstance();
+            //mainViewModel.ActivityImageMaximizedHelper = new ActivityImageMaximizedHelperPageViewModel();
+
+            var _selectedImage = ImageSource;
+            Application.Current.Properties["image"] = ImageSource;
+
+            //gravar o endereço da imagem no messaging center
+            MessagingCenter.Send(this, "activityImageForMaximization", _selectedImage);
+
+            await navigationService.OpenPopup("maximizedActivityPage");
+        }
+
+        public ICommand ChangeImageCommand
+        {
+            get
+            {
+                return new RelayCommand(ChangeImage);
+            }
+        }
+
+        async void ChangeImage()
+        {
+            await CrossMedia.Current.Initialize();
+
+            if (CrossMedia.Current.IsCameraAvailable &&
+                CrossMedia.Current.IsTakePhotoSupported)
+            {
+                var source = await dialogService.ShowImageOptions();
+
+                if (source == "Cancel")
+                {
+                    file = null;
+                    return;
+                }
+
+                if (source == "From Camera")
+                {
+                    file = await CrossMedia.Current.TakePhotoAsync(
+                        new StoreCameraMediaOptions
+                        {
+                            Directory = "Sample",
+                            Name = "test.jpg",
+                            PhotoSize = PhotoSize.Small,
+                        }
+                    );
+                }
+                else
+                {
+                    file = await CrossMedia.Current.PickPhotoAsync();
+                }
+            }
+            else
+            {
+                file = await CrossMedia.Current.PickPhotoAsync();
+            }
+
+            if (file != null)
+            {
+                ImageSource = ImageSource.FromStream(() =>
+                {
+                    var stream = file.GetStream();
+                    return stream;
+                });
+            }
+        }
+
         public ICommand SaveRepeatedEventsCommand
         {
             get
@@ -708,518 +931,74 @@
                 return;
             }
 
-            int _eventRepetitions = Convert.ToInt32(EventRepetitions);
+            IsRunning = true;
+            IsEnabled = false;
 
-            bool _selectedMonday = MondaySelected;
-            bool _selectedTuesday = TuesdaySelected;
-            bool _selectedWednesday = WednesdaySelected;
-            bool _selectedThursday = ThursdaySelected;
-            bool _selectedFriday = FridaySelected;
-            bool _selectedSaturday = SaturdaySelected;
-            bool _selectedSunday = SundaySelected;
+            //verificar se existe ligação à internet
+            var connection = await apiService.CheckConnection();
 
-            string _mondayArray = _selectedDays[0];
-            string _tuesdayArray = _selectedDays[1];
-            string _wednesdayArray = _selectedDays[2];
-            string _thursdayArray = _selectedDays[3];
-            string _fridayArray = _selectedDays[4];
-            string _saturdayArray = _selectedDays[5];
-            string _sundayArray = _selectedDays[6];
-
-            for (int k = 0; k < _selectedDays.Length; k++)
+            //se não houver ligação à internet, popup com erro e sai do método
+            if (!connection.IsSuccess)
             {
-                ActivityRepeat = _selectedDays[k];
-                GhostActivityRepeat = _selectedDays[k];
+                await dialogService.ShowMessage("Error", connection.Message);
 
-                if (!string.IsNullOrEmpty(_selectedDays[k]))
-                //if (true)
-                {
-                    for (int i = 0; i < _eventRepetitions; i++)
-                    {
-                        //int repeatIn = (int.Parse(RepeatMultiplicationFactor));
-
-                        IsRunning = true;
-                        IsEnabled = false;
-
-                        //verificar se existe ligação à internet
-                        var connection = await apiService.CheckConnection();
-
-                        //se não houver ligação à internet, popup com erro e sai do método
-                        if (!connection.IsSuccess)
-                        {
-                            await dialogService.ShowMessage("Error", connection.Message);
-
-                            IsRunning = false;
-                            IsEnabled = true;
-                            return;
-                        }
-
-                        byte[] imageArray = null;
-
-                        if (file != null)
-                        {
-                            imageArray = FilesHelper.ReadFully(file.GetStream());
-                            file.Dispose();
-                        }
-
-                        string childIdentityCard = Application.Current.Properties["childrenIdentityCard"] as string;
-                        int childId = Convert.ToInt32(Application.Current.Properties["childrenId"]);
-
-                        DateTime tempDateStart = ActivityDateStart;
-                        DateTime tempDateEnd = ActivityDateEnd;
-                        string dayOfWeek = ActivityDateStart.DayOfWeek.ToString();
-
-                        switch (ActivityRepeat)
-                        {
-                            case "Once":
-                                tempDateStart = ActivityDateStart;
-                                tempDateEnd = ActivityDateEnd;
-                                break;
-                            case "Daily":
-                                tempDateStart = ActivityDateStart.AddDays(1 * i);
-                                tempDateEnd = ActivityDateEnd.AddDays(1 * i);
-                                break;
-                            case "Weekly":
-                                tempDateStart = ActivityDateStart.AddDays(7 * i);
-                                tempDateEnd = ActivityDateEnd.AddDays(7 * i);
-                                break;
-                            case "Monthly":
-                                tempDateStart = ActivityDateStart.AddMonths(1 * i);
-                                tempDateEnd = ActivityDateEnd.AddMonths(1 * i);
-                                break;
-
-                            case "Yearly":
-                                tempDateStart = ActivityDateStart.AddYears(1 * i);
-                                tempDateEnd = ActivityDateEnd.AddYears(1 * i);
-                                break;
-
-                            default:
-
-                                if (ActivityRepeat.Contains("2ª"))
-                                {
-                                    if (dayOfWeek == "Monday")
-                                    {
-                                        tempDateStart = ActivityDateStart;
-                                        tempDateEnd = ActivityDateEnd;
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Tuesday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(6);
-                                        tempDateEnd = ActivityDateEnd.AddDays(6);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Wednesday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(5);
-                                        tempDateEnd = ActivityDateEnd.AddDays(5);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Thursday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(4);
-                                        tempDateEnd = ActivityDateEnd.AddDays(4);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Friday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(3);
-                                        tempDateEnd = ActivityDateEnd.AddDays(3);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Saturday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(2);
-                                        tempDateEnd = ActivityDateEnd.AddDays(2);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Sunday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(1);
-                                        tempDateEnd = ActivityDateEnd.AddDays(1);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                }
-
-                                if (ActivityRepeat.Contains("3ª"))
-                                {
-                                    if (dayOfWeek == "Monday") //o dia da semana correspondente à data que o user seleccionou, é uma segunda
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(1); //a data temporaria, tem é incrementada para corresponder a uma terça-feira
-                                        tempDateEnd = ActivityDateEnd.AddDays(1);
-                                        tempDateStart = tempDateStart.AddDays(7 * i); //7 dias depois da primeira data inserida, é inderida a segunda, e seguintes (i)
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Tuesday")
-                                    {
-                                        tempDateStart = ActivityDateStart;
-                                        tempDateEnd = ActivityDateEnd;
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Wednesday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(6);
-                                        tempDateEnd = ActivityDateEnd.AddDays(6);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Thursday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(5);
-                                        tempDateEnd = ActivityDateEnd.AddDays(5);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Friday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(4);
-                                        tempDateEnd = ActivityDateEnd.AddDays(4);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Saturday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(3);
-                                        tempDateEnd = ActivityDateEnd.AddDays(3);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Sunday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(2);
-                                        tempDateEnd = ActivityDateEnd.AddDays(2);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-
-                                }
-
-                                if (ActivityRepeat.Contains("4ª"))
-                                {
-                                    if (dayOfWeek == "Monday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(2); //a data temporaria, tem é incrementada para corresponder a uma terça-feira
-                                        tempDateEnd = ActivityDateEnd.AddDays(2);
-                                        tempDateStart = tempDateStart.AddDays(7 * i); //7 dias depois da primeira data inserida, é inderida a segunda, e seguintes (i)
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Tuesday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(1);
-                                        tempDateEnd = ActivityDateEnd.AddDays(1);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Wednesday")
-                                    {
-                                        tempDateStart = ActivityDateStart;
-                                        tempDateEnd = ActivityDateEnd;
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Thursday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(6);
-                                        tempDateEnd = ActivityDateEnd.AddDays(6);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Friday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(5);
-                                        tempDateEnd = ActivityDateEnd.AddDays(5);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Saturday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(4);
-                                        tempDateEnd = ActivityDateEnd.AddDays(4);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Sunday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(3);
-                                        tempDateEnd = ActivityDateEnd.AddDays(3);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                }
-
-                                if (ActivityRepeat.Contains("5ª"))
-                                {
-                                    if (dayOfWeek == "Monday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(3); //a data temporaria, tem é incrementada para corresponder a uma terça-feira
-                                        tempDateEnd = ActivityDateEnd.AddDays(3);
-                                        tempDateStart = tempDateStart.AddDays(7 * i); //7 dias depois da primeira data inserida, é inderida a segunda, e seguintes (i)
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Tuesday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(2);
-                                        tempDateEnd = ActivityDateEnd.AddDays(2);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Wednesday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(1);
-                                        tempDateEnd = ActivityDateEnd.AddDays(1);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Thursday")
-                                    {
-                                        tempDateStart = ActivityDateStart;
-                                        tempDateEnd = ActivityDateEnd;
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Friday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(6);
-                                        tempDateEnd = ActivityDateEnd.AddDays(6);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Saturday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(5);
-                                        tempDateEnd = ActivityDateEnd.AddDays(5);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Sunday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(4);
-                                        tempDateEnd = ActivityDateEnd.AddDays(4);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                }
-
-                                if (ActivityRepeat.Contains("6ª"))
-                                {
-                                    if (dayOfWeek == "Monday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(4); //a data temporaria, tem é incrementada para corresponder a uma terça-feira
-                                        tempDateEnd = ActivityDateEnd.AddDays(4);
-                                        tempDateStart = tempDateStart.AddDays(7 * i); //7 dias depois da primeira data inserida, é inderida a segunda, e seguintes (i)
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Tuesday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(3);
-                                        tempDateEnd = ActivityDateEnd.AddDays(3);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Wednesday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(2);
-                                        tempDateEnd = ActivityDateEnd.AddDays(2);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Thursday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(1);
-                                        tempDateEnd = ActivityDateEnd.AddDays(1);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Friday")
-                                    {
-                                        tempDateStart = ActivityDateStart;
-                                        tempDateEnd = ActivityDateEnd;
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Saturday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(6);
-                                        tempDateEnd = ActivityDateEnd.AddDays(6);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Sunday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(5);
-                                        tempDateEnd = ActivityDateEnd.AddDays(5);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                }
-
-                                if (ActivityRepeat.Contains("Sab"))
-                                {
-                                    if (dayOfWeek == "Monday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(5); //a data temporaria, tem é incrementada para corresponder a uma terça-feira
-                                        tempDateEnd = ActivityDateEnd.AddDays(5);
-                                        tempDateStart = tempDateStart.AddDays(7 * i); //7 dias depois da primeira data inserida, é inderida a segunda, e seguintes (i)
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Tuesday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(4);
-                                        tempDateEnd = ActivityDateEnd.AddDays(4);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Wednesday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(3);
-                                        tempDateEnd = ActivityDateEnd.AddDays(3);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Thursday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(2);
-                                        tempDateEnd = ActivityDateEnd.AddDays(2);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Friday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(1);
-                                        tempDateEnd = ActivityDateEnd.AddDays(1);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Saturday")
-                                    {
-                                        tempDateStart = ActivityDateStart;
-                                        tempDateEnd = ActivityDateEnd;
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Sunday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(6);
-                                        tempDateEnd = ActivityDateEnd.AddDays(6);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                }
-
-                                if (ActivityRepeat.Contains("Dom"))
-                                {
-                                    if (dayOfWeek == "Monday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(6); //a data temporaria, tem é incrementada para corresponder a uma terça-feira
-                                        tempDateEnd = ActivityDateEnd.AddDays(6);
-                                        tempDateStart = tempDateStart.AddDays(7 * i); //7 dias depois da primeira data inserida, é inderida a segunda, e seguintes (i)
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Tuesday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(5);
-                                        tempDateEnd = ActivityDateEnd.AddDays(5);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Wednesday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(4);
-                                        tempDateEnd = ActivityDateEnd.AddDays(4);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Thursday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(3);
-                                        tempDateEnd = ActivityDateEnd.AddDays(3);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Friday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(2);
-                                        tempDateEnd = ActivityDateEnd.AddDays(2);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Saturday")
-                                    {
-                                        tempDateStart = ActivityDateStart.AddDays(1);
-                                        tempDateEnd = ActivityDateEnd.AddDays(1);
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                    if (dayOfWeek == "Sunday")
-                                    {
-                                        tempDateStart = ActivityDateStart;
-                                        tempDateEnd = ActivityDateEnd;
-                                        tempDateStart = tempDateStart.AddDays(7 * i);
-                                        tempDateEnd = tempDateEnd.AddDays(7 * i);
-                                    }
-                                }
-                                break;
-                        }
-
-                        var activity = new Activity
-                        {
-                            ActivityDescription = ActivityDescription,
-                            ActivityDateStart = tempDateStart,
-                            ActivityDateEnd = tempDateEnd,
-                            ChildrenActivityType = ChildrenActivityType,
-                            ActivityRemarks = ActivityRemarks,
-                            Status = Status,
-                            relatedChildrenIdentitiCard = childIdentityCard,
-                            ImageArray = imageArray,
-                            ActivityPrivacy = ActivityPrivacy,
-                            ActivityPriority = ActivityPriority,
-                            ChildrenId = childId,
-                            ActivityTimeStart = ActivityTimeStart,
-                            ActivityTimeEnd = ActivityTimeEnd,
-                            ActivityRepeat = ActivityRepeat
-                        };
-
-                        var mainViewModel = MainViewModel.GetInstance();
-
-                        //se existir ligação à internet guarda token na variavel response
-                        var response = await apiService.Post(
-                            "http://api.parents.outstandservices.pt",
-                            "/api",
-                            "/Activities",
-                            mainViewModel.Token.TokenType,
-                            mainViewModel.Token.AccessToken,
-                            activity);
-
-
-                        //se a resposta (Token) for nulo ou estiver vazia, significa que o email ou a pass estão errados
-                        if (!response.IsSuccess)
-                        {
-                            IsRunning = false;
-                            IsEnabled = true;
-                            await dialogService.ShowMessage("Error", response.Message);
-                            return;
-                        }
-
-                        activity = (Activity)response.Result;
-                        var activityViewModel = ActivitiesViewModel.GetInstance();
-                        activityViewModel.Add(activity);
-
-                        //await navigationService.Back();
-
-                        IsRunning = false;
-                        IsEnabled = true;
-
-                    }
-                }
+                IsRunning = false;
+                IsEnabled = true;
+                return;
             }
+
+            byte[] imageArray = null;
+
+            if (file != null)
+            {
+                imageArray = FilesHelper.ReadFully(file.GetStream());
+                file.Dispose();
+            }
+
+            string childIdentityCard = Application.Current.Properties["childrenIdentityCard"] as string;
+            int childId = Convert.ToInt32(Application.Current.Properties["childrenId"]);
+
+            activity.ActivityDescription = ActivityDescription;
+            activity.ActivityDateStart = ActivityDateStart;
+            activity.ActivityDateEnd = ActivityDateEnd;
+            activity.ChildrenActivityType = ChildrenActivityType;
+            activity.ActivityRemarks = ActivityRemarks;
+            activity.Status = Status;
+            activity.relatedChildrenIdentitiCard = childIdentityCard;
+            activity.ImageArray = imageArray;
+            activity.ActivityPrivacy = ActivityPrivacy;
+            activity.ActivityPriority = ActivityPriority;
+            activity.ChildrenId = childId;
+            activity.ActivityTimeStart = ActivityTimeStart;
+            activity.ActivityTimeEnd = ActivityTimeEnd;
+            activity.ActivityRepeat = ActivityRepeat;
+
+            var mainViewModel = MainViewModel.GetInstance();
+
+            //se existir ligação à internet guarda token na variavel response
+            var response = await apiService.Put(
+                "http://api.parents.outstandservices.pt",
+                "/api",
+                "/Activities",
+                mainViewModel.Token.TokenType,
+                mainViewModel.Token.AccessToken,
+                activity);
+
+
+            //se a resposta (Token) for nulo ou estiver vazia, significa que o email ou a pass estão errados
+            if (!response.IsSuccess)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await dialogService.ShowMessage("Error", response.Message);
+                return;
+            }
+
+            var activityViewModel = ActivitiesViewModel.GetInstance();
+            activityViewModel.UpdateActivity(activity);
+
+            IsRunning = false;
+            IsEnabled = true;
 
             await navigationService.Back();
         }

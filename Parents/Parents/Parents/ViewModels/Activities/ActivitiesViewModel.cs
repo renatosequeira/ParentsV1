@@ -237,7 +237,7 @@
             IsRefreshing = false;
         }
 
-        public void UpdateActivityFamily(Activity activity)
+        public void UpdateActivity(Activity activity)
         {
             IsRefreshing = true;
             var oldActivity = activities.Where(c => c.ActivityId == activity.ActivityId).FirstOrDefault();

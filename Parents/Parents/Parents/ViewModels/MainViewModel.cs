@@ -15,6 +15,7 @@
     using System;
     using Parents.ViewModels.Activities.Helpers.ActivityType;
     using System.Collections.ObjectModel;
+    using Parents.ViewModels.Activities.HelperPages;
 
     public class MainViewModel
     {
@@ -51,6 +52,7 @@
         public Children Children { get; set; } //objetivo é nao perder de vista o objecto Children
         public NewActivityViewModel NewActivity { get; set; }
         public EditActivityViewModel EditActivity { get; set; }
+        public ActivityImageMaximizedHelperPageViewModel ActivityImageMaximizedHelper { get; set; }
         #endregion
 
         #region Constructors

@@ -84,9 +84,6 @@
 
             </StackLayout>
 
-
-
-
         <!--BOTTOM MENU-->
         <Grid ColumnSpacing="0" RowSpacing="0" Grid.Row="2">
             <Grid.ColumnDefinitions>

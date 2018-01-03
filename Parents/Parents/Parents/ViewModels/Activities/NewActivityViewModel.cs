@@ -35,7 +35,6 @@ namespace Parents.ViewModels.Activities
 
         bool _isRunning;
         bool _isEnabled;
-        bool _isVisible;
 
         bool _status;
         string _activityType;
@@ -969,12 +968,19 @@ namespace Parents.ViewModels.Activities
 
                 if (source == "From Camera")
                 {
+                    DateTime date = DateTime.Today;
+                    
+                    string dateString = date.ToString();
+                    string timeString = date.TimeOfDay.ToString();
+
                     file = await CrossMedia.Current.TakePhotoAsync(
                         new StoreCameraMediaOptions
                         {
-                            Directory = "Sample",
-                            Name = "test.jpg",
+                            Directory = "Parents",
+                            Name = string.Format("{0}_{1}.jpg",dateString,timeString),
                             PhotoSize = PhotoSize.Small,
+                            AllowCropping = true,
+                            SaveToAlbum = true
                         }
                     );
                 }

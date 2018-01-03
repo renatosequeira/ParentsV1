@@ -13,6 +13,8 @@
     using Parents.Views.Activities.Helpers.Peridiocity;
     using Parents.Views.Activities.Helpers.ActivityType;
     using Parents.Views.Activities.HelpersPages;
+    using Rg.Plugins.Popup.Extensions;
+    using Rg.Plugins.Popup.Services;
 
     public class NavigationService
     {
@@ -130,6 +132,7 @@
                 case "Activity Details":
                     await Application.Current.MainPage.Navigation.PushAsync(new EditActivityView());
                     break;
+
             }
 
         }
@@ -139,6 +142,21 @@
             await Application.Current.MainPage.Navigation.PopAsync();
         }
 
+        public async Task OpenPopup(string pageName)
+        {
+            switch (pageName)
+            {
+                case "maximizedActivityPage":
+                    await Application.Current.MainPage.Navigation.PushAsync(new ActivityImageMaximizedHelperPageView());
+                    break;
+            }
+
+        }
+
+        public async Task ClosePopup()
+        {
+            await Application.Current.MainPage.Navigation.PopAllPopupAsync();
+        }
     
     }
 }

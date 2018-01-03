@@ -17,10 +17,9 @@
             Clicked="ToolbarItem_Clicked"/>
     </ContentPage.ToolbarItems>
 
-    
+
 
     <Grid>
-
         <ScrollView>
 
             <StackLayout
@@ -31,18 +30,14 @@
 
                 <!--IMAGE-->
                 <Image
-                    HeightRequest="200"
+                    HeightRequest="300"
                     Source="{Binding ImageSource}"
-                    WidthRequest="200">
+                    WidthRequest="300"
+                    Aspect="AspectFill">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ChangeImageCommand}"/>
                     </Image.GestureRecognizers>
                 </Image>
-
-                <!--<ActivityIndicator 
-                    x:Name="BusyIndicator" 
-                    IsVisible="False"
-                    IsEnabled="False"/>-->
 
                 <!--DESCRIPTION-->
                 <StackLayout

@@ -4,7 +4,7 @@
     using Parents.Services;
     using Parents.ViewModels;
     using Parents.ViewModels.Activities;
-
+    using Parents.ViewModels.Activities.HelperPages;
     using Parents.ViewModels.Activities.Helpers.ActivityType;
     using Parents.ViewModels.Childrens;
     using Parents.Views.Activities;

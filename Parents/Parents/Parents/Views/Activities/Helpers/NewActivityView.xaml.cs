@@ -40,9 +40,9 @@ namespace Parents.Views.Activities.Helpers
             navigationService = new NavigationService();
 
 
-            MessagingCenter.Subscribe<ActivityRepeatHelperPageView, string>(this, "eventRecurrency", (s, a) => {
-                lblRepeat.Text = a.ToString();
-            });
+            //MessagingCenter.Subscribe<ActivityRepeatHelperPageView, string>(this, "eventRecurrency", (s, a) => {
+            //    lblRepeat.Text = a.ToString();
+            //});
 
         }
         #endregion

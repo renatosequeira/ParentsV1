@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Parents.Views.Activities.HelpersPages.ActivityImageMaximizedHelperPageView"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    BindingContext="{Binding Main, Source={StaticResource Locator}}"
+    xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+    NavigationPage.HasBackButton="False"
+    Title="{Binding ActivityImageMaximizedHelper.ImageTitle}">
+
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+          PositionIn="Center"
+          PositionOut="Center"
+          ScaleIn="1.2"
+          ScaleOut="0.8"
+          DurationIn="400"
+          DurationOut="300"
+          EasingIn="SinOut"
+          EasingOut="SinIn"
+          HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+
+    <AbsoluteLayout>
+
+        <Image
+            AbsoluteLayout.LayoutBounds="0,0.5,1,1"
+            AbsoluteLayout.LayoutFlags="All"
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="StartAndExpand"
+            x:Name="OctocatImage"
+            Aspect="AspectFill"
+            HeightRequest="400"
+            WidthRequest="400"
+            Source="{Binding ActivityImageMaximizedHelper.ActivityImage, Mode=TwoWay}"/>
+
+        <Grid
+            AbsoluteLayout.LayoutBounds="0,1,1,0.23" 
+            AbsoluteLayout.LayoutFlags="All"
+            ColumnSpacing="0"
+            Padding="0,5,0,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <StackLayout
+                Spacing="0"
+                Grid.Column="0"
+                BackgroundColor="#7DBEA5"
+                IsEnabled="{Binding ActivityImageMaximizedHelper.SaveButtonVisibility}"
+                Padding="8">
+
+                <Image 
+                    HeightRequest="40"
+                    Source="ic_save"/>
+
+                <Label 
+                    Text="SAVE" 
+                    FontSize="10" 
+                    HorizontalOptions="Center"
+                    TextColor="#22395C"/>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ActivityImageMaximizedHelper.SaveImage}"  />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+            <StackLayout
+                Spacing="0"
+                Grid.Column="1"
+                BackgroundColor="#7DBEA5"
+                Padding="8">
+
+                <Image HeightRequest="40"
+                    Source="ic_camera_white"/>
+
+                <Label 
+                    Text="CHANGE PICTURE" 
+                    FontSize="10" 
+                    HorizontalOptions="Center"
+                    TextColor="#22395C"/>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ActivityImageMaximizedHelper.ChangeImageCommand}" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+            <StackLayout
+                Spacing="0"
+                Grid.Column="2"
+                BackgroundColor="#7DBEA5"
+                Padding="8">
+
+                <Image 
+                    HeightRequest="40"
+                    Source="ic_delete_white"/>
+
+                <Label 
+                    Text="DELETE PICTURE" 
+                    FontSize="10" 
+                    HorizontalOptions="Center"
+                    TextColor="#22395C"/>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ActivityImageMaximizedHelper.DeleteImageCommand}" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+        </Grid>
+    </AbsoluteLayout>
+
+</pages:PopupPage>
