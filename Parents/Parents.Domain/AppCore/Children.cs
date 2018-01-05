@@ -71,6 +71,6 @@
         public string ChildrenImage { get; set; }
 
         [JsonIgnore]
-        public ICollection<Activity> Activities { get; set; }
+        public ICollection<Activities> Activities { get; set; }
     }
 }

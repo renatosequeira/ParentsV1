@@ -71,7 +71,7 @@
         public virtual ICollection<Children> Children { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<Activity> Activity { get; set; }
+        public virtual ICollection<Activities> Activity { get; set; }
 
         [JsonIgnore]
         public virtual ICollection<ParentsMeeting> ParentsMeeting { get; set; }

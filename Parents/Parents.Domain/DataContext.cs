@@ -30,7 +30,7 @@
 
         public DbSet<HealthManagement.Categories.BloodInformation> BloodInformations { get; set; }
 
-        public DbSet<ActivitiesManagement.Activity> Activities { get; set; }
+        public DbSet<ActivitiesManagement.Activities> Activities { get; set; }
 
         public DbSet<ActivitiesManagement.Helpers.ActivityFamily> ActivityFamilies { get; set; }
 

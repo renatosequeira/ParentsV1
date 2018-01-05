@@ -13,6 +13,10 @@
     using System.Windows.Input;
     using Xamarin.Forms;
     using Renderers;
+    using Plugin.Toasts;
+    using Rg.Plugins.Popup.Extensions;
+    using Plugin.Share.Abstractions;
+    using Plugin.Share;
 
     public class EditActivityViewModel : INotifyPropertyChanged
     {
@@ -73,13 +77,41 @@
         string _priorityImage;
         string _privacyImage;
 
+        bool _editEnabled;
         #endregion
 
         #region Properties
+        public bool EditEnabled
+        {
+            get
+            {
+                return _editEnabled;
+            }
+            set
+            {
+                if (_editEnabled != value)
+                {
+                    _editEnabled = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(EditEnabled)));
+                }
+            }
+        }
+
         public string ActivityPriorityImage
         {
             get
             {
+                try
+                {
+                    string ap = Application.Current.Properties["activityPriorityProperty"] as string;
+                    ActivityPriority = ap.ToUpper();
+                }
+                catch (Exception)
+                {
+                    ActivityPriority = ActivityPriority;
+                }
                 return _priorityImage;
             }
             set
@@ -134,6 +166,15 @@
         {
             get
             {
+                try
+                {
+                    string ac = Application.Current.Properties["activityTypeProperty"] as string;
+                    ChildrenActivityType = ac.ToUpper();
+                }
+                catch (Exception)
+                {
+                    ChildrenActivityType = ChildrenActivityType;
+                }
                 return _activityTypeImage;
             }
             set
@@ -640,11 +681,37 @@
                     case "ANNIVERSARY":
                         ActivityTypeImage = "ic_birthday";
                         break;
+
                     case "EVENT":
                         ActivityTypeImage = "ic_event";
                         break;
 
+                    case "SCHOOL":
+                        ActivityTypeImage = "ic_school_brown";
+                        break;
+
+                    case "WORKGROUP":
+                        ActivityTypeImage = "ic_school_brown";
+                        break;
+
+                    case "STUDY TRIPS":
+                        ActivityTypeImage = "ic_school_brown";
+                        break;
+
+                    case "PARENTS MEETING":
+                        ActivityTypeImage = "ic_school_brown";
+                        break;
+
+                    case "SPORTS":
+                        ActivityTypeImage = "ic_soccer_brown";
+                        break;
+
+                    case "OTHERS":
+                        ActivityTypeImage = "ic_question";
+                        break;
+
                     default:
+                        ActivityTypeImage = "ic_question";
                         break;
                 }
                 return _activityType;
@@ -784,9 +851,6 @@
             apiService = new ApiService();
             navigationService = new NavigationService();
 
-            IsEnabled = true;
-            IsRunning = false;
-
             ActivityDescription = _activity.ActivityDescription;
             ActivityDateStart = _activity.ActivityDateStart;
             ActivityDateEnd = _activity.ActivityDateEnd;
@@ -795,11 +859,112 @@
             ActivityPrivacy = _activity.ActivityPrivacy;
             Status = _activity.Status;
             ImageSource = _activity.ActivityImageFullPath;
+
+            IsEnabled = true;
+            IsRunning = false;
+
+            EditEnabled = false;
         }
 
         #endregion
 
         #region Commands
+        public ICommand ShareCommand
+        {
+            get
+            {
+                return new RelayCommand(Share);
+
+            }
+        }
+
+        async void Share()
+        {
+            ShareMessage msg = new ShareMessage();
+            msg.Title = String.Format("Share {0}", ActivityDescription);
+            msg.Text = String.Format("{0}\n\nStart: {1:MM/dd/yyyy}\nFinish: {2:MM/dd/yyyy}", ActivityDescription, ActivityDateStart, ActivityDateEnd);
+
+            var opt = new ShareOptions();
+
+            await CrossShare.Current.Share(msg, opt);
+        }
+
+        public ICommand EditItemsCommand
+        {
+            get
+            {
+                return new RelayCommand(EditItems);
+
+            }
+        }
+
+        async void EditItems()
+        {
+            if (EditEnabled)
+            {
+                EditEnabled = false;
+
+            }
+            else
+            {
+                EditEnabled = true;
+            }
+                
+
+
+        }
+
+
+        public ICommand StatusChangeCommand
+        {
+            get
+            {
+                return new RelayCommand(StatusChange);
+
+            }
+        }
+
+        async void StatusChange()
+        {
+            if (Status) //completed
+            { //passa para público
+                Status = false;
+                ActivityStatusImage = "status_ongoing";
+
+            }
+            else //opened
+            { //passa para privado
+                Status = true;
+                ActivityStatusImage = "status_completed";
+            }
+        }
+
+        public ICommand ActivityTypeChangeCommand
+        {
+            get
+            {
+                return new RelayCommand(TypeChange);
+            }
+        }
+
+        async void TypeChange()
+        {
+            await navigationService.Navigate("ActivityTypeHelperPage");
+        }
+
+        public ICommand PriorityChangeCommand
+        {
+            get
+            {
+                return new RelayCommand(PriorityChange);
+            }
+        }
+
+        async void PriorityChange()
+        {
+            await navigationService.Navigate("ActivityPriorityHelperPage");
+        }
+
         public ICommand PrivacyChangeCommand
         {
             get
@@ -809,13 +974,26 @@
             }
         }
 
-        void PrivacyChange()
+        async void PrivacyChange()
         {
             if (ActivityPrivacy) //privado
             { //passa para público
                 ActivityPrivacy = false;
                 ActivityPrivacyImage = "ic_public";
-                //DependencyService.Get<Toast>().Show("Changed");
+
+                await Application.Current.MainPage.Navigation.PushPopupAsync(new PrivacyChangedHelperPopupPage());
+
+                //var notificator = DependencyService.Get<IToastNotificator>();
+
+
+                //var options = new NotificationOptions()
+                //{
+                //    Title = "Privacy changed",
+                //    Description = String.Format("Privacy changed to {0}", PrivacyName(ActivityPrivacy)),
+
+                //};
+
+                //var result = await notificator.Notify(options);
             }
             else //publico
             { //passa para privado
@@ -842,7 +1020,7 @@
             Application.Current.Properties["image"] = ImageSource;
 
             //gravar o endereço da imagem no messaging center
-            MessagingCenter.Send(this, "activityImageForMaximization", _selectedImage);
+            //MessagingCenter.Send(this, "activityImageForMaximization", _selectedImage);
 
             await navigationService.OpenPopup("maximizedActivityPage");
         }
@@ -961,13 +1139,14 @@
             activity.ActivityDescription = ActivityDescription;
             activity.ActivityDateStart = ActivityDateStart;
             activity.ActivityDateEnd = ActivityDateEnd;
+            //activity.ChildrenActivityType = CheckNewActivityTypeByImage(ActivityTypeImage);
             activity.ChildrenActivityType = ChildrenActivityType;
             activity.ActivityRemarks = ActivityRemarks;
             activity.Status = Status;
             activity.relatedChildrenIdentitiCard = childIdentityCard;
             activity.ImageArray = imageArray;
             activity.ActivityPrivacy = ActivityPrivacy;
-            activity.ActivityPriority = ActivityPriority;
+            activity.ActivityPriority = CheckNewActivityPriority(ActivityPriorityImage);
             activity.ChildrenId = childId;
             activity.ActivityTimeStart = ActivityTimeStart;
             activity.ActivityTimeEnd = ActivityTimeEnd;
@@ -1000,7 +1179,104 @@
             IsRunning = false;
             IsEnabled = true;
 
+            ResetKeys();
             await navigationService.Back();
+        }
+
+        
+        #endregion
+
+        #region Methods
+        private string PrivacyName(bool activityPrivacy)
+        {
+            string name;
+
+            if (activityPrivacy)
+            {
+                name = "Private";
+            }
+            else
+            {
+                name = "Public";
+            }
+
+            return name;
+        }
+
+        private string CheckNewActivityPriority(string activityPriorityImage)
+        {
+            string result = "";
+
+            switch (activityPriorityImage)
+            {
+                case "ic_priority_low":
+                    result = "LOW";
+                    break;
+
+                case "ic_priority_medium":
+                    result = "MEDIUM";
+                    break;
+
+                case "ic_priority_high":
+                    result = "HIGH";
+                    break;
+
+                case "ic_priority_immediate":
+                    result = "IMMEDIATE";
+                    break;
+            }
+
+            return result;
+        }
+
+        private string CheckNewActivityTypeByImage(string activityTypeImage)
+        {
+            string result = "";
+
+            switch (activityTypeImage)
+            {
+                case "ic_birthday":
+                    result = "ANNIVERSARY";
+                    break;
+
+                case "ic_event":
+                    result = "EVENT";
+                    break;
+
+                case "ic_school_brown":
+                    result = "SCHOOL";
+                    break;
+
+                //case "ic_school_brown":
+                //    result = "Workgroup";
+                //    break;
+
+                //case "ic_school_brown":
+                //    result = "Study Trips";
+                //    break;
+
+                //case "Parents Meeting":
+                //    imgActivityType.Source = "ic_school_brown";
+                //    break;
+
+                //case "Sports":
+                //    imgActivityType.Source = "ic_soccer_brown";
+                //    break;
+
+                //case "Others":
+                //    imgActivityType.Source = "ic_question";
+                //    break;
+
+            }
+
+            return result;
+        }
+
+        void ResetKeys()
+        {
+            Application.Current.Properties["activityTypeProperty"] = null;
+            Application.Current.Properties["activityPriorityProperty"] = null;
+            GC.Collect();
         }
         #endregion
     }

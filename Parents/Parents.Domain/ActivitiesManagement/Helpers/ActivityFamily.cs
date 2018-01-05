@@ -27,7 +27,7 @@ namespace Parents.Domain.ActivitiesManagement.Helpers
         public string ActivityFamilyDescriptionPrivate { get; set; }
 
         [JsonIgnore]
-        public ICollection<Activity> Activity { get; set; }
+        public ICollection<Activities> Activity { get; set; }
 
         public string userId { get; set; }
 

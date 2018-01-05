@@ -15,6 +15,7 @@
     using System.Diagnostics;
     using System.IO;
     using Parents.API.Helpers;
+    using Domain.ActivitiesManagement;
 
     [Authorize]
     public class ActivitiesController : ApiController
@@ -112,10 +113,10 @@
         }
 
         // GET: api/Activities/5
-        [ResponseType(typeof(Domain.ActivitiesManagement.Activity))]
+        [ResponseType(typeof(Domain.ActivitiesManagement.Activities))]
         public async Task<IHttpActionResult> GetActivity(int id)
         {
-            Domain.ActivitiesManagement.Activity activity = await db.Activities.FindAsync(id);
+            Domain.ActivitiesManagement.Activities activity = await db.Activities.FindAsync(id);
             if (activity == null)
             {
                 return NotFound();
@@ -126,7 +127,7 @@
 
         // PUT: api/Activities/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutActivity(int id, Domain.ActivitiesManagement.Activity activity)
+        public async Task<IHttpActionResult> PutActivity(int id, ActivityRequest activity)
         {
             if (!ModelState.IsValid)
             {
@@ -138,7 +139,23 @@
                 return BadRequest();
             }
 
-            db.Entry(activity).State = EntityState.Modified;
+            if (activity.ImageArray != null && activity.ImageArray.Length > 0)
+            {
+                var stream = new MemoryStream(activity.ImageArray);
+                var guid = Guid.NewGuid().ToString();
+                var file = string.Format("{0}.jpg", guid);
+                var folder = "~/Content/Images";
+                var fullPath = string.Format("{0}/{1}", folder, file);
+                var response = FilesHelper.UploadPhoto(stream, folder, file);
+
+                if (response)
+                {
+                    activity.Image = fullPath;
+                }
+            }
+
+            var _activity = ToActivity(activity);
+            db.Entry(_activity).State = EntityState.Modified;
 
             try
             {
@@ -160,7 +177,7 @@
         }
 
         // POST: api/Activities
-        [ResponseType(typeof(Domain.ActivitiesManagement.Activity))]
+        [ResponseType(typeof(Activities))]
         public async Task<IHttpActionResult> PostActivity(ActivityRequest activity)
         {
             if (!ModelState.IsValid)
@@ -210,12 +227,12 @@
             return CreatedAtRoute("DefaultApi", new { id = activity.ActivityId }, _activity);
         }
 
-        private Domain.ActivitiesManagement.Activity ToActivity(ActivityRequest view)
+        private Activities ToActivity(ActivityRequest view)
         {
             string userId = User.Identity.GetUserId();
             var eventId = Guid.NewGuid().ToString();
 
-            return new Domain.ActivitiesManagement.Activity
+            return new Domain.ActivitiesManagement.Activities
             {
                 ActivityAddress = view.ActivityAddress,
                 ActivityDateEnd = view.ActivityDateEnd,
@@ -254,10 +271,10 @@
         }
 
         // DELETE: api/Activities/5
-        [ResponseType(typeof(Domain.ActivitiesManagement.Activity))]
+        [ResponseType(typeof(Domain.ActivitiesManagement.Activities))]
         public async Task<IHttpActionResult> DeleteActivity(int id)
         {
-            Domain.ActivitiesManagement.Activity activity = await db.Activities.FindAsync(id);
+            Domain.ActivitiesManagement.Activities activity = await db.Activities.FindAsync(id);
             if (activity == null)
             {
                 return NotFound();

@@ -65,6 +65,8 @@ namespace Parents.Views.Activities.HelpersPages
             var activityType = e.Item as ActivitiesPriority;
             Application.Current.Properties["activityPriorityProperty"] = activityType.PriorityDescription;
 
+            MessagingCenter.Send(this, "activityPriority", activityType.PriorityDescription);
+
             Valor = (e.Item as ActivitiesPriority).PriorityDescription;
             Navigation.PopAsync();
         }

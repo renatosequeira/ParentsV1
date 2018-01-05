@@ -289,6 +289,11 @@
                 activities.OrderBy(c => c.ActivityDateStart));
             IsRefreshing = false;
         }
+
+        public void ReloadActivities()
+        {
+            LoadActivities();
+        }
         #endregion
 
         #region Sigleton

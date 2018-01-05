@@ -23,18 +23,19 @@
           HasBackgroundAnimation="True"/>
     </pages:PopupPage.Animation>
 
-    <AbsoluteLayout>
+    <AbsoluteLayout
+        BindingContext="{Binding ActivityImageMaximizedHelper}">
 
         <Image
             AbsoluteLayout.LayoutBounds="0,0.5,1,1"
             AbsoluteLayout.LayoutFlags="All"
             HorizontalOptions="CenterAndExpand"
             VerticalOptions="StartAndExpand"
-            x:Name="OctocatImage"
+            x:Name="ActivityImage"
             Aspect="AspectFill"
             HeightRequest="400"
             WidthRequest="400"
-            Source="{Binding ActivityImageMaximizedHelper.ActivityImage, Mode=TwoWay}"/>
+            Source="{Binding ImageSource, Mode=TwoWay}"/>
 
         <Grid
             AbsoluteLayout.LayoutBounds="0,1,1,0.23" 
@@ -51,7 +52,7 @@
                 Spacing="0"
                 Grid.Column="0"
                 BackgroundColor="#7DBEA5"
-                IsEnabled="{Binding ActivityImageMaximizedHelper.SaveButtonVisibility}"
+                IsEnabled="{Binding SaveButtonVisibility}"
                 Padding="8">
 
                 <Image 
@@ -65,7 +66,7 @@
                     TextColor="#22395C"/>
 
                 <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ActivityImageMaximizedHelper.SaveImage}"  />
+                    <TapGestureRecognizer Command="{Binding SaveNewImageCommand}"/>
                 </StackLayout.GestureRecognizers>
             </StackLayout>
 
@@ -85,7 +86,7 @@
                     TextColor="#22395C"/>
 
                 <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ActivityImageMaximizedHelper.ChangeImageCommand}" />
+                    <TapGestureRecognizer Command="{Binding ChangeImageCommand}" />
                 </StackLayout.GestureRecognizers>
             </StackLayout>
 
@@ -106,7 +107,7 @@
                     TextColor="#22395C"/>
 
                 <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ActivityImageMaximizedHelper.DeleteImageCommand}" />
+                    <TapGestureRecognizer Command="{Binding DeleteImageCommand}" />
                 </StackLayout.GestureRecognizers>
             </StackLayout>
 

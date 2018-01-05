@@ -108,19 +108,6 @@ namespace Parents.Views.Activities.HelpersPages
 
         private async void btnOK_Clicked(object sender, EventArgs e)
         {
-
-            //string selectedDays = "";
-
-            //if (SelectedMonday)
-            //{
-            //    selectedDays = "2ª,";
-            //}
-
-            //if (SelectedTuesday)
-            //{
-            //    selectedDays += "3ª, ";
-            //}
-
             string _repetitions = "";
 
             if (string.IsNullOrEmpty(repetitionTimes.Text))

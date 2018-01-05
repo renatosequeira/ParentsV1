@@ -5,7 +5,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    public class Activity
+    public class Activities
     {
         [Key]
         public int ActivityId { get; set; }

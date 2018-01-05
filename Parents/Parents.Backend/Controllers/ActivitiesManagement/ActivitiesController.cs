@@ -30,7 +30,7 @@
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Activity activity = await db.Activities.FindAsync(id);
+            Activities activity = await db.Activities.FindAsync(id);
             if (activity == null)
             {
                 return HttpNotFound();
@@ -94,9 +94,9 @@
             return View(view);
         }
 
-        private Activity ToActivity(ActivitiesView view)
+        private Activities ToActivity(ActivitiesView view)
         {
-            return new Activity
+            return new Activities
             {
                 ActivityAddress = view.ActivityAddress,
                 ActivityDateEnd = view.ActivityDateEnd,
@@ -141,7 +141,7 @@
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Activity activity = await db.Activities.FindAsync(id);
+            Activities activity = await db.Activities.FindAsync(id);
             if (activity == null)
             {
                 return HttpNotFound();
@@ -157,7 +157,7 @@
             return View(view);
         }
 
-        private ActivitiesView ToView(Activity activity)
+        private ActivitiesView ToView(Activities activity)
         {
             return new ActivitiesView
             {
@@ -232,7 +232,7 @@
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Activity activity = await db.Activities.FindAsync(id);
+            Activities activity = await db.Activities.FindAsync(id);
             if (activity == null)
             {
                 return HttpNotFound();
@@ -245,7 +245,7 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Activity activity = await db.Activities.FindAsync(id);
+            Activities activity = await db.Activities.FindAsync(id);
             db.Activities.Remove(activity);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");

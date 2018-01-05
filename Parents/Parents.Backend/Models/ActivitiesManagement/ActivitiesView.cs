@@ -10,7 +10,7 @@ using Parents.Domain.ActivitiesManagement;
 namespace Parents.Backend.Models.ActivitiesManagement
 {
     [NotMapped]
-    public class ActivitiesView : Activity
+    public class ActivitiesView : Activities
     {
         [Display(Name = "Image")]
         public HttpPostedFileBase ImageFile { get; set; }

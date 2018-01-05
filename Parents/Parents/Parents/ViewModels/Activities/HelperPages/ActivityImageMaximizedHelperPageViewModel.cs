@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using Parents.Helpers;
 using Parents.Models;
 using Parents.Services;
 using Parents.Views.Activities.HelpersPages;
@@ -33,11 +34,30 @@ namespace Parents.ViewModels.Activities.HelperPages
         string _imageTitle;
         ImageSource _imageSource;
         MediaFile file;
-
+        bool _isRunning;
+        bool _isEnabled;
         bool _saveButtonVisibility;
         #endregion
 
         #region Properties
+        public ImageSource ImageSource
+        {
+            set
+            {
+                if (_imageSource != value)
+                {
+                    _imageSource = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(ImageSource)));
+                }
+            }
+            get
+            {
+                return _imageSource;
+            }
+        }
+
         public bool SaveButtonVisibility
         {
             get
@@ -91,6 +111,42 @@ namespace Parents.ViewModels.Activities.HelperPages
                 }
             }
         }
+
+        public bool IsRunning
+        {
+            get
+            {
+                return _isRunning;
+            }
+            set
+            {
+                if (_isRunning != value)
+                {
+                    _isRunning = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(IsRunning)));
+                }
+            }
+        }
+
+        public bool IsEnabled
+        {
+            get
+            {
+                return _isEnabled;
+            }
+            set
+            {
+                if (_isEnabled != value)
+                {
+                    _isEnabled = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(IsEnabled)));
+                }
+            }
+        }
         #endregion
 
         #region Constructors
@@ -101,35 +157,17 @@ namespace Parents.ViewModels.Activities.HelperPages
             dialogService = new DialogService();
             apiService = new ApiService();
             navigationService = new NavigationService();
-            SaveButtonVisibility = false;
+            SaveButtonVisibility = true;
 
-            ActivityImage = _activity.ActivityImageFullPath;
+            ImageSource = _activity.ActivityImageFullPath;
             ImageTitle = String.Format("{0}", _activity.ActivityDescription.ToUpper());
 
-            MessagingCenter.Subscribe<ActivityRepeatHelperPageView, string>(this, "activityImageForMaximization", (s, a) =>
+            MessagingCenter.Subscribe<EditActivityViewModel, string>(this, "activityImageForMaximization", (s, a) =>
             {
-                ActivityImage = a.ToString();
+                ImageSource = a.ToString();
             });
         }
-
-        public ImageSource ImageSource
-        {
-            set
-            {
-                if (_imageSource != value)
-                {
-                    _imageSource = value;
-                    PropertyChanged?.Invoke(
-                        this,
-                        new PropertyChangedEventArgs(nameof(ImageSource)));
-                    SaveButtonVisibility = true;
-                }
-            }
-            get
-            {
-                return _imageSource;
-            }
-        }
+        
         #endregion
 
         #region Commands
@@ -185,6 +223,7 @@ namespace Parents.ViewModels.Activities.HelperPages
                     return stream;
                 });
             }
+
         }
 
         public ICommand DeleteImageCommand
@@ -200,7 +239,80 @@ namespace Parents.ViewModels.Activities.HelperPages
             ActivityImage = "no_image";
         }
 
+        public ICommand SaveNewImageCommand
+        {
+            get
+            {
+                return new RelayCommand(SaveNewImage);
+            }
+        }
 
+        async void SaveNewImage()
+        {
+            //ActivityRepeat = CheckSelectedDays(_selectedDays);
+
+            IsRunning = true;
+            IsEnabled = false;
+
+            //verificar se existe ligação à internet
+            var connection = await apiService.CheckConnection();
+
+            //se não houver ligação à internet, popup com erro e sai do método
+            if (!connection.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error", connection.Message);
+
+                IsRunning = false;
+                IsEnabled = true;
+                return;
+            }
+
+            byte[] imageArray = null;
+
+            if (file != null)
+            {
+                imageArray = FilesHelper.ReadFully(file.GetStream());
+                file.Dispose();
+            }
+
+            string childIdentityCard = Application.Current.Properties["childrenIdentityCard"] as string;
+            int childId = Convert.ToInt32(Application.Current.Properties["childrenId"]);
+
+            activity.ImageArray = imageArray;
+
+            var mainViewModel = MainViewModel.GetInstance();
+
+            //se existir ligação à internet guarda token na variavel response
+            var response = await apiService.Put(
+                "http://api.parents.outstandservices.pt",
+                "/api",
+                "/Activities",
+                mainViewModel.Token.TokenType,
+                mainViewModel.Token.AccessToken,
+                activity);
+
+
+            //se a resposta (Token) for nulo ou estiver vazia, significa que o email ou a pass estão errados
+            if (!response.IsSuccess)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await dialogService.ShowMessage("Error", response.Message);
+                return;
+            }
+
+            var activityViewModel = ActivitiesViewModel.GetInstance();
+            activityViewModel.UpdateActivity(activity);
+
+            MessagingCenter.Send(this, "newActivityImage", activity.ActivityImageFullPath);
+
+            //activityViewModel.ReloadActivities();
+
+            IsRunning = false;
+            IsEnabled = true;
+
+            await navigationService.Back();
+        }
         #endregion
     }
 }

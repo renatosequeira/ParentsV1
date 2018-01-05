@@ -23,7 +23,7 @@
         public string ActivityTypeDescription { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<Activity> Activity { get; set; }
+        public virtual ICollection<Activities> Activity { get; set; }
 
         public string userId { get; set; }
 

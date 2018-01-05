@@ -2,7 +2,7 @@
 {
     using Domain.ActivitiesManagement;
 
-    public class ActivityRequest : Activity
+    public class ActivityRequest : Activities
     {
         public byte[] ImageArray { get; set; }
     }

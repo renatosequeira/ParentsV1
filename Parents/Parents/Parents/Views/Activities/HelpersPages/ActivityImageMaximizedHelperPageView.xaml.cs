@@ -16,6 +16,10 @@ namespace Parents.Views.Activities.HelpersPages
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ActivityImageMaximizedHelperPageView : PopupPage
     {
+        #region Attributtes
+
+        #endregion
+
         #region Services
         NavigationService navigationService;
         #endregion
@@ -45,5 +49,17 @@ namespace Parents.Views.Activities.HelpersPages
             //await navigationService.ClosePopup();
             await Application.Current.MainPage.Navigation.PopAllPopupAsync();
         }
+
+        //protected override void OnDisappearing()
+        //{
+        //    base.OnDisappearing();
+
+        //    string newImage;
+        //    newImage = ActivityImage.Source.ToString();
+
+        //    MessagingCenter.Send(this, "newActivityImage", newImage);
+            
+            
+        //}
     }
 }

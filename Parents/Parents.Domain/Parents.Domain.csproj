@@ -53,7 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActivitiesManagement\Activity.cs" />
+    <Compile Include="ActivitiesManagement\Activities.cs" />
     <Compile Include="ActivitiesManagement\Helpers\ActivityFamily.cs" />
     <Compile Include="ActivitiesManagement\Helpers\ActivityInstitutionType.cs" />
     <Compile Include="ActivitiesManagement\Helpers\ActivityPeriodicity.cs" />

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Parents.Views.Activities.Helpers.EditActivityView"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
-             Title="{Binding EditActivity.ChildrenActivityType, StringFormat='EDIT {0}'}"
+             Title="{Binding EditActivity.ActivityDescription, StringFormat='EDIT {0}'}"
              BackgroundColor="{StaticResource BackgroundColor}"
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
              xmlns:local="clr-namespace:Parents.Renderers">
@@ -11,13 +11,27 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem 
             Icon="ic_edit_white_a"
-            Clicked="ToolbarItem_Clicked_1"/>
+            Clicked="ToolbarItem_Clicked_1"
+            Command="{Binding EditActivity.EditItemsCommand}"/>
         
         <ToolbarItem 
             Command="{Binding EditActivity.SaveRepeatedEventsCommand}"
             Icon="ic_save"
-            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+            IsEnabled="{Binding EditEnabled, Mode=TwoWay}"
             Clicked="ToolbarItem_Clicked"/>
+
+        <ToolbarItem
+            Text="Delete Activity"
+            Order="Secondary"/>
+
+        <ToolbarItem
+            Text="Resend Invitation"
+            Order="Secondary"/>
+
+        <ToolbarItem
+            Text="Share"
+            Order="Secondary"
+            Command="{Binding EditActivity.ShareCommand}"/>
     </ContentPage.ToolbarItems>
 
     <Grid
@@ -59,7 +73,9 @@
         <!--PRIVACY/ PRIORITY/ STATUS SECTIONS-->
         <Grid
             Grid.Row="2"
-            Margin="0,10">
+            Margin="0,10"
+            x:Name="middleSectionBox"
+            Padding="0,4,0,4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -67,9 +83,11 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
+            <!--PRIVACY-->
             <StackLayout
                 Grid.Column="0"
-                x:Name="privacyBox">
+                x:Name="privacyBox"
+                IsEnabled="False">
                                
                 <Image Source="{Binding ActivityPrivacyImage}"
                        HeightRequest="30"
@@ -87,41 +105,70 @@
                 </StackLayout.GestureRecognizers>
             </StackLayout>
 
+            <!--ACTIVITY PRIORITY-->
             <StackLayout
-                Grid.Column="1">
+                Grid.Column="1"
+                x:Name="priorityBox"
+                IsEnabled="False">
                                 
-                <Image Source="{Binding ActivityPriorityImage}" 
+                <Image Source="{Binding ActivityPriorityImage, Mode=TwoWay}" 
                        HeightRequest="30"
-                       Margin="0,5"/>
+                       Margin="0,5"
+                       x:Name="imgPriority"/>
 
                 <Label Text="Priority" Style="{StaticResource StatsCaptionLabel}"/>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding PriorityChangeCommand}"/>
+                </StackLayout.GestureRecognizers>
             </StackLayout>
 
+            <!--ACTIVITY TYPE IMAGE-->
             <StackLayout
-                Grid.Column="2">
+                Grid.Column="2"
+                x:Name="typeBox"
+                IsEnabled="False">
 
-                <Image Source="{Binding ActivityTypeImage}" 
+                <Image Source="{Binding ActivityTypeImage, Mode=TwoWay}" 
                        HeightRequest="30"
-                       Margin="0,5"/>
+                       Margin="0,5"
+                       x:Name="imgActivityType"/>
 
                 <Label Text="Type" Style="{StaticResource StatsCaptionLabel}"/>
 
+                <Label
+                    Text="{Binding ChildrenActivityType, Mode=TwoWay}"
+                    x:Name="lblAC"
+                    IsVisible="False">
+                    
+                </Label>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ActivityTypeChangeCommand}" />
+                </StackLayout.GestureRecognizers>
             </StackLayout>
 
+            <!--ACTIVITY STATUS IMAGE-->
             <StackLayout
-                Grid.Column="3">
+                Grid.Column="3"
+                x:Name="statusBox"
+                IsEnabled="False">
                 
                 <Image Source="{Binding ActivityStatusImage}" 
                        HeightRequest="30"
                        Margin="0,5"/>
 
                 <Label Text="Status" Style="{StaticResource StatsCaptionLabel}"/>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding StatusChangeCommand, Mode=TwoWay}"/>
+                </StackLayout.GestureRecognizers>
             </StackLayout>
 
         </Grid>
 
         <!--ACTIVITY DETAILS SECTION-->
-            <ScrollView
+        <ScrollView
                 Grid.Row="3"
                 Orientation="Vertical">
                 
@@ -147,26 +194,77 @@
 
         <!--ACTIVITY IMAGE SECTION-->
 
-        <Grid>
+        <Grid
+            TranslationY="50">
             <Grid.RowDefinitions>
                 <RowDefinition Height="AUTO"/>
             </Grid.RowDefinitions>
 
-            <Image
-                Source="{Binding ImageSource}"
-                HorizontalOptions="Center"
-                WidthRequest="150"
-                HeightRequest="150"
-                VerticalOptions="End"
-                TranslationY="50"
-                BackgroundColor="Beige"
-                Grid.Row="0"
-                x:Name="ActivityImage"
-                Aspect="AspectFill">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-                </Image.GestureRecognizers>
-            </Image>
+            <AbsoluteLayout x:Name="ViewLayout">
+                <Image 
+                    Source="{Binding ImageSource, Mode=TwoWay}" 
+                    Aspect="AspectFill" 
+                    AbsoluteLayout.LayoutBounds="1,1,1,1" 
+                    AbsoluteLayout.LayoutFlags="All" 
+                    HorizontalOptions="Center"
+                    WidthRequest="150"
+                    HeightRequest="150"
+                    VerticalOptions="End"
+                    BackgroundColor="Beige"
+                    Grid.Row="0"
+                    x:Name="ActivityImage"/>
+                
+                <AbsoluteLayout x:Name="ViewControls" AbsoluteLayout.LayoutBounds="1,1,1,.50" AbsoluteLayout.LayoutFlags="All" BackgroundColor="#66000000" Margin="10,10,10,10">
+                    <StackLayout Orientation="Vertical" Margin="20,20,20,20" BackgroundColor="Transparent" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="1,1,1,1">
+                        <Grid Margin="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            
+                            <Button 
+                                BackgroundColor="#77000000" 
+                                BorderRadius="4" 
+                                BorderColor="White" 
+                                BorderWidth="2" 
+                                TextColor="White" 
+                                Grid.Row="0" 
+                                Grid.Column="0" 
+                                Image="ic_edit_image_white"
+                                HorizontalOptions="Center"
+                                Opacity="0.5"
+                                x:Name="ImageEditButton"
+                                TranslationY="45"
+                                VerticalOptions="End"
+                                HeightRequest="30"
+                                WidthRequest="30"
+                                IsVisible="{Binding EditEnabled}"
+                                Command="{Binding ChangeImageCommand}"/>
+                            
+                            <Button 
+                                Text="Whipped Cream" 
+                                BackgroundColor="#77000000" 
+                                BorderRadius="4" 
+                                BorderColor="White" 
+                                BorderWidth="2" 
+                                TextColor="White" 
+                                Grid.Row="1" 
+                                Grid.Column="3" />
+                            
+                        </Grid>
+                        <Grid Margin="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Button Text="Tall (12oz)" BackgroundColor="#77000000" BorderRadius="4" BorderColor="White" BorderWidth="2" TextColor="White" HorizontalOptions="FillAndExpand" Grid.Column="0" />
+                            <Button Text="Grande (16oz)" BackgroundColor="#77000000" BorderRadius="4" BorderColor="White" BorderWidth="2" TextColor="White" HorizontalOptions="FillAndExpand" Grid.Column="1" />
+                            <Button Text="Venti (20oz)" BackgroundColor="#77000000" BorderRadius="4" BorderColor="White" BorderWidth="2" TextColor="White" HorizontalOptions="FillAndExpand" Grid.Column="2" />
+                        </Grid>
+                    </StackLayout>
+                </AbsoluteLayout>
+            </AbsoluteLayout>
         </Grid>
 
         <ContentView 
