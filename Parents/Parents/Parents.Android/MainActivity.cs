@@ -8,6 +8,7 @@ using Android.Widget;
 using Android.OS;
 using Xamarin.Forms;
 using Plugin.Toasts;
+using Java.Lang;
 
 namespace Parents.Droid
 {
@@ -29,8 +30,62 @@ namespace Parents.Droid
             // If you are using Android you must pass through the activity
             ToastNotification.Init(this);
 
+            switch (Device.Idiom)
+            {
+                case TargetIdiom.Phone:
+                    RequestedOrientation = ScreenOrientation.Portrait;
+                    break;
+                case TargetIdiom.Tablet:
+                    RequestedOrientation = ScreenOrientation.Landscape;
+                    break;
+            }
+
             LoadApplication(new App());
         }
+
+        //public override void OnConfigurationChanged(Android.Content.Res.Configuration newConfig)
+        //{
+        //    base.OnConfigurationChanged(newConfig);
+
+        //    switch (newConfig.Orientation)
+        //    {
+        //        case Orientation.Landscape:
+        //            switch (Device.Idiom)
+        //            {
+        //                case TargetIdiom.Phone:
+        //                    LockRotation(Orientation.Portrait);
+        //                    break;
+        //                case TargetIdiom.Tablet:
+        //                    LockRotation(Orientation.Landscape);
+        //                    break;
+        //            }
+        //            break;
+        //        case Orientation.Portrait:
+        //            switch (Device.Idiom)
+        //            {
+        //                case TargetIdiom.Phone:
+        //                    LockRotation(Orientation.Portrait);
+        //                    break;
+        //                case TargetIdiom.Tablet:
+        //                    LockRotation(Orientation.Landscape);
+        //                    break;
+        //            }
+        //            break;
+        //    }
+        //}
+
+        //private void LockRotation(Orientation orientation)
+        //{
+        //    switch (orientation)
+        //    {
+        //        case Orientation.Portrait:
+        //            RequestedOrientation = ScreenOrientation.Portrait;
+        //            break;
+        //        case Orientation.Landscape:
+        //            RequestedOrientation = ScreenOrientation.Landscape;
+        //            break;
+        //    }
+        //}
     }
 }
 

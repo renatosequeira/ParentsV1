@@ -2,6 +2,7 @@
 using Parents.Services;
 using Parents.ViewModels.Activities.HelperPages;
 using Parents.Views.Activities.HelpersPages;
+using Plugin.DeviceOrientation;
 using Plugin.Share;
 using Plugin.Share.Abstractions;
 using Rg.Plugins.Popup.Extensions;
@@ -31,6 +32,8 @@ namespace Parents.Views.Activities.Helpers
             navigationService = new NavigationService();
 
             middleSectionBox.BackgroundColor = Color.White;
+
+            CrossDeviceOrientation.Current.LockOrientation(CrossDeviceOrientation.Current.CurrentOrientation);
 
         }
 

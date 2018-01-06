@@ -33,5 +33,28 @@ namespace Parents.iOS
 
             return base.FinishedLaunching(app, options);
         }
+
+        //https://stackoverflow.com/questions/32157585/how-to-set-contentpage-orientation-in-xamarin-forms
+
+        //public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, UIWindow forWindow)
+        //{
+        //    if (Xamarin.Forms.Application.Current == null || Xamarin.Forms.Application.Current.MainPage == null)
+        //    {
+        //        return UIInterfaceOrientationMask.Portrait;
+        //    }
+
+        //    var mainPage = Xamarin.Forms.Application.Current.MainPage;
+
+        //    if (mainPage is MyCustomContentPage ||
+        //       (mainPage is NavigationPage && ((NavigationPage)mainPage).CurrentPage is MyCustomContentPage) ||
+        //       (mainPage.Navigation != null && mainPage.Navigation.ModalStack.LastOrDefault() is MyCustomContentPage))
+        //    {
+        //        return UIInterfaceOrientationMask.Landscape;
+        //    }
+
+        //    return UIInterfaceOrientationMask.Portrait;
+        //}
     }
+
+
 }

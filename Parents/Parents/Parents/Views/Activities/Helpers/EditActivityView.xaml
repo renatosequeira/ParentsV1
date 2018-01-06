@@ -48,8 +48,7 @@
         <Image
             Source="Activities"
             Aspect="AspectFill"            
-            Grid.Row="0"
-            HeightRequest="150"/>
+            Grid.Row="0"/>
 
         <!--ACTIVITY BRIEF INFO-->
         <StackLayout
@@ -214,12 +213,26 @@
                     Grid.Row="0"
                     x:Name="ActivityImage"/>
                 
-                <AbsoluteLayout x:Name="ViewControls" AbsoluteLayout.LayoutBounds="1,1,1,.50" AbsoluteLayout.LayoutFlags="All" BackgroundColor="#66000000" Margin="10,10,10,10">
-                    <StackLayout Orientation="Vertical" Margin="20,20,20,20" BackgroundColor="Transparent" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="1,1,1,1">
-                        <Grid Margin="1">
+                <AbsoluteLayout 
+                    x:Name="ViewControls" 
+                    AbsoluteLayout.LayoutBounds="0.5,1,1,1" 
+                    AbsoluteLayout.LayoutFlags="All" 
+                    BackgroundColor="#66000000" 
+                    Margin="100,10,100,10"
+                    VerticalOptions="EndAndExpand">
+                    
+                    <StackLayout 
+                        Orientation="Vertical" 
+                        Margin="20,20,20,20" 
+                        BackgroundColor="Transparent" 
+                        AbsoluteLayout.LayoutFlags="All" 
+                        AbsoluteLayout.LayoutBounds="1,1,1,1"
+                        HorizontalOptions="Center">
+                        
+                        <Grid Margin="1"
+                              TranslationY="5">
+                            
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
@@ -230,38 +243,38 @@
                                 BorderColor="White" 
                                 BorderWidth="2" 
                                 TextColor="White" 
-                                Grid.Row="0" 
                                 Grid.Column="0" 
                                 Image="ic_edit_image_white"
                                 HorizontalOptions="Center"
                                 Opacity="0.5"
                                 x:Name="ImageEditButton"
-                                TranslationY="45"
                                 VerticalOptions="End"
                                 HeightRequest="30"
                                 WidthRequest="30"
                                 IsVisible="{Binding EditEnabled}"
-                                Command="{Binding ChangeImageCommand}"/>
-                            
+                                Command="{Binding ChangeImageCommand}"
+                                TranslationX="-10"/>
+
                             <Button 
-                                Text="Whipped Cream" 
                                 BackgroundColor="#77000000" 
                                 BorderRadius="4" 
                                 BorderColor="White" 
                                 BorderWidth="2" 
                                 TextColor="White" 
-                                Grid.Row="1" 
-                                Grid.Column="3" />
-                            
+                                Grid.Column="1" 
+                                Image="ic_delete_image_white"
+                                HorizontalOptions="Center"
+                                Opacity="0.5"
+                                x:Name="ImageDeleteButton"
+                                VerticalOptions="End"
+                                HeightRequest="30"
+                                WidthRequest="30"
+                                IsVisible="{Binding EditEnabled}"
+                                Command="{Binding ChangeImageCommand}"
+                                TranslationX="10"/>
+
                         </Grid>
-                        <Grid Margin="1">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Button Text="Tall (12oz)" BackgroundColor="#77000000" BorderRadius="4" BorderColor="White" BorderWidth="2" TextColor="White" HorizontalOptions="FillAndExpand" Grid.Column="0" />
-                            <Button Text="Grande (16oz)" BackgroundColor="#77000000" BorderRadius="4" BorderColor="White" BorderWidth="2" TextColor="White" HorizontalOptions="FillAndExpand" Grid.Column="1" />
-                            <Button Text="Venti (20oz)" BackgroundColor="#77000000" BorderRadius="4" BorderColor="White" BorderWidth="2" TextColor="White" HorizontalOptions="FillAndExpand" Grid.Column="2" />
-                        </Grid>
+                       
                     </StackLayout>
                 </AbsoluteLayout>
             </AbsoluteLayout>
