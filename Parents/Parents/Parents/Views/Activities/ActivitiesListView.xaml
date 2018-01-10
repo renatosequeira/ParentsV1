@@ -4,14 +4,13 @@
              x:Class="Parents.Views.Activities.ActivitiesListView"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
              xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
-             Title="ACTIVITIES">
+             Title="{Binding Activities.ChildrenName}">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem 
-            Command="{Binding FilterActivities}"
+        <ToolbarItem
+            Order="Primary"
             Icon="ic_filter"
-            Order="Secondary"
-            Text="Filter"/>
+            Command="{Binding Activities.OpenFilterOptionsPageHelperCommand}"/>
     </ContentPage.ToolbarItems>
 
     <ScrollView>
@@ -53,10 +52,10 @@
                                 </ViewCell.ContextActions>
 
                                 <Frame
-                                HasShadow="True">
+                                    HasShadow="True">
 
                                     <Grid
-                                    VerticalOptions="Center">
+                                        VerticalOptions="Center">
 
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>
@@ -68,35 +67,36 @@
                                         </Grid.RowDefinitions>
 
                                         <StackLayout
-                                        Orientation="Vertical">
+                                            Orientation="Vertical">
 
                                             <Label 
-                                        Grid.Column="1" 
-                                        HorizontalOptions="FillAndExpand" 
-                                        FontSize="Medium" 
-                                        Text="{Binding ActivityDescription}" 
-                                        VerticalOptions="Center"
-                                        FontAttributes="Bold">
+                                                Grid.Column="1" 
+                                                HorizontalOptions="FillAndExpand" 
+                                                FontSize="Medium" 
+                                                Text="{Binding ActivityDescription}" 
+                                                VerticalOptions="Center"
+                                                FontAttributes="Bold">
                                             </Label>
 
                                             <Label
-                                        Grid.Column="1"
-                                        HorizontalOptions="FillAndExpand"
-                                        FontSize="Small"
-                                        Text="{Binding convertedDate}"
-                                        VerticalOptions="Center"
-                                        TextColor="{Binding EndDateColor}">
+                                            Grid.Column="1"
+                                            HorizontalOptions="FillAndExpand"
+                                            FontSize="Small"
+                                            Text="{Binding convertedDate}"
+                                            VerticalOptions="Center"
+                                            TextColor="{Binding EndDateColor}">
 
                                             </Label>
                                         </StackLayout>
 
                                         <Image
-                                        Grid.Column="2"
-                                        HorizontalOptions="End" 
-                                        Source="ic_eye_brown"
-                                        VerticalOptions="Center"
-                                        HeightRequest="40">
+                                            Grid.Column="2"
+                                            HorizontalOptions="End" 
+                                            Source="ic_eye_brown"
+                                            VerticalOptions="Center"
+                                            HeightRequest="40">
                                             <Image.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding ActivitiesViewModel.RefreshCommand}"/>
                                                 <TapGestureRecognizer Command="{Binding SelectActivityCommand}"/>
                                             </Image.GestureRecognizers>
                                         </Image>
@@ -111,8 +111,6 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-
-
 
             </StackLayout>
 
@@ -217,9 +215,5 @@
 
         </Grid>
     </ScrollView>
-    
 
-
-    
-    
 </ContentPage>

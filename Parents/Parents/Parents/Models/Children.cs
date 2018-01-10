@@ -115,19 +115,17 @@
             }
         }
 
-
-
-
         async void SelectChildren()
         {
             Application.Current.Properties["childrenIdentityCard"] = ChildrenIdentityCard;
             Application.Current.Properties["childrenId"] = ChildrenId;
+            MessagingCenter.Send(this, "childrenName", ChildrenFirstName);
+
             var mainViewModel = MainViewModel.GetInstance();
 
             mainViewModel.Activities = new ActivitiesViewModel();
 
-            //mainViewModel.NewActivity = new NewActivityViewModel();
-            //mainViewModel.Children = this;
+
             mainViewModel.EditChildren = new EditChildrenViewModel(this);
             await navigationService.Navigate("ChildrenDetails");
 

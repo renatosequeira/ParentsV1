@@ -209,28 +209,31 @@
                     WidthRequest="150"
                     HeightRequest="150"
                     VerticalOptions="End"
-                    BackgroundColor="Beige"
+                    BackgroundColor="White"
                     Grid.Row="0"
-                    x:Name="ActivityImage"/>
-                
+                    x:Name="ActivityImage">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding MaximizeActivityPicture}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+
                 <AbsoluteLayout 
                     x:Name="ViewControls" 
                     AbsoluteLayout.LayoutBounds="0.5,1,1,1" 
                     AbsoluteLayout.LayoutFlags="All" 
-                    BackgroundColor="#66000000" 
-                    Margin="100,10,100,10"
-                    VerticalOptions="EndAndExpand">
+                    BackgroundColor="Transparent" 
+                    Margin="110,10,110,0"
+                    VerticalOptions="EndAndExpand"> <!--CAIXA QUE INCLUI BOTOES-->
                     
                     <StackLayout 
                         Orientation="Vertical" 
-                        Margin="20,20,20,20" 
+                        Margin="20,20,20,5" 
                         BackgroundColor="Transparent" 
                         AbsoluteLayout.LayoutFlags="All" 
                         AbsoluteLayout.LayoutBounds="1,1,1,1"
                         HorizontalOptions="Center">
                         
-                        <Grid Margin="1"
-                              TranslationY="5">
+                        <Grid Margin="1">
                             
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -270,7 +273,7 @@
                                 HeightRequest="30"
                                 WidthRequest="30"
                                 IsVisible="{Binding EditEnabled}"
-                                Command="{Binding ChangeImageCommand}"
+                                Command="{Binding DeleteImageCommand}"
                                 TranslationX="10"/>
 
                         </Grid>

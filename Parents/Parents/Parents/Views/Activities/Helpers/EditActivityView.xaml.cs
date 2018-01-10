@@ -65,7 +65,9 @@ namespace Parents.Views.Activities.Helpers
             privacyBox.IsEnabled = true;
             typeBox.IsEnabled = true;
             statusBox.IsEnabled = true;
-            middleSectionBox.BackgroundColor = Color.FromHex("#F1E0B1");
+            //middleSectionBox.BackgroundColor = Color.FromHex("#F1E0B1");
+            middleSectionBox.BackgroundColor = Color.FromHex("#66000000");
+            middleSectionBox.Opacity = 0.5;
         }
 
         protected override void OnAppearing()

@@ -256,6 +256,7 @@ namespace Parents.Models
             await navigationService.Navigate("Activity Details");
 
         }
+
         #endregion
 
         #region Methods

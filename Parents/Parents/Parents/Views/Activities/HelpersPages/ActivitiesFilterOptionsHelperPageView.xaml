@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Parents.Views.Activities.HelpersPages.ActivitiesFilterOptionsHelperPageView"
+    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup">
+
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+          PositionIn="Center"
+          PositionOut="Center"
+          ScaleIn="1.2"
+          ScaleOut="0.8"
+          DurationIn="400"
+          DurationOut="300"
+          EasingIn="SinOut"
+          EasingOut="SinIn"
+          HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+
+    <StackLayout 
+        VerticalOptions="CenterAndExpand" 
+        HorizontalOptions="CenterAndExpand" 
+        Padding="10, 10, 10, 10"
+        WidthRequest="300"
+        HeightRequest="400">
+
+        <StackLayout 
+            BackgroundColor="White" 
+            Padding="0, 0, 0, 0"
+            Spacing="8">
+
+            <StackLayout
+                Orientation="Horizontal"
+                HorizontalOptions="FillAndExpand"
+                BackgroundColor="#F1E0B1"
+                Padding="8">
+                <Image
+                    Source="ic_filter_illustration"
+                    HeightRequest="30"
+                    HorizontalOptions="Start"
+                    Parent="5,0,10,0"/>
+
+                <Label 
+                    Text="FILTER" 
+                    TextColor="Gray" 
+                    FontSize="20"
+                    HorizontalOptions="StartAndExpand"
+                    VerticalOptions="Center">
+                </Label>
+            </StackLayout>
+
+            <ListView 
+                    x:Name="activityFilterOptions" 
+                    HasUnevenRows="True"
+                    ItemTapped="activityFilterOptions_ItemTapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout
+                                    Orientation="Horizontal"
+                                    Padding="10">
+                                <Image 
+                                        Source="{Binding FilterImage}"
+                                        HorizontalOptions="Start"
+                                        HeightRequest="30"/>
+                                <Label 
+                                        Text="{Binding FilterName}"
+                                        TextColor="DarkGray"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="StartAndExpand"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+           <!--ADICIONAR BOTÃO CANCEL-->
+        </StackLayout>
+    </StackLayout>
+
+</pages:PopupPage>

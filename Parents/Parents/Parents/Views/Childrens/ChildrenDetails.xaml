@@ -21,27 +21,27 @@
             Padding="10">
 
                 <Label
-                Text="Children First Name:">
+                    Text="Children First Name:">
 
                 </Label>
 
-                <Entry
-                Placeholder="Enter children first name"
-                Text="{Binding ChildrenFirstName, Mode=TwoWay}">
-                </Entry>
+            <Entry
+                    Placeholder="Enter children first name"
+                    Text="{Binding ChildrenFirstName, Mode=TwoWay}">
+            </Entry>
 
                 <Label
-                Text="Children Last Name:">
+                    Text="Children Last Name:">
 
                 </Label>
 
-                <Entry
-                Placeholder="Enter children last name"
-                Text="{Binding ChildrenLastName, Mode=TwoWay}">
-                </Entry>
+            <Entry
+                    Placeholder="Enter children last name"
+                    Text="{Binding ChildrenLastName, Mode=TwoWay}">
+            </Entry>
 
                 <Label
-                Text="Children ID card:">
+                    Text="Children ID card:">
 
                 </Label>
 
@@ -52,33 +52,32 @@
 
 
                 <Label
-                Text="Children Sex:">
+                    Text="Children Sex:">
 
                 </Label>
 
 
-                <Entry
-                Placeholder="Enter children sex"
-                Text="{Binding ChildrenSex, Mode=TwoWay}">
-                </Entry>
+            <Entry
+                    Placeholder="Enter children sex"
+                    Text="{Binding ChildrenSex, Mode=TwoWay}">
+            </Entry>
 
-                <ActivityIndicator
-                IsRunning="{Binding IsRunning, Mode=TwoWay}"
-                VerticalOptions="CenterAndExpand">
-
-                </ActivityIndicator>
+            <ActivityIndicator
+                    IsRunning="{Binding IsRunning, Mode=TwoWay}"
+                    VerticalOptions="CenterAndExpand">
+            </ActivityIndicator>
 
                 <Button
-                Command="{Binding SaveCommand}"
-                BackgroundColor="Navy"
-                BorderRadius="23"
-                FontAttributes="Bold"
-                HeightRequest="46"
-                IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                Text="Save"
-                TextColor="White"
-                Margin="50,0"
-                VerticalOptions="EndAndExpand">
+                    Command="{Binding SaveCommand}"
+                    BackgroundColor="Navy"
+                    BorderRadius="23"
+                    FontAttributes="Bold"
+                    HeightRequest="46"
+                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                    Text="Save"
+                    TextColor="White"
+                    Margin="50,0"
+                    VerticalOptions="EndAndExpand">
 
                 </Button>
 

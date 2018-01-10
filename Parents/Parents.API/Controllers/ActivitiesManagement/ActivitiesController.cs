@@ -22,11 +22,12 @@
     {
         private DataContext db = new DataContext();
 
+        #region FullActivitiesList
         // GET: api/Activities
         public async Task<IHttpActionResult> GetActivities()
         {
             var userId = User.Identity.GetUserId();
-            
+
             //var activities = await db.Activities.Where((act => act.userId == userId && act.relatedChildrenIdentitiCard == "10788194" || act.invitedUserId == userId && act.relatedChildrenIdentitiCard == "10788194")).ToListAsync();
             var activities = await db.Activities.Where(act => act.userId == userId || act.invitedUserId == userId).ToListAsync();
 
@@ -65,6 +66,8 @@
 
             return Ok(activityResponse);
         }
+        #endregion
+
 
         // GET: api/Activities
         [Route("api/AnniversaryActivities")]
@@ -112,6 +115,157 @@
             return Ok(activityResponse);
         }
 
+        #region ActivitiesListOfSpecificChildren
+        // GET: api/ActivitiesFromChildren/5
+        [HttpGet]
+        //[Route("api/{ActivitiesForCurrentChildren}/{id}/")]
+        [Route("api/ActivitiesForCurrentChildren/{id}")]
+        public async Task<IHttpActionResult> GetActivityFromChildren(int id)
+        {
+            var userId = User.Identity.GetUserId();
+
+            var activities = await db.Activities.Where(
+                act => act.userId == userId && act.ChildrenId == id ||
+                act.invitedUserId == userId && act.ChildrenId == id).ToListAsync();
+
+            var activityResponse = new List<ActivityResponse>();
+
+            foreach (var activity in activities)
+            {
+
+                activityResponse.Add(new ActivityResponse
+                {
+                    ActivityAddress = activity.ActivityAddress,
+                    ActivityDateEnd = activity.ActivityDateEnd,
+                    ActivityDateStart = activity.ActivityDateStart,
+                    ActivityDescription = activity.ActivityDescription,
+                    ActivityId = activity.ActivityId,
+                    ActivityPrivacy = activity.ActivityPrivacy,
+                    ActivityRemarks = activity.ActivityRemarks,
+                    Image = activity.Image,
+                    invitationAcknowledged = activity.invitationAcknowledged,
+                    invitedUserId = activity.invitedUserId,
+                    relatedChildrenIdentitiCard = activity.relatedChildrenIdentitiCard,
+                    userId = activity.userId,
+                    ChildrenId = activity.ChildrenId,
+                    Status = activity.Status,
+                    ChildrenActivityFamily = activity.ChildrenActivityFamily,
+                    ChildrenActivityType = activity.ChildrenActivityType,
+                    ActivityPriority = activity.ActivityPriority,
+                    ActivityTimeEnd = activity.ActivityTimeEnd,
+                    ActivityTimeStart = activity.ActivityTimeStart,
+                    ActivityRepeat = activity.ActivityRepeat,
+                    EventId = activity.EventId,
+                    EventSeries = activity.EventSeries
+                });
+
+            }
+
+            return Ok(activityResponse);
+        }
+        #endregion
+
+        #region OnGoingActivitiesListOfSpecificChildren
+        // GET: api/ActivitiesFromChildren/5
+        [HttpGet]
+        //[Route("api/{ActivitiesForCurrentChildren}/{id}/{status}")]
+        [Route("api/ActivitiesForCurrentChildren/{id}/{status}")]
+        public async Task<IHttpActionResult> GetOnGoingActivityFromChildren(int id, bool status)
+        {
+            var userId = User.Identity.GetUserId();
+
+            var activities = await db.Activities.Where(
+                act => act.userId == userId && act.ChildrenId == id && act.Status == status||
+                act.invitedUserId == userId && act.ChildrenId == id && act.Status == status).ToListAsync();
+
+            var activityResponse = new List<ActivityResponse>();
+
+            foreach (var activity in activities)
+            {
+
+                activityResponse.Add(new ActivityResponse
+                {
+                    ActivityAddress = activity.ActivityAddress,
+                    ActivityDateEnd = activity.ActivityDateEnd,
+                    ActivityDateStart = activity.ActivityDateStart,
+                    ActivityDescription = activity.ActivityDescription,
+                    ActivityId = activity.ActivityId,
+                    ActivityPrivacy = activity.ActivityPrivacy,
+                    ActivityRemarks = activity.ActivityRemarks,
+                    Image = activity.Image,
+                    invitationAcknowledged = activity.invitationAcknowledged,
+                    invitedUserId = activity.invitedUserId,
+                    relatedChildrenIdentitiCard = activity.relatedChildrenIdentitiCard,
+                    userId = activity.userId,
+                    ChildrenId = activity.ChildrenId,
+                    Status = activity.Status,
+                    ChildrenActivityFamily = activity.ChildrenActivityFamily,
+                    ChildrenActivityType = activity.ChildrenActivityType,
+                    ActivityPriority = activity.ActivityPriority,
+                    ActivityTimeEnd = activity.ActivityTimeEnd,
+                    ActivityTimeStart = activity.ActivityTimeStart,
+                    ActivityRepeat = activity.ActivityRepeat,
+                    EventId = activity.EventId,
+                    EventSeries = activity.EventSeries
+                });
+
+            }
+
+            return Ok(activityResponse);
+        }
+        #endregion
+
+        #region FilteredActivityTypesListOfSpecificChildren
+        // GET: api/ActivitiesFromChildren/5
+        [HttpGet]
+        //[Route("api/{ActivitiesForCurrentChildren}/{id}/{status}")]
+        [Route("api/ActivitiesForCurrentChildren/{id}/{status}/{type}")]
+        public async Task<IHttpActionResult> GetActivityTypesFromChildren(int id, bool status, string type)
+        {
+            var userId = User.Identity.GetUserId();
+
+            var activities = await db.Activities.Where(
+                act => act.userId == userId && act.ChildrenId == id && act.Status == status && act.ChildrenActivityType == type||
+                act.invitedUserId == userId && act.ChildrenId == id && act.Status == status && act.ChildrenActivityType == type).ToListAsync();
+
+            var activityResponse = new List<ActivityResponse>();
+
+            foreach (var activity in activities)
+            {
+
+                activityResponse.Add(new ActivityResponse
+                {
+                    ActivityAddress = activity.ActivityAddress,
+                    ActivityDateEnd = activity.ActivityDateEnd,
+                    ActivityDateStart = activity.ActivityDateStart,
+                    ActivityDescription = activity.ActivityDescription,
+                    ActivityId = activity.ActivityId,
+                    ActivityPrivacy = activity.ActivityPrivacy,
+                    ActivityRemarks = activity.ActivityRemarks,
+                    Image = activity.Image,
+                    invitationAcknowledged = activity.invitationAcknowledged,
+                    invitedUserId = activity.invitedUserId,
+                    relatedChildrenIdentitiCard = activity.relatedChildrenIdentitiCard,
+                    userId = activity.userId,
+                    ChildrenId = activity.ChildrenId,
+                    Status = activity.Status,
+                    ChildrenActivityFamily = activity.ChildrenActivityFamily,
+                    ChildrenActivityType = activity.ChildrenActivityType,
+                    ActivityPriority = activity.ActivityPriority,
+                    ActivityTimeEnd = activity.ActivityTimeEnd,
+                    ActivityTimeStart = activity.ActivityTimeStart,
+                    ActivityRepeat = activity.ActivityRepeat,
+                    EventId = activity.EventId,
+                    EventSeries = activity.EventSeries
+                });
+
+            }
+
+            return Ok(activityResponse);
+        }
+        #endregion
+
+        #region SpecificActivity
         // GET: api/Activities/5
         [ResponseType(typeof(Domain.ActivitiesManagement.Activities))]
         public async Task<IHttpActionResult> GetActivity(int id)
@@ -123,7 +277,8 @@
             }
 
             return Ok(activity);
-        }
+        } 
+        #endregion
 
         // PUT: api/Activities/5
         [ResponseType(typeof(void))]
@@ -271,7 +426,7 @@
         }
 
         // DELETE: api/Activities/5
-        [ResponseType(typeof(Domain.ActivitiesManagement.Activities))]
+        [ResponseType(typeof(Activities))]
         public async Task<IHttpActionResult> DeleteActivity(int id)
         {
             Domain.ActivitiesManagement.Activities activity = await db.Activities.FindAsync(id);

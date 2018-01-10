@@ -229,23 +229,23 @@
 
                 <!--REPEAT-->
                 <StackLayout
-                Orientation="Horizontal"
-                Padding="14"
-                Margin="0,0,10,0">
+                    Orientation="Horizontal"
+                    Padding="14"
+                    Margin="0,0,10,0">
 
                     <Image 
-                    Source="ic_repeat"
-                    HeightRequest="30"
-                    HorizontalOptions="Start"
-                    Margin="0,0,5,0"
-                    VerticalOptions="Center"/>
+                        Source="ic_repeat"
+                        HeightRequest="30"
+                        HorizontalOptions="Start"
+                        Margin="0,0,5,0"
+                        VerticalOptions="Center"/>
 
                     <Label
                         x:Name="lblRepeat"
                         Text="{Binding ActivityRepeat, Mode=TwoWay}"
                         VerticalOptions="Center"
                         HorizontalOptions="StartAndExpand"
-                        FontSize="Medium">
+                        FontSize="20">
                     </Label>
 
                     <Image 
@@ -256,11 +256,11 @@
                         VerticalOptions="Center"/>
 
                     <Image 
-                    Source="ic_clear"
-                    HeightRequest="20"
-                    HorizontalOptions="End"
-                    VerticalOptions="Center"
-                    x:Name="clearRepeat">
+                        Source="ic_clear"
+                        HeightRequest="20"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center"
+                        x:Name="clearRepeat">
 
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="ClearActivityRepead_Tapped"/>

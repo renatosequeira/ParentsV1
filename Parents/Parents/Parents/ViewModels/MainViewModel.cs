@@ -191,6 +191,8 @@
             NewChildren = new NewChildrenViewModel();  //Liga o objecto NewChildren a um viewmodel
             await navigationService.Navigate("NewChildrenView");
         }
+
+        
         #endregion
 
     }

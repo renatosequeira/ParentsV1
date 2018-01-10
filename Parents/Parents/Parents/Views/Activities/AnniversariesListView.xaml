@@ -21,7 +21,7 @@
                     ItemsSource="{Binding AnniversariesList}"
                     ItemSelected="AnniversariesList_ItemSelected"
                     IsPullToRefreshEnabled="True"
-                    RefreshCommand="{Binding RefreshCommand}"
+                    RefreshCommand="{Binding RefreshAnniversariesCommand}"
                     HasUnevenRows="True"
                     x:Name="AnniversariesList"
                     ItemTapped="AnniversariesList_ItemTapped">
@@ -36,10 +36,10 @@
                                     Icon="ic_edit_white_border"
                                     Text="Edit"/>
                                 <MenuItem
-                                Command="{Binding DeleteCommand}"
-                                IsDestructive="True"
-                                Icon="ic_delete_red"
-                                Text="Delete"/>
+                                    Command="{Binding DeleteCommand}"
+                                    IsDestructive="True"
+                                    Icon="ic_delete_red"
+                                    Text="Delete"/>
                             </ViewCell.ContextActions>
 
                             <Frame

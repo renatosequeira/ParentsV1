@@ -3,6 +3,9 @@
     using GalaSoft.MvvmLight.Command;
     using Parents.Models;
     using Parents.Services;
+    using Parents.Views.Activities;
+    using Parents.Views.Activities.HelpersPages;
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
@@ -20,34 +23,113 @@
         #region Services
         ApiService apiService;
         DialogService dialogService;
+        NavigationService navigationService;
         #endregion
 
         #region Attributes
         ObservableCollection<Activity> _activities;
+        ObservableCollection<Activity> _anniversaries;
+        ObservableCollection<Activity> _events;
         List<Activity> activities;
         bool _isRefreshing;
-        string childrenIdentity;
+        string childrenIdentityCard;
+        int childrenId;
+        string _selectedFilter;
+        string _childrenName;
+        string _selectedFilterForAnniversaries;
+        string _selectedFilrerForEvents;
+
         #endregion
 
         #region Properties
+        public String ChildrenName
+        {
+            get
+            {
+
+                return _childrenName;
+
+            }
+            set
+            {
+                if (_childrenName != value)
+                {
+                    _childrenName = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(ChildrenName)));
+                }
+            }
+        }
+
+        public String SelectedFilter
+        {
+            get
+            {
+              
+                return _selectedFilter;
+
+            }
+            set
+            {
+                if (_selectedFilter != value)
+                {
+                    _selectedFilter = value;
+                    OpenFilteredActivitiesList(SelectedFilter);
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(SelectedFilter)));
+                }
+            }
+        }
+
+        public String SelectedFilterForAnniversaries
+        {
+            get
+            {
+
+                return _selectedFilterForAnniversaries;
+
+            }
+            set
+            {
+                if (_selectedFilterForAnniversaries != value)
+                {
+                    _selectedFilterForAnniversaries = value;
+                    OpenFilteredAnniversariesList(SelectedFilterForAnniversaries);
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(SelectedFilterForAnniversaries)));
+                }
+            }
+        }
+
+        public String SelectedFilterForEvents
+        {
+            get
+            {
+
+                return _selectedFilrerForEvents;
+
+            }
+            set
+            {
+                if (_selectedFilrerForEvents != value)
+                {
+                    _selectedFilrerForEvents = value;
+                    OpenFilteredActivitiesList(SelectedFilterForEvents);
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(SelectedFilterForEvents)));
+                }
+            }
+        }
+
         public ObservableCollection<Activity> ActivitiesList
         {
             get
             {
-                //ObservableCollection<Activity> theCollection = new ObservableCollection<Activity>();
-
-                //if (_activities != null)
-
-                //{
-                //    List<Activity> entities = (from e in _activities
-                //                               where e.ChildrenActivityType.Contains("ANNIVERSARY")
-                //                                 select e).ToList<Activity>();
-                //    if (entities != null && entities.Any())
-                //    {
-                //        theCollection = new ObservableCollection<Activity>(entities);
-                //    }
-                //}
-
+              
                 return _activities;
 
             }
@@ -68,17 +150,37 @@
             get
             {
               
-                return _activities;
+                return _anniversaries;
 
             }
             set
             {
-                if (_activities != value)
+                if (_anniversaries != value)
                 {
-                    _activities = value;
+                    _anniversaries = value;
                     PropertyChanged?.Invoke(
                         this,
                         new PropertyChangedEventArgs(nameof(AnniversariesList)));
+                }
+            }
+        }
+
+        public ObservableCollection<Activity> EventsList
+        {
+            get
+            {
+
+                return _events;
+
+            }
+            set
+            {
+                if (_events != value)
+                {
+                    _events = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(EventsList)));
                 }
             }
         }
@@ -139,19 +241,35 @@
         #region Constructors
         public ActivitiesViewModel()
         {
+            MessagingCenter.Subscribe<ActivitiesFilterOptionsHelperPageView, string>(this, "selectedFilter", (s, a) => {
+                SelectedFilter = a.ToString();
+            });
+
+            MessagingCenter.Subscribe<ActivitiesListView, string>(this, "childrenName", (s, a) => {
+                ChildrenName = a.ToString();
+            });
+
             instance = this;
 
             apiService = new ApiService();
             dialogService = new DialogService();
+            navigationService = new NavigationService();
 
             if (Application.Current.Properties.ContainsKey("childrenIdentityCard"))
             {
-                var id = Application.Current.Properties["childrenIdentityCard"] as string;
-                childrenIdentity = id;
+                var idCard = Application.Current.Properties["childrenIdentityCard"] as string;
+                childrenIdentityCard = idCard;
             }
 
-            LoadActivities();
-            //LoadAnniversaries();
+            if (Application.Current.Properties.ContainsKey("childrenId"))
+            {
+                int id = Convert.ToInt32(Application.Current.Properties["childrenId"]);
+                childrenId = Convert.ToInt32(id);
+            }
+
+            OpenFilteredActivitiesList(SelectedFilter);
+            OpenFilteredAnniversariesList(SelectedFilterForAnniversaries);
+            OpenFilteredEventsList(SelectedFilterForEvents);
         }
 
         #endregion
@@ -195,14 +313,12 @@
 
             activities = (List<Activity>)response.Result;
 
+            ActivitiesList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
 
-
-            ActivitiesList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentity));
-            //ActivitiesList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateStart));
             IsRefreshing = false;
         }
 
-        async void LoadAnniversaries()
+        async void LoadActivitiesForSpecificChildren()
         {
             IsRefreshing = true;
 
@@ -215,12 +331,12 @@
 
             var mainViewModel = MainViewModel.GetInstance();
 
-            var response = await apiService.GetList<Activity>(
+            var response = await apiService.GetListForSpecificChildren<Activity>(
                "http://api.parents.outstandservices.pt",
                 "/api",
-                "/AnniversaryActivities",
+                "/ActivitiesForCurrentChildren",
                 mainViewModel.Token.TokenType,
-                mainViewModel.Token.AccessToken);
+                mainViewModel.Token.AccessToken, childrenId);
 
 
             if (!response.IsSuccess)
@@ -231,11 +347,218 @@
 
             activities = (List<Activity>)response.Result;
 
+            ActivitiesList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
 
-
-            ActivitiesList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentity));
             IsRefreshing = false;
         }
+
+        async void LoadOnGoingActivitiesForSpecificChildren()
+        {
+            IsRefreshing = true;
+
+            var connection = await apiService.CheckConnection();
+            if (!connection.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error", connection.Message);
+                return;
+            }
+
+            var mainViewModel = MainViewModel.GetInstance();
+
+            var response = await apiService.GetOnGoingActivitiesListForSpecificChildren<Activity>(
+               "http://api.parents.outstandservices.pt",
+                "/api",
+                "/ActivitiesForCurrentChildren",
+                mainViewModel.Token.TokenType,
+                mainViewModel.Token.AccessToken, childrenId, false);
+
+
+            if (!response.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error", connection.Message);
+                return;
+            }
+
+            activities = (List<Activity>)response.Result;
+
+            ActivitiesList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
+
+            IsRefreshing = false;
+        }
+
+        async void LoadCompletedActivitiesForSpecificChildren()
+        {
+            IsRefreshing = true;
+
+            var connection = await apiService.CheckConnection();
+            if (!connection.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error", connection.Message);
+                return;
+            }
+
+            var mainViewModel = MainViewModel.GetInstance();
+
+            var response = await apiService.GetOnGoingActivitiesListForSpecificChildren<Activity>(
+               "http://api.parents.outstandservices.pt",
+                "/api",
+                "/ActivitiesForCurrentChildren",
+                mainViewModel.Token.TokenType,
+                mainViewModel.Token.AccessToken, childrenId, true);
+
+
+            if (!response.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error", connection.Message);
+                return;
+            }
+
+            activities = (List<Activity>)response.Result;
+
+            ActivitiesList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
+
+            IsRefreshing = false;
+        }
+
+        #region ANNIVERSARIES
+        async void LoadOnGoingAnniversaries()
+        {
+            IsRefreshing = true;
+
+            var connection = await apiService.CheckConnection();
+            if (!connection.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error", connection.Message);
+                return;
+            }
+
+            var mainViewModel = MainViewModel.GetInstance();
+
+            var response = await apiService.GetActivityTypesListForSpecificChildren<Activity>(
+               "http://api.parents.outstandservices.pt",
+                "/api",
+                "/ActivitiesForCurrentChildren",
+                mainViewModel.Token.TokenType,
+                mainViewModel.Token.AccessToken, childrenId, false, "ANNIVERSARY");
+
+
+            if (!response.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error", connection.Message);
+                return;
+            }
+
+            activities = (List<Activity>)response.Result;
+
+            AnniversariesList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
+
+            IsRefreshing = false;
+        }
+
+        async void LoadCompletedAnniversaries()
+        {
+            IsRefreshing = true;
+
+            var connection = await apiService.CheckConnection();
+            if (!connection.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error", connection.Message);
+                return;
+            }
+
+            var mainViewModel = MainViewModel.GetInstance();
+
+            var response = await apiService.GetActivityTypesListForSpecificChildren<Activity>(
+               "http://api.parents.outstandservices.pt",
+                "/api",
+                "/ActivitiesForCurrentChildren",
+                mainViewModel.Token.TokenType,
+                mainViewModel.Token.AccessToken, childrenId, true, "ANNIVERSARY");
+
+
+            if (!response.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error", connection.Message);
+                return;
+            }
+
+            activities = (List<Activity>)response.Result;
+
+            AnniversariesList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
+
+            IsRefreshing = false;
+        }
+        #endregion
+
+        #region EVENTS
+        async void LoadOnGoingEvents()
+        {
+            IsRefreshing = true;
+
+            var connection = await apiService.CheckConnection();
+            if (!connection.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error", connection.Message);
+                return;
+            }
+
+            var mainViewModel = MainViewModel.GetInstance();
+
+            var response = await apiService.GetActivityTypesListForSpecificChildren<Activity>(
+               "http://api.parents.outstandservices.pt",
+                "/api",
+                "/ActivitiesForCurrentChildren",
+                mainViewModel.Token.TokenType,
+                mainViewModel.Token.AccessToken, childrenId, false, "EVENT");
+
+
+            if (!response.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error", connection.Message);
+                return;
+            }
+
+            activities = (List<Activity>)response.Result;
+
+            EventsList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
+
+            IsRefreshing = false;
+        }
+
+        async void LoadCompletedEvents()
+        {
+            IsRefreshing = true;
+
+            var connection = await apiService.CheckConnection();
+            if (!connection.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error", connection.Message);
+                return;
+            }
+
+            var mainViewModel = MainViewModel.GetInstance();
+
+            var response = await apiService.GetActivityTypesListForSpecificChildren<Activity>(
+               "http://api.parents.outstandservices.pt",
+                "/api",
+                "/ActivitiesForCurrentChildren",
+                mainViewModel.Token.TokenType,
+                mainViewModel.Token.AccessToken, childrenId, true, "EVENT");
+
+
+            if (!response.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error", connection.Message);
+                return;
+            }
+
+            activities = (List<Activity>)response.Result;
+
+            EventsList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
+
+            IsRefreshing = false;
+        } 
+        #endregion
 
         public void UpdateActivity(Activity activity)
         {
@@ -290,9 +613,87 @@
             IsRefreshing = false;
         }
 
-        public void ReloadActivities()
+        public async Task ReloadActivities()
         {
             LoadActivities();
+        }
+
+        public async Task FilterActivities()
+        {
+            OpenFilteredActivitiesList(SelectedFilter);
+        }
+
+        public async Task ReloadAnniversaries()
+        {
+            OpenFilteredAnniversariesList(SelectedFilterForAnniversaries);
+        }
+
+        public async Task ReloadEvents()
+        {
+            OpenFilteredEventsList(SelectedFilterForEvents);
+        }
+
+        private void OpenFilteredActivitiesList(string selectedFilter)
+        {
+            switch (selectedFilter)
+            {
+                case "Show On Going Activities":
+                    LoadOnGoingActivitiesForSpecificChildren();
+                    break;
+
+                case "Show Completed Activities":
+                    LoadCompletedActivitiesForSpecificChildren();
+                    break;
+
+                case "Clear Filters":
+                    LoadActivitiesForSpecificChildren();
+                    break;
+                default:
+                    LoadOnGoingActivitiesForSpecificChildren();
+                    break;
+            }
+        }
+
+        private void OpenFilteredAnniversariesList(string selectedFilter)
+        {
+            switch (selectedFilter)
+            {
+                case "Show On Going Anniversaries":
+                    LoadOnGoingAnniversaries();
+                    break;
+
+                case "Show Completed Anniversaries":
+                    LoadCompletedAnniversaries();
+                    break;
+
+                case "Clear Filters":
+                    LoadOnGoingAnniversaries();
+                    break;
+                default:
+                    LoadOnGoingAnniversaries();
+                    break;
+            }
+        }
+
+        private void OpenFilteredEventsList(string selectedFilter)
+        {
+            switch (selectedFilter)
+            {
+                case "Show On Going Events":
+                    LoadOnGoingEvents();
+                    break;
+
+                case "Show Completed Events":
+                    LoadCompletedEvents();
+                    break;
+
+                case "Clear Filters":
+                    LoadOnGoingEvents();
+                    break;
+                default:
+                    LoadOnGoingEvents();
+                    break;
+            }
         }
         #endregion
 
@@ -311,8 +712,44 @@
         {
             get
             {
-                return new RelayCommand(LoadActivities);
+                //return new RelayCommand(LoadActivities);
+                return new RelayCommand(LoadActivitiesForSpecificChildren);
             }
+        }
+
+        public ICommand RefreshAnniversariesCommand
+        {
+            get
+            {
+                return new RelayCommand(LoadOnGoingActivitiesForSpecificChildren);
+            }
+        }
+
+        public ICommand FilterActivitiesCommand
+        {
+            get
+            {
+                return new RelayCommand(_FilterActivities);
+            }
+        }
+
+        async void _FilterActivities()
+        {
+
+            await FilterActivities();
+        }
+
+        public ICommand OpenFilterOptionsPageHelperCommand
+        {
+            get
+            {
+                return new RelayCommand(OpenFilterOptionsPage);
+            }
+        }
+
+        async void OpenFilterOptionsPage()
+        {
+            await navigationService.OpenPopup("Activity Filters");
         }
         #endregion
     }

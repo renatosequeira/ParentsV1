@@ -182,8 +182,6 @@
 
             IsRunning = false;
             IsEnabled = true;
-
-
         }
         #endregion
     }

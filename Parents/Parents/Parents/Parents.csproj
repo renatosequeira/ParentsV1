@@ -48,6 +48,7 @@
     <Compile Include="Models\ActivitiesManagement\Helpers\ActivityPeridiocity.cs" />
     <Compile Include="Models\ActivitiesManagement\Helpers\ActivityRepeat.cs" />
     <Compile Include="Models\ActivitiesManagement\Helpers\ActivityType.cs" />
+    <Compile Include="Models\ActivitiesManagement\Helpers\FilterOptions.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Children.cs" />
     <Compile Include="Models\Discipline.cs" />
@@ -119,6 +120,9 @@
     </Compile>
     <Compile Include="Views\Activities\EventsListView.xaml.cs">
       <DependentUpon>EventsListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Activities\HelpersPages\ActivitiesFilterOptionsHelperPageView.xaml.cs">
+      <DependentUpon>ActivitiesFilterOptionsHelperPageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Activities\HelpersPages\ActivityImageClickedHelperPage.xaml.cs">
       <DependentUpon>ActivityImageClickedHelperPage.xaml</DependentUpon>
@@ -305,11 +309,11 @@
     <Reference Include="Plugin.DeviceOrientation.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Plugin.DeviceOrientation.1.0.5\lib\netstandard1.0\Plugin.DeviceOrientation.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Plugin.Media, Version=3.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xam.Plugin.Media.3.1.1\lib\netstandard1.0\Plugin.Media.dll</HintPath>
+    <Reference Include="Plugin.Media, Version=3.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugin.Media.3.1.2\lib\netstandard1.0\Plugin.Media.dll</HintPath>
     </Reference>
-    <Reference Include="Plugin.Media.Abstractions, Version=3.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xam.Plugin.Media.3.1.1\lib\netstandard1.0\Plugin.Media.Abstractions.dll</HintPath>
+    <Reference Include="Plugin.Media.Abstractions, Version=3.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugin.Media.3.1.2\lib\netstandard1.0\Plugin.Media.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Plugin.Multilingual, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Plugin.Multilingual.1.0.2\lib\netstandard1.0\Plugin.Multilingual.dll</HintPath>
@@ -707,6 +711,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Activities\HelpersPages\ActivityImageClickedHelperPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Activities\HelpersPages\ActivitiesFilterOptionsHelperPageView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

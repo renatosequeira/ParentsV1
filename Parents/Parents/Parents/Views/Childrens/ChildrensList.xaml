@@ -65,7 +65,8 @@
                                     HorizontalOptions="FillAndExpand" 
                                     FontSize="Large" 
                                     Text="{Binding ChildrenFirstName}" 
-                                    VerticalOptions="Center">
+                                    VerticalOptions="Center"
+                                    x:Name="lblChildrenFirstName">
                                 </Label>
                                 
                                 <Image

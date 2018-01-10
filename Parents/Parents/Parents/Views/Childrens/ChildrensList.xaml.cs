@@ -15,7 +15,7 @@ namespace Parents.Views.Childrens
 		public ChildrensList ()
 		{
 			InitializeComponent ();
-		}
+        }
 
     }
 }

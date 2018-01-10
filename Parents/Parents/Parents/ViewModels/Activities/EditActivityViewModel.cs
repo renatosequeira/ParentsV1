@@ -869,6 +869,27 @@
         #endregion
 
         #region Commands
+        public ICommand DeleteImageCommand
+        {
+            get
+            {
+                return new RelayCommand(DeleteImage);
+
+            }
+        }
+
+        async void DeleteImage()
+        {
+            var response = await dialogService.ShowConfirm("Delete Image", "Are you sure to delete image?");
+
+            if (!response)
+            {
+                return;
+            }
+
+            ImageSource = "no_image";
+        }
+
         public ICommand ShareCommand
         {
             get
@@ -1061,12 +1082,18 @@
                 }
                 else
                 {
-                    file = await CrossMedia.Current.PickPhotoAsync();
+                    file = await Plugin.Media.CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
+                    {
+                        PhotoSize = Plugin.Media.Abstractions.PhotoSize.Medium
+                    });
                 }
             }
             else
             {
-                file = await CrossMedia.Current.PickPhotoAsync();
+                file = await Plugin.Media.CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
+                {
+                    PhotoSize = Plugin.Media.Abstractions.PhotoSize.Medium
+                });
             }
 
             if (file != null)
@@ -1175,6 +1202,10 @@
 
             var activityViewModel = ActivitiesViewModel.GetInstance();
             activityViewModel.UpdateActivity(activity);
+
+            await activityViewModel.ReloadActivities();
+            await activityViewModel.ReloadAnniversaries();
+            await activityViewModel.ReloadEvents();
 
             IsRunning = false;
             IsEnabled = true;

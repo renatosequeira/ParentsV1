@@ -149,6 +149,10 @@
                 case "maximizedActivityPage":
                     await Application.Current.MainPage.Navigation.PushAsync(new ActivityImageMaximizedHelperPageView());
                     break;
+
+                case "Activity Filters":
+                    await Application.Current.MainPage.Navigation.PushPopupAsync(new ActivitiesFilterOptionsHelperPageView());
+                    break;
             }
 
         }

@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Parents.Views.Activities.EventsListView">
+             x:Class="Parents.Views.Activities.EventsListView"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+             Title="EVENTS">
 
     <Grid 
         ColumnSpacing="0" 
@@ -9,14 +12,102 @@
         Grid.Row="2">
 
         <StackLayout
-        x:Name="contents">
-            <Label Text="EVENTS LIST"/>
+                BindingContext="{Binding Activities}"
+                Padding="5"
+                Spacing="8"
+                x:Name="contents">
+
+            <ListView
+                    IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+                    ItemsSource="{Binding EventsList}"
+                    IsPullToRefreshEnabled="True"
+                    RefreshCommand="{Binding RefreshAnniversariesCommand}"
+                    HasUnevenRows="True"
+                    x:Name="AnniversariesList">
+                <ListView.ItemTemplate>
+
+                    <DataTemplate>
+                        <ViewCell>
+
+                            <ViewCell.ContextActions>
+                                <MenuItem
+                                    Command="{Binding EditCommand}"
+                                    Icon="ic_edit_white_border"
+                                    Text="Edit"/>
+                                <MenuItem
+                                    Command="{Binding DeleteCommand}"
+                                    IsDestructive="True"
+                                    Icon="ic_delete_red"
+                                    Text="Delete"/>
+                            </ViewCell.ContextActions>
+
+                            <Frame
+                                HasShadow="True">
+
+                                <Grid
+                                    VerticalOptions="Center">
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <StackLayout
+                                        Orientation="Vertical">
+
+                                        <Label 
+                                        Grid.Column="1" 
+                                        HorizontalOptions="FillAndExpand" 
+                                        FontSize="Medium" 
+                                        Text="{Binding ActivityDescription}" 
+                                        VerticalOptions="Center"
+                                        FontAttributes="Bold">
+                                        </Label>
+
+                                        <Label
+                                        Grid.Column="1"
+                                        HorizontalOptions="FillAndExpand"
+                                        FontSize="Small"
+                                        Text="{Binding convertedDate}"
+                                        VerticalOptions="Center"
+                                        TextColor="{Binding EndDateColor}">
+
+                                        </Label>
+                                    </StackLayout>
+
+                                    <Image
+                                        Grid.Column="2"
+                                        HorizontalOptions="End" 
+                                        Source="ic_eye_brown"
+                                        VerticalOptions="Center"
+                                        HeightRequest="40">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding SelectActivityCommand}"/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+
+                                </Grid>
+                            </Frame>
+
+
+
+                        </ViewCell>
+
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
         </StackLayout>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <!--FLOAT BUTTON-->
         <StackLayout
             VerticalOptions="End"
             HorizontalOptions="End">
@@ -26,11 +117,10 @@
 
                 <Button 
                 x:Name="btnAddEvent"
-                Image="event_orange"
-                Clicked="btnAddEvent_Clicked"
+                Image="anniversary_orange"
                 BackgroundColor="Transparent"
                 IsVisible="False"
-                Text="ADD ACTIVITY"
+                Text="ADD ANNIVERSARY"
                 FontAttributes="Bold"
                 TextColor="DarkGray"
                 Opacity="0"/>

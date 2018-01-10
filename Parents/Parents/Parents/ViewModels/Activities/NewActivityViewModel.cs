@@ -708,7 +708,6 @@ namespace Parents.ViewModels.Activities
             ImageSource = "no_image";
 
             MessagingCenter.Subscribe<ActivityRepeatHelperPageView, string>(this, "eventRecurrency", (s, a) => {
-                //EventRecurrencyMC = a.ToString();
                 r = a.ToString();
                 ActivityRepeat = r;
                 GhostActivityRepeat = r;
@@ -968,30 +967,33 @@ namespace Parents.ViewModels.Activities
 
                 if (source == "From Camera")
                 {
-                    DateTime date = DateTime.Today;
-                    
-                    string dateString = date.ToString();
-                    string timeString = date.TimeOfDay.ToString();
+                    DateTime data = DateTime.Now;
+                    TimeSpan hora = data.TimeOfDay;
 
                     file = await CrossMedia.Current.TakePhotoAsync(
                         new StoreCameraMediaOptions
                         {
                             Directory = "Parents",
-                            Name = string.Format("{0}_{1}.jpg",dateString,timeString),
+                            Name = String.Format("Parents_{0:dd/MM/yyyy}_{1}.jpg", data, data.TimeOfDay),
                             PhotoSize = PhotoSize.Small,
-                            AllowCropping = true,
-                            SaveToAlbum = true
+                            SaveToAlbum=true                            
                         }
                     );
                 }
                 else
                 {
-                    file = await CrossMedia.Current.PickPhotoAsync();
+                    file = await Plugin.Media.CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
+                    {
+                        PhotoSize = Plugin.Media.Abstractions.PhotoSize.Medium
+                    });
                 }
             }
             else
             {
-                file = await CrossMedia.Current.PickPhotoAsync();
+                file = await Plugin.Media.CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
+                {
+                    PhotoSize = Plugin.Media.Abstractions.PhotoSize.Medium
+                });
             }
 
             if (file != null)
@@ -1056,7 +1058,8 @@ namespace Parents.ViewModels.Activities
                 file.Dispose();
             }
 
-            string childId = Application.Current.Properties["childrenIdentityCard"] as string;
+            string childIdCard = Application.Current.Properties["childrenIdentityCard"] as string;
+            string childId = Application.Current.Properties["childrenId"] as string;
 
             var activity = new Activity
             {
@@ -1066,11 +1069,11 @@ namespace Parents.ViewModels.Activities
                 ChildrenActivityType = ChildrenActivityType,
                 ActivityRemarks = ActivityRemarks,
                 Status = Status,
-                relatedChildrenIdentitiCard = childId,
+                relatedChildrenIdentitiCard = childIdCard,
                 ImageArray = imageArray,
                 ActivityPrivacy = ActivityPrivacy,
                 ActivityPriority = ActivityPriority,
-                ChildrenId = 2,
+                ChildrenId = Convert.ToInt32(childId),
                 ActivityTimeStart = ActivityTimeStart,
                 ActivityTimeEnd = ActivityTimeEnd
             };
@@ -1185,10 +1188,17 @@ namespace Parents.ViewModels.Activities
 
                         byte[] imageArray = null;
 
-                        if (file != null)
+                        try
                         {
-                            imageArray = FilesHelper.ReadFully(file.GetStream());
-                            file.Dispose();
+                            if (file != null)
+                            {
+                                imageArray = FilesHelper.ReadFully(file.GetStream());
+                                file.Dispose();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            //await dialogService.ShowMessage("Images", "Only first event will have associated image. Please add images for recurreng events, manually.");
                         }
 
                         string childIdentityCard = Application.Current.Properties["childrenIdentityCard"] as string;
@@ -1640,6 +1650,8 @@ namespace Parents.ViewModels.Activities
                         var activityViewModel = ActivitiesViewModel.GetInstance();
                         activityViewModel.Add(activity);
 
+                        //await activityViewModel.ReloadActivities();
+                        
                         //await navigationService.Back();
 
                         IsRunning = false;
@@ -1689,41 +1701,45 @@ namespace Parents.ViewModels.Activities
         }
 
 
-            #endregion
+        #endregion
 
         #region Methods
-            //async void LoadActivityTypes()
-            //{
+        //async void LoadActivities()
+        //{
+        //    IsRefreshing = true;
+
+        //    var connection = await apiService.CheckConnection();
+        //    if (!connection.IsSuccess)
+        //    {
+        //        await dialogService.ShowMessage("Error", connection.Message);
+        //        return;
+        //    }
+
+        //    var mainViewModel = MainViewModel.GetInstance();
+
+        //    var response = await apiService.GetList<Activity>(
+        //       "http://api.parents.outstandservices.pt",
+        //        "/api",
+        //        "/Activities",
+        //        mainViewModel.Token.TokenType,
+        //        mainViewModel.Token.AccessToken);
 
 
-            //    var connection = await apiService.CheckConnection();
-            //    if (!connection.IsSuccess)
-            //    {
-            //        await dialogService.ShowMessage("Error", connection.Message);
-            //        return;
-            //    }
+        //    if (!response.IsSuccess)
+        //    {
+        //        await dialogService.ShowMessage("Error", connection.Message);
+        //        return;
+        //    }
 
-            //    var mainViewModel = MainViewModel.GetInstance();
+        //    activities = (List<Activity>)response.Result;
 
-            //    var response = await apiService.GetList<ActivityType>(
-            //       "http://api.parents.outstandservices.pt",
-            //        "/api",
-            //        "/ActivitiesTypes",
-            //        mainViewModel.Token.TokenType,
-            //        mainViewModel.Token.AccessToken);
 
-            //    if (!response.IsSuccess)
-            //    {
-            //        await dialogService.ShowMessage("Error", connection.Message);
-            //        return;
-            //    }
 
-            //    activityTypes = (List<ActivityType>)response.Result;
-
-            //    ActType = new ObservableCollection<ActivityType>(activityTypes.OrderBy(c => c.ActivityTypeDescription));
-
-            //}
-            #endregion
-        }
+        //    ActivitiesList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentity));
+        //    //ActivitiesList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateStart));
+        //    IsRefreshing = false;
+        //}
+        #endregion
+    }
     }
 

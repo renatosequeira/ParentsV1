@@ -39,11 +39,6 @@ namespace Parents.Views.Activities.Helpers
             lblRepeat.Text = "SELECT REPEAT...";
             navigationService = new NavigationService();
 
-
-            //MessagingCenter.Subscribe<ActivityRepeatHelperPageView, string>(this, "eventRecurrency", (s, a) => {
-            //    lblRepeat.Text = a.ToString();
-            //});
-
         }
         #endregion
 
