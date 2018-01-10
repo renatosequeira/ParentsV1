@@ -190,6 +190,49 @@ namespace Parents.Views.Activities.Helpers
             #endregion
         }
 
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
 
+        }
+
+        private void TapGestureRecognizer_Tapped_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TapGestureRecognizer_Tapped_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TapGestureRecognizer_Tapped_3(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TapGestureRecognizer_Tapped_4(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TapGestureRecognizer_Tapped_5(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TapGestureRecognizer_Tapped_6(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TapGestureRecognizer_Tapped_7(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TapGestureRecognizer_Tapped_8(object sender, EventArgs e)
+        {
+
+        }
     }
 }

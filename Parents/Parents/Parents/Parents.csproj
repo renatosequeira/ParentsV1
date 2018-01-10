@@ -282,6 +282,9 @@
     <Reference Include="Calvagna.CPop, Version=1.0.1.0, Culture=neutral, PublicKeyToken=7e478755fb6bc12e, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Calvagna.CPop.1.0.1\lib\portable45-net45+win8+wpa81\Calvagna.CPop.dll</HintPath>
     </Reference>
+    <Reference Include="DevsDNA.XFParallax, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DevsDNA.XFParallax.1.0.0\lib\portable45-net45+win8+wp8+wpa81\DevsDNA.XFParallax.dll</HintPath>
+    </Reference>
     <Reference Include="ExifLib, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\ExifLib.PCL.1.0.1\lib\portable-net45+sl50+win+WindowsPhoneApp81+wp80+Xamarin.iOS10+MonoAndroid10+MonoTouch10\ExifLib.dll</HintPath>
     </Reference>

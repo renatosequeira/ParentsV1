@@ -34,270 +34,547 @@
             Command="{Binding EditActivity.ShareCommand}"/>
     </ContentPage.ToolbarItems>
 
-    <Grid
-        RowSpacing="0"
-        BindingContext="{Binding EditActivity}">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="AUTO"/>
-            <RowDefinition Height="AUTO"/>
-            <RowDefinition Height="AUTO"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="AUTO"/>
         </Grid.RowDefinitions>
 
-        <!--HEADER SECTION-->
-        <Image
-            Source="Activities"
-            Aspect="AspectFill"            
-            Grid.Row="0"/>
-
-        <!--ACTIVITY BRIEF INFO-->
-        <StackLayout
-            Grid.Row="1"
-            HeightRequest="40"
-            HorizontalOptions="CenterAndExpand"
-            Padding="0,60,0,0">
-
-            <local:CustomEntry
-                Text="{Binding ActivityDescription}"
-                FontSize="Large"
-                IsEnabled="False"
-                x:Name="DescriptionLabel">
-                <Entry.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="ClickGestureRecognizer_Clicked"/>
-                </Entry.GestureRecognizers>
-            </local:CustomEntry>
-
-        </StackLayout>
-
-        <!--PRIVACY/ PRIORITY/ STATUS SECTIONS-->
+        <!--BODY-->
         <Grid
-            Grid.Row="2"
-            Margin="0,10"
-            x:Name="middleSectionBox"
-            Padding="0,4,0,4">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+            RowSpacing="0"
+            BindingContext="{Binding EditActivity}"
+            Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="AUTO"/>
+                <RowDefinition Height="AUTO"/>
+                <RowDefinition Height="AUTO"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-            <!--PRIVACY-->
+            <!--HEADER SECTION-->
+            <Image
+                Source="Activities"
+                Aspect="AspectFill"            
+                Grid.Row="0"
+                x:Name="headerImage"/>
+
+            <!--ACTIVITY BRIEF INFO-->
             <StackLayout
-                Grid.Column="0"
-                x:Name="privacyBox"
-                IsEnabled="False">
-                               
-                <Image Source="{Binding ActivityPrivacyImage}"
+                Grid.Row="1"
+                HeightRequest="40"
+                HorizontalOptions="CenterAndExpand"
+                Padding="0,40,0,0">
+
+                <local:CustomEntry
+                    Text="{Binding ActivityDescription}"
+                    FontSize="Large"
+                    IsEnabled="False"
+                    x:Name="DescriptionLabel">
+                    <Entry.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ClickGestureRecognizer_Clicked"/>
+                    </Entry.GestureRecognizers>
+                </local:CustomEntry>
+
+            </StackLayout>
+            
+            <!--PRIVACY/ PRIORITY/ STATUS SECTIONS-->
+            <Grid
+                Grid.Row="2"
+                Margin="0,10"
+                x:Name="middleSectionBox"
+                Padding="0,4,0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!--PRIVACY-->
+                <StackLayout
+                    Grid.Column="0"
+                    x:Name="privacyBox"
+                    IsEnabled="False">
+
+                    <Image Source="{Binding ActivityPrivacyImage}"
                        HeightRequest="30"
                        Margin="0,5"/>
 
-                <Label 
+                    <Label 
                     Text="Privacy" 
                     Style="{StaticResource StatsCaptionLabel}"
                     IsEnabled="False"
                     x:Name="lblPrivacy">
-                </Label>
-                
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding PrivacyChangeCommand}"/>
-                </StackLayout.GestureRecognizers>
-            </StackLayout>
+                    </Label>
 
-            <!--ACTIVITY PRIORITY-->
-            <StackLayout
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PrivacyChangeCommand}"/>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+
+                <!--ACTIVITY PRIORITY-->
+                <StackLayout
                 Grid.Column="1"
                 x:Name="priorityBox"
                 IsEnabled="False">
-                                
-                <Image Source="{Binding ActivityPriorityImage, Mode=TwoWay}" 
+
+                    <Image Source="{Binding ActivityPriorityImage, Mode=TwoWay}" 
                        HeightRequest="30"
                        Margin="0,5"
                        x:Name="imgPriority"/>
 
-                <Label Text="Priority" Style="{StaticResource StatsCaptionLabel}"/>
+                    <Label Text="Priority" Style="{StaticResource StatsCaptionLabel}"/>
 
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding PriorityChangeCommand}"/>
-                </StackLayout.GestureRecognizers>
-            </StackLayout>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PriorityChangeCommand}"/>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
 
-            <!--ACTIVITY TYPE IMAGE-->
-            <StackLayout
+                <!--ACTIVITY TYPE IMAGE-->
+                <StackLayout
                 Grid.Column="2"
                 x:Name="typeBox"
                 IsEnabled="False">
 
-                <Image Source="{Binding ActivityTypeImage, Mode=TwoWay}" 
+                    <Image Source="{Binding ActivityTypeImage, Mode=TwoWay}" 
                        HeightRequest="30"
                        Margin="0,5"
                        x:Name="imgActivityType"/>
 
-                <Label Text="Type" Style="{StaticResource StatsCaptionLabel}"/>
+                    <Label Text="Type" Style="{StaticResource StatsCaptionLabel}"/>
 
-                <Label
+                    <Label
                     Text="{Binding ChildrenActivityType, Mode=TwoWay}"
                     x:Name="lblAC"
                     IsVisible="False">
-                    
-                </Label>
 
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ActivityTypeChangeCommand}" />
-                </StackLayout.GestureRecognizers>
-            </StackLayout>
+                    </Label>
 
-            <!--ACTIVITY STATUS IMAGE-->
-            <StackLayout
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ActivityTypeChangeCommand}" />
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+
+                <!--ACTIVITY STATUS IMAGE-->
+                <StackLayout
                 Grid.Column="3"
                 x:Name="statusBox"
                 IsEnabled="False">
-                
-                <Image Source="{Binding ActivityStatusImage}" 
+
+                    <Image Source="{Binding ActivityStatusImage}" 
                        HeightRequest="30"
                        Margin="0,5"/>
 
-                <Label Text="Status" Style="{StaticResource StatsCaptionLabel}"/>
+                    <Label Text="Status" Style="{StaticResource StatsCaptionLabel}"/>
 
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding StatusChangeCommand, Mode=TwoWay}"/>
-                </StackLayout.GestureRecognizers>
-            </StackLayout>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding StatusChangeCommand, Mode=TwoWay}"/>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
 
-        </Grid>
+            </Grid>
 
-        <!--ACTIVITY DETAILS SECTION-->
-        <ScrollView
+            <!--ACTIVITY DETAILS SECTION-->
+            <ScrollView
                 Grid.Row="3"
                 Orientation="Vertical">
-                
-                <StackLayout
-                Orientation="Vertical"
-                Spacing="10"
-                Padding="8">
 
-                    <Label 
-                    Text="{Binding ActivityDateStart}"
+                <StackLayout
+                    Orientation="Vertical"
+                    Spacing="10"
+                    Padding="8">
+
+                    <!--DATAS-->
+                    <Grid
+                    Padding="14">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="AUTO"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="AUTO"/>
+                            <RowDefinition Height="AUTO"/>
+                        </Grid.RowDefinitions>
+
+                        <Image
+                            Source="ic_clock_gray"
+                            VerticalOptions="Start"
+                            HorizontalOptions="Start"
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.RowSpan="2"
+                            HeightRequest="30"
+                            Margin="0,0,10,0"/>
+
+                        <StackLayout
+                            Orientation="Horizontal"
+                            Spacing="10"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            VerticalOptions="Start">
+                            <local:BorderlessDatePicker
+                                Date="{Binding ActivityDateStart}"
+                                IsEnabled="{Binding EditEnabled}"/>
+
+                            <local:BorderlessTimePicker
+                                Time="{Binding ActivityTimeStart}"
+                                IsEnabled="{Binding EditEnabled}"/>
+                        </StackLayout>
+
+                        <StackLayout
+                            Orientation="Horizontal"
+                            Spacing="10"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            VerticalOptions="Start">
+                            <local:BorderlessDatePicker
+                                Date="{Binding ActivityDateEnd}"
+                                IsEnabled="{Binding EditEnabled}"/>
+
+                            <local:BorderlessTimePicker
+                                Time="{Binding ActivityTimeEnd}"
+                                IsEnabled="{Binding EditEnabled}"/>
+                        </StackLayout>
+                    </Grid>
+
+                    <!--LOCATION-->
+                    <StackLayout
+                    Orientation="Horizontal"
+                    Padding="14"
+                    Margin="0,0,10,0">
+
+                        <Image 
+                    Source="ic_address"
+                    HeightRequest="30"
+                    HorizontalOptions="Start"
+                    Margin="0,0,5,0"
+                    VerticalOptions="Center"
+                    x:Name="addressImage"/>
+
+                        <Label
+                    x:Name="activityLocation"
+                    VerticalOptions="Center"
+                    HorizontalOptions="FillAndExpand"
+                    Text="SELECT EVENT LOCATION..."
+                    TextColor="Gray"
                     FontSize="Medium"/>
 
-                    <Label 
-                    Text="{Binding ActivityDateEnd}"
-                     FontSize="Medium"/>
+                        <Image 
+                    Source="ic_arrow_down"
+                    HeightRequest="20"
+                    HorizontalOptions="End"
+                    Margin="0,0,10,0"
+                    VerticalOptions="Center"/>
 
-                    <Label
-                    Text="{Binding ChildrenActivityType}"
-                     FontSize="Medium"/>
+                        <Image 
+                    Source="ic_clear"
+                    HeightRequest="20"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    x:Name="clearActivityLocation">
+
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_2"/>
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+
+                    <!--INVITE USER-->
+                    <StackLayout
+                    Orientation="Horizontal"
+                    Padding="14"
+                    Margin="0,0,10,0">
+
+                        <Image 
+                    Source="activity_invite"
+                    HeightRequest="30"
+                    HorizontalOptions="Start"
+                    Margin="0,0,5,0"
+                    VerticalOptions="Center"
+                    x:Name="inviteUserImage"/>
+
+                        <Entry 
+                    Text="{Binding invitedUserId, Mode=TwoWay}"
+                        HorizontalOptions="FillAndExpand"
+                    Placeholder="Insert user email..."/>
+
+                        <Image 
+                    Source="activity_contacts"
+                    HeightRequest="30"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    x:Name="accessContactsList">
+
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_5"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+
+
+                        <Image 
+                    Source="ic_clear"
+                    HeightRequest="20"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    x:Name="clearInvitedUser">
+
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_3"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_4"/>
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+
+                    <!--REMARKS-->
+                    <StackLayout
+                    Orientation="Horizontal"
+                    Padding="14"
+                    Margin="0,0,10,0">
+
+                        <Image 
+                    Source="ic_remarks"
+                    HeightRequest="30"
+                    HorizontalOptions="Start"
+                    Margin="0,0,5,0"
+                    VerticalOptions="Center"/>
+
+                        <Entry
+                    Text="{Binding ActivityRemarks, Mode=TwoWay}"
+                    Placeholder="Enter activity remarks"
+                    HorizontalOptions="FillAndExpand"
+                    x:Name="activityRemarksEntry"/>
+
+                        <Image 
+                        Source="ic_clear"
+                        HeightRequest="20"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center"
+                        x:Name="clearActivityRemarks">
+
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_6"/>
+                            </Image.GestureRecognizers>
+
+                        </Image>
+
+                    </StackLayout>
 
                 </StackLayout>
             </ScrollView>
 
-        <!--ACTIVITY IMAGE SECTION-->
+            <!--ACTIVITY IMAGE SECTION-->
 
-        <Grid
-            TranslationY="50">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="AUTO"/>
-            </Grid.RowDefinitions>
+            <Grid
+            TranslationY="40">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="AUTO"/>
+                </Grid.RowDefinitions>
 
-            <AbsoluteLayout x:Name="ViewLayout">
-                <Image 
-                    Source="{Binding ImageSource, Mode=TwoWay}" 
-                    Aspect="AspectFill" 
-                    AbsoluteLayout.LayoutBounds="1,1,1,1" 
-                    AbsoluteLayout.LayoutFlags="All" 
-                    HorizontalOptions="Center"
-                    WidthRequest="150"
-                    HeightRequest="150"
-                    VerticalOptions="End"
-                    BackgroundColor="White"
-                    Grid.Row="0"
-                    x:Name="ActivityImage">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding MaximizeActivityPicture}"/>
-                    </Image.GestureRecognizers>
-                </Image>
-
-                <AbsoluteLayout 
-                    x:Name="ViewControls" 
-                    AbsoluteLayout.LayoutBounds="0.5,1,1,1" 
-                    AbsoluteLayout.LayoutFlags="All" 
-                    BackgroundColor="Transparent" 
-                    Margin="110,10,110,0"
-                    VerticalOptions="EndAndExpand"> <!--CAIXA QUE INCLUI BOTOES-->
-                    
-                    <StackLayout 
-                        Orientation="Vertical" 
-                        Margin="20,20,20,5" 
-                        BackgroundColor="Transparent" 
+                <AbsoluteLayout x:Name="ViewLayout">
+                    <Image 
+                        Source="{Binding ImageSource, Mode=TwoWay}" 
+                        Aspect="AspectFill" 
+                        AbsoluteLayout.LayoutBounds="1,1,1,1" 
                         AbsoluteLayout.LayoutFlags="All" 
-                        AbsoluteLayout.LayoutBounds="1,1,1,1"
-                        HorizontalOptions="Center">
-                        
-                        <Grid Margin="1">
-                            
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            
-                            <Button 
-                                BackgroundColor="#77000000" 
-                                BorderRadius="4" 
-                                BorderColor="White" 
-                                BorderWidth="2" 
-                                TextColor="White" 
-                                Grid.Column="0" 
-                                Image="ic_edit_image_white"
-                                HorizontalOptions="Center"
-                                Opacity="0.5"
-                                x:Name="ImageEditButton"
-                                VerticalOptions="End"
-                                HeightRequest="30"
-                                WidthRequest="30"
-                                IsVisible="{Binding EditEnabled}"
-                                Command="{Binding ChangeImageCommand}"
-                                TranslationX="-10"/>
+                        HorizontalOptions="Center"
+                        WidthRequest="150"
+                        HeightRequest="150"
+                        VerticalOptions="End"
+                        BackgroundColor="White"
+                        Grid.Row="0"
+                        x:Name="ActivityImage">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding MaximizeActivityPicture}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
 
-                            <Button 
-                                BackgroundColor="#77000000" 
-                                BorderRadius="4" 
-                                BorderColor="White" 
-                                BorderWidth="2" 
-                                TextColor="White" 
-                                Grid.Column="1" 
-                                Image="ic_delete_image_white"
-                                HorizontalOptions="Center"
-                                Opacity="0.5"
-                                x:Name="ImageDeleteButton"
-                                VerticalOptions="End"
-                                HeightRequest="30"
-                                WidthRequest="30"
-                                IsVisible="{Binding EditEnabled}"
-                                Command="{Binding DeleteImageCommand}"
-                                TranslationX="10"/>
+                    <AbsoluteLayout 
+                        x:Name="ViewControls" 
+                        AbsoluteLayout.LayoutBounds="0.5,1,1,1" 
+                        AbsoluteLayout.LayoutFlags="All" 
+                        BackgroundColor="Transparent" 
+                        Margin="110,10,110,0"
+                        VerticalOptions="EndAndExpand">
+                        <!--CAIXA QUE INCLUI BOTOES-->
 
-                        </Grid>
-                       
-                    </StackLayout>
+                        <StackLayout 
+                            Orientation="Vertical" 
+                            Margin="20,20,20,5" 
+                            BackgroundColor="Transparent" 
+                            AbsoluteLayout.LayoutFlags="All" 
+                            AbsoluteLayout.LayoutBounds="1,1,1,1"
+                            HorizontalOptions="Center">
+
+                            <Grid Margin="1">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Button 
+                                    BackgroundColor="#77000000" 
+                                    BorderRadius="4" 
+                                    BorderColor="White" 
+                                    BorderWidth="2" 
+                                    TextColor="White" 
+                                    Grid.Column="0" 
+                                    Image="ic_edit_image_white"
+                                    HorizontalOptions="Center"
+                                    Opacity="0.5"
+                                    x:Name="ImageEditButton"
+                                    VerticalOptions="End"
+                                    HeightRequest="30"
+                                    WidthRequest="30"
+                                    IsVisible="{Binding EditEnabled}"
+                                    Command="{Binding ChangeImageCommand}"
+                                    TranslationX="-10"/>
+
+                                <Button 
+                                    BackgroundColor="#77000000" 
+                                    BorderRadius="4" 
+                                    BorderColor="White" 
+                                    BorderWidth="2" 
+                                    TextColor="White" 
+                                    Grid.Column="1" 
+                                    Image="ic_delete_image_white"
+                                    HorizontalOptions="Center"
+                                    Opacity="0.5"
+                                    x:Name="ImageDeleteButton"
+                                    VerticalOptions="End"
+                                    HeightRequest="30"
+                                    WidthRequest="30"
+                                    IsVisible="{Binding EditEnabled}"
+                                    Command="{Binding DeleteImageCommand}"
+                                    TranslationX="10"/>
+
+                                <Button 
+                                    BackgroundColor="#77000000" 
+                                    BorderRadius="4" 
+                                    BorderColor="White" 
+                                    BorderWidth="2" 
+                                    TextColor="White" 
+                                    Grid.Column="1" 
+                                    Image="ic_maximize_white"
+                                    HorizontalOptions="Center"
+                                    Opacity="0.5"
+                                    x:Name="ImageMaximizeImage"
+                                    VerticalOptions="Start"
+                                    HeightRequest="30"
+                                    WidthRequest="30"
+                                    TranslationX="10"
+                                    TranslationY="-50"/>
+
+                            </Grid>
+
+                        </StackLayout>
+                    </AbsoluteLayout>
                 </AbsoluteLayout>
-            </AbsoluteLayout>
-        </Grid>
+            </Grid>
 
-        <ContentView 
+            <ContentView 
             x:Name="contentView" 
             IsVisible="{Binding IsRunning, Mode=TwoWay}" 
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand" 
             BackgroundColor="Black" 
             Opacity="0.5">
-            <busyindicator:SfBusyIndicator 
+                <busyindicator:SfBusyIndicator 
                 x:Name="BusyIndicator"
                 AnimationType="HorizontalPulsingBox"
                 IsBusy="{Binding IsRunning, Mode=TwoWay}" 
                 TextColor="White"/>
-        </ContentView>
+            </ContentView>
 
+
+
+        </Grid>
+
+        <!--BOTTOM MENU-->
+        <Grid 
+            ColumnSpacing="0" 
+            RowSpacing="0"
+            VerticalOptions="End"
+            Grid.Row="1"
+            HeightRequest="60">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <StackLayout
+                Spacing="0"
+                Grid.Column="0"
+                BackgroundColor="#2C3E50"
+                Padding="10">
+
+                <Image HeightRequest="30"
+                    Source="ic_share_white"/>
+
+                <Label 
+                    Text="SHARE" 
+                    FontSize="10" 
+                    HorizontalOptions="Center"
+                    TextColor="#F1E0B1"/>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_8" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+            <StackLayout
+                Spacing="0"
+                Grid.Column="1"
+                BackgroundColor="#2C3E50"
+                Padding="10">
+
+                <Image 
+                    HeightRequest="30"
+                    Source="ic_invite_users_white"/>
+
+                <Label 
+                    Text="SEND INVITATION" 
+                    FontSize="10" 
+                    HorizontalOptions="Center"
+                    TextColor="#F1E0B1"/>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_7" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+            <StackLayout
+                Spacing="0"
+                Grid.Column="2"
+                BackgroundColor="#2C3E50"
+                Padding="10">
+
+                <Image 
+                    HeightRequest="30"
+                    Source="ic_information_white"/>
+
+                <Label 
+                    Text="INFORMATIONS" 
+                    FontSize="10" 
+                    HorizontalOptions="Center"
+                    TextColor="#F1E0B1"/>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_7" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+        </Grid>
     </Grid>
-
 
 </ContentPage>

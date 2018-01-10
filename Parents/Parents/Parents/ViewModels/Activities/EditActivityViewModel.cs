@@ -930,7 +930,7 @@
             {
                 EditEnabled = true;
             }
-                
+
 
 
         }
@@ -991,7 +991,7 @@
             get
             {
                 return new RelayCommand(PrivacyChange);
-                
+
             }
         }
 
@@ -1206,6 +1206,7 @@
             await activityViewModel.ReloadActivities();
             await activityViewModel.ReloadAnniversaries();
             await activityViewModel.ReloadEvents();
+            await activityViewModel.ReloadSchool();
 
             IsRunning = false;
             IsEnabled = true;
@@ -1214,7 +1215,7 @@
             await navigationService.Back();
         }
 
-        
+
         #endregion
 
         #region Methods
@@ -1278,25 +1279,25 @@
                     result = "SCHOOL";
                     break;
 
-                //case "ic_school_brown":
-                //    result = "Workgroup";
-                //    break;
+                    //case "ic_school_brown":
+                    //    result = "Workgroup";
+                    //    break;
 
-                //case "ic_school_brown":
-                //    result = "Study Trips";
-                //    break;
+                    //case "ic_school_brown":
+                    //    result = "Study Trips";
+                    //    break;
 
-                //case "Parents Meeting":
-                //    imgActivityType.Source = "ic_school_brown";
-                //    break;
+                    //case "Parents Meeting":
+                    //    imgActivityType.Source = "ic_school_brown";
+                    //    break;
 
-                //case "Sports":
-                //    imgActivityType.Source = "ic_soccer_brown";
-                //    break;
+                    //case "Sports":
+                    //    imgActivityType.Source = "ic_soccer_brown";
+                    //    break;
 
-                //case "Others":
-                //    imgActivityType.Source = "ic_question";
-                //    break;
+                    //case "Others":
+                    //    imgActivityType.Source = "ic_question";
+                    //    break;
 
             }
 

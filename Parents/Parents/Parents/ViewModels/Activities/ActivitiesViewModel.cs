@@ -30,7 +30,9 @@
         ObservableCollection<Activity> _activities;
         ObservableCollection<Activity> _anniversaries;
         ObservableCollection<Activity> _events;
+        ObservableCollection<Activity> _school;
         List<Activity> activities;
+
         bool _isRefreshing;
         string childrenIdentityCard;
         int childrenId;
@@ -38,7 +40,7 @@
         string _childrenName;
         string _selectedFilterForAnniversaries;
         string _selectedFilrerForEvents;
-
+        string _selectedFiltersForSchool;
         #endregion
 
         #region Properties
@@ -125,6 +127,27 @@
             }
         }
 
+        public String SelectedFilterForSchool
+        {
+            get
+            {
+
+                return _selectedFiltersForSchool;
+
+            }
+            set
+            {
+                if (_selectedFiltersForSchool != value)
+                {
+                    _selectedFiltersForSchool = value;
+                    OpenFilteredActivitiesList(SelectedFilterForEvents);
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(SelectedFilterForSchool)));
+                }
+            }
+        }
+
         public ObservableCollection<Activity> ActivitiesList
         {
             get
@@ -181,6 +204,26 @@
                     PropertyChanged?.Invoke(
                         this,
                         new PropertyChangedEventArgs(nameof(EventsList)));
+                }
+            }
+        }
+
+        public ObservableCollection<Activity> SchoolList
+        {
+            get
+            {
+
+                return _school;
+
+            }
+            set
+            {
+                if (_school != value)
+                {
+                    _school = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(SchoolList)));
                 }
             }
         }
@@ -267,9 +310,12 @@
                 childrenId = Convert.ToInt32(id);
             }
 
+            #region LISTS LOADING
             OpenFilteredActivitiesList(SelectedFilter);
             OpenFilteredAnniversariesList(SelectedFilterForAnniversaries);
             OpenFilteredEventsList(SelectedFilterForEvents);
+            OpenFilteredSchoolList(SelectedFilterForSchool); 
+            #endregion
         }
 
         #endregion
@@ -557,7 +603,77 @@
             EventsList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
 
             IsRefreshing = false;
-        } 
+        }
+        #endregion
+
+        #region SCHOOL
+        async void LoadOnGoingSchool()
+        {
+            IsRefreshing = true;
+
+            var connection = await apiService.CheckConnection();
+            if (!connection.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error", connection.Message);
+                return;
+            }
+
+            var mainViewModel = MainViewModel.GetInstance();
+
+            var response = await apiService.GetActivityTypesListForSpecificChildren<Activity>(
+               "http://api.parents.outstandservices.pt",
+                "/api",
+                "/ActivitiesForCurrentChildren",
+                mainViewModel.Token.TokenType,
+                mainViewModel.Token.AccessToken, childrenId, false, "SCHOOL");
+
+
+            if (!response.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error", connection.Message);
+                return;
+            }
+
+            activities = (List<Activity>)response.Result;
+
+            SchoolList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
+
+            IsRefreshing = false;
+        }
+
+        async void LoadCompletedSchool()
+        {
+            IsRefreshing = true;
+
+            var connection = await apiService.CheckConnection();
+            if (!connection.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error", connection.Message);
+                return;
+            }
+
+            var mainViewModel = MainViewModel.GetInstance();
+
+            var response = await apiService.GetActivityTypesListForSpecificChildren<Activity>(
+               "http://api.parents.outstandservices.pt",
+                "/api",
+                "/ActivitiesForCurrentChildren",
+                mainViewModel.Token.TokenType,
+                mainViewModel.Token.AccessToken, childrenId, true, "SCHOOL");
+
+
+            if (!response.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error", connection.Message);
+                return;
+            }
+
+            activities = (List<Activity>)response.Result;
+
+            SchoolList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
+
+            IsRefreshing = false;
+        }
         #endregion
 
         public void UpdateActivity(Activity activity)
@@ -633,6 +749,11 @@
             OpenFilteredEventsList(SelectedFilterForEvents);
         }
 
+        public async Task ReloadSchool()
+        {
+            OpenFilteredSchoolList(SelectedFilterForSchool);
+        }
+
         private void OpenFilteredActivitiesList(string selectedFilter)
         {
             switch (selectedFilter)
@@ -692,6 +813,27 @@
                     break;
                 default:
                     LoadOnGoingEvents();
+                    break;
+            }
+        }
+
+        private void OpenFilteredSchoolList(string selectedFilter)
+        {
+            switch (selectedFilter)
+            {
+                case "Show On Going School Activities":
+                    LoadOnGoingSchool();
+                    break;
+
+                case "Show Completed School Activities":
+                    LoadCompletedSchool();
+                    break;
+
+                case "Clear Filters":
+                    LoadOnGoingSchool();
+                    break;
+                default:
+                    LoadOnGoingSchool();
                     break;
             }
         }

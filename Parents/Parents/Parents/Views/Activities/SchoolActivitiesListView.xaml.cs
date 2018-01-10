@@ -24,7 +24,7 @@ namespace Parents.Views.Activities
 
         private async void buttonAdd_Clicked(object sender, EventArgs e)
         {
-            bool b1 = btnAddSchoolActivity.IsVisible;
+            bool b1 = btnAddEvent.IsVisible;
 
             if (!b1)
             {
@@ -37,8 +37,8 @@ namespace Parents.Views.Activities
                 buttonAdd.Rotation = 0;
                 await buttonAdd.RotateTo(225, 250);
 
-                btnAddSchoolActivity.IsVisible = true;
-                await btnAddSchoolActivity.FadeTo(1, 1000, Easing.SinIn);
+                btnAddEvent.IsVisible = true;
+                await btnAddEvent.FadeTo(1, 1000, Easing.SinIn);
 
             }
             else
@@ -47,8 +47,8 @@ namespace Parents.Views.Activities
                 contents.Opacity = 1;
                 buttonAdd.Rotation = 270;
                 await buttonAdd.RotateTo(0, 250);
-                await btnAddSchoolActivity.FadeTo(0, 500, Easing.SinOut);
-                btnAddSchoolActivity.IsVisible = false;
+                await btnAddEvent.FadeTo(0, 500, Easing.SinOut);
+                btnAddEvent.IsVisible = false;
                 await buttonAdd.TranslateTo(0, 0, 250, Easing.Linear);
             }
         }
