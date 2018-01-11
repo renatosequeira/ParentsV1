@@ -133,6 +133,9 @@
                     await Application.Current.MainPage.Navigation.PushAsync(new EditActivityView());
                     break;
 
+                case "NewUserView":
+                    await Application.Current.MainPage.Navigation.PushAsync(new NewUserView());
+                    break;
             }
 
         }

@@ -53,6 +53,7 @@
         public NewActivityViewModel NewActivity { get; set; }
         public EditActivityViewModel EditActivity { get; set; }
         public ActivityImageMaximizedHelperPageViewModel ActivityImageMaximizedHelper { get; set; }
+        public NewUserViewModel NewUser { get; set; }
         #endregion
 
         #region Constructors

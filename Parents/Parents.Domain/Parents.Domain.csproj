@@ -95,6 +95,7 @@
     <Compile Include="SchoolManagement\Helpers\ExamFamily.cs" />
     <Compile Include="SchoolManagement\ParentsMeeting.cs" />
     <Compile Include="SchoolManagement\School.cs" />
+    <Compile Include="Sistema\Users.cs" />
     <Compile Include="TasksManagement\Helpers\TaskFamily.cs" />
     <Compile Include="TasksManagement\TaskFunction.cs" />
   </ItemGroup>

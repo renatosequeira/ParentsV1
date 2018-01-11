@@ -235,6 +235,7 @@
     <Compile Include="Controllers\SchoolManagement\Helpers\ExamFamiliesController.cs" />
     <Compile Include="Controllers\SchoolManagement\ParentsMeetingsController.cs" />
     <Compile Include="Controllers\SchoolManagement\SchoolsController.cs" />
+    <Compile Include="Controllers\Sistema\UsersController.cs" />
     <Compile Include="Controllers\TasksManagement\Helpers\TaskFamiliesController.cs" />
     <Compile Include="Controllers\TasksManagement\TaskFunctionsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -550,6 +551,11 @@
     <Content Include="Views\Treatments\Details.cshtml" />
     <Content Include="Views\Treatments\Edit.cshtml" />
     <Content Include="Views\Treatments\Index.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

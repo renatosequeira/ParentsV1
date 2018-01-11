@@ -274,6 +274,7 @@
     <Compile Include="Controllers\SchoolManagement\Helpers\ExamFamiliesController.cs" />
     <Compile Include="Controllers\SchoolManagement\ParentsMeetingsController.cs" />
     <Compile Include="Controllers\SchoolManagement\SchoolsController.cs" />
+    <Compile Include="Controllers\Sistema\UsersController.cs" />
     <Compile Include="Controllers\TaskManagement\Helpers\TaskFamiliesController.cs" />
     <Compile Include="Controllers\TaskManagement\TaskFunctionsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
