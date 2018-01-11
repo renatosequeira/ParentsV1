@@ -9,11 +9,14 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Parents.API.Models;
 using Parents.Domain;
 
 namespace Parents.API.Controllers.AppCore
 {
-    [Authorize]
+    //[Authorize]
     public class ParentsController : ApiController
     {
         private DataContext db = new DataContext();
@@ -25,6 +28,7 @@ namespace Parents.API.Controllers.AppCore
         }
 
         // GET: api/Parents/5
+        [Authorize]
         [ResponseType(typeof(Parent))]
         public async Task<IHttpActionResult> GetParent(int id)
         {
@@ -38,6 +42,7 @@ namespace Parents.API.Controllers.AppCore
         }
 
         // PUT: api/Parents/5
+        [Authorize]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutParent(int id, Parent parent)
         {
@@ -82,12 +87,32 @@ namespace Parents.API.Controllers.AppCore
             }
 
             db.Parents.Add(parent);
-            await db.SaveChangesAsync();
+
+            try
+            {
+                CreateUserASP(parent.ParentEmail, parent.Password);
+                await db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null &&
+                    ex.InnerException.InnerException != null &&
+                    ex.InnerException.InnerException.Message.Contains("Index"))
+                {
+                    return BadRequest("There are a record with this ID card.");
+                }
+                else
+                {
+                    return BadRequest(ex.Message);
+                }
+
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = parent.ParentId }, parent);
         }
 
         // DELETE: api/Parents/5
+        [Authorize]
         [ResponseType(typeof(Parent))]
         public async Task<IHttpActionResult> DeleteParent(int id)
         {
@@ -115,6 +140,26 @@ namespace Parents.API.Controllers.AppCore
         private bool ParentExists(int id)
         {
             return db.Parents.Count(e => e.ParentId == id) > 0;
+        }
+
+        private bool CreateUserASP(string email, string password)
+        {
+            var userContext = new ApplicationDbContext();
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(userContext));
+
+            var userASP = new ApplicationUser
+            {
+                Email = email,
+                UserName = email,
+            };
+
+            var result = userManager.Create(userASP, password);
+            if (result.Succeeded)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

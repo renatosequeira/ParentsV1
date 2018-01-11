@@ -16,6 +16,7 @@
     using Parents.ViewModels.Activities.Helpers.ActivityType;
     using System.Collections.ObjectModel;
     using Parents.ViewModels.Activities.HelperPages;
+    using Parents.ViewModels.AppCore;
 
     public class MainViewModel
     {
@@ -54,6 +55,7 @@
         public EditActivityViewModel EditActivity { get; set; }
         public ActivityImageMaximizedHelperPageViewModel ActivityImageMaximizedHelper { get; set; }
         public NewUserViewModel NewUser { get; set; }
+        public NewParentViewModel NewParent { get; set; }
         #endregion
 
         #region Constructors

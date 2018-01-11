@@ -31,7 +31,7 @@
 
         [Required(ErrorMessage = "The field {0} is required")]
         [MaxLength(50, ErrorMessage = "Please insert a {0} with less than {1} characters")]
-        [Index("Children_ChildrenIdentityCard_Index", IsUnique = true)]
+        [Index("Parents_ParentIdentityCard_Index", IsUnique = true)]
         [Display(Name = "Identity Card")]
         public string ParentIdentityCard { get; set; }
 
@@ -56,12 +56,13 @@
         #endregion
 
         #region ParenthoodInformation
-        [Required(ErrorMessage = "The field {0} is required")]
+        //[Required(ErrorMessage = "The field {0} is required")]
         [Display(Name = "Parenthood type (father/ mother/ other)")]
         //public string ParenthoodType { get; set; }
-        public int ParentalTypeId { get; set; }
-        [JsonIgnore]
-        public virtual ParentalType ParentalType { get; set; }
+        public string ParentalType { get; set; }
+
+        //[JsonIgnore]
+        //public virtual ParentalType ParentalType { get; set; }
         #endregion
 
         [JsonIgnore]
@@ -77,5 +78,13 @@
         public virtual ICollection<ParentsMeeting> ParentsMeeting { get; set; }
 
         public string ParentImage { get; set; }
+
+        public int UserType { get; set; }
+
+        [Required(ErrorMessage = "The field {0} is required.")]
+        [StringLength(20, ErrorMessage = "The field {0} must be have betwen {2} and {1} characters lenght.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [NotMapped] //não mapeia campo para a base de dados
+        public string Password { get; set; }
     }
 }

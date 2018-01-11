@@ -13,7 +13,11 @@
         public string ParentEmail { get; set; }
         public string ParentMobile { get; set; }
         public object ParentAddress { get; set; }
-        public int ParentalTypeId { get; set; }
+        public string ParentalType { get; set; }
         public string ParentImage { get; set; }
+
+        //New additions
+        public int UserType { get; set; }
+        public string Password { get; set; }
     }
 }

@@ -10,6 +10,7 @@
     using Parents.ViewModels.Activities.Helpers.ActivitiesInstitutionType;
     using Parents.ViewModels.Activities.Helpers.Peridiocity;
     using Parents.ViewModels.Activities.Helpers.ActivityType;
+    using Parents.ViewModels.AppCore;
 
     public class LoginViewModel : INotifyPropertyChanged
     {
@@ -231,8 +232,10 @@
 
         async void RegisterNewUser()
         {
-            MainViewModel.GetInstance().NewUser = new NewUserViewModel();
-            await navigationService.Navigate("NewUserView");
+            //MainViewModel.GetInstance().NewUser = new NewUserViewModel();
+            //await navigationService.Navigate("NewParentView");
+            MainViewModel.GetInstance().NewParent = new NewParentViewModel();
+            await navigationService.Navigate("NewParentView");
         }
 
 

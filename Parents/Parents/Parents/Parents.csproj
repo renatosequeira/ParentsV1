@@ -95,6 +95,7 @@
     <Compile Include="ViewModels\Activities\Helpers\Peridiocity\EditActivityPeridiocityViewModel.cs" />
     <Compile Include="ViewModels\Activities\Helpers\Peridiocity\NewActivityPeridiocityViewModel.cs" />
     <Compile Include="ViewModels\Activities\NewActivityViewModel.cs" />
+    <Compile Include="ViewModels\AppCore\NewParentViewModel.cs" />
     <Compile Include="ViewModels\ChildrensViewModel.cs" />
     <Compile Include="ViewModels\Childrens\ChildrenDetailsViewModel.cs" />
     <Compile Include="ViewModels\Childrens\EditChildrenViewModel.cs" />
@@ -234,6 +235,9 @@
     </Compile>
     <Compile Include="Views\ParentsView.xaml.cs">
       <DependentUpon>ParentsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Parents\NewParentView.xaml.cs">
+      <DependentUpon>NewParentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Parents\ParentsInvite.xaml.cs">
       <DependentUpon>ParentsInvite.xaml</DependentUpon>
@@ -732,6 +736,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\NewUserView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Parents\NewParentView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -29,16 +29,14 @@
 
         public string ParentAddress { get; set; }
 
-
-
-        //public virtual List<Urgency> Urgency { get; set; }
-
         public virtual List<ChildrenResponse> Children { get; set; }
 
-        //public virtual List<Activity> Activity { get; set; }
-
-        //public virtual List<ParentsMeeting> ParentsMeeting { get; set; }
+        public string ParentalType { get; set; }
 
         public string ParentImage { get; set; }
+
+        public int UserType { get; set; }
+
+        public string Password { get; set; }
     }
 }

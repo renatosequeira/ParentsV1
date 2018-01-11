@@ -15,9 +15,6 @@
             Image
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ParentalType.ParentalTypeDescription)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.ParentFirstName)
         </th>
         <th>
@@ -51,9 +48,6 @@
             {
                 <img src="@Url.Content(item.ParentImage)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
             }
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ParentalType.ParentalTypeDescription)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ParentFirstName)

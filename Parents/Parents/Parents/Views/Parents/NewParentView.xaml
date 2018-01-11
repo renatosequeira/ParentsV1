@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Parents.Views.Parents.NewParentView"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="New Parent">
+
+    <ContentPage.Content>
+        <ScrollView
+            BindingContext="{Binding NewParent}">
+            <StackLayout
+                Padding="10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Text="First name:"
+                        VerticalOptions="Center">
+                    </Label>
+                    <Entry
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        HeightRequest="30"
+                        Placeholder="Enter the first name..."
+                        Text="{Binding ParentFirstName, Mode=TwoWay}">
+                    </Entry>
+
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="1"
+                        Text="Last name:"
+                        VerticalOptions="Center">
+                    </Label>
+                    <Entry
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Placeholder="Enter the last name..."
+                        Text="{Binding ParentLastName, Mode=TwoWay}">
+                    </Entry>
+
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="2"
+                        Text="Email:"
+                        VerticalOptions="Center">
+                    </Label>
+                    <Entry
+                        Grid.Column="1"
+                        Grid.Row="2"
+                        Keyboard="Email"
+                        Placeholder="Enter the email..."
+                        Text="{Binding ParentEmail, Mode=TwoWay}">
+                    </Entry>
+
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="3"
+                        Text="Phone:"
+                        VerticalOptions="Center">
+                    </Label>
+                    <Entry
+                        Grid.Column="1"
+                        Grid.Row="3"
+                        Keyboard="Telephone"
+                        Placeholder="Enter the phone..."
+                        Text="{Binding ParentMobile, Mode=TwoWay}">
+                    </Entry>
+
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="4"
+                        Text="Address:"
+                        VerticalOptions="Center">
+                    </Label>
+                    <Entry
+                        Grid.Column="1"
+                        Grid.Row="4"
+                        Placeholder="Enter the address..."
+                        Text="{Binding ParentAddress, Mode=TwoWay}">
+                    </Entry>
+
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="5"
+                        Text="Birth Date"
+                        VerticalOptions="Center">
+                    </Label>
+
+                    <DatePicker
+                        Grid.Column="1"
+                        Grid.Row="5"
+                        Date="{Binding ParentBirthDate, Mode=TwoWay}">
+                    </DatePicker>
+
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="6"
+                        Text="ID Card"
+                        VerticalOptions="Center">
+                    </Label>
+
+                    <Entry
+                        Grid.Column="1"
+                        Grid.Row="6"
+                        Text="{Binding ParentIdentityCard, Mode=TwoWay}">
+                    </Entry>
+                    
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="7"
+                        Text="Password:"
+                        VerticalOptions="Center">
+                    </Label>
+
+                    <Entry
+                        Grid.Column="1"
+                        Grid.Row="7"
+                        IsPassword="true"
+                        Placeholder="Enter the password..."
+                        Text="{Binding Password, Mode=TwoWay}">
+                    </Entry>
+
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="8"
+                        Text="Confirm:"
+                        VerticalOptions="Center">
+                    </Label>
+                    <Entry
+                        Grid.Column="1"
+                        Grid.Row="8"
+                        IsPassword="true"
+                        Placeholder="Enter the password confirm..."
+                        Text="{Binding Confirm, Mode=TwoWay}">
+                    </Entry>
+                </Grid>
+                <ActivityIndicator
+                    IsRunning="{Binding IsRunning, Mode=TwoWay}"
+                    VerticalOptions="CenterAndExpand">
+                </ActivityIndicator>
+                <Button
+                    Command="{Binding SaveCommand}"
+                    BackgroundColor="Navy"
+                    BorderRadius="23"
+                    FontAttributes="Bold"
+                    HeightRequest="46"
+                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                    Margin="50,0"
+                    Text="Save"
+                    TextColor="White"
+                    VerticalOptions="EndAndExpand">
+                </Button>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

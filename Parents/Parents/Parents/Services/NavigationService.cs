@@ -15,6 +15,7 @@
     using Parents.Views.Activities.HelpersPages;
     using Rg.Plugins.Popup.Extensions;
     using Rg.Plugins.Popup.Services;
+    using Parents.Views.Parents;
 
     public class NavigationService
     {
@@ -135,6 +136,10 @@
 
                 case "NewUserView":
                     await Application.Current.MainPage.Navigation.PushAsync(new NewUserView());
+                    break;
+
+                case "NewParentView":
+                    await Application.Current.MainPage.Navigation.PushAsync(new NewParentView());
                     break;
             }
 

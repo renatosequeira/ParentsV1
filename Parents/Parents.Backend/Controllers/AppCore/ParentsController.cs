@@ -10,7 +10,7 @@ using System;
 
 namespace Parents.Backend.Controllers.AppCore
 {
-    [Authorize]
+    //[Authorize]
     public class ParentsController : Controller
     {
         private DataContextLocal db = new DataContextLocal();
@@ -18,8 +18,8 @@ namespace Parents.Backend.Controllers.AppCore
         // GET: Parents
         public async Task<ActionResult> Index()
         {
-            var parents = db.Parents.Include(p => p.ParentalType);
-            return View(await parents.ToListAsync());
+            //var parents = db.Parents.Include(p => p.ParentalType);
+            return View(await db.Parents.ToListAsync());
         }
 
         // GET: Parents/Details/5
@@ -40,7 +40,6 @@ namespace Parents.Backend.Controllers.AppCore
         // GET: Parents/Create
         public ActionResult Create()
         {
-            ViewBag.ParentalTypeId = new SelectList(db.ParentalTypes, "ParentalTypeId", "ParentalTypeDescription");
             return View();
         }
 
@@ -70,7 +69,6 @@ namespace Parents.Backend.Controllers.AppCore
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ParentalTypeId = new SelectList(db.ParentalTypes, "ParentalTypeId", "ParentalTypeDescription", view.ParentalTypeId);
             return View(view);
         }
 
@@ -81,8 +79,7 @@ namespace Parents.Backend.Controllers.AppCore
                 Activity = view.Activity,
                 Children = view.Children,
                 ParentAddress = view.ParentAddress,
-                ParentalType = view.ParentalType,
-                ParentalTypeId = view.ParentalTypeId,
+                ParentalType = "Father",
                 ParentBirthDate = view.ParentBirthDate,
                 ParentEmail = view.ParentEmail,
                 ParentFirstName = view.ParentFirstName,
@@ -93,7 +90,9 @@ namespace Parents.Backend.Controllers.AppCore
                 ParentMiddleName = view.ParentMiddleName,
                 ParentMobile = view.ParentMobile,
                 ParentsMeeting = view.ParentsMeeting,
-                Urgency = view.Urgency
+                Urgency = view.Urgency,
+                Password = "123456",
+                UserType = 1
             };
         }
 
@@ -109,7 +108,6 @@ namespace Parents.Backend.Controllers.AppCore
             {
                 return HttpNotFound();
             }
-            ViewBag.ParentalTypeId = new SelectList(db.ParentalTypes, "ParentalTypeId", "ParentalTypeDescription", parent.ParentalTypeId);
 
             var view = ToView(parent);
 
@@ -124,7 +122,6 @@ namespace Parents.Backend.Controllers.AppCore
                 Children = parent.Children,
                 ParentAddress = parent.ParentAddress,
                 ParentalType = parent.ParentalType,
-                ParentalTypeId = parent.ParentalTypeId,
                 ParentBirthDate = parent.ParentBirthDate,
                 ParentEmail = parent.ParentEmail,
                 ParentFirstName = parent.ParentFirstName,
@@ -135,7 +132,9 @@ namespace Parents.Backend.Controllers.AppCore
                 ParentMiddleName = parent.ParentMiddleName,
                 ParentMobile = parent.ParentMobile,
                 ParentsMeeting = parent.ParentsMeeting,
-                Urgency = parent.Urgency
+                Urgency = parent.Urgency,
+                Password = "123456",
+                UserType = 1
             };
         }
 
@@ -165,7 +164,7 @@ namespace Parents.Backend.Controllers.AppCore
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.ParentalTypeId = new SelectList(db.ParentalTypes, "ParentalTypeId", "ParentalTypeDescription", view.ParentalTypeId);
+            
             return View(view);
         }
 
