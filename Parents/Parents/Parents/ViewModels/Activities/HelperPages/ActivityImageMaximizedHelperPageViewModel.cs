@@ -311,7 +311,7 @@ namespace Parents.ViewModels.Activities.HelperPages
             IsRunning = false;
             IsEnabled = true;
 
-            await navigationService.Back();
+            await navigationService.BackOnMaster();
         }
         #endregion
     }

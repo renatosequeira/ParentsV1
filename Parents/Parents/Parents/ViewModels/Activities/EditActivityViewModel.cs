@@ -970,7 +970,7 @@
 
         async void TypeChange()
         {
-            await navigationService.Navigate("ActivityTypeHelperPage");
+            await navigationService.NavigateOnMaster("ActivityTypeHelperPage");
         }
 
         public ICommand PriorityChangeCommand
@@ -983,7 +983,7 @@
 
         async void PriorityChange()
         {
-            await navigationService.Navigate("ActivityPriorityHelperPage");
+            await navigationService.NavigateOnMaster("ActivityPriorityHelperPage");
         }
 
         public ICommand PrivacyChangeCommand
@@ -1212,7 +1212,7 @@
             IsEnabled = true;
 
             ResetKeys();
-            await navigationService.Back();
+            await navigationService.BackOnMaster();
         }
 
 

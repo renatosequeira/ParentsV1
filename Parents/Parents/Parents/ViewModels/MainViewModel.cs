@@ -17,6 +17,7 @@
     using System.Collections.ObjectModel;
     using Parents.ViewModels.Activities.HelperPages;
     using Parents.ViewModels.AppCore;
+    using Parents.Models.Sistema;
 
     public class MainViewModel
     {
@@ -56,6 +57,7 @@
         public ActivityImageMaximizedHelperPageViewModel ActivityImageMaximizedHelper { get; set; }
         public NewUserViewModel NewUser { get; set; }
         public NewParentViewModel NewParent { get; set; }
+        public ObservableCollection<Menu> MyMenu { get; set; }
         #endregion
 
         #region Constructors
@@ -65,6 +67,7 @@
             Login = new LoginViewModel();
             navigationService = new NavigationService();
             dialogService = new DialogService();
+            LoadMenu();
         }
         #endregion
 
@@ -109,7 +112,7 @@
         async void GoToNewActivityTypeCommand()
         {
             NewActivityType = new NewActivityTypeViewModel();
-            await navigationService.Navigate("NewActicityType");
+            await navigationService.NavigateOnMaster("NewActicityType");
         }
 
         public ICommand NewActivityPericiocityCommand
@@ -123,7 +126,7 @@
         async void GoToNewActivityPericiocityCommand()
         {
             NewActivityPeridiocity = new NewActivityPeridiocityViewModel();
-            await navigationService.Navigate("NewActicityPeridiocity");
+            await navigationService.NavigateOnMaster("NewActicityPeridiocity");
         }
 
         public ICommand NewActivityInstitutionTypeCommand
@@ -137,7 +140,7 @@
         async void GoToNewActivityInstitutionTypeCommand()
         {
             NewActivityInstitutionType = new NewActivityInstitutionTypeViewModel();
-            await navigationService.Navigate("NewActivityInstitutionType");
+            await navigationService.NavigateOnMaster("NewActivityInstitutionType");
         }
 
         public ICommand NewActivityFamilyCommand
@@ -151,7 +154,7 @@
         async void GoToNewActivityFamily()
         {
             NewActvityFamily = new NewActivityFamilyViewModel();
-            await navigationService.Navigate("NewActivityFamily");
+            await navigationService.NavigateOnMaster("NewActivityFamily");
         }
 
         public ICommand NewDisciplineCommand
@@ -165,7 +168,7 @@
         async void GoToNewDiscipline()
         {
             NewDiscipline = new NewDisciplineViewModel();
-            await navigationService.Navigate("NewDisciplineView");
+            await navigationService.NavigateOnMaster("NewDisciplineView");
         }
 
         public ICommand NewChildrenCommand
@@ -186,17 +189,69 @@
 
         async void GoHome()
         {
-            await navigationService.Navigate("HomeView");
+            await navigationService.NavigateOnMaster("HomeView");
         }
 
         async void GoNewChildren()
         {
             NewChildren = new NewChildrenViewModel();  //Liga o objecto NewChildren a um viewmodel
-            await navigationService.Navigate("NewChildrenView");
+            await navigationService.NavigateOnMaster("NewChildrenView");
         }
 
-        
+        public ICommand GoToActivitiesCommand
+        {
+            get
+            {
+                return new RelayCommand(OpenActivities);
+            }
+        }
+
+        async void OpenActivities()
+        {
+            await navigationService.NavigateOnMaster("ActivitiesListView");
+        }
+
+        public ICommand BackCommand
+        {
+            get
+            {
+                return new RelayCommand(GoBack);
+            }
+        }
+
+        async void GoBack()
+        {
+            await navigationService.BackOnMaster();
+        }
         #endregion
 
+        #region Methods
+        private void LoadMenu()
+        {
+            MyMenu = new ObservableCollection<Menu>();
+
+            MyMenu.Add(new Menu
+            {
+                Icon = "ic_settings",
+                PageName = "MyProfileView",
+                Title = "My Profile",
+            });
+
+            MyMenu.Add(new Menu
+            {
+                Icon = "ic_map",
+                PageName = "LocationsView",
+                Title = "Locations",
+            });
+
+            MyMenu.Add(new Menu
+            {
+                Icon = "ic_exit_to_app",
+                PageName = "LoginView",
+                Title = "Close sesion",
+            });
+
+        }
+        #endregion
     }
 }

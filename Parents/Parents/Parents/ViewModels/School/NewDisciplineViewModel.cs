@@ -179,7 +179,7 @@ namespace Parents.ViewModels.School
             var disciplinesViewModel = DisciplinesViewModel.GetInstance();
             disciplinesViewModel.Add(discipline);
 
-            await navigationService.Back();
+            await navigationService.BackOnMaster();
 
             IsRunning = false;
             IsEnabled = true;

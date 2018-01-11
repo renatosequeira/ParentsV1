@@ -2,6 +2,7 @@
 {
     using Parents.Services;
     using Parents.Views;
+    using Parents.Views.Sistema;
     using Xamarin.Forms;
 
 
@@ -20,6 +21,7 @@
             get;
             internal set;
         }
+        public static MasterView Master { get; internal set; }
         #endregion
 
         #region Constructor
@@ -38,6 +40,7 @@
                 BarTextColor = Color.FromHex("#FFFFFF")
             };
 
+            //MainPage = new MasterView();
         } 
         #endregion
 

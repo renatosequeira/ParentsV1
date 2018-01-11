@@ -155,7 +155,7 @@
             var activityInstitutionTypeViewModel = ActivitiesInstitutionTypeViewModel.GetInstance();
             activityInstitutionTypeViewModel.UpdateActivityInstitutionType(activityInstitutionType);
 
-            await navigationService.Back();
+            await navigationService.BackOnMaster();
 
             IsRunning = false;
             IsEnabled = true;

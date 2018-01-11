@@ -36,7 +36,7 @@ namespace Parents.Views.Activities
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.NewActivity = new NewActivityViewModel();
 
-            await navigationService.Navigate("AddAnniversaryActivity");
+            await navigationService.NavigateOnMaster("AddAnniversaryActivity");
             
             buttonAdd.Image = "add_closed_orange";
             contents.Opacity = 1;

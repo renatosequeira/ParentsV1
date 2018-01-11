@@ -178,7 +178,7 @@
             var activityTypeViewModel = ActivityTypeViewModel.GetInstance();
             activityTypeViewModel.Add(activityType);
 
-            await navigationService.Back();
+            await navigationService.BackOnMaster();
 
             IsRunning = false;
             IsEnabled = true;

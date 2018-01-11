@@ -5,11 +5,6 @@
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
              Title="Childrens">
 
-    <!--<ContentPage.ToolbarItems>
-        <ToolbarItem Icon="ic_add_child" Activated="ToolbarItem_Activated"/>
-    </ContentPage.ToolbarItems>-->
-
-
     <Grid ColumnSpacing="0" RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -111,7 +106,7 @@
                     TextColor="#22395C"/>
 
                 <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding HomeViewCommand}" />
+                    <TapGestureRecognizer Command="{Binding BackCommand}" />
                 </StackLayout.GestureRecognizers>
             </StackLayout>
 

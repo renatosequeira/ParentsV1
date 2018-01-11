@@ -16,136 +16,169 @@
     using Rg.Plugins.Popup.Extensions;
     using Rg.Plugins.Popup.Services;
     using Parents.Views.Parents;
+    using Parents.Views.Sistema;
+    using Parents.Views.Activities;
 
     public class NavigationService
     {
-        public async Task Navigate(string pageName)
+        public void SetMainPage(string pageName)
         {
             switch (pageName)
             {
+                case "LoginView":
+                    Application.Current.MainPage = new NavigationPage(new LoginView());
+                    break;
+                case "MasterView":
+                    Application.Current.MainPage = new MasterView();
+                    break;
+            }
+        }
+
+        public async Task NavigateOnMaster(string pageName)
+        {
+            App.Master.IsPresented = false;
+
+            switch (pageName)
+            {
                 case "HomeView":
-                    await Application.Current.MainPage.Navigation.PushAsync(new HomeView());
+                    await App.Navigator.PushAsync(new HomeView());
                     break;
 
                 case "ChildrenDetails":
-                    await Application.Current.MainPage.Navigation.PushAsync(new ChildrenDetails());
+                    await App.Navigator.PushAsync(new ChildrenDetails());
                     break;
 
                 case "ParentsView":
-                    await Application.Current.MainPage.Navigation.PushAsync(new ParentsView());
+                    await App.Navigator.PushAsync(new ParentsView());
                     break;
 
                 case "ChildrensList":
-                    await Application.Current.MainPage.Navigation.PushAsync(new ChildrensList());
+                    await App.Navigator.PushAsync(new ChildrensList());
                     break;
 
                 case "NewChildrenView":
-                    await Application.Current.MainPage.Navigation.PushAsync(new NewChildrenView());
+                    await App.Navigator.PushAsync(new NewChildrenView());
                     break;
                 case "DisciplinesView":
-                    await Application.Current.MainPage.Navigation.PushAsync(new DisciplineDetailsViews());
+                    await App.Navigator.PushAsync(new DisciplineDetailsViews());
                     break;
                 case "NewDisciplineView":
-                    await Application.Current.MainPage.Navigation.PushAsync(new NewDisciplineView());
+                    await App.Navigator.PushAsync(new NewDisciplineView());
                     break;
                 case "SettingsView":
-                    await Application.Current.MainPage.Navigation.PushAsync(new SettingsHomeView());
+                    await App.Navigator.PushAsync(new SettingsHomeView());
                     break;
                 case "Application Core":
-                    await Application.Current.MainPage.Navigation.PushAsync(new ApplicationSettingCoreView());
+                    await App.Navigator.PushAsync(new ApplicationSettingCoreView());
                     break;
                 case "Education":
-                    await Application.Current.MainPage.Navigation.PushAsync(new EducationSettingsView());
+                    await App.Navigator.PushAsync(new EducationSettingsView());
                     break;
                 case "System":
-                    await Application.Current.MainPage.Navigation.PushAsync(new SystemSettingsView());
+                    await App.Navigator.PushAsync(new SystemSettingsView());
                     break;
                 case "Disciplines":
-                    await Application.Current.MainPage.Navigation.PushAsync(new DisciplinesView());
+                    await App.Navigator.PushAsync(new DisciplinesView());
                     break;
                 case "EditDiscipline":
-                    await Application.Current.MainPage.Navigation.PushAsync(new EditDisciplineView());
+                    await App.Navigator.PushAsync(new EditDisciplineView());
                     break;
                 case "Activities Family":
-                    await Application.Current.MainPage.Navigation.PushAsync(new ActivitiesFamilyListView());
+                    await App.Navigator.PushAsync(new ActivitiesFamilyListView());
                     break;
                 case "Activities":
-                    await Application.Current.MainPage.Navigation.PushAsync(new ActivitiesSettingsView());
+                    await App.Navigator.PushAsync(new ActivitiesSettingsView());
                     break;
                 case "NewActivityFamily":
-                    await Application.Current.MainPage.Navigation.PushAsync(new NewActivityFamilyView());
+                    await App.Navigator.PushAsync(new NewActivityFamilyView());
                     break;
                 case "EditActivityFamilyViewModel":
-                    await Application.Current.MainPage.Navigation.PushAsync(new EditActivityFamilyView());
+                    await App.Navigator.PushAsync(new EditActivityFamilyView());
                     break;
                 case "Activities Family Details":
-                    await Application.Current.MainPage.Navigation.PushAsync(new DetailsActivityFamilyView());
+                    await App.Navigator.PushAsync(new DetailsActivityFamilyView());
                     break;
                 case "Activity Institution Type":
-                    await Application.Current.MainPage.Navigation.PushAsync(new ActivitiesInstitutionTypeListView());
+                    await App.Navigator.PushAsync(new ActivitiesInstitutionTypeListView());
                     break;
                 case "EditActivityInstitutionType":
-                    await Application.Current.MainPage.Navigation.PushAsync(new EditActivityInstitutionTypeView());
+                    await App.Navigator.PushAsync(new EditActivityInstitutionTypeView());
                     break;
                 case "NewActivityInstitutionType":
-                    await Application.Current.MainPage.Navigation.PushAsync(new NewActivitiesInstitutionTypeView());
+                    await App.Navigator.PushAsync(new NewActivitiesInstitutionTypeView());
                     break;
                 case "DetailsActivityInstitutionType":
-                    await Application.Current.MainPage.Navigation.PushAsync(new DetailsActivitiesInstitutionTypeView());
+                    await App.Navigator.PushAsync(new DetailsActivitiesInstitutionTypeView());
                     break;
                 case "NewActicityPeridiocity":
-                    await Application.Current.MainPage.Navigation.PushAsync(new NewActivityPeridiocityView());
+                    await App.Navigator.PushAsync(new NewActivityPeridiocityView());
                     break;
                 case "EditActivityPeridiocity":
-                    await Application.Current.MainPage.Navigation.PushAsync(new EditActivityPeridiocityView());
+                    await App.Navigator.PushAsync(new EditActivityPeridiocityView());
                     break;
                 case "DetailsActivityPeridiocity":
-                    await Application.Current.MainPage.Navigation.PushAsync(new ActivityPeridiocityDetailsView());
+                    await App.Navigator.PushAsync(new ActivityPeridiocityDetailsView());
                     break;
                 case "Activity Peridiocity":
-                    await Application.Current.MainPage.Navigation.PushAsync(new ActivityPeridiocityListView());
+                    await App.Navigator.PushAsync(new ActivityPeridiocityListView());
                     break;
                 case "Activity Type":
-                    await Application.Current.MainPage.Navigation.PushAsync(new ActivityTypeListView());
+                    await App.Navigator.PushAsync(new ActivityTypeListView());
                     break;
                 case "EditActivityType":
-                    await Application.Current.MainPage.Navigation.PushAsync(new EditActivityTypeView());
+                    await App.Navigator.PushAsync(new EditActivityTypeView());
                     break;
                 case "NewActicityType":
-                    await Application.Current.MainPage.Navigation.PushAsync(new NewActivityTypeView());
+                    await App.Navigator.PushAsync(new NewActivityTypeView());
                     break;
                 case "AddAnniversaryActivity":
-                    await Application.Current.MainPage.Navigation.PushAsync(new NewActivityView());
+                    await App.Navigator.PushAsync(new NewActivityView());
                     break;
 
                 case "ActivityTypeHelperPage":
-                    await Application.Current.MainPage.Navigation.PushAsync(new ActivityTypeHelperPageView());
+                    await App.Navigator.PushAsync(new ActivityTypeHelperPageView());
                     break;
 
                 case "ActivityPriorityHelperPage":
-                    await Application.Current.MainPage.Navigation.PushAsync(new ActivityPriorityHelperPageView());
+                    await App.Navigator.PushAsync(new ActivityPriorityHelperPageView());
                     break;
 
                 case "ActivityLocationHelperPage":
-                    await Application.Current.MainPage.Navigation.PushAsync(new ActivityLocationHelperPageView());
+                    await App.Navigator.PushAsync(new ActivityLocationHelperPageView());
                     break;
 
                 case "Activity Details":
-                    await Application.Current.MainPage.Navigation.PushAsync(new EditActivityView());
+                    await App.Navigator.PushAsync(new EditActivityView());
                     break;
 
-                case "NewUserView":
-                    await Application.Current.MainPage.Navigation.PushAsync(new NewUserView());
-                    break;
-
-                case "NewParentView":
-                    await Application.Current.MainPage.Navigation.PushAsync(new NewParentView());
+                case "ActivitiesListView":
+                    await App.Navigator.PushAsync(new ActivitiesListView());
                     break;
             }
 
         }
 
-        public async Task Back()
+        public async Task NavigateOnLogin(string pageName)
+        {
+            switch (pageName)
+            {
+                case "NewParentView":
+                    await Application.Current.MainPage.Navigation.PushAsync(new NewParentView());
+                    break;
+
+                case "NewUserView":
+                    await App.Navigator.PushAsync(new NewUserView());
+                    break;
+            }
+
+        }
+
+        public async Task BackOnMaster()
+        {
+            await App.Navigator.PopAsync();
+        }
+
+        public async Task BackOnLogin()
         {
             await Application.Current.MainPage.Navigation.PopAsync();
         }

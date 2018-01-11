@@ -146,7 +146,7 @@ namespace Parents.ViewModels.Activities.Helpers.Peridiocity
             var activityPeridiocityViewModel = ActivityPeridiocityViewModel.GetInstance();
             activityPeridiocityViewModel.UpdateActivityPeridiocity(activityPeridiocity);
 
-            await navigationService.Back();
+            await navigationService.BackOnMaster();
 
             IsRunning = false;
             IsEnabled = true;

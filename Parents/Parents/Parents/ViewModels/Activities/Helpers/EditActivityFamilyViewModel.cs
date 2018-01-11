@@ -161,7 +161,7 @@ namespace Parents.ViewModels.Activities.Helpers
             var activityFamilyViewModel = ActivityFamilyViewModel.GetInstance();
             activityFamilyViewModel.UpdateActivityFamily(activityFamily);
 
-            await navigationService.Back();
+            await navigationService.BackOnMaster();
 
             IsRunning = false;
             IsEnabled = true;

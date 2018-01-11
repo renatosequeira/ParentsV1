@@ -34,7 +34,7 @@ namespace Parents.Views.Settings
         private async void settingsMenu_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             var menuItem = e.Item as SettingsMenu;
-            await navigationService.Navigate(menuItem.MenuName);
+            await navigationService.NavigateOnMaster(menuItem.MenuName);
         }
     } 
     #endregion

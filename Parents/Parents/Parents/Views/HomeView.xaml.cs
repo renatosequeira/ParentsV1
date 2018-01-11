@@ -24,19 +24,19 @@
         private async void btnParents_Clicked(object sender, EventArgs e)
         {
             //await Application.Current.MainPage.Navigation.PushAsync(new ParentsView());
-            await navigationService.Navigate("ParentsView");
+            await navigationService.NavigateOnMaster("ParentsView");
         }
 
         private async void btnChildrens_Clicked(object sender, EventArgs e)
         {
             //await Application.Current.MainPage.Navigation.PushAsync(new ChildrensList());
-            await navigationService.Navigate("ChildrensList");
+            await navigationService.NavigateOnMaster("ChildrensList");
         }
         #endregion
 
         private async void btn4_Clicked(object sender, EventArgs e)
         {
-            await navigationService.Navigate("SettingsView");
+            await navigationService.NavigateOnMaster("SettingsView");
         }
     }
 }

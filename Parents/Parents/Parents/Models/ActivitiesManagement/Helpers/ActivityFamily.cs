@@ -81,7 +81,7 @@ namespace Parents.Models.ActivitiesManagement.Helpers
         async void EditActivityFamily()
         {
             MainViewModel.GetInstance().EditActivityFamily = new EditActivityFamilyViewModel(this);
-            await navigationService.Navigate("EditActivityFamilyViewModel");
+            await navigationService.NavigateOnMaster("EditActivityFamilyViewModel");
 
         }
 
@@ -97,7 +97,7 @@ namespace Parents.Models.ActivitiesManagement.Helpers
         {
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.EditActivityFamily = new EditActivityFamilyViewModel(this);
-            await navigationService.Navigate("Activities Family Details");
+            await navigationService.NavigateOnMaster("Activities Family Details");
 
         }
         #endregion

@@ -59,7 +59,7 @@
         async void EditActivityPeridiocity()
         {
             MainViewModel.GetInstance().EditActivityPeridiocity = new EditActivityPeridiocityViewModel(this);
-            await navigationService.Navigate("EditActivityPeridiocity");
+            await navigationService.NavigateOnMaster("EditActivityPeridiocity");
 
         }
 
@@ -75,7 +75,7 @@
         {
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.EditActivityPeridiocity = new EditActivityPeridiocityViewModel(this);
-            await navigationService.Navigate("DetailsActivityPeridiocity");
+            await navigationService.NavigateOnMaster("DetailsActivityPeridiocity");
 
         }
         #endregion

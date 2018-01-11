@@ -213,7 +213,7 @@
 
             //mainViewModel.Activities = new ActivitiesViewModel();
             
-            await navigationService.Navigate("HomeView");
+            navigationService.SetMainPage("MasterView");
       
             Email = null;
             Password = null;
@@ -235,7 +235,7 @@
             //MainViewModel.GetInstance().NewUser = new NewUserViewModel();
             //await navigationService.Navigate("NewParentView");
             MainViewModel.GetInstance().NewParent = new NewParentViewModel();
-            await navigationService.Navigate("NewParentView");
+            await navigationService.NavigateOnLogin("NewParentView");
         }
 
 

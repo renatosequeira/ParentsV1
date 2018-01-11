@@ -70,7 +70,7 @@ namespace Parents.Models
         async void EditDiscipline()
         {
             MainViewModel.GetInstance().EditDiscipline = new EditDisciplineViewModel(this);
-            await navigationService.Navigate("EditDiscipline");
+            await navigationService.NavigateOnMaster("EditDiscipline");
         }
 
         public ICommand SelectDiscipline
@@ -85,7 +85,7 @@ namespace Parents.Models
         {
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.EditDiscipline = new EditDisciplineViewModel(this);
-            await navigationService.Navigate("DisciplinesView");
+            await navigationService.NavigateOnMaster("DisciplinesView");
         }
 
        

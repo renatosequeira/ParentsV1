@@ -178,7 +178,7 @@ namespace Parents.ViewModels.Activities.Helpers
                 var activityFamilyViwModel = ActivityFamilyViewModel.GetInstance();
                 activityFamilyViwModel.Add(activityFamily);
 
-                await navigationService.Back();
+                await navigationService.BackOnMaster();
 
                 IsRunning = false;
                 IsEnabled = true;

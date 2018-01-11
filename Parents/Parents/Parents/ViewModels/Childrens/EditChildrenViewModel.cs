@@ -205,7 +205,7 @@
             var childrensViewModel = ChildrensViewModel.GetInstance();
             childrensViewModel.UpdateChildren(children);
 
-            await navigationService.Back();
+            await navigationService.BackOnMaster();
 
             IsRunning = false;
             IsEnabled = true;

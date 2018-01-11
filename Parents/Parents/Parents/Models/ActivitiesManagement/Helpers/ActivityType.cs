@@ -91,7 +91,7 @@ namespace Parents.Models.ActivitiesManagement.Helpers
             }
 
             MainViewModel.GetInstance().EditActivityType = new EditActivityTypeViewModel(this);
-            await navigationService.Navigate("EditActivityType");
+            await navigationService.NavigateOnMaster("EditActivityType");
 
         }
 
@@ -107,7 +107,7 @@ namespace Parents.Models.ActivitiesManagement.Helpers
         {
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.EditActivityType = new EditActivityTypeViewModel(this);
-            await navigationService.Navigate("ActivityTypeDetails");
+            await navigationService.NavigateOnMaster("ActivityTypeDetails");
 
         }
         #endregion

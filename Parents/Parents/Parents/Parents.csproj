@@ -57,6 +57,7 @@
     <Compile Include="Models\Response.cs" />
     <Compile Include="Models\Settings\SettingsMenu.cs" />
     <Compile Include="Models\Settings\SystemMenu.cs" />
+    <Compile Include="Models\Sistema\Menu.cs" />
     <Compile Include="Models\TokenResponse.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -280,6 +281,12 @@
     </Compile>
     <Compile Include="Views\Settings\SystemSettingsView.xaml.cs">
       <DependentUpon>SystemSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Sistema\MasterView.xaml.cs">
+      <DependentUpon>MasterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Sistema\MenuView.xaml.cs">
+      <DependentUpon>MenuView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -742,6 +749,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Parents\NewParentView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Sistema\MenuView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Sistema\MasterView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

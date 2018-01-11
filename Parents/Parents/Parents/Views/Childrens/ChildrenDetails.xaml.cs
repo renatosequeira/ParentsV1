@@ -26,10 +26,6 @@
             PlaceHolder.Content = childrensList.Content;
         }
 
-        private void ActivitiesButton_Clicked(object sender, EventArgs e)
-        {
-            Application.Current.MainPage.Navigation.PushAsync(new ActivitiesView());
-        }
 
         private void TapGestureRecognizer_Tapped_2(object sender, EventArgs e)
         {

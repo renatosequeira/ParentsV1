@@ -15,6 +15,9 @@
             <Color x:Key="BodyTextColor">#C3C3C3</Color>
             <Color x:Key="ButtonBackgroundColor">#5992FF</Color>
             <Color x:Key="BackgroundColor">White</Color>
+            <Color x:Key="MainColor">#2C3E50</Color>
+            <Color x:Key="FontColor">#F1E0B1</Color>
+            
 
             <!--  font families  -->
             <OnPlatform x:Key="RegularFontFamily" x:TypeArguments="x:String">

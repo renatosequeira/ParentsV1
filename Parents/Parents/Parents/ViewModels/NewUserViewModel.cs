@@ -272,8 +272,8 @@
             mainViewModel.ActivitiesInstitutionType = new ActivitiesInstitutionTypeViewModel();
             mainViewModel.ActivityPeridiocity = new ActivityPeridiocityViewModel();
             mainViewModel.ActivityType = new ActivityTypeViewModel();
-            await navigationService.Back();
-            await navigationService.Navigate("HomeView");
+            await navigationService.BackOnLogin();
+            navigationService.SetMainPage("MasterView");
 
             IsRunning = false;
             IsEnabled = true;

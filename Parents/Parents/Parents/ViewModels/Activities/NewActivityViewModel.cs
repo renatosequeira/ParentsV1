@@ -1103,7 +1103,7 @@ namespace Parents.ViewModels.Activities
             var activityViewModel = ActivitiesViewModel.GetInstance();
             activityViewModel.Add(activity);
 
-            await navigationService.Back();
+            await navigationService.BackOnMaster();
 
             IsRunning = false;
             IsEnabled = true;
@@ -1661,7 +1661,7 @@ namespace Parents.ViewModels.Activities
                     }
                 }
 
-                await navigationService.Back();
+            await navigationService.BackOnMaster();
             }
 
         private string CheckSelectedDays(string[] selectedDays)

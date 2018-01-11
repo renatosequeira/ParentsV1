@@ -153,7 +153,7 @@
             var disciplineViewModel = DisciplinesViewModel.GetInstance();
             disciplineViewModel.UpdateDiscipline(discipline);
 
-            await navigationService.Back();
+            await navigationService.BackOnMaster();
 
             IsRunning = false;
             IsEnabled = true;

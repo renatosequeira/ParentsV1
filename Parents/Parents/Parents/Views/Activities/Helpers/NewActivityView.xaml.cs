@@ -44,7 +44,7 @@ namespace Parents.Views.Activities.Helpers
 
         private async void btn1_Clicked(object sender, System.EventArgs e)
         {
-            await navigationService.Navigate("ActivityTypeHelperPage");
+            await navigationService.NavigateOnMaster("ActivityTypeHelperPage");
         }
 
         protected override void OnAppearing()
@@ -303,7 +303,7 @@ namespace Parents.Views.Activities.Helpers
 
         private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
-            await navigationService.Navigate("ActivityPriorityHelperPage");
+            await navigationService.NavigateOnMaster("ActivityPriorityHelperPage");
         }
 
         private void ClearPriorityOption_Tapped(object sender, EventArgs e)
@@ -349,7 +349,7 @@ namespace Parents.Views.Activities.Helpers
 
         private async void SelectActivityLocation_Tapped(object sender, EventArgs e)
         {
-            await navigationService.Navigate("ActivityLocationHelperPage");
+            await navigationService.NavigateOnMaster("ActivityLocationHelperPage");
         }
 
         private void statusSwitch_Toggled(object sender, ToggledEventArgs e)

@@ -253,7 +253,7 @@ namespace Parents.Models
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.EditActivity = new EditActivityViewModel(this);
             mainViewModel.ActivityImageMaximizedHelper = new ActivityImageMaximizedHelperPageViewModel(this);
-            await navigationService.Navigate("Activity Details");
+            await navigationService.NavigateOnMaster("Activity Details");
 
         }
 

@@ -66,7 +66,7 @@ namespace Parents.Models.ActivitiesManagement.Helpers
         async void EditActivityInstitutionType()
         {
             MainViewModel.GetInstance().EditActivitiesInstitutionType = new EditActivitiesInstitutionTypeViewModel(this);
-            await navigationService.Navigate("EditActivityInstitutionType");
+            await navigationService.NavigateOnMaster("EditActivityInstitutionType");
 
         }
 
@@ -82,7 +82,7 @@ namespace Parents.Models.ActivitiesManagement.Helpers
         {
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.EditActivitiesInstitutionType = new EditActivitiesInstitutionTypeViewModel(this);
-            await navigationService.Navigate("DetailsActivityInstitutionType");
+            await navigationService.NavigateOnMaster("DetailsActivityInstitutionType");
 
         }
         #endregion

@@ -105,7 +105,7 @@
         async void EditChildren()
         {
             MainViewModel.GetInstance().EditChildren = new EditChildrenViewModel(this);
-            await navigationService.Navigate("ChildrenDetails");
+            await navigationService.NavigateOnMaster("ChildrenDetails");
         }
 
         public ICommand SelectChildrenCommand {
@@ -127,7 +127,7 @@
 
 
             mainViewModel.EditChildren = new EditChildrenViewModel(this);
-            await navigationService.Navigate("ChildrenDetails");
+            await navigationService.NavigateOnMaster("ChildrenDetails");
 
         }
         #endregion

@@ -17,8 +17,8 @@
         <!--CHILDREN DETAILS-->
 
             <StackLayout 
-            BindingContext="{Binding EditChildren}"
-            Padding="10">
+                BindingContext="{Binding EditChildren}"
+                Padding="10">
 
                 <Label
                     Text="Children First Name:">
@@ -84,7 +84,9 @@
             </StackLayout>
 
         <!--BOTTOM MENU-->
-        <Grid ColumnSpacing="0" RowSpacing="0" Grid.Row="2">
+        <Grid 
+            ColumnSpacing="0" 
+            RowSpacing="0" Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -110,7 +112,7 @@
                     TextColor="#22395C"/>
 
                 <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="ChildrensListButton_Clicked" />
+                    <TapGestureRecognizer Command="{Binding BackCommand}"/>
                 </StackLayout.GestureRecognizers>
             </StackLayout>
 
@@ -129,7 +131,7 @@
                     TextColor="#22395C"/>
 
                 <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="ActivitiesButton_Clicked" />
+                    <TapGestureRecognizer Command="{Binding GoToActivitiesCommand}"/>
                 </StackLayout.GestureRecognizers>
             </StackLayout>
 
