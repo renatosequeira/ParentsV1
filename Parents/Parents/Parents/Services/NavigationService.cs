@@ -18,6 +18,7 @@
     using Parents.Views.Parents;
     using Parents.Views.Sistema;
     using Parents.Views.Activities;
+    using Parents.Views.Locations;
 
     public class NavigationService
     {
@@ -153,6 +154,10 @@
 
                 case "ActivitiesListView":
                     await App.Navigator.PushAsync(new ActivitiesListView());
+                    break;
+
+                case "LocationsView":
+                    await App.Navigator.PushAsync(new LocationsView());
                     break;
             }
 

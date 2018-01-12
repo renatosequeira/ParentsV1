@@ -8,7 +8,7 @@ namespace Parents.iOS.Renderers
     {
         public void Show(string Message)
         {
-            Toast_iOS.Toast.MakeText(message).Show();
+            //Toast_iOS.Toast.MakeText(message).Show();
         }
     }
 }

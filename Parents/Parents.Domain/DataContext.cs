@@ -102,5 +102,7 @@
         public System.Data.Entity.DbSet<Parents.Domain.HealthManagement.Categories.Treatment> Treatments { get; set; }
 
         public System.Data.Entity.DbSet<Parents.Domain.Sistema.Users> Users { get; set; }
+
+        public System.Data.Entity.DbSet<Parents.Domain.Locations.Location> Locations { get; set; }
     }
 }

@@ -82,6 +82,7 @@
     <Compile Include="HealthManagement\Disease.cs" />
     <Compile Include="HealthManagement\PhysicalCharacteristic.cs" />
     <Compile Include="HealthManagement\Urgency.cs" />
+    <Compile Include="Locations\Location.cs" />
     <Compile Include="ParentalManagement\ChildSupportPayment.cs" />
     <Compile Include="ParentalManagement\ChildSupportVisit.cs" />
     <Compile Include="ParentalManagement\Helpers\ChildSupportVisitType.cs" />

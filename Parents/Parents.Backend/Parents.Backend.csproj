@@ -222,6 +222,7 @@
     <Compile Include="Controllers\HealthManagement\PhysicalCharacteristicsController.cs" />
     <Compile Include="Controllers\HealthManagement\UrgenciesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Locations\LocationsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ParentalManagement\ChildSupportPaymentsController.cs" />
     <Compile Include="Controllers\ParentalManagement\ChildSupportVisitsController.cs" />
@@ -556,6 +557,11 @@
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Locations\Create.cshtml" />
+    <Content Include="Views\Locations\Delete.cshtml" />
+    <Content Include="Views\Locations\Details.cshtml" />
+    <Content Include="Views\Locations\Edit.cshtml" />
+    <Content Include="Views\Locations\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

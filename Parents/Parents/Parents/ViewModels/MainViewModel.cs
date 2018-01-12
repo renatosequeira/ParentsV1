@@ -18,6 +18,7 @@
     using Parents.ViewModels.Activities.HelperPages;
     using Parents.ViewModels.AppCore;
     using Parents.Models.Sistema;
+    using Parents.ViewModels.Locations;
 
     public class MainViewModel
     {
@@ -58,6 +59,7 @@
         public NewUserViewModel NewUser { get; set; }
         public NewParentViewModel NewParent { get; set; }
         public ObservableCollection<Menu> MyMenu { get; set; }
+        public LocationsViewModel Locations { get; set; }
         #endregion
 
         #region Constructors
