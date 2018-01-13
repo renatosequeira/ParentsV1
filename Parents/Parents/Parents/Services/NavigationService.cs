@@ -159,6 +159,7 @@
                 case "LocationsView":
                     await App.Navigator.PushAsync(new LocationsView());
                     break;
+
             }
 
         }
@@ -174,8 +175,11 @@
                 case "NewUserView":
                     await App.Navigator.PushAsync(new NewUserView());
                     break;
-            }
 
+                case "LoginFacebookView":
+                    await App.Navigator.PushAsync(new LoginFacebookView());
+                    break;
+            }
         }
 
         public async Task BackOnMaster()

@@ -115,7 +115,7 @@
                 <Button
                     BackgroundColor="#4267B2"
                     BorderRadius="23"
-                    Command="{Binding LoginWithFacebookCommand}"
+                    Command="{Binding LoginWithFacebookCommand1}"
                     FontAttributes="Bold"
                     HeightRequest="46"
                     IsEnabled="{Binding IsEnabled, Mode=TwoWay}"

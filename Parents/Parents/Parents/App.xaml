@@ -10,6 +10,9 @@
             <!--Locator-->
             <infra:InstanceLocator x:Key="Locator"/>
 
+            <!-- Parameters -->
+            <x:String x:Key="URLAPI">http://api.parents.outstandservices.pt</x:String>
+
             <!--  colors  -->
             <Color x:Key="HeaderTextColor">#585858</Color>
             <Color x:Key="BodyTextColor">#C3C3C3</Color>

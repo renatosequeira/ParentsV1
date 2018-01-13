@@ -1,8 +1,10 @@
 ﻿namespace Parents
 {
+    using Parents.Models;
     using Parents.Services;
     using Parents.Views;
     using Parents.Views.Sistema;
+    using System;
     using Xamarin.Forms;
 
 
@@ -40,10 +42,11 @@
                 BarTextColor = Color.FromHex("#FFFFFF")
             };
 
-            //MainPage = new MasterView();
-        } 
+           // MainPage = new LoginFacebookView();
+        }
         #endregion
 
+        #region Methods
         protected override void OnStart()
         {
             // Handle when your app starts
@@ -59,6 +62,20 @@
             // Handle when your app resumes
         }
 
-        
+        public static Action LoginFacebookFail
+        {
+            get
+            {
+                return new Action(() => Current.MainPage =
+                                  new NavigationPage(new LoginView()));
+            }
+        }
+
+        public static void LoginFacebookSuccess(FacebookResponse profile)
+        {
+            Current.MainPage = new MasterView();
+        } 
+        #endregion
+
     }
 }

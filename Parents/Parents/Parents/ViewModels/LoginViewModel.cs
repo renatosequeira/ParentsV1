@@ -11,6 +11,8 @@
     using Parents.ViewModels.Activities.Helpers.Peridiocity;
     using Parents.ViewModels.Activities.Helpers.ActivityType;
     using Parents.ViewModels.AppCore;
+    using Xamarin.Forms;
+    using Parents.Views;
 
     public class LoginViewModel : INotifyPropertyChanged
     {
@@ -139,6 +141,35 @@
         #endregion
 
         #region Commands
+        public ICommand LoginWithFacebookCommand1
+        {
+            get
+            {
+                return new RelayCommand(LoginWithFacebook1);
+            }
+        }
+
+        async void LoginWithFacebook1()
+        {
+            //await navigationService.NavigateOnLogin("LoginFacebookView");
+            await Application.Current.MainPage.Navigation.PushAsync(new LoginFacebookView());
+        }
+
+
+        public ICommand LoginWithFacebookCommand
+        {
+            get
+            {
+                return new RelayCommand(LoginWithFacebook);
+            }
+        }
+
+        async void LoginWithFacebook()
+        {
+            await navigationService.NavigateOnLogin("LoginFacebookView");
+        }
+
+
         public ICommand LoginCommand {
             get
             {
@@ -177,8 +208,10 @@
                 return;
             }
 
+            var urlAPI = Application.Current.Resources["URLAPI"].ToString();
+
             //se existir ligação à internet guarda token na variavel response
-            var response = await apiService.GetToken("http://api.parents.outstandservices.pt", Email, Password);
+            var response = await apiService.GetToken(urlAPI, Email, Password);
 
             //se a resposta (Token) for nulo ou estiver vazia, significa que o email ou a pass estão errados
             if (response == null)
