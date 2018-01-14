@@ -151,6 +151,22 @@
 
         async void LoginWithFacebook1()
         {
+            var urlAPI = Application.Current.Resources["URLAPI"].ToString();
+
+            //se existir ligação à internet guarda token na variavel response
+            var response = await apiService.GetToken(urlAPI, Email, Password);
+
+            var mainViewModel = MainViewModel.GetInstance();
+
+
+            mainViewModel.Token = response; //guarda Token no mainviewmodel
+            mainViewModel.Parents = new ParentsViewModel();
+            mainViewModel.Childrens = new ChildrensViewModel();
+            mainViewModel.Disciplines = new DisciplinesViewModel();
+            mainViewModel.ActivityFamily = new ActivityFamilyViewModel();
+            mainViewModel.ActivitiesInstitutionType = new ActivitiesInstitutionTypeViewModel();
+            mainViewModel.ActivityPeridiocity = new ActivityPeridiocityViewModel();
+            mainViewModel.ActivityType = new ActivityTypeViewModel();
             //await navigationService.NavigateOnLogin("LoginFacebookView");
             await Application.Current.MainPage.Navigation.PushAsync(new LoginFacebookView());
         }

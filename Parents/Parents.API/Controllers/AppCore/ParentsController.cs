@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -13,6 +14,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Parents.API.Models;
 using Parents.Domain;
+using Parents.Domain.Sistema;
 
 namespace Parents.API.Controllers.AppCore
 {
@@ -160,6 +162,66 @@ namespace Parents.API.Controllers.AppCore
             }
 
             return false;
+        }
+
+        [HttpPost]
+        [Route("api/Parents/LoginFacebook")]
+        public async Task<IHttpActionResult> LoginFacebook(FacebookResponse profile)
+        {
+            try
+            {
+                var parent = await db.Parents
+                    .Where(c => c.ParentEmail == profile.Id)
+                    .FirstOrDefaultAsync();
+                if (parent == null)
+                {
+                    parent = new Parent
+                    {
+                        Password = profile.Id,
+                        ParentEmail = profile.Id,
+                        ParentFirstName = profile.FirstName,
+                        ParentLastName = profile.LastName,
+                        UserType = 2,
+                        ParentIdentityCard = "3334499929",
+                        ParentMobile = "964012444"
+                    };
+
+                    db.Parents.Add(parent);
+                    CreateUserASP(profile.Id, profile.Id);
+                }
+                else
+                {
+                    parent.ParentFirstName = profile.FirstName;
+                    parent.ParentLastName = profile.LastName;
+                    parent.Password = profile.Id;
+                    db.Entry(parent).State = EntityState.Modified;
+                }
+
+                await db.SaveChangesAsync();
+
+                return Ok(true);
+            }
+            catch (DbEntityValidationException e)
+            {
+                var message = string.Empty;
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    message = string.Format("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        message += string.Format("\n- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+
+                return BadRequest(message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
     }
 }

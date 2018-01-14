@@ -2,6 +2,12 @@
 {
     using Parents.Models;
     using Parents.Services;
+    using Parents.ViewModels;
+    using Parents.ViewModels.Activities;
+    using Parents.ViewModels.Activities.Helpers.ActivitiesInstitutionType;
+    using Parents.ViewModels.Activities.Helpers.ActivityType;
+    using Parents.ViewModels.Activities.Helpers.Peridiocity;
+    using Parents.ViewModels.School;
     using Parents.Views;
     using Parents.Views.Sistema;
     using System;
@@ -71,10 +77,52 @@
             }
         }
 
-        public static void LoginFacebookSuccess(FacebookResponse profile)
+        public async static void LoginFacebookSuccess(FacebookResponse profile)
         {
+            if (profile == null)
+            {
+                Current.MainPage = new NavigationPage(new LoginView());
+                return;
+            }
+
+            var apiService = new ApiService();
+            var dialogService = new DialogService();
+
+            var checkConnetion = await apiService.CheckConnection();
+            if (!checkConnetion.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error", checkConnetion.Message);
+                return;
+            }
+
+            var urlAPI = Application.Current.Resources["URLAPI"].ToString();
+            var token = await apiService.LoginFacebook(
+                urlAPI,
+                "/api",
+                "/Parents/LoginFacebook",
+                profile);
+
+            if (token == null)
+            {
+                await dialogService.ShowMessage(
+                    "Error",
+                    "Problem ocurred retrieving user information, try latter.");
+                Current.MainPage = new NavigationPage(new LoginView());
+                return;
+            }
+
+            var mainViewModel = MainViewModel.GetInstance();
+            mainViewModel.Token = token;
+            mainViewModel.Parents = new ParentsViewModel();
+            mainViewModel.Childrens = new ChildrensViewModel();
+            mainViewModel.Disciplines = new DisciplinesViewModel();
+            mainViewModel.ActivityFamily = new ActivityFamilyViewModel();
+            mainViewModel.ActivitiesInstitutionType = new ActivitiesInstitutionTypeViewModel();
+            mainViewModel.ActivityPeridiocity = new ActivityPeridiocityViewModel();
+            mainViewModel.ActivityType = new ActivityTypeViewModel();
             Current.MainPage = new MasterView();
-        } 
+        }
+
         #endregion
 
     }

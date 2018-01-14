@@ -293,6 +293,7 @@
     <Compile Include="Models\ActivitiesManagement\Helpers\ActivityTypeResponse.cs" />
     <Compile Include="Models\AppCore\ChildrenResponse.cs" />
     <Compile Include="Models\AppCore\ParentResponse.cs" />
+    <Compile Include="Models\FacebookResponse.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\SchoolManagement\Helpers\DisciplineResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

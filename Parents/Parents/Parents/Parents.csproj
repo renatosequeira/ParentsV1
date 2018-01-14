@@ -81,7 +81,6 @@
     </Compile>
     <Compile Include="Services\ApiService.cs" />
     <Compile Include="Services\DialogService.cs" />
-    <Compile Include="Services\FacebookServices.cs" />
     <Compile Include="Services\GeolocatorService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="ViewModels\Activities\ActivitiesViewModel.cs" />
@@ -115,7 +114,6 @@
     <Compile Include="ViewModels\School\NewDisciplineViewModel.cs" />
     <Compile Include="ViewModels\Settings\ApplicationSettingsCoreViewModel.cs" />
     <Compile Include="ViewModels\School\EditDisciplineViewModel.cs" />
-    <Compile Include="ViewModels\Settings\FacebookViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsHomeViewModel.cs" />
     <Compile Include="Views\Activities\ActivitiesListView.xaml.cs">
       <DependentUpon>ActivitiesListView.xaml</DependentUpon>
@@ -293,9 +291,6 @@
     </Compile>
     <Compile Include="Views\Settings\SystemSettingsView.xaml.cs">
       <DependentUpon>SystemSettingsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Sistema\FacebookProfilePage.xaml.cs">
-      <DependentUpon>FacebookProfilePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Sistema\MasterView.xaml.cs">
       <DependentUpon>MasterView.xaml</DependentUpon>
@@ -818,12 +813,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\LoginFacebookView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\Sistema\FacebookProfilePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
