@@ -187,7 +187,7 @@ namespace Parents.API.Controllers.AppCore
                     };
 
                     db.Parents.Add(parent);
-                    CreateUserASP(profile.Id, profile.Id);
+                    CreateUserASP(profile.Email, profile.Id);
                 }
                 else
                 {
