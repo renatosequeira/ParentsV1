@@ -171,14 +171,14 @@ namespace Parents.API.Controllers.AppCore
             try
             {
                 var parent = await db.Parents
-                    .Where(c => c.ParentEmail == profile.Id)
+                    .Where(c => c.ParentEmail == profile.Email)
                     .FirstOrDefaultAsync();
                 if (parent == null)
                 {
                     parent = new Parent
                     {
                         Password = profile.Id,
-                        ParentEmail = profile.Id,
+                        ParentEmail = profile.Email,
                         ParentFirstName = profile.FirstName,
                         ParentLastName = profile.LastName,
                         UserType = 2,
