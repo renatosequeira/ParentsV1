@@ -183,7 +183,9 @@ namespace Parents.API.Controllers.AppCore
                         ParentLastName = profile.LastName,
                         UserType = 2,
                         ParentIdentityCard = "3334499929",
-                        ParentMobile = "964012444"
+                        ParentMobile = "964012444",
+                        ParentBirthDate= DateTime.Now,
+                        ParentAddress = "LX"
                     };
 
                     db.Parents.Add(parent);
@@ -194,6 +196,7 @@ namespace Parents.API.Controllers.AppCore
                     parent.ParentFirstName = profile.FirstName;
                     parent.ParentLastName = profile.LastName;
                     parent.Password = profile.Id;
+                    
                     db.Entry(parent).State = EntityState.Modified;
                 }
 

@@ -48,7 +48,8 @@
                 BarTextColor = Color.FromHex("#FFFFFF")
             };
 
-           // MainPage = new LoginFacebookView();
+            // MainPage = new LoginFacebookView();
+            
         }
         #endregion
 

@@ -25,7 +25,7 @@ namespace Parents.Droid.Renderers
 
             var auth = new OAuth2Authenticator(
                 clientId: "710469952485585",
-                scope: "",
+                scope: "email",
                 authorizeUrl: new Uri(
                     "https://www.facebook.com/v2.11/dialog/oauth"),
                 redirectUrl: new Uri(

@@ -1,5 +1,6 @@
 ﻿namespace Parents.Models
 {
+    using System;
     using System.Collections.Generic;
     using Newtonsoft.Json;
 
@@ -65,6 +66,9 @@
         [JsonProperty(PropertyName = "gender")]
         public string Gender { get; set; }
 
+        [JsonProperty(PropertyName = "email")]
+        public string Email { get; set; }
+
         [JsonProperty(PropertyName = "is_verified")]
         public bool IsVerified { get; set; }
 
@@ -82,6 +86,14 @@
 
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
+
+        public string IdCard { get; set; }
+
+        public string Phone { get; set; }
+
+        public DateTime Birth { get; set; }
+
+        public string Password { get; set; }
     }
 
 }

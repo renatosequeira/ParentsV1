@@ -663,6 +663,7 @@
                     request,
                     Encoding.UTF8,
                     "application/json");
+                
                 var client = new HttpClient();
                 client.BaseAddress = new Uri(urlBase);
                 var url = string.Format("{0}{1}", servicePrefix, controller);
@@ -673,7 +674,7 @@
                     return null;
                 }
 
-                var tokenResponse = await GetToken(urlBase, profile.Id, profile.Id);
+                var tokenResponse = await GetToken(urlBase, profile.Email, profile.Id);
                 return tokenResponse;
             }
             catch
