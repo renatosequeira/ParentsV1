@@ -153,13 +153,16 @@
                     break;
 
                 case "ActivitiesListView":
-                    await App.Navigator.PushAsync(new ActivitiesListView());
+                    await App.Navigator.PushAsync(new ActivitiesView());
                     break;
 
                 case "LocationsView":
                     await App.Navigator.PushAsync(new LocationsView());
                     break;
 
+                case "OpenActivitiesFullListWindow":
+                    await App.Navigator.PushAsync(new ActivitiesListView());
+                    break;
             }
 
         }

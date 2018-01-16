@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<customrenderers:SearchPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Parents.Views.Activities.HelpersPages.SearchPageView"
+             SearchPlaceHolderText="Type to Search"
+		     SearchCommand="{Binding SearchCommand}"
+             xmlns:customrenderers="clr-namespace:Parents.Renderers;assembly=Parents">
+
+    <StackLayout Spacing="20">
+        <Label Text="This is the search page" HorizontalOptions="Center" FontAttributes="Bold"/>
+        <Label Text="{Binding SearchResult}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+    </StackLayout>
+
+</customrenderers:SearchPage>

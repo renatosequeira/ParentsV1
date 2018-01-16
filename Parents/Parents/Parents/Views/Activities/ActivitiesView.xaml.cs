@@ -10,6 +10,10 @@
 		{
 			InitializeComponent ();
             BarBackgroundColor = Color.FromHex("#EE9D31");
+
+            //masterPage = new ActivitiesView();
+            //Master = masterPage;
+            //Detail = new NavigationPage(new SchoolActivitiesListView());
         }
 	}
 }

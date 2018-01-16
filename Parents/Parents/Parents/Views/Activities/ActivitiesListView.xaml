@@ -14,16 +14,26 @@
     </ContentPage.ToolbarItems>
 
     <ScrollView>
+
         <Grid 
-        ColumnSpacing="0" 
-        RowSpacing="0" 
-        Grid.Row="6">
+            ColumnSpacing="0" 
+            RowSpacing="0" 
+            Grid.Row="6">
 
             <StackLayout
                 BindingContext="{Binding Activities}"
                 Padding="5"
                 Spacing="8"
-                x:Name="contents">
+                x:Name="contents"
+                Orientation="Vertical">
+
+                <SearchBar
+                    Placeholder="Search..."
+                    Text="{Binding Filter, Mode=TwoWay}"
+                    SearchCommand="{Binding SearchCommand}"
+                    HeightRequest="30">
+                   
+                </SearchBar>
 
                 <ListView
                     IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
@@ -35,6 +45,7 @@
                     x:Name="ActivitiesList"
                     ItemTapped="ActivitiesList_ItemTapped">
                     <ListView.ItemTemplate>
+
 
                         <DataTemplate>
                             <ViewCell>

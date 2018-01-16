@@ -2,15 +2,16 @@
 using Parents.Services;
 using Parents.ViewModels;
 using Parents.ViewModels.Activities;
+using Parents.Views.Activities.HelpersPages;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace Parents.Views.Activities
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ActivitiesListView : ContentPage
 	{
         #region Services
@@ -22,6 +23,7 @@ namespace Parents.Views.Activities
         {
             InitializeComponent();
             navigationService = new NavigationService();
+
         }
         #endregion
 
@@ -166,5 +168,9 @@ namespace Parents.Views.Activities
             
         }
 
+        private void ToolbarItem_Clicked_1(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new SearchPageView());
+        }
     }
 }

@@ -41,9 +41,31 @@
         string _selectedFilterForAnniversaries;
         string _selectedFilrerForEvents;
         string _selectedFiltersForSchool;
+        string _filter;
         #endregion
 
         #region Properties
+        public String Filter
+        {
+            get
+            {
+
+                return _filter;
+
+            }
+            set
+            {
+                if (_filter != value)
+                {
+                    _filter = value;
+                    Search();
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(Filter)));
+                }
+            }
+        }
+
         public String ChildrenName
         {
             get
@@ -359,7 +381,8 @@
 
             activities = (List<Activity>)response.Result;
 
-            ActivitiesList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
+            //ActivitiesList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
+            Search();
 
             IsRefreshing = false;
         }
@@ -850,6 +873,46 @@
         #endregion
 
         #region Commands
+        public ICommand SearchViewCommand
+        {
+            get
+            {
+                return new RelayCommand(OpenSearchWindow);
+            }
+        }
+
+        async void OpenSearchWindow()
+        {
+            await navigationService.NavigateOnMaster("OpenActivitiesFullListWindow");
+        }
+
+        public ICommand SearchCommand
+        {
+            get
+            {
+                return new RelayCommand(Search);
+            }
+        }
+
+        void Search()
+        {
+            IsRefreshing = true;
+
+            if (string.IsNullOrEmpty(Filter))
+            {
+                ActivitiesList = new ObservableCollection<Activity>(
+                    activities.OrderBy(c => c.ActivityDescription));
+            }
+            else
+            {
+                ActivitiesList = new ObservableCollection<Activity>(activities
+                    .Where(c => c.ActivityDescription.ToLower().Contains(Filter.ToLower()))
+                    .OrderBy(c => c.ActivityDescription));
+            }
+
+            IsRefreshing = false;
+        }
+
         public ICommand RefreshCommand
         {
             get

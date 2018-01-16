@@ -68,6 +68,7 @@
     <Compile Include="Renderers\CustomButton.cs" />
     <Compile Include="Renderers\CustomEntry.cs" />
     <Compile Include="Renderers\HideableToolbarItem.cs" />
+    <Compile Include="Renderers\SearchPage.cs" />
     <Compile Include="Renderers\Toast.cs" />
     <Compile Include="Resources\AppResources.pt.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -86,6 +87,8 @@
     <Compile Include="ViewModels\Activities\ActivitiesViewModel.cs" />
     <Compile Include="ViewModels\Activities\EditActivityViewModel.cs" />
     <Compile Include="ViewModels\Activities\HelperPages\ActivityImageMaximizedHelperPageViewModel.cs" />
+    <Compile Include="ViewModels\Activities\HelperPages\BaseViewModel.cs" />
+    <Compile Include="ViewModels\Activities\HelperPages\SearchPageViewModel.cs" />
     <Compile Include="ViewModels\Activities\Helpers\ActivitiesInstitutionType\ActivitiesInstitutionTypeViewModel.cs" />
     <Compile Include="ViewModels\Activities\Helpers\ActivitiesInstitutionType\EditActivitiesInstitutionTypeViewModel.cs" />
     <Compile Include="ViewModels\Activities\Helpers\ActivitiesInstitutionType\NewActivityInstitutionTypeViewModel.cs" />
@@ -153,6 +156,9 @@
     </Compile>
     <Compile Include="Views\Activities\HelpersPages\PrivacyChangedHelperPopupPage.xaml.cs">
       <DependentUpon>PrivacyChangedHelperPopupPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Activities\HelpersPages\SearchPageView.xaml.cs">
+      <DependentUpon>SearchPageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Activities\Helpers\ActivitiesFamilyListView.xaml.cs">
       <DependentUpon>ActivitiesFamilyListView.xaml</DependentUpon>
@@ -813,6 +819,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\LoginFacebookView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Activities\HelpersPages\SearchPageView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

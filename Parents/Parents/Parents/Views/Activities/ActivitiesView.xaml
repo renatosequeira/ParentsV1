@@ -7,6 +7,8 @@
              Title="ACTIVITIES"
             xmlns:renderer="clr-namespace:Parents;assembly=Parents">
 
+
+
     <TabbedPage.Children>
         <local:ActivitiesListView Title="LIST" Icon="ic_format_list_bulleted_white"/>
         <local:AnniversariesListView Title="ANNIVERSARIES" Icon="ic_cake"/>

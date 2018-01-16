@@ -19,6 +19,9 @@
             BindingContext="{Binding Childrens}"
             Padding="5">
 
+            <SearchBar
+                x:Name="searchBar"/>
+
             <ListView
                 IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
                 HasUnevenRows="True"
