@@ -1,15 +1,15 @@
 ﻿namespace Parents
 {
-    using Parents.Models;
-    using Parents.Services;
-    using Parents.ViewModels;
-    using Parents.ViewModels.Activities;
-    using Parents.ViewModels.Activities.Helpers.ActivitiesInstitutionType;
-    using Parents.ViewModels.Activities.Helpers.ActivityType;
-    using Parents.ViewModels.Activities.Helpers.Peridiocity;
-    using Parents.ViewModels.School;
-    using Parents.Views;
-    using Parents.Views.Sistema;
+    using Models;
+    using Services;
+    using ViewModels;
+    using ViewModels.Activities;
+    using ViewModels.Activities.Helpers.ActivitiesInstitutionType;
+    using ViewModels.Activities.Helpers.ActivityType;
+    using ViewModels.Activities.Helpers.Peridiocity;
+    using ViewModels.School;
+    using Views;
+    using Views.Sistema;
     using System;
     using Xamarin.Forms;
 
@@ -20,7 +20,7 @@
         ApiService apiService;
         NavigationService navigationService;
         DialogService dialogService;
-
+        DataService dataService;
         #endregion
 
         #region Properties
@@ -40,16 +40,39 @@
             apiService = new ApiService();
             dialogService = new DialogService();
             navigationService = new NavigationService();
+            dataService = new DataService();
 
-            MainPage = new NavigationPage(new LoginView())
+            var token = dataService.First<TokenResponse>(false);
+
+            if (token != null &&
+                token.IsRemembered &&
+                token.Expires > DateTime.Now)
             {
-                //#5A392B
-                BarBackgroundColor = Color.FromHex("#2C3E50"),
-                BarTextColor = Color.FromHex("#FFFFFF")
-            };
+                var mainViewModel = MainViewModel.GetInstance();
+                mainViewModel.Token = token;
+                //mainViewModel.Parents = new ParentsViewModel();
+                mainViewModel.Childrens = new ChildrensViewModel();
+                //mainViewModel.Disciplines = new DisciplinesViewModel();
+                //mainViewModel.ActivityFamily = new ActivityFamilyViewModel();
+                //mainViewModel.ActivitiesInstitutionType = new ActivitiesInstitutionTypeViewModel();
+                //mainViewModel.ActivityPeridiocity = new ActivityPeridiocityViewModel();
+                //mainViewModel.ActivityType = new ActivityTypeViewModel();
 
-            // MainPage = new LoginFacebookView();
-            
+                navigationService.SetMainPage("MasterView");
+            }
+            else
+            {
+                navigationService.SetMainPage("LoginView");
+            }
+
+
+            //MainPage = new NavigationPage(new LoginView())
+            //{
+            //    //#5A392B
+            //    BarBackgroundColor = Color.FromHex("#2C3E50"),
+            //    BarTextColor = Color.FromHex("#FFFFFF")
+            //};
+
         }
         #endregion
 

@@ -2,6 +2,8 @@
 using Parents.Services;
 using Parents.ViewModels;
 using Parents.ViewModels.Activities.Helpers.ActivitiesInstitutionType;
+using SQLite;
+using SQLite.Net.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,7 @@ namespace Parents.Models.ActivitiesManagement.Helpers
     public class ActivityInstitutionType
     {
         #region Properties
+        [PrimaryKey]
         public int ActivityInstitutionTypeId { get; set; }
 
         public string ActivityInstitutionTypeDescription { get; set; }

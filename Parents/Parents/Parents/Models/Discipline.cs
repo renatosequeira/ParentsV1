@@ -3,6 +3,8 @@ using Parents.Services;
 using Parents.ViewModels;
 using Parents.ViewModels.School;
 using Parents.ViewModels.Settings;
+using SQLite;
+using SQLite.Net.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +17,7 @@ namespace Parents.Models
     public class Discipline
     {
         #region Properties
-
+        [PrimaryKey]
         public int DisciplineId { get; set; }
 
         public string DisciplineDescription { get; set; }

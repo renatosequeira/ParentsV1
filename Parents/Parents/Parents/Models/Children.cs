@@ -4,20 +4,19 @@
     using Parents.Services;
     using Parents.ViewModels;
     using Parents.ViewModels.Activities;
-    using Parents.ViewModels.Activities.HelperPages;
-    using Parents.ViewModels.Activities.Helpers.ActivityType;
     using Parents.ViewModels.Childrens;
-    using Parents.Views.Activities;
+    using SQLite;
+    using SQLite.Net.Attributes;
     using System;
     using System.Collections.Generic;
     using System.Windows.Input;
     using Xamarin.Forms;
-    using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
     public class Children
     {
         #region Properties
  
+        [PrimaryKey, AutoIncrement]
         public int ChildrenId { get; set; }
         public int ParentId { get; set; }
         public int BoodInformationId { get; set; }
@@ -39,7 +38,7 @@
         public string ChildrenImage { get; set; }
         public string ChildrenSex { get; set; }
 
-        public List<Activity> Activities { get; set; }
+        //public List<ActivityParents> Activities { get; set; }
 
         public string ChildrenImageFullPath
         {

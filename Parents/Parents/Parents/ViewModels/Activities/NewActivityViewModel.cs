@@ -1061,7 +1061,7 @@ namespace Parents.ViewModels.Activities
             string childIdCard = Application.Current.Properties["childrenIdentityCard"] as string;
             string childId = Application.Current.Properties["childrenId"] as string;
 
-            var activity = new Activity
+            var activity = new ActivityParents
             {
                 ActivityDescription = ActivityDescription,
                 ActivityDateStart = ActivityDateStart,
@@ -1099,7 +1099,7 @@ namespace Parents.ViewModels.Activities
                 return;
             }
 
-            activity = (Activity)response.Result;
+            activity = (ActivityParents)response.Result;
             var activityViewModel = ActivitiesViewModel.GetInstance();
             activityViewModel.Add(activity);
 
@@ -1607,7 +1607,7 @@ namespace Parents.ViewModels.Activities
                                 break;
                         }
 
-                        var activity = new Activity
+                        var activity = new ActivityParents
                         {
                             ActivityDescription = ActivityDescription,
                             ActivityDateStart = tempDateStart,
@@ -1646,7 +1646,7 @@ namespace Parents.ViewModels.Activities
                             return;
                         }
 
-                        activity = (Activity)response.Result;
+                        activity = (ActivityParents)response.Result;
                         var activityViewModel = ActivitiesViewModel.GetInstance();
                         activityViewModel.Add(activity);
 

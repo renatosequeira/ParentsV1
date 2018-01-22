@@ -24,6 +24,7 @@
         DialogService dialogService;
         ApiService apiService;
         NavigationService navigationService;
+        DataService dataService;
         #endregion
 
         #region Attributes
@@ -131,12 +132,13 @@
             dialogService = new DialogService();
             apiService = new ApiService();
             navigationService = new NavigationService();
+            dataService = new DataService();
 
             IsEnabled = true; //bool are disabled by default. This will enable buttons
             IsToggled = true;
 
-            Email = "rds.516@gmail.com";
-            Password = "123456";
+            //Email = "rds.516@gmail.com";
+            //Password = "123456";
         }
         #endregion
 
@@ -168,6 +170,7 @@
             mainViewModel.ActivityPeridiocity = new ActivityPeridiocityViewModel();
             mainViewModel.ActivityType = new ActivityTypeViewModel();
             //await navigationService.NavigateOnLogin("LoginFacebookView");
+           
             await Application.Current.MainPage.Navigation.PushAsync(new LoginFacebookView());
         }
 
@@ -235,8 +238,10 @@
                 IsRunning = false;
                 IsEnabled = true;
                 await dialogService.ShowMessage("Error", "The service is not available. Please try again later");
+                Password = null;
                 return;
             }
+
 
             if (String.IsNullOrEmpty(response.AccessToken))
             {
@@ -245,6 +250,14 @@
                 IsEnabled = true;
                 return;
             }
+
+            response.IsRemembered = IsToggled;
+
+            ////dataService.DeleteAllAndInsertChildrens(response);
+            ////dataService.DeleteAllAndInsertToken(response);
+            ////dataService.DeleteAllAndInsertAtivities(response);
+            dataService.DeleteAllAndInsert(response);
+
 
             //se nada acima se verificar, login tem sucesso
 
@@ -259,7 +272,7 @@
             mainViewModel.ActivitiesInstitutionType = new ActivitiesInstitutionTypeViewModel();
             mainViewModel.ActivityPeridiocity = new ActivityPeridiocityViewModel();
             mainViewModel.ActivityType = new ActivityTypeViewModel();
-
+           
             //mainViewModel.Activities = new ActivitiesViewModel();
             
             navigationService.SetMainPage("MasterView");

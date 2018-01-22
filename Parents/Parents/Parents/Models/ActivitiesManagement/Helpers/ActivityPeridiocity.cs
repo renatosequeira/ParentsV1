@@ -4,11 +4,14 @@
     using Parents.Services;
     using Parents.ViewModels;
     using Parents.ViewModels.Activities.Helpers.Peridiocity;
+    using SQLite;
+    using SQLite.Net.Attributes;
     using System.Windows.Input;
 
     public class ActivityPeridiocity
     {
         #region Properties
+        [PrimaryKey]
         public int ActivityPeriodicityId { get; set; }
         public string ActivityPeriodicityDescription { get; set; }
         public string userId { get; set; }

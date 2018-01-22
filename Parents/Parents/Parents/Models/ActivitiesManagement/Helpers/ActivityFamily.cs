@@ -3,6 +3,8 @@ using Parents.Services;
 using Parents.ViewModels;
 using Parents.ViewModels.Activities;
 using Parents.ViewModels.Activities.Helpers;
+using SQLite;
+using SQLite.Net.Attributes;
 using System.Windows.Input;
 
 namespace Parents.Models.ActivitiesManagement.Helpers
@@ -10,6 +12,7 @@ namespace Parents.Models.ActivitiesManagement.Helpers
     public class ActivityFamily
     {
         #region Properties
+        [PrimaryKey]
         public int ActivityFamilyId { get; set; }
 
         public string ActivityFamilyDescription { get; set; }

@@ -30,7 +30,7 @@ namespace Parents.ViewModels.Activities.HelperPages
 
         #region Attributes
         string _activityImage;
-        Activity activity;
+        ActivityParents activity;
         string _imageTitle;
         ImageSource _imageSource;
         MediaFile file;
@@ -151,7 +151,7 @@ namespace Parents.ViewModels.Activities.HelperPages
 
         #region Constructors
 
-        public ActivityImageMaximizedHelperPageViewModel(Activity _activity)
+        public ActivityImageMaximizedHelperPageViewModel(ActivityParents _activity)
         {
             this.activity = _activity;
             dialogService = new DialogService();

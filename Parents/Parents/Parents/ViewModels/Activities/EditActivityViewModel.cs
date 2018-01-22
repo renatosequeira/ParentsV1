@@ -31,7 +31,7 @@
         #endregion
 
         #region Attributes
-        Activity activity;
+        ActivityParents activity;
 
         string _activityDescription;
         string _activityRemarks;
@@ -844,7 +844,7 @@
         #endregion
 
         #region Constructors
-        public EditActivityViewModel(Activity _activity)
+        public EditActivityViewModel(ActivityParents _activity)
         {
             this.activity = _activity;
             dialogService = new DialogService();
@@ -852,8 +852,8 @@
             navigationService = new NavigationService();
 
             ActivityDescription = _activity.ActivityDescription;
-            ActivityDateStart = _activity.ActivityDateStart;
-            ActivityDateEnd = _activity.ActivityDateEnd;
+            ActivityDateStart = _activity.ActivityDateStart.Date;
+            ActivityDateEnd = _activity.ActivityDateEnd.Date;
             ChildrenActivityType = _activity.ChildrenActivityType;
             ActivityPriority = _activity.ActivityPriority;
             ActivityPrivacy = _activity.ActivityPrivacy;
@@ -1174,7 +1174,7 @@
             activity.ImageArray = imageArray;
             activity.ActivityPrivacy = ActivityPrivacy;
             activity.ActivityPriority = CheckNewActivityPriority(ActivityPriorityImage);
-            activity.ChildrenId = childId;
+            //activity.ChildrenId = childId;
             activity.ActivityTimeStart = ActivityTimeStart;
             activity.ActivityTimeEnd = ActivityTimeEnd;
             activity.ActivityRepeat = ActivityRepeat;

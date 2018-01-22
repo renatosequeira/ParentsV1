@@ -2,6 +2,8 @@
 using Parents.Services;
 using Parents.ViewModels;
 using Parents.ViewModels.Activities.Helpers.ActivityType;
+using SQLite;
+using SQLite.Net.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,7 @@ namespace Parents.Models.ActivitiesManagement.Helpers
 {
     public class ActivityType
     {
+        [PrimaryKey]
         public int ActivityTypeId { get; set; }
 
         public string ActivityTypeDescription { get; set; }

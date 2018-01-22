@@ -20,6 +20,7 @@
         #region Services
         ApiService apiService;
         DialogService dialogService;
+        DataService dataService;
         #endregion
 
         #region Attributes
@@ -73,6 +74,7 @@
 
             apiService = new ApiService();
             dialogService = new DialogService();
+            dataService = new DataService();
 
             LoadChildrens();
         }
@@ -160,35 +162,95 @@
         async void LoadChildrens()
         {
             IsRefreshing = true;
+
             var connection = await apiService.CheckConnection();
+
             if (!connection.IsSuccess)
             {
-                await dialogService.ShowMessage("Error", connection.Message);
-                return;
+                childrens = dataService.Get<Children>(false);
+                //childrens = dataService.GetChildren();
+
+                if (childrens.Count == 0)
+                {
+                    await dialogService.ShowMessage(
+                        "Error",
+                        "No childrens available offline.");
+                    return;
+                }               
             }
-
-            var mainViewModel = MainViewModel.GetInstance();
-
-            var response = await apiService.GetList<Children>(
-               "http://api.parents.outstandservices.pt",
-                "/api",
-                "/Childrens",
-                mainViewModel.Token.TokenType,
-                mainViewModel.Token.AccessToken);
-
-            if (!response.IsSuccess)
+            else
             {
-                await dialogService.ShowMessage("Error", connection.Message);
-                return;
-            }
+                var mainViewModel = MainViewModel.GetInstance();
 
-            childrens = (List<Children>)response.Result;
+                var urlAPI = Application.Current.Resources["URLAPI"].ToString();
+
+                var response = await apiService.GetList<Children>(
+                    urlAPI,
+                    "/api",
+                    "/Childrens",
+                    mainViewModel.Token.TokenType,
+                    mainViewModel.Token.AccessToken);
+
+                if (!response.IsSuccess)
+                {
+                    await dialogService.ShowMessage(
+                        "Error",
+                        response.Message);
+                    return;
+                }
+
+                childrens = (List<Children>)response.Result;
+                
+                SaveChildrenOnDB();
+            }
 
             ChildrensList = new ObservableCollection<Children>(childrens.OrderBy(c => c.ChildrenFirstName));
-
+            //Search();
             IsRefreshing = false;
         }
 
+        void SaveChildrenOnDB()
+        {
+            dataService.DeleteAll<Children>();
+            foreach (var children in childrens)
+            {
+                dataService.Insert(children);
+                dataService.Save(childrens);
+            }
+        }
+
+        //async void LoadChildrens()
+        //{
+        //    IsRefreshing = true;
+        //    var connection = await apiService.CheckConnection();
+
+        //    if (!connection.IsSuccess)
+        //    {
+        //        await dialogService.ShowMessage("Error", connection.Message);
+        //        return;
+        //    }
+
+        //    var mainViewModel = MainViewModel.GetInstance();
+
+        //    var response = await apiService.GetList<Children>(
+        //       "http://api.parents.outstandservices.pt",
+        //        "/api",
+        //        "/Childrens",
+        //        mainViewModel.Token.TokenType,
+        //        mainViewModel.Token.AccessToken);
+
+        //    if (!response.IsSuccess)
+        //    {
+        //        await dialogService.ShowMessage("Error", connection.Message);
+        //        return;
+        //    }
+
+        //    childrens = (List<Children>)response.Result;
+
+        //    ChildrensList = new ObservableCollection<Children>(childrens.OrderBy(c => c.ChildrenFirstName));
+
+        //    IsRefreshing = false;
+        //}
 
         #endregion
 

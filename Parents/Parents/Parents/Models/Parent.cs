@@ -1,9 +1,12 @@
 ﻿namespace Parents.Models
 {
+    using SQLite;
+    using SQLite.Net.Attributes;
     using System;
 
     public class Parent
     {
+        [PrimaryKey]
         public int ParentId { get; set; }
         public string ParentFirstName { get; set; }
         public string ParentMiddleName { get; set; }

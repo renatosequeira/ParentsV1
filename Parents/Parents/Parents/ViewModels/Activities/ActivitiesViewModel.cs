@@ -24,14 +24,15 @@
         ApiService apiService;
         DialogService dialogService;
         NavigationService navigationService;
+        DataService dataService;
         #endregion
 
         #region Attributes
-        ObservableCollection<Activity> _activities;
-        ObservableCollection<Activity> _anniversaries;
-        ObservableCollection<Activity> _events;
-        ObservableCollection<Activity> _school;
-        List<Activity> activities;
+        ObservableCollection<ActivityParents> _activities;
+        ObservableCollection<ActivityParents> _anniversaries;
+        ObservableCollection<ActivityParents> _events;
+        ObservableCollection<ActivityParents> _school;
+        List<ActivityParents> activities;
 
         bool _isRefreshing;
         string childrenIdentityCard;
@@ -170,7 +171,7 @@
             }
         }
 
-        public ObservableCollection<Activity> ActivitiesList
+        public ObservableCollection<ActivityParents> ActivitiesList
         {
             get
             {
@@ -190,7 +191,7 @@
             }
         }
 
-        public ObservableCollection<Activity> AnniversariesList
+        public ObservableCollection<ActivityParents> AnniversariesList
         {
             get
             {
@@ -210,7 +211,7 @@
             }
         }
 
-        public ObservableCollection<Activity> EventsList
+        public ObservableCollection<ActivityParents> EventsList
         {
             get
             {
@@ -230,7 +231,7 @@
             }
         }
 
-        public ObservableCollection<Activity> SchoolList
+        public ObservableCollection<ActivityParents> SchoolList
         {
             get
             {
@@ -250,21 +251,21 @@
             }
         }
 
-        public ObservableCollection<Activity> FilterOpenedActivities
+        public ObservableCollection<ActivityParents> FilterOpenedActivities
         {
             get
             {
-                ObservableCollection<Activity> openedActivities = new ObservableCollection<Activity>();
+                ObservableCollection<ActivityParents> openedActivities = new ObservableCollection<ActivityParents>();
 
                 if (_activities != null)
 
                 {
-                    List<Activity> entities = (from e in _activities
+                    List<ActivityParents> entities = (from e in _activities
                                                where e.Status.Equals(0)
-                                               select e).ToList<Activity>();
+                                               select e).ToList<ActivityParents>();
                     if (entities != null && entities.Any())
                     {
-                        openedActivities = new ObservableCollection<Activity>(entities);
+                        openedActivities = new ObservableCollection<ActivityParents>(entities);
                     }
                 }
 
@@ -319,6 +320,7 @@
             apiService = new ApiService();
             dialogService = new DialogService();
             navigationService = new NavigationService();
+            dataService = new DataService();
 
             if (Application.Current.Properties.ContainsKey("childrenIdentityCard"))
             {
@@ -336,18 +338,18 @@
             OpenFilteredActivitiesList(SelectedFilter);
             OpenFilteredAnniversariesList(SelectedFilterForAnniversaries);
             OpenFilteredEventsList(SelectedFilterForEvents);
-            OpenFilteredSchoolList(SelectedFilterForSchool); 
+            OpenFilteredSchoolList(SelectedFilterForSchool);
             #endregion
         }
 
         #endregion
 
         #region Methods
-        public void Add(Activity activity)
+        public void Add(ActivityParents activity)
         {
             IsRefreshing = true;
             activities.Add(activity);
-            ActivitiesList = new ObservableCollection<Activity>(
+            ActivitiesList = new ObservableCollection<ActivityParents>(
                 activities.OrderBy(c => c.ActivityDateStart));
             IsRefreshing = false;
         }
@@ -359,32 +361,44 @@
             var connection = await apiService.CheckConnection();
             if (!connection.IsSuccess)
             {
-                await dialogService.ShowMessage("Error", connection.Message);
-                return;
+                activities = dataService.Get<ActivityParents>(false);
+
+                if (activities.Count == 0)
+                {
+                    await dialogService.ShowMessage("Error", "No offline data is available");
+                    return;
+                }
             }
-
-            var mainViewModel = MainViewModel.GetInstance();
-
-            var response = await apiService.GetList<Activity>(
-               "http://api.parents.outstandservices.pt",
-                "/api",
-                "/Activities",
-                mainViewModel.Token.TokenType,
-                mainViewModel.Token.AccessToken);
-
-
-            if (!response.IsSuccess)
+            else
             {
-                await dialogService.ShowMessage("Error", connection.Message);
-                return;
+                var mainViewModel = MainViewModel.GetInstance();
+
+                var response = await apiService.GetList<ActivityParents>(
+                   "http://api.parents.outstandservices.pt",
+                    "/api",
+                    "/Activities",
+                    mainViewModel.Token.TokenType,
+                    mainViewModel.Token.AccessToken);
+
+
+                if (!response.IsSuccess)
+                {
+                    await dialogService.ShowMessage("Error", connection.Message);
+                    return;
+                }
+
+                activities = (List<ActivityParents>)response.Result;
+                SaveActivitiesOnDB();
             }
-
-            activities = (List<Activity>)response.Result;
-
-            //ActivitiesList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
+            
             Search();
-
             IsRefreshing = false;
+        }
+
+        void SaveActivitiesOnDB()
+        {
+            dataService.DeleteAll<ActivityParents>();
+            dataService.Save(activities);
         }
 
         async void LoadActivitiesForSpecificChildren()
@@ -400,7 +414,7 @@
 
             var mainViewModel = MainViewModel.GetInstance();
 
-            var response = await apiService.GetListForSpecificChildren<Activity>(
+            var response = await apiService.GetListForSpecificChildren<ActivityParents>(
                "http://api.parents.outstandservices.pt",
                 "/api",
                 "/ActivitiesForCurrentChildren",
@@ -414,9 +428,9 @@
                 return;
             }
 
-            activities = (List<Activity>)response.Result;
+            activities = (List<ActivityParents>)response.Result;
 
-            ActivitiesList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
+            ActivitiesList = new ObservableCollection<ActivityParents>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
 
             IsRefreshing = false;
         }
@@ -434,7 +448,7 @@
 
             var mainViewModel = MainViewModel.GetInstance();
 
-            var response = await apiService.GetOnGoingActivitiesListForSpecificChildren<Activity>(
+            var response = await apiService.GetOnGoingActivitiesListForSpecificChildren<ActivityParents>(
                "http://api.parents.outstandservices.pt",
                 "/api",
                 "/ActivitiesForCurrentChildren",
@@ -448,9 +462,9 @@
                 return;
             }
 
-            activities = (List<Activity>)response.Result;
+            activities = (List<ActivityParents>)response.Result;
 
-            ActivitiesList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
+            ActivitiesList = new ObservableCollection<ActivityParents>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
 
             IsRefreshing = false;
         }
@@ -468,7 +482,7 @@
 
             var mainViewModel = MainViewModel.GetInstance();
 
-            var response = await apiService.GetOnGoingActivitiesListForSpecificChildren<Activity>(
+            var response = await apiService.GetOnGoingActivitiesListForSpecificChildren<ActivityParents>(
                "http://api.parents.outstandservices.pt",
                 "/api",
                 "/ActivitiesForCurrentChildren",
@@ -482,9 +496,9 @@
                 return;
             }
 
-            activities = (List<Activity>)response.Result;
+            activities = (List<ActivityParents>)response.Result;
 
-            ActivitiesList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
+            ActivitiesList = new ObservableCollection<ActivityParents>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
 
             IsRefreshing = false;
         }
@@ -503,7 +517,7 @@
 
             var mainViewModel = MainViewModel.GetInstance();
 
-            var response = await apiService.GetActivityTypesListForSpecificChildren<Activity>(
+            var response = await apiService.GetActivityTypesListForSpecificChildren<ActivityParents>(
                "http://api.parents.outstandservices.pt",
                 "/api",
                 "/ActivitiesForCurrentChildren",
@@ -517,9 +531,9 @@
                 return;
             }
 
-            activities = (List<Activity>)response.Result;
+            activities = (List<ActivityParents>)response.Result;
 
-            AnniversariesList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
+            AnniversariesList = new ObservableCollection<ActivityParents>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
 
             IsRefreshing = false;
         }
@@ -537,7 +551,7 @@
 
             var mainViewModel = MainViewModel.GetInstance();
 
-            var response = await apiService.GetActivityTypesListForSpecificChildren<Activity>(
+            var response = await apiService.GetActivityTypesListForSpecificChildren<ActivityParents>(
                "http://api.parents.outstandservices.pt",
                 "/api",
                 "/ActivitiesForCurrentChildren",
@@ -551,9 +565,9 @@
                 return;
             }
 
-            activities = (List<Activity>)response.Result;
+            activities = (List<ActivityParents>)response.Result;
 
-            AnniversariesList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
+            AnniversariesList = new ObservableCollection<ActivityParents>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
 
             IsRefreshing = false;
         }
@@ -573,7 +587,7 @@
 
             var mainViewModel = MainViewModel.GetInstance();
 
-            var response = await apiService.GetActivityTypesListForSpecificChildren<Activity>(
+            var response = await apiService.GetActivityTypesListForSpecificChildren<ActivityParents>(
                "http://api.parents.outstandservices.pt",
                 "/api",
                 "/ActivitiesForCurrentChildren",
@@ -587,9 +601,9 @@
                 return;
             }
 
-            activities = (List<Activity>)response.Result;
+            activities = (List<ActivityParents>)response.Result;
 
-            EventsList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
+            EventsList = new ObservableCollection<ActivityParents>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
 
             IsRefreshing = false;
         }
@@ -607,7 +621,7 @@
 
             var mainViewModel = MainViewModel.GetInstance();
 
-            var response = await apiService.GetActivityTypesListForSpecificChildren<Activity>(
+            var response = await apiService.GetActivityTypesListForSpecificChildren<ActivityParents>(
                "http://api.parents.outstandservices.pt",
                 "/api",
                 "/ActivitiesForCurrentChildren",
@@ -621,9 +635,9 @@
                 return;
             }
 
-            activities = (List<Activity>)response.Result;
+            activities = (List<ActivityParents>)response.Result;
 
-            EventsList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
+            EventsList = new ObservableCollection<ActivityParents>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
 
             IsRefreshing = false;
         }
@@ -643,7 +657,7 @@
 
             var mainViewModel = MainViewModel.GetInstance();
 
-            var response = await apiService.GetActivityTypesListForSpecificChildren<Activity>(
+            var response = await apiService.GetActivityTypesListForSpecificChildren<ActivityParents>(
                "http://api.parents.outstandservices.pt",
                 "/api",
                 "/ActivitiesForCurrentChildren",
@@ -657,9 +671,9 @@
                 return;
             }
 
-            activities = (List<Activity>)response.Result;
+            activities = (List<ActivityParents>)response.Result;
 
-            SchoolList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
+            SchoolList = new ObservableCollection<ActivityParents>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
 
             IsRefreshing = false;
         }
@@ -677,7 +691,7 @@
 
             var mainViewModel = MainViewModel.GetInstance();
 
-            var response = await apiService.GetActivityTypesListForSpecificChildren<Activity>(
+            var response = await apiService.GetActivityTypesListForSpecificChildren<ActivityParents>(
                "http://api.parents.outstandservices.pt",
                 "/api",
                 "/ActivitiesForCurrentChildren",
@@ -691,26 +705,26 @@
                 return;
             }
 
-            activities = (List<Activity>)response.Result;
+            activities = (List<ActivityParents>)response.Result;
 
-            SchoolList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
+            SchoolList = new ObservableCollection<ActivityParents>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
 
             IsRefreshing = false;
         }
         #endregion
 
-        public void UpdateActivity(Activity activity)
+        public void UpdateActivity(ActivityParents activity)
         {
             IsRefreshing = true;
             var oldActivity = activities.Where(c => c.ActivityId == activity.ActivityId).FirstOrDefault();
             oldActivity = activity;
 
-            ActivitiesList = new ObservableCollection<Activity>(
+            ActivitiesList = new ObservableCollection<ActivityParents>(
                 activities.OrderBy(c => c.ActivityDateStart));
             IsRefreshing = false;
         }
 
-        public async Task DeleteActivity(Activity activity)
+        public async Task DeleteActivity(ActivityParents activity)
         {
             IsRefreshing = true;
 
@@ -747,7 +761,7 @@
 
             activities.Remove(activity);
 
-            ActivitiesList = new ObservableCollection<Activity>(
+            ActivitiesList = new ObservableCollection<ActivityParents>(
                 activities.OrderBy(c => c.ActivityDateStart));
             IsRefreshing = false;
         }
@@ -900,12 +914,12 @@
 
             if (string.IsNullOrEmpty(Filter))
             {
-                ActivitiesList = new ObservableCollection<Activity>(
+                ActivitiesList = new ObservableCollection<ActivityParents>(
                     activities.OrderBy(c => c.ActivityDescription));
             }
             else
             {
-                ActivitiesList = new ObservableCollection<Activity>(activities
+                ActivitiesList = new ObservableCollection<ActivityParents>(activities
                     .Where(c => c.ActivityDescription.ToLower().Contains(Filter.ToLower()))
                     .OrderBy(c => c.ActivityDescription));
             }

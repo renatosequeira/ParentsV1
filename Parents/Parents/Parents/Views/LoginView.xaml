@@ -8,59 +8,55 @@
     <ContentPage.Content>
         <StackLayout
             BindingContext="{Binding Login}"
-            Spacing="10">
+            Spacing="10"
+            Orientation="Vertical">
 
             <Image
-                Margin="40"
+                Margin="0,10,0,10"
                 Source="logo"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
-                WidthRequest="150"/>
+                WidthRequest="100"/>
 
-            <Grid
-                Margin="0,0,30,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="2*"/>
-                </Grid.ColumnDefinitions>
-                
+            <StackLayout
+                    Orientation="Horizontal"
+                    HorizontalOptions="FillAndExpand"
+                Margin="15,0,15,0">
+                        <Image
+                            Source="ic_username"
+                            VerticalOptions="Center"
+                            WidthRequest="30"
+                            HorizontalOptions="Start">
+                        </Image>
+
+                        <Entry
+                            Keyboard="Email"
+                            Placeholder="enter email..."
+                            Text="{Binding Email, Mode=TwoWay}"
+                            TextColor="DarkGray"
+                            HorizontalOptions="FillAndExpand">
+                        </Entry>
+                </StackLayout>
+
+            <StackLayout
+                Orientation="Horizontal"
+                HorizontalOptions="FillAndExpand"
+                Margin="15,0,15,0">
                 <Image
-                    Grid.Column="0"
-                    Grid.Row="0"
-                    Source="ic_username"
-                    VerticalOptions="Center"
-                    WidthRequest="40">
-                    
-                </Image>
-
-                <Entry
-                    Grid.Column="1"
-                    Grid.Row="0"
-                    Keyboard="Email"
-                    Placeholder="enter email..."
-                    Text="{Binding Email, Mode=TwoWay}"
-                    TextColor="DarkGray">
-                </Entry>
-
-                <Image
-                    Grid.Column="0"
-                    Grid.Row="1"
                     Source="ic_password"
                     VerticalOptions="Center"
-                    WidthRequest="40">
-
+                    WidthRequest="30"
+                    HorizontalOptions="Start">
                 </Image>
-                
+
                 <Entry
-                    Grid.Column="1"
-                    Grid.Row="1"
                     IsPassword="True"
                     Placeholder="enter password..."
                     Text="{Binding Password, Mode=TwoWay}"
-                    TextColor="DarkGray">
+                    TextColor="DarkGray"
+                    HorizontalOptions="FillAndExpand">
                 </Entry>
-
-            </Grid>
+            </StackLayout>
 
             <StackLayout
                 Orientation="Horizontal"
@@ -70,9 +66,7 @@
                     VerticalOptions="Center">
                 </Label>
                 <Switch
-                    IsToggled="{Binding IsToggled, Mode=TwoWay}">
-                    
-                </Switch>
+                    IsToggled="{Binding IsToggled, Mode=TwoWay}"/>
             </StackLayout>
 
             <Label
@@ -85,7 +79,8 @@
             </Label>
 
             <ActivityIndicator
-                IsRunning="{Binding IsRunning, Mode=TwoWay}">
+                IsRunning="{Binding IsRunning, Mode=TwoWay}"
+                IsVisible="{Binding IsRunning, Mode=TwoWay}">
             </ActivityIndicator>
 
             <StackLayout

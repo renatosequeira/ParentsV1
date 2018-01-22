@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SQLite;
+using SQLite.Net.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +10,7 @@ namespace Parents.Models.Sistema
 {
     public class Location
     {
+        [PrimaryKey]
         public int LocationId { get; set; }
 
         public string Description { get; set; }

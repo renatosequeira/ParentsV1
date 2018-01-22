@@ -1,16 +1,16 @@
-﻿using System;
-using Parents.ViewModels.Activities;
-using System.Globalization;
-using System.Windows.Input;
-using GalaSoft.MvvmLight.Command;
-using Parents.Services;
-using Parents.ViewModels;
-using Parents.Resources;
-using Parents.ViewModels.Activities.HelperPages;
-
-namespace Parents.Models
+﻿namespace Parents.Models
 {
-    public class Activity
+    using GalaSoft.MvvmLight.Command;
+    using Services;
+    using ViewModels;
+    using ViewModels.Activities;
+    using SQLite.Net.Attributes;
+    using System;
+    using System.Windows.Input;
+    using System.Globalization;
+    using ViewModels.Activities.HelperPages;
+
+    public class ActivityParents
     {
         #region Services
         NavigationService navigationService;
@@ -18,7 +18,9 @@ namespace Parents.Models
         #endregion
 
         #region Properties
+        [PrimaryKey, AutoIncrement]
         public int ActivityId { get; set; }
+
         public int ChildrenId { get; set; }
         public string ActivityDescription { get; set; }
         public DateTime ActivityDateStart { get; set; }
@@ -211,7 +213,7 @@ namespace Parents.Models
         #endregion
 
         #region Constructors
-        public Activity()
+        public ActivityParents()
         {
             navigationService = new NavigationService();
             dialogService = new DialogService();
