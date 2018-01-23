@@ -32,7 +32,6 @@
             connection.Insert(model);
         }
 
-
         public void Update<T>(T model)
         {
             connection.Update(model);
@@ -73,6 +72,11 @@
         public List<Children> GetListChildren()
         {
             return connection.Table<Children>().ToList();
+        }
+
+        public List<ActivityParents> GetListOfActivities()
+        {
+            return connection.Table<ActivityParents>().ToList();
         }
 
         public T Find<T>(int pk, bool WithChildren) where T : class

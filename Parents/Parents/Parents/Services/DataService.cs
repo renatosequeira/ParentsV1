@@ -124,6 +124,14 @@
             }
         }
 
+        public List<ActivityParents> GetActivities()
+        {
+            using (var da = new DataAccess())
+            {
+                return da.GetListOfActivities().ToList();
+            }
+        }
+
         public void Update<T>(T model)
         {
             using (var da = new DataAccess())

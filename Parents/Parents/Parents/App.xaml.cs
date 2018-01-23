@@ -57,6 +57,7 @@
                 //mainViewModel.ActivitiesInstitutionType = new ActivitiesInstitutionTypeViewModel();
                 //mainViewModel.ActivityPeridiocity = new ActivityPeridiocityViewModel();
                 //mainViewModel.ActivityType = new ActivityTypeViewModel();
+                //mainViewModel.Activities = new ActivitiesViewModel();
 
                 navigationService.SetMainPage("MasterView");
             }
@@ -147,6 +148,11 @@
             Current.MainPage = new MasterView();
         }
 
+        public void ResetAllKeys()
+        {
+            Application.Current.Properties["childrenId"] = null;
+            GC.Collect();
+        }
         #endregion
 
     }

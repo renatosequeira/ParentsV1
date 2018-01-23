@@ -399,6 +399,13 @@
         {
             dataService.DeleteAll<ActivityParents>();
             dataService.Save(activities);
+            //foreach (var activity in activities)
+            //{
+            //    if (!activity.Status)
+            //    {
+            //        dataService.Save(activities);
+            //    }
+            //}
         }
 
         async void LoadActivitiesForSpecificChildren()
@@ -408,9 +415,15 @@
             var connection = await apiService.CheckConnection();
             if (!connection.IsSuccess)
             {
-                await dialogService.ShowMessage("Error", connection.Message);
-                return;
+                activities = dataService.Get<ActivityParents>(false);
+
+                if(activities.Count == 0)
+                {
+                    await dialogService.ShowMessage("Error", "No offline Activities");
+                }
             }
+            else
+            {
 
             var mainViewModel = MainViewModel.GetInstance();
 
@@ -429,40 +442,52 @@
             }
 
             activities = (List<ActivityParents>)response.Result;
+               // SaveActivitiesOnDB();
+
+            }
 
             ActivitiesList = new ObservableCollection<ActivityParents>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
 
             IsRefreshing = false;
         }
 
+        #region COMPLETED ACTIVITIES FOR SPECIFIC CHILDREN
         async void LoadOnGoingActivitiesForSpecificChildren()
         {
             IsRefreshing = true;
 
             var connection = await apiService.CheckConnection();
+
             if (!connection.IsSuccess)
             {
-                await dialogService.ShowMessage("Error", connection.Message);
-                return;
+                activities = dataService.Get<ActivityParents>(false);
+                if (activities.Count == 0)
+                {
+                    await dialogService.ShowMessage("Error", "No activities available offline");
+                    return;
+                }
             }
-
-            var mainViewModel = MainViewModel.GetInstance();
-
-            var response = await apiService.GetOnGoingActivitiesListForSpecificChildren<ActivityParents>(
-               "http://api.parents.outstandservices.pt",
-                "/api",
-                "/ActivitiesForCurrentChildren",
-                mainViewModel.Token.TokenType,
-                mainViewModel.Token.AccessToken, childrenId, false);
-
-
-            if (!response.IsSuccess)
+            else
             {
-                await dialogService.ShowMessage("Error", connection.Message);
-                return;
-            }
+                var mainViewModel = MainViewModel.GetInstance();
 
-            activities = (List<ActivityParents>)response.Result;
+                var response = await apiService.GetOnGoingActivitiesListForSpecificChildren<ActivityParents>(
+                   "http://api.parents.outstandservices.pt",
+                    "/api",
+                    "/ActivitiesForCurrentChildren",
+                    mainViewModel.Token.TokenType,
+                    mainViewModel.Token.AccessToken, childrenId, false);
+
+
+                if (!response.IsSuccess)
+                {
+                    await dialogService.ShowMessage("Error", connection.Message);
+                    return;
+                }
+
+                activities = (List<ActivityParents>)response.Result;
+                SaveActivitiesOnDB();
+            }
 
             ActivitiesList = new ObservableCollection<ActivityParents>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
 
@@ -474,34 +499,45 @@
             IsRefreshing = true;
 
             var connection = await apiService.CheckConnection();
+
             if (!connection.IsSuccess)
             {
-                await dialogService.ShowMessage("Error", connection.Message);
-                return;
+                activities = dataService.Get<ActivityParents>(false);
+
+                if (activities.Count == 0)
+                {
+                    await dialogService.ShowMessage("Error", "No offline completed activities available.");
+                }
             }
-
-            var mainViewModel = MainViewModel.GetInstance();
-
-            var response = await apiService.GetOnGoingActivitiesListForSpecificChildren<ActivityParents>(
-               "http://api.parents.outstandservices.pt",
-                "/api",
-                "/ActivitiesForCurrentChildren",
-                mainViewModel.Token.TokenType,
-                mainViewModel.Token.AccessToken, childrenId, true);
-
-
-            if (!response.IsSuccess)
+            else
             {
-                await dialogService.ShowMessage("Error", connection.Message);
-                return;
-            }
 
-            activities = (List<ActivityParents>)response.Result;
+                var mainViewModel = MainViewModel.GetInstance();
+
+                var response = await apiService.GetOnGoingActivitiesListForSpecificChildren<ActivityParents>(
+                   "http://api.parents.outstandservices.pt",
+                    "/api",
+                    "/ActivitiesForCurrentChildren",
+                    mainViewModel.Token.TokenType,
+                    mainViewModel.Token.AccessToken, childrenId, true);
+
+
+                if (!response.IsSuccess)
+                {
+                    await dialogService.ShowMessage("Error", connection.Message);
+                    return;
+                }
+
+                activities = (List<ActivityParents>)response.Result;
+
+                //SaveActivitiesOnDB();
+            }
 
             ActivitiesList = new ObservableCollection<ActivityParents>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
 
             IsRefreshing = false;
-        }
+        } 
+        #endregion
 
         #region ANNIVERSARIES
         async void LoadOnGoingAnniversaries()
@@ -509,29 +545,39 @@
             IsRefreshing = true;
 
             var connection = await apiService.CheckConnection();
+            
             if (!connection.IsSuccess)
             {
-                await dialogService.ShowMessage("Error", connection.Message);
-                return;
+                
+                activities = dataService.Get<ActivityParents>(false);
+
+                if(activities.Count == 0)
+                {
+                    await dialogService.ShowMessage("Error", "No activities available offline");
+                    return;
+                }
             }
-
-            var mainViewModel = MainViewModel.GetInstance();
-
-            var response = await apiService.GetActivityTypesListForSpecificChildren<ActivityParents>(
-               "http://api.parents.outstandservices.pt",
-                "/api",
-                "/ActivitiesForCurrentChildren",
-                mainViewModel.Token.TokenType,
-                mainViewModel.Token.AccessToken, childrenId, false, "ANNIVERSARY");
-
-
-            if (!response.IsSuccess)
+            else
             {
-                await dialogService.ShowMessage("Error", connection.Message);
-                return;
-            }
 
-            activities = (List<ActivityParents>)response.Result;
+                var mainViewModel = MainViewModel.GetInstance();
+
+                var response = await apiService.GetActivityTypesListForSpecificChildren<ActivityParents>(
+                   "http://api.parents.outstandservices.pt",
+                    "/api",
+                    "/ActivitiesForCurrentChildren",
+                    mainViewModel.Token.TokenType,
+                    mainViewModel.Token.AccessToken, childrenId, false, "ANNIVERSARY");
+                
+                if (!response.IsSuccess)
+                {
+                    await dialogService.ShowMessage("Error", connection.Message);
+                    return;
+                }
+
+                activities = (List<ActivityParents>)response.Result;
+                //SaveActivitiesOnDB();
+            }
 
             AnniversariesList = new ObservableCollection<ActivityParents>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
 
@@ -545,10 +591,15 @@
             var connection = await apiService.CheckConnection();
             if (!connection.IsSuccess)
             {
-                await dialogService.ShowMessage("Error", connection.Message);
-                return;
-            }
+                activities = dataService.Get<ActivityParents>(false);
 
+                if(activities.Count== 0)
+                {
+                    await dialogService.ShowMessage("Error", "No offline anniversaries");
+                }
+            }
+            else
+            {
             var mainViewModel = MainViewModel.GetInstance();
 
             var response = await apiService.GetActivityTypesListForSpecificChildren<ActivityParents>(
@@ -567,6 +618,9 @@
 
             activities = (List<ActivityParents>)response.Result;
 
+               // SaveActivitiesOnDB();
+            }
+
             AnniversariesList = new ObservableCollection<ActivityParents>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
 
             IsRefreshing = false;
@@ -581,9 +635,15 @@
             var connection = await apiService.CheckConnection();
             if (!connection.IsSuccess)
             {
-                await dialogService.ShowMessage("Error", connection.Message);
-                return;
+                activities = dataService.Get<ActivityParents>(false);
+
+                if (activities.Count == 0)
+                {
+                    await dialogService.ShowMessage("Error", "No events available offline");
+                }
             }
+            else
+            {
 
             var mainViewModel = MainViewModel.GetInstance();
 
@@ -603,6 +663,9 @@
 
             activities = (List<ActivityParents>)response.Result;
 
+                //SaveActivitiesOnDB();
+            }
+
             EventsList = new ObservableCollection<ActivityParents>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
 
             IsRefreshing = false;
@@ -615,9 +678,15 @@
             var connection = await apiService.CheckConnection();
             if (!connection.IsSuccess)
             {
-                await dialogService.ShowMessage("Error", connection.Message);
-                return;
+                activities = dataService.Get<ActivityParents>(false);
+
+                if(activities.Count== 0)
+                {
+                    await dialogService.ShowMessage("Error","No completed events available offline");
+                }
             }
+            else
+            {
 
             var mainViewModel = MainViewModel.GetInstance();
 
@@ -636,6 +705,9 @@
             }
 
             activities = (List<ActivityParents>)response.Result;
+               // SaveActivitiesOnDB();
+
+            }
 
             EventsList = new ObservableCollection<ActivityParents>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
 
@@ -651,9 +723,17 @@
             var connection = await apiService.CheckConnection();
             if (!connection.IsSuccess)
             {
-                await dialogService.ShowMessage("Error", connection.Message);
-                return;
+                activities = dataService.Get<ActivityParents>(false);
+
+                if(activities.Count== 0)
+                {
+                    await dialogService.ShowMessage("Error", "No On-Going School Activities available offline");
+
+                }
             }
+            else
+            {
+
 
             var mainViewModel = MainViewModel.GetInstance();
 
@@ -673,6 +753,9 @@
 
             activities = (List<ActivityParents>)response.Result;
 
+                //SaveActivitiesOnDB();
+            }
+
             SchoolList = new ObservableCollection<ActivityParents>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
 
             IsRefreshing = false;
@@ -685,27 +768,36 @@
             var connection = await apiService.CheckConnection();
             if (!connection.IsSuccess)
             {
+                activities = dataService.Get<ActivityParents>(false);
+
+                if(activities.Count == 0)
+                {
+                    await dialogService.ShowMessage("Error", "No completed School Actvities available offline");
+                }
                 await dialogService.ShowMessage("Error", connection.Message);
                 return;
             }
-
-            var mainViewModel = MainViewModel.GetInstance();
-
-            var response = await apiService.GetActivityTypesListForSpecificChildren<ActivityParents>(
-               "http://api.parents.outstandservices.pt",
-                "/api",
-                "/ActivitiesForCurrentChildren",
-                mainViewModel.Token.TokenType,
-                mainViewModel.Token.AccessToken, childrenId, true, "SCHOOL");
-
-
-            if (!response.IsSuccess)
+            else
             {
-                await dialogService.ShowMessage("Error", connection.Message);
-                return;
-            }
+                var mainViewModel = MainViewModel.GetInstance();
 
-            activities = (List<ActivityParents>)response.Result;
+                var response = await apiService.GetActivityTypesListForSpecificChildren<ActivityParents>(
+                   "http://api.parents.outstandservices.pt",
+                    "/api",
+                    "/ActivitiesForCurrentChildren",
+                    mainViewModel.Token.TokenType,
+                    mainViewModel.Token.AccessToken, childrenId, true, "SCHOOL");
+
+
+                if (!response.IsSuccess)
+                {
+                    await dialogService.ShowMessage("Error", connection.Message);
+                    return;
+                }
+
+                activities = (List<ActivityParents>)response.Result;
+
+            }
 
             SchoolList = new ObservableCollection<ActivityParents>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentityCard));
 

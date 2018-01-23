@@ -16,7 +16,7 @@
     {
         #region Properties
  
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey]
         public int ChildrenId { get; set; }
         public int ParentId { get; set; }
         public int BoodInformationId { get; set; }

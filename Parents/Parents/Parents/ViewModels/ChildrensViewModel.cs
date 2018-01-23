@@ -214,7 +214,7 @@
             dataService.DeleteAll<Children>();
             foreach (var children in childrens)
             {
-                dataService.Insert(children);
+                //dataService.Insert(children);
                 dataService.Save(childrens);
             }
         }
