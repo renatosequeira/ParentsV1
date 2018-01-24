@@ -6,6 +6,7 @@
     using System.Linq;
     using Interfaces;
     using Models;
+    using Parents.Models.ActivitiesManagement.Helpers;
     using SQLite;
     using SQLite.Net;
     using Xamarin.Forms;
@@ -21,7 +22,8 @@
 
             connection = new SQLiteConnection(config.Platform, System.IO.Path.Combine(config.DirectoryDB, "Parents.db3"));
             connection.CreateTable<Children>();
-            
+            connection.CreateTable<ActivityType>();
+            //connection.CreateTable<ActivitiesPriority>();
             //connection.CreateTable<Parent>();
             connection.CreateTable<ActivityParents>();
             connection.CreateTable<TokenResponse>();
@@ -78,6 +80,11 @@
         {
             return connection.Table<ActivityParents>().ToList();
         }
+
+        //public List<ActivityType> GetListOfActivityTypes()
+        //{
+        //    return connection.Table<ActivityType>().ToList();
+        //}
 
         public T Find<T>(int pk, bool WithChildren) where T : class
         {

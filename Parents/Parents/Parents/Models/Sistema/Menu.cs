@@ -3,7 +3,7 @@ using Parents.Services;
 using System.Windows.Input;
 using Parents.ViewModels;
 using Parents.ViewModels.Locations;
-using System.Threading.Tasks;
+using Parents.ViewModels.Sistema;
 
 namespace Parents.Models.Sistema
 {
@@ -11,6 +11,7 @@ namespace Parents.Models.Sistema
     {
         #region Services
         NavigationService navigationService;
+        DataService dataService;
         #endregion
 
         #region Attrbuttes
@@ -23,6 +24,7 @@ namespace Parents.Models.Sistema
         public Menu()
         {
             navigationService = new NavigationService();
+            dataService = new DataService();
         }
         #endregion
 
@@ -40,19 +42,25 @@ namespace Parents.Models.Sistema
             {
                 case "LoginView":
                     MainViewModel.GetInstance().Login = new LoginViewModel();
-                    navigationService.SetMainPage("LoginView");
+                    navigationService.SetMainPage(PageName);
                     break;
 
                 case "LocationsView":
                     MainViewModel.GetInstance().Locations = new LocationsViewModel();
-                    await navigationService.NavigateOnMaster("LocationsView");
+                    await navigationService.NavigateOnMaster(PageName);
+                    break;
+                case "SyncView":
+                    MainViewModel.GetInstance().Sync = new SyncViewModel();
+                    await navigationService.NavigateOnMaster(PageName);
+                    break;
+                case "MyProfileView":
+                    MainViewModel.GetInstance().MyProfile = new MyProfileViewModel();
+                    await navigationService.NavigateOnMaster(PageName);
                     break;
                 default:
                     break;
             }
         }
-
-
         #endregion
     }
 }

@@ -32,6 +32,8 @@ namespace Parents.Models
         public string ErrorDescription { get; set; }
 
         public bool IsRemembered { get; set; }
+
+        public string Password { get; set; }
         #endregion
 
         #region Methods

@@ -163,6 +163,12 @@
                 case "OpenActivitiesFullListWindow":
                     await App.Navigator.PushAsync(new ActivitiesListView());
                     break;
+                case "SyncView":
+                    await App.Navigator.PushAsync(new SyncView());
+                    break;
+                case "MyProfileView":
+                    await App.Navigator.PushAsync(new MyProfileView());
+                    break;
             }
 
         }
@@ -181,6 +187,13 @@
 
                 case "LoginFacebookView":
                     await App.Navigator.PushAsync(new LoginFacebookView());
+                    break;
+
+                //case "PasswordRecoveryView":
+                //    await App.Navigator.PushAsync(new PasswordRecoveryView());
+                //    break;
+                case "PasswordRecoveryView":
+                    await Application.Current.MainPage.Navigation.PushAsync(new PasswordRecoveryView());
                     break;
             }
         }

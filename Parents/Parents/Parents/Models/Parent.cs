@@ -22,5 +22,7 @@
         //New additions
         public int UserType { get; set; }
         public string Password { get; set; }
+
+        public bool PendingToSave { get; set; }
     }
 }

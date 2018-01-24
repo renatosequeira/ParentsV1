@@ -13,6 +13,7 @@
     using Parents.ViewModels.AppCore;
     using Xamarin.Forms;
     using Parents.Views;
+    using Parents.ViewModels.Sistema;
 
     public class LoginViewModel : INotifyPropertyChanged
     {
@@ -252,7 +253,7 @@
             }
 
             response.IsRemembered = IsToggled;
-
+            response.Password = Password;
             ////dataService.DeleteAllAndInsertChildrens(response);
             ////dataService.DeleteAllAndInsertToken(response);
             ////dataService.DeleteAllAndInsertAtivities(response);
@@ -300,7 +301,20 @@
             await navigationService.NavigateOnLogin("NewParentView");
         }
 
+        public ICommand RecoverPasswordCommand
+        {
+            get
+            {
+                return new RelayCommand(RecoverPassword);
+            }
+        }
 
+        async void RecoverPassword()
+        {
+            MainViewModel.GetInstance().PasswordRecovery =
+                new PasswordRecoveryViewModel();
+            await navigationService.NavigateOnLogin("PasswordRecoveryView");
+        }
         #endregion
     }
 }

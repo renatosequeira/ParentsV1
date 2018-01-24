@@ -60,8 +60,10 @@
     <Compile Include="Models\Response.cs" />
     <Compile Include="Models\Settings\SettingsMenu.cs" />
     <Compile Include="Models\Settings\SystemMenu.cs" />
+    <Compile Include="Models\Sistema\ChangePasswordRequest.cs" />
     <Compile Include="Models\Sistema\Location.cs" />
     <Compile Include="Models\Sistema\Menu.cs" />
+    <Compile Include="Models\Sistema\UserRequest.cs" />
     <Compile Include="Models\TokenResponse.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -121,6 +123,9 @@
     <Compile Include="ViewModels\Settings\ApplicationSettingsCoreViewModel.cs" />
     <Compile Include="ViewModels\School\EditDisciplineViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsHomeViewModel.cs" />
+    <Compile Include="ViewModels\Sistema\MyProfileViewModel.cs" />
+    <Compile Include="ViewModels\Sistema\PasswordRecoveryViewModel.cs" />
+    <Compile Include="ViewModels\Sistema\SyncViewModel.cs" />
     <Compile Include="Views\Activities\ActivitiesListView.xaml.cs">
       <DependentUpon>ActivitiesListView.xaml</DependentUpon>
     </Compile>
@@ -306,6 +311,15 @@
     </Compile>
     <Compile Include="Views\Sistema\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Sistema\MyProfileView.xaml.cs">
+      <DependentUpon>MyProfileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Sistema\PasswordRecoveryView.xaml.cs">
+      <DependentUpon>PasswordRecoveryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Sistema\SyncView.xaml.cs">
+      <DependentUpon>SyncView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -834,6 +848,24 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Activities\HelpersPages\SearchPageView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Sistema\SyncView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Sistema\MyProfileView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Sistema\PasswordRecoveryView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

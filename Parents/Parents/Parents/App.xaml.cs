@@ -56,7 +56,7 @@
                 //mainViewModel.ActivityFamily = new ActivityFamilyViewModel();
                 //mainViewModel.ActivitiesInstitutionType = new ActivitiesInstitutionTypeViewModel();
                 //mainViewModel.ActivityPeridiocity = new ActivityPeridiocityViewModel();
-                //mainViewModel.ActivityType = new ActivityTypeViewModel();
+                mainViewModel.ActivityType = new ActivityTypeViewModel();
                 //mainViewModel.Activities = new ActivitiesViewModel();
 
                 navigationService.SetMainPage("MasterView");

@@ -11,6 +11,7 @@
     using Models.ActivitiesManagement.Helpers;
     using System.Windows.Input;
     using GalaSoft.MvvmLight.Command;
+    using Xamarin.Forms;
 
     public class ActivityTypeViewModel : INotifyPropertyChanged
     {
@@ -21,6 +22,7 @@
         #region Services
         ApiService apiService;
         DialogService dialogService;
+        DataService dataService;
         #endregion
 
         #region Attributes
@@ -74,6 +76,7 @@
 
             apiService = new ApiService();
             dialogService = new DialogService();
+            dataService = new DataService();
 
             LoadActivityTypes();
         }
@@ -96,30 +99,46 @@
             var connection = await apiService.CheckConnection();
             if (!connection.IsSuccess)
             {
-                await dialogService.ShowMessage("Error", connection.Message);
-                return;
+                activityTypes = dataService.Get<ActivityType>(false);
+
+                if(activityTypes.Count == 0)
+                {
+                    await dialogService.ShowMessage("Error", "No Activity Types are available Offline");
+                }
             }
-
-            var mainViewModel = MainViewModel.GetInstance();
-
-            var response = await apiService.GetList<ActivityType>(
-               "http://api.parents.outstandservices.pt",
-                "/api",
-                "/ActivitiesTypes",
-                mainViewModel.Token.TokenType,
-                mainViewModel.Token.AccessToken);
-
-            if (!response.IsSuccess)
+            else
             {
-                await dialogService.ShowMessage("Error", connection.Message);
-                return;
-            }
+                var mainViewModel = MainViewModel.GetInstance();
 
-            activityTypes = (List<ActivityType>)response.Result;
+
+                var urlAPI = Application.Current.Resources["URLAPI"].ToString();
+
+                var response = await apiService.GetList<ActivityType>(
+                   urlAPI,
+                    "/api",
+                    "/ActivitiesTypes",
+                    mainViewModel.Token.TokenType,
+                    mainViewModel.Token.AccessToken);
+
+                if (!response.IsSuccess)
+                {
+                    await dialogService.ShowMessage("Error", connection.Message);
+                    return;
+                }
+
+                activityTypes = (List<ActivityType>)response.Result;
+                SaveActivityTypesOnDB();
+            }
 
             ActivityTypesList = new ObservableCollection<ActivityType>(activityTypes.OrderBy(c => c.ActivityTypeDescription));
 
             IsRefreshing = false;
+        }
+
+        private void SaveActivityTypesOnDB()
+        {
+            dataService.DeleteAll<ActivityType>();
+            dataService.Save(activityTypes);
         }
 
         public void UpdateActivityType(ActivityType activityType)

@@ -5,6 +5,7 @@
     using System.Linq;
     using Data;
     using Parents.Models;
+    using Parents.Models.ActivitiesManagement.Helpers;
 
     public class DataService
     {
@@ -131,6 +132,14 @@
                 return da.GetListOfActivities().ToList();
             }
         }
+
+        //public List<ActivityType> GetActivityTypes()
+        //{
+        //    using (var da = new DataAccess())
+        //    {
+        //        return da.GetListOfActivityTypes().ToList();
+        //    }
+        //}
 
         public void Update<T>(T model)
         {

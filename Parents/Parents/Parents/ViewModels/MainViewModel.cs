@@ -19,6 +19,7 @@
     using Parents.ViewModels.AppCore;
     using Parents.Models.Sistema;
     using Parents.ViewModels.Locations;
+    using Parents.ViewModels.Sistema;
 
     public class MainViewModel
     {
@@ -60,6 +61,9 @@
         public NewParentViewModel NewParent { get; set; }
         public ObservableCollection<Menu> MyMenu { get; set; }
         public LocationsViewModel Locations { get; set; }
+        public SyncViewModel Sync { get; set; }
+        public MyProfileViewModel MyProfile { get; set; }
+        public PasswordRecoveryViewModel PasswordRecovery { get; set; }
         #endregion
 
         #region Constructors
@@ -248,11 +252,19 @@
 
             MyMenu.Add(new Menu
             {
+                Icon = "ic_sync",
+                PageName = "SyncView",
+                Title = "Sync Offline Operations",
+            });
+
+            MyMenu.Add(new Menu
+            {
                 Icon = "ic_exit_to_app",
                 PageName = "LoginView",
                 Title = "Close sesion",
             });
 
+            
         }
         #endregion
     }

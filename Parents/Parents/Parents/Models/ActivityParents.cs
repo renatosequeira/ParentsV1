@@ -45,6 +45,8 @@
         public string ActivityRepeat { get; set; }
         public string EventId { get; set; }
 
+        public bool PendingToSave { get; set; }
+
         public string ActivityImageFullPath
         {
 

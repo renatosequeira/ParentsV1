@@ -23,6 +23,7 @@ namespace Parents.ViewModels.Activities
         DialogService dialogService;
         ApiService apiService;
         NavigationService navigationService;
+        DataService dataService;
         #endregion
 
         #region Attributes
@@ -664,6 +665,7 @@ namespace Parents.ViewModels.Activities
             dialogService = new DialogService();
             apiService = new ApiService();
             navigationService = new NavigationService();
+            dataService = new DataService();
 
             IsEnabled = true; //bool are disabled by default. This will enable buttons
 
@@ -1037,19 +1039,6 @@ namespace Parents.ViewModels.Activities
             IsRunning = true;
             IsEnabled = false;
 
-            //verificar se existe ligação à internet
-            var connection = await apiService.CheckConnection();
-
-            //se não houver ligação à internet, popup com erro e sai do método
-            if (!connection.IsSuccess)
-            {
-                await dialogService.ShowMessage("Error", connection.Message);
-
-                IsRunning = false;
-                IsEnabled = true;
-                return;
-            }
-
             byte[] imageArray = null;
 
             if (file != null)
@@ -1057,6 +1046,8 @@ namespace Parents.ViewModels.Activities
                 imageArray = FilesHelper.ReadFully(file.GetStream());
                 file.Dispose();
             }
+
+            var mainViewModel = MainViewModel.GetInstance();
 
             string childIdCard = Application.Current.Properties["childrenIdentityCard"] as string;
             string childId = Application.Current.Properties["childrenId"] as string;
@@ -1078,28 +1069,45 @@ namespace Parents.ViewModels.Activities
                 ActivityTimeEnd = ActivityTimeEnd
             };
 
-            var mainViewModel = MainViewModel.GetInstance();
+            //verificar se existe ligação à internet
+            var connection = await apiService.CheckConnection();
 
-            //se existir ligação à internet guarda token na variavel response
-            var response = await apiService.Post(
-                "http://api.parents.outstandservices.pt",
-                "/api",
-                "/Activities",
-                mainViewModel.Token.TokenType,
-                mainViewModel.Token.AccessToken,
-                activity);
-
-
-            //se a resposta (Token) for nulo ou estiver vazia, significa que o email ou a pass estão errados
-            if (!response.IsSuccess)
+            //se não houver ligação à internet, popup com erro e sai do método
+            if (!connection.IsSuccess)
             {
-                IsRunning = false;
-                IsEnabled = true;
-                await dialogService.ShowMessage("Error", response.Message);
-                return;
+                //await dialogService.ShowMessage("Error", connection.Message);
+                //IsRunning = false;
+                //IsEnabled = true;
+                activity.PendingToSave = true;
+                dataService.Insert(activity);
+                await dialogService.ShowMessage("Information", "The product was saved locally. Don't forget to upload record when connection is established");
+            }
+            else
+            {
+                var urlAPI = Application.Current.Resources["URLAPI"].ToString();
+
+                //se existir ligação à internet guarda token na variavel response
+                var response = await apiService.Post(
+                    urlAPI,
+                    "/api",
+                    "/Activities",
+                    mainViewModel.Token.TokenType,
+                    mainViewModel.Token.AccessToken,
+                    activity);
+
+
+                //se a resposta (Token) for nulo ou estiver vazia, significa que o email ou a pass estão errados
+                if (!response.IsSuccess)
+                {
+                    IsRunning = false;
+                    IsEnabled = true;
+                    await dialogService.ShowMessage("Error", response.Message);
+                    return;
+                }
+
+                activity = (ActivityParents)response.Result;
             }
 
-            activity = (ActivityParents)response.Result;
             var activityViewModel = ActivitiesViewModel.GetInstance();
             activityViewModel.Add(activity);
 
@@ -1172,19 +1180,6 @@ namespace Parents.ViewModels.Activities
 
                         IsRunning = true;
                         IsEnabled = false;
-
-                        //verificar se existe ligação à internet
-                        var connection = await apiService.CheckConnection();
-
-                        //se não houver ligação à internet, popup com erro e sai do método
-                        if (!connection.IsSuccess)
-                        {
-                            await dialogService.ShowMessage("Error", connection.Message);
-
-                            IsRunning = false;
-                            IsEnabled = true;
-                            return;
-                        }
 
                         byte[] imageArray = null;
 
@@ -1341,7 +1336,8 @@ namespace Parents.ViewModels.Activities
 
                                 }
 
-                                if(ActivityRepeat.Contains("4ª")){
+                                if (ActivityRepeat.Contains("4ª"))
+                                {
                                     if (dayOfWeek == "Monday")
                                     {
                                         tempDateStart = ActivityDateStart.AddDays(2); //a data temporaria, tem é incrementada para corresponder a uma terça-feira
@@ -1625,34 +1621,48 @@ namespace Parents.ViewModels.Activities
                             ActivityRepeat = ActivityRepeat
                         };
 
-                        var mainViewModel = MainViewModel.GetInstance();
+                        //verificar se existe ligação à internet
+                        var connection = await apiService.CheckConnection();
 
-                        //se existir ligação à internet guarda token na variavel response
-                        var response = await apiService.Post(
-                            "http://api.parents.outstandservices.pt",
-                            "/api",
-                            "/Activities",
-                            mainViewModel.Token.TokenType,
-                            mainViewModel.Token.AccessToken,
-                            activity);
-
-
-                        //se a resposta (Token) for nulo ou estiver vazia, significa que o email ou a pass estão errados
-                        if (!response.IsSuccess)
+                        //se não houver ligação à internet, popup com erro e sai do método
+                        if (!connection.IsSuccess)
                         {
-                            IsRunning = false;
-                            IsEnabled = true;
-                            await dialogService.ShowMessage("Error", response.Message);
-                            return;
-                        }
+                            //await dialogService.ShowMessage("Error", connection.Message);
 
-                        activity = (ActivityParents)response.Result;
+                            //IsRunning = false;
+                            //IsEnabled = true;
+                            activity.PendingToSave = true;
+                            dataService.Insert(activity);
+                            await dialogService.ShowMessage("Information", "The product was saved locally. Don't forget to upload record when connection is established");
+                        }
+                        else
+                        {
+                            var mainViewModel = MainViewModel.GetInstance();
+
+                            //se existir ligação à internet guarda token na variavel response
+                            var response = await apiService.Post(
+                                "http://api.parents.outstandservices.pt",
+                                "/api",
+                                "/Activities",
+                                mainViewModel.Token.TokenType,
+                                mainViewModel.Token.AccessToken,
+                                activity);
+
+
+                            //se a resposta (Token) for nulo ou estiver vazia, significa que o email ou a pass estão errados
+                            if (!response.IsSuccess)
+                            {
+                                IsRunning = false;
+                                IsEnabled = true;
+                                await dialogService.ShowMessage("Error", response.Message);
+                                return;
+                            }
+
+                            activity = (ActivityParents)response.Result;
+                        }
+                       
                         var activityViewModel = ActivitiesViewModel.GetInstance();
                         activityViewModel.Add(activity);
-
-                        //await activityViewModel.ReloadActivities();
-                        
-                        //await navigationService.Back();
 
                         IsRunning = false;
                         IsEnabled = true;
@@ -1704,41 +1714,7 @@ namespace Parents.ViewModels.Activities
         #endregion
 
         #region Methods
-        //async void LoadActivities()
-        //{
-        //    IsRefreshing = true;
-
-        //    var connection = await apiService.CheckConnection();
-        //    if (!connection.IsSuccess)
-        //    {
-        //        await dialogService.ShowMessage("Error", connection.Message);
-        //        return;
-        //    }
-
-        //    var mainViewModel = MainViewModel.GetInstance();
-
-        //    var response = await apiService.GetList<Activity>(
-        //       "http://api.parents.outstandservices.pt",
-        //        "/api",
-        //        "/Activities",
-        //        mainViewModel.Token.TokenType,
-        //        mainViewModel.Token.AccessToken);
-
-
-        //    if (!response.IsSuccess)
-        //    {
-        //        await dialogService.ShowMessage("Error", connection.Message);
-        //        return;
-        //    }
-
-        //    activities = (List<Activity>)response.Result;
-
-
-
-        //    ActivitiesList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateEnd).Where(ch => ch.relatedChildrenIdentitiCard == childrenIdentity));
-        //    //ActivitiesList = new ObservableCollection<Activity>(activities.OrderBy(c => c.ActivityDateStart));
-        //    IsRefreshing = false;
-        //}
+      
         #endregion
     }
     }
