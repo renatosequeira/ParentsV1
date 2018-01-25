@@ -31,6 +31,7 @@
         {
             //await Application.Current.MainPage.Navigation.PushAsync(new ChildrensList());
             await navigationService.NavigateOnMaster("ChildrensList");
+
         }
         #endregion
 

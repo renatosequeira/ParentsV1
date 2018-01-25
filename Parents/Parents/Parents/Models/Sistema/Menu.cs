@@ -41,10 +41,12 @@ namespace Parents.Models.Sistema
             switch (PageName)
             {
                 case "LoginView":
-                    MainViewModel.GetInstance().Login = new LoginViewModel();
+                    var mainViewModel = MainViewModel.GetInstance();
+                    mainViewModel.Token.IsRemembered = false;
+                    dataService.Update(mainViewModel.Token);
+                    mainViewModel.Login = new LoginViewModel();
                     navigationService.SetMainPage(PageName);
                     break;
-
                 case "LocationsView":
                     MainViewModel.GetInstance().Locations = new LocationsViewModel();
                     await navigationService.NavigateOnMaster(PageName);

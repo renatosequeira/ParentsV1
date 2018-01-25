@@ -70,6 +70,7 @@
         public MainViewModel()
         {
             instance = this;
+
             Login = new LoginViewModel();
             navigationService = new NavigationService();
             dialogService = new DialogService();
@@ -261,7 +262,7 @@
             {
                 Icon = "ic_exit_to_app",
                 PageName = "LoginView",
-                Title = "Close sesion",
+                Title = "Close session",
             });
 
             

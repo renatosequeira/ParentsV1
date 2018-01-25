@@ -212,11 +212,7 @@
         void SaveChildrenOnDB()
         {
             dataService.DeleteAll<Children>();
-            foreach (var children in childrens)
-            {
-                //dataService.Insert(children);
-                dataService.Save(childrens);
-            }
+            dataService.Save(childrens);
         }
 
         //async void LoadChildrens()

@@ -18,6 +18,7 @@
                 VerticalOptions="Center"
                 WidthRequest="100"/>
 
+            <!--USERNAME-->
             <StackLayout
                     Orientation="Horizontal"
                     HorizontalOptions="FillAndExpand"
@@ -38,6 +39,7 @@
                         </Entry>
                 </StackLayout>
 
+            <!--PASSWORD-->
             <StackLayout
                 Orientation="Horizontal"
                 HorizontalOptions="FillAndExpand"
@@ -50,12 +52,22 @@
                 </Image>
 
                 <Entry
-                    IsPassword="True"
+                    IsPassword="{Binding IsPassword, Mode=TwoWay}"
                     Placeholder="enter password..."
                     Text="{Binding Password, Mode=TwoWay}"
                     TextColor="DarkGray"
                     HorizontalOptions="FillAndExpand">
                 </Entry>
+                
+                <Image
+                    Source="{Binding PasswordVisibilityImage, Mode=TwoWay}"
+                    VerticalOptions="Center"
+                    WidthRequest="30"
+                    HorizontalOptions="End">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding RevealPasswordCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
             </StackLayout>
 
             <StackLayout

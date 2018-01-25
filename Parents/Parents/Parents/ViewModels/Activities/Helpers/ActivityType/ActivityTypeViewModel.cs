@@ -97,6 +97,7 @@
             IsRefreshing = true;
 
             var connection = await apiService.CheckConnection();
+
             if (!connection.IsSuccess)
             {
                 activityTypes = dataService.Get<ActivityType>(false);
@@ -104,12 +105,12 @@
                 if(activityTypes.Count == 0)
                 {
                     await dialogService.ShowMessage("Error", "No Activity Types are available Offline");
+                    return;
                 }
             }
             else
             {
                 var mainViewModel = MainViewModel.GetInstance();
-
 
                 var urlAPI = Application.Current.Resources["URLAPI"].ToString();
 
@@ -127,6 +128,7 @@
                 }
 
                 activityTypes = (List<ActivityType>)response.Result;
+
                 SaveActivityTypesOnDB();
             }
 

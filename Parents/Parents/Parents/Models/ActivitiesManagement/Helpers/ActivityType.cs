@@ -15,7 +15,7 @@ namespace Parents.Models.ActivitiesManagement.Helpers
 {
     public class ActivityType
     {
-        [PrimaryKey]
+        [PrimaryKey, AutoIncrement]
         public int ActivityTypeId { get; set; }
 
         public string ActivityTypeDescription { get; set; }

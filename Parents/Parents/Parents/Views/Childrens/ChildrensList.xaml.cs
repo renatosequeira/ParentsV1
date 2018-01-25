@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Parents.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,9 @@ namespace Parents.Views.Childrens
 	{
 		public ChildrensList ()
 		{
-			InitializeComponent ();
+            var mainViewModel = MainViewModel.GetInstance();
+            mainViewModel.Childrens = new ChildrensViewModel();
+            InitializeComponent ();
         }
 
     }

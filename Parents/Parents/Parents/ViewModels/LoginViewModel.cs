@@ -34,9 +34,47 @@
         bool _isToggled;
         bool _isRunning;
         bool _isEnabled;
+        bool _PasswordIsVisible;
+        string _passwordVisibilityImage;
         #endregion
 
         #region Properties
+        public bool IsPassword
+        {
+            get
+            {
+                return _PasswordIsVisible;
+            }
+            set
+            {
+                if (_PasswordIsVisible != value)
+                {
+                    _PasswordIsVisible = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(IsPassword)));
+                }
+            }
+        }
+
+        public string PasswordVisibilityImage
+        {
+            get
+            {
+                return _passwordVisibilityImage;
+            }
+            set
+            {
+                if (_passwordVisibilityImage != value)
+                {
+                    _passwordVisibilityImage = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(PasswordVisibilityImage)));
+                }
+            }
+        }
+
         public string Email {
             get
             {
@@ -138,12 +176,37 @@
             IsEnabled = true; //bool are disabled by default. This will enable buttons
             IsToggled = true;
 
+            PasswordVisibilityImage = "ic_show";
+            IsPassword = true;
+
             //Email = "rds.516@gmail.com";
             //Password = "123456";
         }
         #endregion
 
         #region Commands
+        public ICommand RevealPasswordCommand
+        {
+            get
+            {
+                return new RelayCommand(RevealPassword);
+            }
+        }
+
+        async void RevealPassword()
+        {
+            if (!IsPassword)
+            {
+                IsPassword = true;
+                PasswordVisibilityImage = "ic_show";
+            }
+            else
+            {
+                IsPassword = false;
+                PasswordVisibilityImage = "ic_hide";
+            }
+        }
+
         public ICommand LoginWithFacebookCommand1
         {
             get
@@ -254,9 +317,6 @@
 
             response.IsRemembered = IsToggled;
             response.Password = Password;
-            ////dataService.DeleteAllAndInsertChildrens(response);
-            ////dataService.DeleteAllAndInsertToken(response);
-            ////dataService.DeleteAllAndInsertAtivities(response);
             dataService.DeleteAllAndInsert(response);
 
 
@@ -266,13 +326,13 @@
             var mainViewModel = MainViewModel.GetInstance();
 
             mainViewModel.Token = response; //guarda Token no mainviewmodel
-            mainViewModel.Parents = new ParentsViewModel();
-            mainViewModel.Childrens = new ChildrensViewModel();
-            mainViewModel.Disciplines = new DisciplinesViewModel();
-            mainViewModel.ActivityFamily = new ActivityFamilyViewModel();
-            mainViewModel.ActivitiesInstitutionType = new ActivitiesInstitutionTypeViewModel();
-            mainViewModel.ActivityPeridiocity = new ActivityPeridiocityViewModel();
-            mainViewModel.ActivityType = new ActivityTypeViewModel();
+            //mainViewModel.Parents = new ParentsViewModel();
+            //mainViewModel.Childrens = new ChildrensViewModel();
+            //mainViewModel.Disciplines = new DisciplinesViewModel();
+            //mainViewModel.ActivityFamily = new ActivityFamilyViewModel();
+            //mainViewModel.ActivitiesInstitutionType = new ActivitiesInstitutionTypeViewModel();
+            //mainViewModel.ActivityPeridiocity = new ActivityPeridiocityViewModel();
+            //mainViewModel.ActivityType = new ActivityTypeViewModel();
            
             //mainViewModel.Activities = new ActivitiesViewModel();
             
