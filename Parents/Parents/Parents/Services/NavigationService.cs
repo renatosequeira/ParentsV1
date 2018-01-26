@@ -169,6 +169,9 @@
                 case "MyProfileView":
                     await App.Navigator.PushAsync(new MyProfileView());
                     break;
+                case "PlacesView":
+                    await App.Navigator.PushAsync(new GooglePlacesView());
+                    break;
             }
 
         }

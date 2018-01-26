@@ -349,7 +349,8 @@ namespace Parents.Views.Activities.Helpers
 
         private async void SelectActivityLocation_Tapped(object sender, EventArgs e)
         {
-            await navigationService.NavigateOnMaster("ActivityLocationHelperPage");
+            //await navigationService.NavigateOnMaster("ActivityLocationHelperPage");
+            await navigationService.NavigateOnMaster("PlacesView");
         }
 
         private void statusSwitch_Toggled(object sender, ToggledEventArgs e)

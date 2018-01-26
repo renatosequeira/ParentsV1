@@ -115,29 +115,21 @@
             }
         }
 
-        public List<Children> GetChildren()
-        {
-            using (var da = new DataAccess())
-            {
-                //return da.GetList<T>(withChildren).ToList();
-
-                return da.GetListChildren().ToList();
-            }
-        }
-
-        public List<ActivityParents> GetActivities()
-        {
-            using (var da = new DataAccess())
-            {
-                return da.GetListOfActivities().ToList();
-            }
-        }
-
-        //public List<ActivityType> GetActivityTypes()
+        //public List<Children> GetChildren()
         //{
         //    using (var da = new DataAccess())
         //    {
-        //        return da.GetListOfActivityTypes().ToList();
+        //        //return da.GetList<T>(withChildren).ToList();
+
+        //        return da.GetListChildren().ToList();
+        //    }
+        //}
+
+        //public List<ActivityParents> GetActivities()
+        //{
+        //    using (var da = new DataAccess())
+        //    {
+        //        return da.GetListOfActivities().ToList();
         //    }
         //}
 

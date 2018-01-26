@@ -12,7 +12,8 @@
     using Domain;
     using API.Models.AppCore;
     using Microsoft.AspNet.Identity;
-    using API.Models.ActivitiesManagement;
+    using System.IO;
+    using Parents.API.Helpers;
 
     [Authorize]
     public class ChildrensController : ApiController
@@ -29,31 +30,8 @@
             //var childrens = await db.Children.ToListAsync();
             var childrensResponse = new List<ChildrenResponse>();
 
-
             foreach (var children in childrens)
             {
-                //var activitiesResponse = new List<ActivityResponse>();
-
-                //foreach (var activity1 in children.Activities)
-                //{
-                //    activitiesResponse.Add(new ActivityResponse
-                //    {
-                //        ActivityAddress = activity1.ActivityAddress,
-                //        ActivityDateEnd = activity1.ActivityDateEnd,
-                //        ActivityDateStart = activity1.ActivityDateStart,
-                //        ActivityDescription = activity1.ActivityDescription,
-                //        ActivityId = activity1.ActivityId,
-                //        ActivityPrivacy = activity1.ActivityPrivacy,
-                //        ActivityRemarks = activity1.ActivityRemarks,
-                //        Image = activity1.Image,
-                //        invitationAcknowledged = activity1.invitationAcknowledged,
-                //        invitedUserId = activity1.invitedUserId,
-                //        relatedChildrenIdentitiCard = activity1.relatedChildrenIdentitiCard,
-                //        userId = activity1.userId,
-                //        ChildrenId = activity1.ChildrenId,
-                //    });
-                //}
-
 
                 childrensResponse.Add(new ChildrenResponse
                 {
@@ -74,7 +52,6 @@
                     SecondParentId = children.SecondParendId,
                     SchoolContact = children.SchoolContact,
                     ChildrenSex = children.ChildrenSex,
-                    //Activities = activitiesResponse,
                 });
             }
 
@@ -138,17 +115,34 @@
 
         // POST: api/Childrens
         [ResponseType(typeof(Children))]
-        public async Task<IHttpActionResult> PostChildren(Children children)
+        public async Task<IHttpActionResult> PostChildren(ChildrenRequest children)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            if (children.ImageArray != null && children.ImageArray.Length > 0)
+            {
+                var stream = new MemoryStream(children.ImageArray);
+                var guid = Guid.NewGuid().ToString();
+                var file = string.Format("{0}.jpg", guid);
+                var folder = "~/Content/Images";
+                var fullPath = string.Format("{0}/{1}", folder, file);
+                var response = FilesHelper.UploadPhoto(stream, folder, file);
+
+                if (response)
+                {
+                    children.ChildrenImage = fullPath;
+                }
+            }
+
+            var _children = ToChildren(children);
+            
             string parentId = User.Identity.GetUserId();
             children.FirstParentId = parentId;
 
-            db.Children.Add(children);
+            db.Children.Add(_children);
 
             try
             {
@@ -169,7 +163,32 @@
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = children.ChildrenId }, children);
+            return CreatedAtRoute("DefaultApi", new { id = children.ChildrenId }, _children);
+        }
+
+        private Children ToChildren(ChildrenRequest view)
+        {
+            string userId = User.Identity.GetUserId();
+
+            return new Children
+            {
+                BloodInformationDescription = view.BloodInformationDescription,
+                ChildrenAddress = view.ChildrenAddress,
+                ChildrenBirthDate = view.ChildrenBirthDate,
+                ChildrenEmail = view.ChildrenEmail,
+                ChildrenFamilyDoctor = view.ChildrenFamilyDoctor,
+                ChildrenFirstName = view.ChildrenFirstName,
+                ChildrenIdentityCard = view.ChildrenIdentityCard,
+                ChildrenImage = view.ChildrenImage,
+                ChildrenLastName = view.ChildrenLastName,
+                ChildrenMiddleName = view.ChildrenMiddleName,
+                ChildrenMobile = view.ChildrenMobile,
+                ChildrenSex = view.ChildrenSex,
+                CurrentSchool = view.CurrentSchool,
+                SchoolContact = view.SchoolContact,
+                FirstParentId = userId,
+                SecondParendId = view.SecondParendId
+            };
         }
 
         // DELETE: api/Childrens/5

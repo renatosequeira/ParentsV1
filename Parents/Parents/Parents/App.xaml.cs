@@ -12,7 +12,9 @@
     using Views.Sistema;
     using System;
     using Xamarin.Forms;
-
+    using PushNotification.Plugin;
+    using Plugin.Connectivity;
+    using Parents.ViewModels.Sistema;
 
     public partial class App : Application
     {
@@ -21,6 +23,7 @@
         NavigationService navigationService;
         DialogService dialogService;
         DataService dataService;
+        AutomaticOfflineSyncService automaticOfflineSyncService;
         #endregion
 
         #region Properties
@@ -41,17 +44,20 @@
             dialogService = new DialogService();
             navigationService = new NavigationService();
             dataService = new DataService();
+            automaticOfflineSyncService = new AutomaticOfflineSyncService();
 
-            var token = dataService.First<TokenResponse>(false);
+            CrossConnectivity.Current.ConnectivityChanged += Current_ConnectivityChanged;
 
-            if (token != null &&
-                token.IsRemembered &&
-                token.Expires > DateTime.Now)
+            var appToken = dataService.First<TokenResponse>(false);
+
+            if (appToken != null &&
+                appToken.IsRemembered &&
+                appToken.Expires > DateTime.Now)
             {
                 var mainViewModel = MainViewModel.GetInstance();
-                mainViewModel.Token = token;
+                mainViewModel.Token = appToken;
                 //mainViewModel.Parents = new ParentsViewModel();
-                mainViewModel.Childrens = new ChildrensViewModel();
+                //mainViewModel.Childrens = new ChildrensViewModel();
                 //mainViewModel.Disciplines = new DisciplinesViewModel();
                 //mainViewModel.ActivityFamily = new ActivityFamilyViewModel();
                 //mainViewModel.ActivitiesInstitutionType = new ActivitiesInstitutionTypeViewModel();
@@ -75,11 +81,23 @@
             //};
 
         }
+
+        private void Current_ConnectivityChanged(object sender, Plugin.Connectivity.Abstractions.ConnectivityChangedEventArgs e)
+        {
+            if (e.IsConnected)
+            {
+                automaticOfflineSyncService.ActivitiesSynchronization();
+
+            }
+        }
+
         #endregion
 
         #region Methods
+
         protected override void OnStart()
         {
+            //CrossPushNotification.Current.Register();
             // Handle when your app starts
         }
 
@@ -153,6 +171,8 @@
             Application.Current.Properties["childrenId"] = null;
             GC.Collect();
         }
+
+        
         #endregion
 
     }

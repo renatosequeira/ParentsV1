@@ -6,6 +6,10 @@
     using System;
     using Services;
     using Parents.Models;
+    using Xamarin.Forms;
+    using Plugin.Media.Abstractions;
+    using Plugin.Media;
+    using Parents.Helpers;
 
     public class NewChildrenViewModel : INotifyPropertyChanged
     {
@@ -23,11 +27,14 @@
         string _childrenFirstName;
         string _childrenLastName;
         string _childrenIdentityCard;
-        string _childrenBirthDate;
+        DateTime _childrenBirthDate;
         string _childrenSex;
 
         bool _isRunning;
         bool _isEnabled;
+
+        ImageSource _imageSource;
+        MediaFile file;
         #endregion
 
         #region Properties
@@ -86,7 +93,7 @@
             }
         }
 
-        public string ChildrenBirthDate
+        public DateTime ChildrenBirthDate
         {
             get
             {
@@ -158,6 +165,25 @@
             }
         }
 
+        public ImageSource ImageSource
+        {
+            set
+            {
+                if (_imageSource != value)
+                {
+                    _imageSource = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(ImageSource)));
+                }
+            }
+            get
+            {
+                return _imageSource;
+            }
+        }
+
+        public string Image { get; set; }
         #endregion
 
         #region Constructors
@@ -169,10 +195,89 @@
 
             IsEnabled = true; //bool are disabled by default. This will enable buttons
 
+            ImageSource = "no_image";
+
         }
         #endregion
 
         #region Commands
+        public ICommand ChangeImageCommand
+        {
+            get
+            {
+                return new RelayCommand(ChangeImage);
+            }
+        }
+
+        async void ChangeImage()
+        {
+            await CrossMedia.Current.Initialize();
+
+            if (CrossMedia.Current.IsCameraAvailable &&
+                CrossMedia.Current.IsTakePhotoSupported)
+            {
+                var source = await dialogService.ShowImageOptions();
+
+                if (source == "Cancel")
+                {
+                    file = null;
+                    return;
+                }
+
+                if (source == "From Camera")
+                {
+                    DateTime data = DateTime.Now;
+                    TimeSpan hora = data.TimeOfDay;
+
+                    file = await CrossMedia.Current.TakePhotoAsync(
+                        new StoreCameraMediaOptions
+                        {
+                            Directory = "Parents",
+                            Name = String.Format("Parents_{0:dd/MM/yyyy}_{1}.jpg", data, data.TimeOfDay),
+                            PhotoSize = PhotoSize.Small,
+                            SaveToAlbum = true
+                        }
+                    );
+                }
+                else
+                {
+                    file = await Plugin.Media.CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
+                    {
+                        PhotoSize = Plugin.Media.Abstractions.PhotoSize.Medium
+                    });
+                }
+            }
+            else
+            {
+                file = await Plugin.Media.CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
+                {
+                    PhotoSize = Plugin.Media.Abstractions.PhotoSize.Medium
+                });
+            }
+
+            if (file != null)
+            {
+                ImageSource = ImageSource.FromStream(() =>
+                {
+                    var stream = file.GetStream();
+                    return stream;
+                });
+            }
+        }
+
+        public ICommand DeleteChildrenFirstNameCommand
+        {
+            get
+            {
+                return new RelayCommand(DeleteChildrenFirstName);
+            }
+        }
+
+        void DeleteChildrenFirstName()
+        {
+            ChildrenFirstName = null;
+        }
+
         public ICommand SaveCommand
         {
             get
@@ -210,6 +315,21 @@
             IsRunning = true;
             IsEnabled = false;
 
+            byte[] imageArray = null;
+
+            try
+            {
+                if (file != null)
+                {
+                    imageArray = FilesHelper.ReadFully(file.GetStream());
+                    file.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                //await dialogService.ShowMessage("Images", "Only first event will have associated image. Please add images for recurreng events, manually.");
+            }
+
             //verificar se existe ligação à internet
             var connection = await apiService.CheckConnection();
 
@@ -226,28 +346,29 @@
             var children = new Children
             {
                 ChildrenFirstName = ChildrenFirstName,
-                ChildrenLastName = ChildrenLastName,
+                ChildrenLastName= ChildrenLastName,
                 ChildrenIdentityCard = ChildrenIdentityCard,
+                ChildrenBirthDate = ChildrenBirthDate,
                 ChildrenSex = ChildrenSex,
-                ChildrenBirthDate = DateTime.Today,
-                BloodInformationDescription = "",
-                BoodInformationId = 1,
-                ChildrenAddress = "",
-                ChildrenEmail = "",
-                ChildrenFamilyDoctor = "",
-                ChildrenImage = "",
-                ChildrenMiddleName = "",
-                ChildrenMobile = "",
-                CurrentSchool ="",
-                MatrimonialStateId = 1,
-                SchoolContact = ""
+                ChildrenFamilyDoctor= null,
+                ChildrenEmail= null,
+                ChildrenMobile = null,
+                ChildrenAddress= null,
+                CurrentSchool= null,
+                SchoolContact= null,
+                FirstParentId= null,
+                SecondParentId= null,
+                BloodInformationDescription= null,
+                ImageArray= imageArray
             };
 
             var mainViewModel = MainViewModel.GetInstance();
 
+            var urlAPI = Application.Current.Resources["URLAPI"].ToString();
+
             //se existir ligação à internet guarda token na variavel response
             var response = await apiService.Post(
-                "http://api.parents.outstandservices.pt",
+                urlAPI,
                 "/api",
                 "/Childrens",
                 mainViewModel.Token.TokenType,

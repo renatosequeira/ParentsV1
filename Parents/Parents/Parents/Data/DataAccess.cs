@@ -23,7 +23,6 @@
             connection = new SQLiteConnection(config.Platform, System.IO.Path.Combine(config.DirectoryDB, "Parents.db3"));
             connection.CreateTable<Children>();
             connection.CreateTable<ActivityType>();
-            //connection.CreateTable<ActivitiesPriority>();
             //connection.CreateTable<Parent>();
             connection.CreateTable<ActivityParents>();
             connection.CreateTable<TokenResponse>();
@@ -71,19 +70,14 @@
             }
         }
 
-        public List<Children> GetListChildren()
-        {
-            return connection.Table<Children>().ToList();
-        }
-
-        public List<ActivityParents> GetListOfActivities()
-        {
-            return connection.Table<ActivityParents>().ToList();
-        }
-
-        //public List<ActivityType> GetListOfActivityTypes()
+        //public List<Children> GetListChildren()
         //{
-        //    return connection.Table<ActivityType>().ToList();
+        //    return connection.Table<Children>().ToList();
+        //}
+
+        //public List<ActivityParents> GetListOfActivities()
+        //{
+        //    return connection.Table<ActivityParents>().ToList();
         //}
 
         public T Find<T>(int pk, bool WithChildren) where T : class

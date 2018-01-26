@@ -336,9 +336,9 @@
 
             #region LISTS LOADING
             OpenFilteredActivitiesList(SelectedFilter);
-            OpenFilteredAnniversariesList(SelectedFilterForAnniversaries);
-            OpenFilteredEventsList(SelectedFilterForEvents);
-            OpenFilteredSchoolList(SelectedFilterForSchool);
+            //OpenFilteredAnniversariesList(SelectedFilterForAnniversaries);
+            //OpenFilteredEventsList(SelectedFilterForEvents);
+            //OpenFilteredSchoolList(SelectedFilterForSchool);
             #endregion
         }
 
@@ -391,7 +391,7 @@
                 SaveActivitiesOnDB();
             }
             
-            Search();
+            //Search();
             IsRefreshing = false;
         }
 
@@ -399,13 +399,6 @@
         {
             dataService.DeleteAll<ActivityParents>();
             dataService.Save(activities);
-            //foreach (var activity in activities)
-            //{
-            //    if (!activity.Status)
-            //    {
-            //        dataService.Save(activities);
-            //    }
-            //}
         }
 
         async void LoadActivitiesForSpecificChildren()

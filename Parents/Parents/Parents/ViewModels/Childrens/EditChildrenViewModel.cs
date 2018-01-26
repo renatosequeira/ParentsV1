@@ -170,7 +170,7 @@
             children.ChildrenSex = ChildrenSex;
             children.ChildrenBirthDate = DateTime.Today;
             children.BloodInformationDescription = "";
-            children.BoodInformationId = 1;
+            //children.BoodInformationId = 1;
             children.ChildrenAddress = "";
             children.ChildrenEmail = "";
             children.ChildrenFamilyDoctor = "";
@@ -178,7 +178,7 @@
             children.ChildrenMiddleName = "";
             children.ChildrenMobile = "";
             children.CurrentSchool = "";
-            children.MatrimonialStateId = 1;
+            //children.MatrimonialStateId = 1;
             children.SchoolContact = "";
             
 

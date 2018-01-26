@@ -1075,9 +1075,6 @@ namespace Parents.ViewModels.Activities
             //se não houver ligação à internet, popup com erro e sai do método
             if (!connection.IsSuccess)
             {
-                //await dialogService.ShowMessage("Error", connection.Message);
-                //IsRunning = false;
-                //IsEnabled = true;
                 activity.PendingToSave = true;
                 dataService.Insert(activity);
                 await dialogService.ShowMessage("Information", "The product was saved locally. Don't forget to upload record when connection is established");
@@ -1128,8 +1125,8 @@ namespace Parents.ViewModels.Activities
 
         async void SaveRepeatedEvents()
         {
-            //ActivityRepeat = CheckSelectedDays(_selectedDays);
 
+            #region Field Validations
             if (string.IsNullOrEmpty(ActivityDescription))
             {
                 await dialogService.ShowMessage("Error", "Please insert Activity description");
@@ -1146,7 +1143,8 @@ namespace Parents.ViewModels.Activities
             {
                 await dialogService.ShowMessage("Error", "Please select a valid actvity priority");
                 return;
-            }
+            } 
+            #endregion
 
             int _eventRepetitions = Convert.ToInt32(EventRepetitions);
 
@@ -1172,11 +1170,9 @@ namespace Parents.ViewModels.Activities
                 GhostActivityRepeat = _selectedDays[k];
 
                 if (!string.IsNullOrEmpty(_selectedDays[k]))
-                //if (true)
                 {
                     for (int i = 0; i < _eventRepetitions; i++)
                     {
-                        //int repeatIn = (int.Parse(RepeatMultiplicationFactor));
 
                         IsRunning = true;
                         IsEnabled = false;
@@ -1627,10 +1623,6 @@ namespace Parents.ViewModels.Activities
                         //se não houver ligação à internet, popup com erro e sai do método
                         if (!connection.IsSuccess)
                         {
-                            //await dialogService.ShowMessage("Error", connection.Message);
-
-                            //IsRunning = false;
-                            //IsEnabled = true;
                             activity.PendingToSave = true;
                             dataService.Insert(activity);
                             await dialogService.ShowMessage("Information", "The product was saved locally. Don't forget to upload record when connection is established");
@@ -1639,15 +1631,16 @@ namespace Parents.ViewModels.Activities
                         {
                             var mainViewModel = MainViewModel.GetInstance();
 
+                            var urlAPI = Application.Current.Resources["URLAPI"].ToString();
+
                             //se existir ligação à internet guarda token na variavel response
                             var response = await apiService.Post(
-                                "http://api.parents.outstandservices.pt",
+                                urlAPI,
                                 "/api",
                                 "/Activities",
                                 mainViewModel.Token.TokenType,
                                 mainViewModel.Token.AccessToken,
                                 activity);
-
 
                             //se a resposta (Token) for nulo ou estiver vazia, significa que o email ou a pass estão errados
                             if (!response.IsSuccess)
@@ -1670,8 +1663,7 @@ namespace Parents.ViewModels.Activities
                         }
                     }
                 }
-
-            await navigationService.BackOnMaster();
+                await navigationService.BackOnMaster();
             }
 
         private string CheckSelectedDays(string[] selectedDays)

@@ -58,14 +58,36 @@
                                     Source="{Binding ChildrenImageFullPath}"
                                     WidthRequest="100"/>
 
-                                <Label 
-                                    Grid.Column="1" 
-                                    HorizontalOptions="FillAndExpand" 
-                                    FontSize="Large" 
-                                    Text="{Binding ChildrenFirstName}" 
-                                    VerticalOptions="Center"
-                                    x:Name="lblChildrenFirstName">
-                                </Label>
+                                <!--NAME-->
+                                <StackLayout
+                                    Grid.Column="1"
+                                    HorizontalOptions="FillAndExpand"
+                                    Orientation="Horizontal"
+                                    Spacing="5"
+                                    VerticalOptions="Start">
+                                    <Label 
+                                        HorizontalOptions="StartAndExpand" 
+                                        FontSize="Large" 
+                                        Text="{Binding ChildFullName}" 
+                                        VerticalOptions="Center"
+                                        x:Name="lblChildrenFirstName"
+                                        Style="{StaticResource ChildrenFirstAndLastNames}">
+                                    </Label>
+
+                                </StackLayout>
+
+                                <!--AGE-->
+                                <StackLayout
+                                    Orientation="Horizontal"
+                                    Grid.Column="1"
+                                    HorizontalOptions="FillAndExpand">
+                                    <Label
+                                        Text="Age:"
+                                        Style="{StaticResource ChildrenAgeLabel}"/>
+                                    <Label
+                                        Text="{Binding ChildrenAge}"
+                                        Style="{StaticResource ChildrenAgeLabel}"/>
+                                </StackLayout>
                                 
                                 <Image
                                     Grid.Column="2"

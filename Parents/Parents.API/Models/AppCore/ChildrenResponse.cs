@@ -47,6 +47,6 @@
 
         public string ChildrenImage { get; set; }
 
-        public List<ActivityResponse> Activities { get; set; }
+        //public List<ActivityResponse> Activities { get; set; }
     }
 }

@@ -14,12 +14,13 @@
             <x:String x:Key="URLAPI">http://api.parents.outstandservices.pt</x:String>
 
             <!--  colors  -->
-            <Color x:Key="HeaderTextColor">#585858</Color>
-            <Color x:Key="BodyTextColor">#C3C3C3</Color>
-            <Color x:Key="ButtonBackgroundColor">#5992FF</Color>
-            <Color x:Key="BackgroundColor">White</Color>
-            <Color x:Key="MainColor">#2C3E50</Color>
-            <Color x:Key="FontColor">#F1E0B1</Color>
+            <Color x:Key="HeaderTextColor">#FF5035</Color>
+            <Color x:Key="BodyTextColor">#2B3A42</Color>
+            <Color x:Key="NormalButtonBackgroundColor">#3F5765</Color>
+            <Color x:Key="BackgroundColor">#EFEFEF</Color>
+            <Color x:Key="NormalButtonTextColor">#EFEFEF</Color>
+            <Color x:Key="MainColor">#2B3A42</Color>
+            <Color x:Key="FontColor">#3F5765</Color>
             
 
             <!--  font families  -->
@@ -91,12 +92,26 @@
             </Style>
 
             <Style x:Key="FollowButton" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="{StaticResource ButtonBackgroundColor}" />
+                <Setter Property="BackgroundColor" Value="{StaticResource NormalButtonBackgroundColor}" />
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="HeightRequest" Value="40" />
                 <Setter Property="BorderRadius" Value="20" />
                 <Setter Property="FontFamily" Value="{StaticResource MediumFontFamily}" />
                 <Setter Property="FontSize" Value="{StaticResource ButtonFontSize}" />
+            </Style>
+
+            <Style x:Key="ChildrenFirstAndLastNames" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource HeaderTextColor}" />
+                <Setter Property="FontFamily" Value="{StaticResource RegularFontFamily}" />
+                <Setter Property="FontSize" Value="{StaticResource TagTextFontSize}" />
+            </Style>
+
+            <Style x:Key="ChildrenAgeLabel" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource BodyTextColor}" />
+                <Setter Property="Margin" Value="0,-5,0,0" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="FontFamily" Value="{StaticResource LightFontFamily}" />
+                <Setter Property="FontSize" Value="{StaticResource StatsCaptionFontSize}" />
             </Style>
         </ResourceDictionary>
 

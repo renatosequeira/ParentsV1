@@ -16,11 +16,10 @@
     {
         #region Properties
  
-        [PrimaryKey]
+        [PrimaryKey, AutoIncrement]
         public int ChildrenId { get; set; }
-        public int ParentId { get; set; }
-        public int BoodInformationId { get; set; }
-        public int MatrimonialStateId { get; set; }
+        //public int BoodInformationId { get; set; }
+        //public int MatrimonialStateId { get; set; }
         public string ChildrenFirstName { get; set; }
         public string ChildrenMiddleName { get; set; }
         public string ChildrenLastName { get; set; }
@@ -37,9 +36,19 @@
         public string BloodInformationDescription { get; set; }
         public string ChildrenImage { get; set; }
         public string ChildrenSex { get; set; }
+        public byte[] ImageArray { get; set; }
 
         //public List<ActivityParents> Activities { get; set; }
 
+        
+        #endregion
+
+        #region Services
+        NavigationService navigationService;
+        DialogService dialogService;
+        #endregion
+
+        #region Properties
         public string ChildrenImageFullPath
         {
 
@@ -48,20 +57,38 @@
                 if (string.IsNullOrEmpty(ChildrenImage))
                 {
                     return "no_image";
-                    //return null;
                 }
 
                 return string.Format(
-                    "http://parents.outstandservices.pt/{0}",
+                    "http://api.parents.outstandservices.pt/{0}",
                     ChildrenImage.Substring(1));
             }
 
         }
-        #endregion
 
-        #region Services
-        NavigationService navigationService;
-        DialogService dialogService;
+        public string ChildrenAge
+        {
+            
+            get
+            {
+                DateTime birth = ChildrenBirthDate;
+                DateTime today = DateTime.Today;
+                var age = today.Year - birth.Year;
+                if (birth > today.AddYears(-age)) age--;
+                return age.ToString();
+            }
+
+        }
+
+        public string ChildFullName
+        {
+            get
+            {
+                string fullName = string.Format("{0} {1}", ChildrenFirstName, ChildrenLastName);
+                return fullName;
+            }
+
+        }
         #endregion
 
         #region Constructors

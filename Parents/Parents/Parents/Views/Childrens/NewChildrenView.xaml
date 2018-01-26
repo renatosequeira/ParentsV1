@@ -2,104 +2,207 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Parents.Views.Childrens.NewChildrenView"
+             BackgroundColor="{StaticResource BackgroundColor}"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             Title="ADD CHILDREN">
+             Title="{translator:Translate AddChildFormTitle}"
+             xmlns:translator="clr-namespace:Parents.Helpers">
 
     <ContentPage.Content>
-        <StackLayout 
-            BindingContext="{Binding NewChildren}"
-            Padding="10">
-
-            <Label
-                Text="Children First Name:">
+        <ScrollView>
+            <StackLayout 
+                BindingContext="{Binding NewChildren}"
+                Padding="20">
                 
-            </Label>
+                <!--CHILD IMAGE-->
+                <StackLayout
+                    HorizontalOptions="CenterAndExpand"
+                    Margin="0,5,0,10">
+                    <Image
+                        Source="{Binding ImageSource}"
+                        HeightRequest="100"
+                        WidthRequest="100">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ChangeImageCommand}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </StackLayout>
 
-            <Entry
-                Placeholder="Enter children first name"
-                Text="{Binding ChildrenFirstName, Mode=TwoWay}">
-            </Entry>
+                <!--FIRST NAME-->
+                <StackLayout
+                    Orientation="Horizontal"
+                    Spacing="8">
+                    <Image 
+                        Source="ic_baby_orange"
+                        HeightRequest="30"/>
 
-            <Label
-                Text="Children Last Name:">
+                    <Entry
+                        Placeholder="{translator:Translate ChildFirstNamePlaceHolder}"
+                        Text="{Binding ChildrenFirstName, Mode=TwoWay}"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="Center">
+                    </Entry>
 
-            </Label>
+                    <Image
+                        Source="ic_delete"
+                        VerticalOptions="Center"
+                        HorizontalOptions="End"
+                        HeightRequest="20">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding DeleteChildrenFirstNameCommand}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </StackLayout>
 
-            <Entry
-                Placeholder="Enter children last name"
-                Text="{Binding ChildrenLastName, Mode=TwoWay}">
-            </Entry>
+                <!--LAST NAME-->
+                <StackLayout
+                    Orientation="Horizontal"
+                    Spacing="8">
+                    <Image 
+                        Source="ic_family_orange"
+                        HeightRequest="30"/>
 
+                    <Entry
+                        Placeholder="{translator:Translate ChildLastNameNamePlaceHolder}"
+                        Text="{Binding ChildrenLastName, Mode=TwoWay}"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="Center"> 
+                    </Entry>
 
-            <Label
-                Text="Children ID card:">
+                    <Image
+                        Source="ic_delete"
+                        VerticalOptions="Center"
+                        HorizontalOptions="End"
+                        HeightRequest="20">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding DeleteChildrenLastNameCommand}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </StackLayout>
 
-            </Label>
+                <!--ID CARD-->
+                <StackLayout
+                    Orientation="Horizontal"
+                    Spacing="8">
+                    <Image 
+                        Source="ic_identitycard_orange"
+                        HeightRequest="30"/>
 
-            <Entry
-                Placeholder="Enter children id card"
-                Text="{Binding ChildrenIdentityCard, Mode=TwoWay}">
-            </Entry>
+                    <Entry
+                        Placeholder="{translator:Translate ChildIDCardPlaceHolder}"
+                        Text="{Binding ChildrenIdentityCard, Mode=TwoWay}"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="Center">
+                    </Entry>
 
-            <Label
-                Text="Birth Date">
-                
-            </Label>
+                    <Image
+                        Source="ic_delete"
+                        VerticalOptions="Center"
+                        HorizontalOptions="End"
+                        HeightRequest="20">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding DeleteChildrenIDCardNumberCommand}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </StackLayout>
 
-            <DatePicker
-                VerticalOptions="CenterAndExpand" 
-                Date="{x:Static sys:DateTime.Now}">
-                <DatePicker.Format>dd-MM-yyyy</DatePicker.Format>
-                <DatePicker.MinimumDate>
-                    <sys:DateTime x:FactoryMethod="Parse">
-                        <x:Arguments>
-                            <x:String>Jan 1 2000</x:String>
-                        </x:Arguments>
-                    </sys:DateTime>
-                </DatePicker.MinimumDate>
-                <DatePicker.MaximumDate>
-                    <sys:DateTime x:FactoryMethod="Parse">
-                        <x:Arguments>
-                            <x:String>Dec 31 2050</x:String>
-                        </x:Arguments>
-                    </sys:DateTime>
-                </DatePicker.MaximumDate>
-            </DatePicker>
+                <!--BIRTH DATE-->
+                <StackLayout                    
+                    Orientation="Horizontal"
+                    Spacing="8">
+                    
+                    <Image 
+                        Source="ic_birthdate_orange"
+                        HeightRequest="30"/>
 
-            
-            <Label
-                Text="Children Gender:">
+                    <DatePicker
+                        VerticalOptions="CenterAndExpand" 
+                        Date="{Binding ChildrenBirthDate, Mode=TwoWay}"
+                        HorizontalOptions="FillAndExpand">
+                            <DatePicker.Format>dd-MM-yyyy</DatePicker.Format>
+                            <DatePicker.MinimumDate>
+                                <sys:DateTime x:FactoryMethod="Parse">
+                                    <x:Arguments>
+                                        <x:String>Sep 28 1976</x:String>
+                                    </x:Arguments>
+                                </sys:DateTime>
+                            </DatePicker.MinimumDate>
+                        <DatePicker.MaximumDate>
+                            <sys:DateTime x:FactoryMethod="Parse">
+                                <x:Arguments>
+                                    <x:String>Dec 31 2050</x:String>
+                                </x:Arguments>
+                            </sys:DateTime>
+                        </DatePicker.MaximumDate>
+                    </DatePicker>
 
-            </Label>
+                    <Image
+                        Source="ic_delete"
+                        VerticalOptions="Center"
+                        HorizontalOptions="End"
+                        HeightRequest="20">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding DeleteChildrenBirthDateCommand}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </StackLayout>
 
+                <!--GENDER-->
+                <StackLayout
+                    Orientation="Horizontal"
+                    Spacing="8">
 
-            <Entry
-                Placeholder="Enter children sex"
-                Text="{Binding ChildrenSex, Mode=TwoWay}">
-            </Entry>
+                    <Image 
+                        Source="ic_gender_orange"
+                        HeightRequest="30"/>
 
-            <ActivityIndicator
+                    <Picker
+                        SelectedItem="{Binding ChildrenSex, Mode=TwoWay}"
+                        BackgroundColor="{StaticResource BackgroundColor}"
+                        TextColor="{StaticResource FontColor}"
+                        HorizontalOptions="FillAndExpand">
+                        <Picker.Title>
+                            <translator:Translate>SelectGender</translator:Translate>
+                        </Picker.Title>
+                        <Picker.Items>
+                            <translator:Translate>Female</translator:Translate>
+                            <translator:Translate>Male</translator:Translate>
+                        </Picker.Items>
+                    </Picker>
+
+                    <Image
+                        Source="ic_delete"
+                        VerticalOptions="Center"
+                        HorizontalOptions="End"
+                        HeightRequest="20">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding DeleteChildrenGenderCommand}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </StackLayout>
+
+                <ActivityIndicator
                 IsRunning="{Binding IsRunning, Mode=TwoWay}"
                 VerticalOptions="CenterAndExpand">
-                
-            </ActivityIndicator>
 
-            <Button
-                Command="{Binding SaveCommand}"
-                BackgroundColor="Navy"
-                BorderRadius="23"
-                FontAttributes="Bold"
-                HeightRequest="46"
-                IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                Text="Save"
-                TextColor="White"
-                Margin="50,0"
-                VerticalOptions="EndAndExpand">
-                
-            </Button>
-            
-        </StackLayout>
+                </ActivityIndicator>
+
+                <Button
+                    Command="{Binding SaveCommand}"
+                    BackgroundColor="{StaticResource NormalButtonBackgroundColor}"
+                    BorderRadius="23"
+                    FontAttributes="Bold"
+                    HeightRequest="46"
+                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                    Text="{translator:Translate Save}"
+                    TextColor="{StaticResource NormalButtonTextColor}"
+                    Margin="50,0"
+                    VerticalOptions="EndAndExpand">
+
+                </Button>
+
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
     
 </ContentPage>

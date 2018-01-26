@@ -919,7 +919,7 @@
             }
         }
 
-        async void EditItems()
+        void EditItems()
         {
             if (EditEnabled)
             {

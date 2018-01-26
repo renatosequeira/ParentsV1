@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddChildFormTitle" xml:space="preserve">
+    <value>ADICIONAR CRIANÇA</value>
+  </data>
+  <data name="ChildFirstNamePlaceHolder" xml:space="preserve">
+    <value>primeiro nome da criança</value>
+  </data>
+  <data name="ChildIDCardPlaceHolder" xml:space="preserve">
+    <value>cartão de cidadão criança</value>
+  </data>
+  <data name="ChildLastNameNamePlaceHolder" xml:space="preserve">
+    <value>último nome da criança</value>
+  </data>
   <data name="ChildrensMenu" xml:space="preserve">
     <value>CRIANÇAS</value>
   </data>
@@ -132,10 +144,22 @@
   <data name="DiaryMenu" xml:space="preserve">
     <value>DIÁRIO</value>
   </data>
+  <data name="Female" xml:space="preserve">
+    <value>Feminino</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>Masculino</value>
+  </data>
   <data name="ParentsMenu" xml:space="preserve">
     <value>PAIS</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
   <data name="Saving" xml:space="preserve">
     <value>A Guardar...</value>
+  </data>
+  <data name="SelectGender" xml:space="preserve">
+    <value>Seleccione o género...</value>
   </data>
 </root>

@@ -62,6 +62,42 @@ namespace Parents.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a ADD CHILDREN.
+        /// </summary>
+        internal static string AddChildFormTitle {
+            get {
+                return ResourceManager.GetString("AddChildFormTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a children first name.
+        /// </summary>
+        internal static string ChildFirstNamePlaceHolder {
+            get {
+                return ResourceManager.GetString("ChildFirstNamePlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a children identity card number.
+        /// </summary>
+        internal static string ChildIDCardPlaceHolder {
+            get {
+                return ResourceManager.GetString("ChildIDCardPlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a children last name.
+        /// </summary>
+        internal static string ChildLastNameNamePlaceHolder {
+            get {
+                return ResourceManager.GetString("ChildLastNameNamePlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a CHILDRENS.
         /// </summary>
         internal static string ChildrensMenu {
@@ -125,6 +161,24 @@ namespace Parents.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Female.
+        /// </summary>
+        internal static string Female {
+            get {
+                return ResourceManager.GetString("Female", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Male.
+        /// </summary>
+        internal static string Male {
+            get {
+                return ResourceManager.GetString("Male", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a PARENTS.
         /// </summary>
         internal static string ParentsMenu {
@@ -134,11 +188,29 @@ namespace Parents.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Save.
+        /// </summary>
+        internal static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Saving....
         /// </summary>
         internal static string Saving {
             get {
                 return ResourceManager.GetString("Saving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Select gender....
+        /// </summary>
+        internal static string SelectGender {
+            get {
+                return ResourceManager.GetString("SelectGender", resourceCulture);
             }
         }
     }

@@ -10,6 +10,8 @@
     using GalaSoft.MvvmLight.Command;
     using System.Threading.Tasks;
     using Xamarin.Forms;
+    using Plugin.Media.Abstractions;
+    using System;
 
     public class ChildrensViewModel : INotifyPropertyChanged
     {
@@ -27,9 +29,30 @@
         ObservableCollection<Children> _childrens;
         List<Children> childrens;
         bool _isRefreshing;
+        ImageSource _imageSource;
+        MediaFile file;
         #endregion
 
-        #region Properties       
+        #region Properties
+
+        public ImageSource ImageSource
+        {
+            set
+            {
+                if (_imageSource != value)
+                {
+                    _imageSource = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(ImageSource)));
+                }
+            }
+            get
+            {
+                return _imageSource;
+            }
+        }
+
         public ObservableCollection<Children> ChildrensList
         {
             get
@@ -65,6 +88,8 @@
                 }
             }
         }
+
+        public string Image { get; set; }
         #endregion
 
         #region Constructors
@@ -75,6 +100,8 @@
             apiService = new ApiService();
             dialogService = new DialogService();
             dataService = new DataService();
+
+            //ImageSource = _activity.ActivityImageFullPath;
 
             LoadChildrens();
         }
