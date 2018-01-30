@@ -9,6 +9,7 @@ using Android.Content;
 using PushNotification.Plugin;
 using Parents.Droid.Helpers;
 using Parents.Helpers;
+using FormsPinView.Droid;
 
 namespace Parents.Droid
 {
@@ -44,6 +45,8 @@ namespace Parents.Droid
             }
             Xamarin.FormsMaps.Init(this, bundle);
 
+            PinItemViewRenderer.Init();
+
             AppContext = this.ApplicationContext;
 
             //TODO: Initialize CrossPushNotification Plugin
@@ -54,6 +57,7 @@ namespace Parents.Droid
             StartPushService();
 
             LoadApplication(new App());
+
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)

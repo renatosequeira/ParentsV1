@@ -11,7 +11,6 @@
     using System.Linq;
     using Parents.Backend.Models.AppCore;
     using Parents.Backend.Helpers;
-    using System;
     using Microsoft.AspNet.Identity;
 
     [Authorize]
@@ -126,7 +125,9 @@
                 FirstParentId = view.FirstParentId,
                 SecondParendId = view.SecondParendId,
                 SchoolContact = view.SchoolContact,
-                ChildrenSex = view.ChildrenSex
+                ChildrenSex = view.ChildrenSex,
+                IsMale = view.IsMale,
+                ChildWithHealthIssues = view.ChildWithHealthIssues
             };
         }
 
@@ -171,7 +172,9 @@
                 FirstParentId = children.FirstParentId,
                 SecondParendId = children.SecondParendId,
                 SchoolContact = children.SchoolContact,
-                ChildrenSex = children.ChildrenSex
+                ChildrenSex = children.ChildrenSex,
+                IsMale = children.IsMale,
+                ChildWithHealthIssues = children.ChildWithHealthIssues
             };
         }
 

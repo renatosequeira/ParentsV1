@@ -336,9 +336,9 @@
 
             #region LISTS LOADING
             OpenFilteredActivitiesList(SelectedFilter);
-            //OpenFilteredAnniversariesList(SelectedFilterForAnniversaries);
-            //OpenFilteredEventsList(SelectedFilterForEvents);
-            //OpenFilteredSchoolList(SelectedFilterForSchool);
+            OpenFilteredAnniversariesList(SelectedFilterForAnniversaries);
+            OpenFilteredEventsList(SelectedFilterForEvents);
+            OpenFilteredSchoolList(SelectedFilterForSchool);
             #endregion
         }
 

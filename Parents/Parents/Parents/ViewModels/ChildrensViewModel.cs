@@ -12,6 +12,7 @@
     using Xamarin.Forms;
     using Plugin.Media.Abstractions;
     using System;
+    using Parents.ViewModels.Childrens;
 
     public class ChildrensViewModel : INotifyPropertyChanged
     {
@@ -23,6 +24,7 @@
         ApiService apiService;
         DialogService dialogService;
         DataService dataService;
+        NavigationService navigationService;
         #endregion
 
         #region Attributes
@@ -31,9 +33,46 @@
         bool _isRefreshing;
         ImageSource _imageSource;
         MediaFile file;
+        bool _searchVisibility;
+        string _synchronizationImage;
         #endregion
 
         #region Properties
+        public string SynchronizationImage
+        {
+            get
+            {
+                return _synchronizationImage;
+            }
+            set
+            {
+                if (_synchronizationImage != value)
+                {
+                    _synchronizationImage = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(SynchronizationImage)));
+                }
+            }
+        }
+        
+        public bool SearchVisibility
+        {
+            get
+            {
+                return _searchVisibility;
+            }
+            set
+            {
+                if (_searchVisibility != value)
+                {
+                    _searchVisibility = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(SearchVisibility)));
+                }
+            }
+        }
 
         public ImageSource ImageSource
         {
@@ -100,8 +139,8 @@
             apiService = new ApiService();
             dialogService = new DialogService();
             dataService = new DataService();
-
-            //ImageSource = _activity.ActivityImageFullPath;
+            navigationService = new NavigationService();
+            _searchVisibility = false;
 
             LoadChildrens();
         }
@@ -122,6 +161,7 @@
         #endregion
 
         #region Methods
+
         public void AddChildren(Children children)
         {
             IsRefreshing = true;
@@ -284,6 +324,42 @@
             {
                 return new RelayCommand(LoadChildrens);
             }
+        }
+
+        public ICommand SearchViewCommand
+        {
+            get
+            {
+                return new RelayCommand(OpenSearch);
+            }
+        }
+
+        private void OpenSearch()
+        {
+            if (SearchVisibility)
+            {
+              
+                SearchVisibility = false;
+            }
+            else
+            {
+                SearchVisibility = true;
+            }
+        }
+
+        public ICommand NewChildrenCommand
+        {
+            get
+            {
+                return new RelayCommand(GoNewChildren);
+            }
+        }
+
+        async void GoNewChildren()
+        {
+            var mainViewModel = MainViewModel.GetInstance();
+            mainViewModel.NewChildren = new NewChildrenViewModel();  //Liga o objecto NewChildren a um viewmodel
+            await navigationService.NavigateOnMaster("NewChildrenView");
         }
         #endregion
 

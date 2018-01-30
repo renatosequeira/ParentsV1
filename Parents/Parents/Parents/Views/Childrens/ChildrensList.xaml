@@ -3,8 +3,40 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Parents.Views.Childrens.ChildrensList"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
-             Title="Childrens">
+             Title="{translator:Translate ChildListFormTitle}"
+             BackgroundColor="{StaticResource MainColor}"
+             xmlns:translator="clr-namespace:Parents.Helpers"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             NavigationPage.HasBackButton="False"
+             BackgroundImage="backgroundList">
 
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem
+            Order="Primary"
+            Icon="ic_refresh_30_white"
+            Command="{Binding Childrens.SynchronizeCommand}"/>
+
+        <ToolbarItem
+            Order="Primary"
+            Icon="ic_add_user_30_white"
+            Command="{Binding Childrens.NewChildrenCommand}"/>
+
+        <ToolbarItem
+            Order="Primary"
+            Icon="ic_search_30_white_a"
+            Command="{Binding Childrens.SearchViewCommand}"/>
+
+        <ToolbarItem
+            Order="Secondary"
+            Text="About"/>
+
+        <ToolbarItem
+            Order="Secondary"
+            Text="Report"/>
+    </ContentPage.ToolbarItems>
+    
+    
     <Grid ColumnSpacing="0" RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -20,18 +52,25 @@
             Padding="5">
 
             <SearchBar
-                x:Name="searchBar"/>
+                x:Name="searchBar"
+                HeightRequest="30"
+                IsVisible="{Binding SearchVisibility, Mode=TwoWay}"
+                TextColor="{StaticResource BodyTextColor}"
+                PropertyChanging="searchBar_PropertyChanging"
+                BackgroundColor="#EFEFEF"/>
 
             <ListView
                 IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
                 HasUnevenRows="True"
                 IsPullToRefreshEnabled="True"
                 RefreshCommand="{Binding RefreshCommand}"
-                ItemsSource="{Binding ChildrensList}">
+                ItemsSource="{Binding ChildrensList}"
+                ItemTapped="ListView_ItemTapped"
+                x:Name="ChildrensCompletedList"
+                ItemSelected="ChildrensCompletedList_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-
                             <ViewCell.ContextActions>
                                 <MenuItem
                                     Command="{Binding EditCommand}"
@@ -41,74 +80,150 @@
                                     IsDestructive="True"
                                     Text="Delete"/>
                             </ViewCell.ContextActions>
-                            
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
 
-                                
-                                <Image
-                                    HorizontalOptions="Start"
-                                    HeightRequest="100"
-                                    Grid.Column="0"
-                                    VerticalOptions="Center"
-                                    Source="{Binding ChildrenImageFullPath}"
-                                    WidthRequest="100"/>
+                            <Frame
+                                HasShadow="True"
+                                OutlineColor="Transparent"
+                                Margin="5"
+                                CornerRadius="5"
+                                x:Name="frame">
 
-                                <!--NAME-->
-                                <StackLayout
-                                    Grid.Column="1"
-                                    HorizontalOptions="FillAndExpand"
-                                    Orientation="Horizontal"
-                                    Spacing="5"
-                                    VerticalOptions="Start">
-                                    <Label 
-                                        HorizontalOptions="StartAndExpand" 
-                                        FontSize="Large" 
-                                        Text="{Binding ChildFullName}" 
-                                        VerticalOptions="Center"
-                                        x:Name="lblChildrenFirstName"
-                                        Style="{StaticResource ChildrenFirstAndLastNames}">
-                                    </Label>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="50"/>
+                                    </Grid.RowDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0">
+                                        <StackLayout
+                                            Orientation="Horizontal"
+                                            Padding="2"
+                                            Spacing="15">
 
-                                </StackLayout>
+                                            <controls:CircleImage
+                                                HorizontalOptions="Start"
+                                                HeightRequest="75"
+                                                VerticalOptions="Center"
+                                                Source="{Binding ChildrenImageFullPath}"
+                                                WidthRequest="75"
+                                                Aspect="AspectFill"
+                                                BorderColor="{StaticResource HeaderTextColor}"
+                                                BorderThickness="1"/>
 
-                                <!--AGE-->
-                                <StackLayout
-                                    Orientation="Horizontal"
-                                    Grid.Column="1"
-                                    HorizontalOptions="FillAndExpand">
-                                    <Label
-                                        Text="Age:"
-                                        Style="{StaticResource ChildrenAgeLabel}"/>
-                                    <Label
-                                        Text="{Binding ChildrenAge}"
-                                        Style="{StaticResource ChildrenAgeLabel}"/>
-                                </StackLayout>
-                                
-                                <Image
-                                    Grid.Column="2"
-                                    HorizontalOptions="End" 
-                                    Source="see_child_details"
-                                    HeightRequest="50">
-                                    <Image.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding SelectChildrenCommand}"/>
-                                    </Image.GestureRecognizers>
-                                </Image>
-                            </Grid>
+                                            <Grid
+                                                HorizontalOptions="StartAndExpand">
+
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+
+                                                <!--NAME-->
+                                                <Label 
+                                                    HorizontalOptions="Start" 
+                                                    Text="{Binding ChildFullName}" 
+                                                    x:Name="lblChildrenFirstName"
+                                                    Style="{StaticResource ChildrenFirstAndLastNames}"
+                                                    Grid.Row="0"/>
+
+                                                <!--AGE-->
+                                                <StackLayout
+                                                    Orientation="Vertical"
+                                                    Grid.Row="1"
+                                                    HorizontalOptions="Start">
+                                                    
+                                                    <StackLayout
+                                                    Orientation="Horizontal">
+                                                        <Label
+                                                        Text="{translator:Translate Age}"
+                                                        Style="{StaticResource ChildrenAgeLabel}"/>
+                                                        <Label
+                                                        Text="{Binding ChildrenAge}"
+                                                        Style="{StaticResource ChildrenAgeLabel}"/>
+                                                    </StackLayout>
+
+                                                    <Label
+                                                        Text="{Binding ChildrenBirthDate, StringFormat='{0:dd-MM-yyyy}'}"
+                                                        Style="{StaticResource ChildrenAgeLabel}"/>
+                                                </StackLayout>
+                                            </Grid>
+
+                                            <StackLayout
+                                                Orientation="Vertical"
+                                                Spacing="8">
+                                                <StackLayout>
+                                                    <Image 
+                                                    Source="{Binding HealthStatusImage}"
+                                                    HeightRequest="25"
+                                                    VerticalOptions="Start"
+                                                    HorizontalOptions="End"
+                                                    TranslationX="-5"/>
+                                                </StackLayout>
+
+                                                <StackLayout>
+                                                    <Image 
+                                                    Source="{Binding ChildrenGenderImage}"
+                                                    HeightRequest="35"
+                                                    VerticalOptions="Start"
+                                                    HorizontalOptions="End"/>
+                                                </StackLayout>
+                                            </StackLayout>
+
+                                            <StackLayout.GestureRecognizers>
+                                                <!--<TapGestureRecognizer Command="{Binding SelectChildrenCommand}"/>-->
+                                            </StackLayout.GestureRecognizers>
+                                        </StackLayout>
+                                    </StackLayout>
+
+                                    <StackLayout
+                                        Grid.Row="1"
+                                        VerticalOptions="End"
+                                        HorizontalOptions="CenterAndExpand"
+                                        Orientation="Horizontal"
+                                        TranslationY="10">
+
+                                        <Button
+                                            Style="{StaticResource ChildrensListFrameButtons}"
+                                            Image="ic_playground_25_2bea42_outline"
+                                            BorderRadius="50"
+                                            Opacity="0.9"
+                                            Command="{Binding AddActivityCommand}"/>
+
+                                        <Button
+                                            Style="{StaticResource ChildrensListFrameButtons}"
+                                            Image="ic_ambulance_25_2bea42_outline"
+                                            BorderRadius="50"
+                                            Opacity="0.9"/>
+
+                                        <Button
+                                            Style="{StaticResource ChildrensListFrameButtons}"
+                                            Image="ic_studant_25_2bea42_outline"
+                                            BorderRadius="50"
+                                            Opacity="0.9"/>
+
+                                        <Button
+                                            Style="{StaticResource ChildrensListFrameButtons}"
+                                            Image="ic_info_25_2bea42_outline"
+                                            BorderRadius="50"
+                                            Opacity="0.9"
+                                            Command="{Binding SelectChildrenCommand}"/>
+                                    </StackLayout>
+                                </Grid>
+                            </Frame>
+
+
                         </ViewCell>
-
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
 
         <!--BOTTOM MENU-->
-        
-        <Grid ColumnSpacing="0" RowSpacing="0" Grid.Row="2">
+
+        <Grid 
+            ColumnSpacing="0" 
+            RowSpacing="0" 
+            Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -118,30 +233,32 @@
             <StackLayout
                 Spacing="0"
                 Grid.Column="0"
-                BackgroundColor="#7DBEA5">
+                BackgroundColor="{StaticResource MainColor}"
+                Padding="0,0,0,5">
 
                 <Image 
-                    HeightRequest="40"
-                    Source="ic_home"/>
+                    HeightRequest="30"
+                    Source="ic_home_30_white"
+                    VerticalOptions="CenterAndExpand"/>
 
                 <Label 
                     Text="HOME" 
                     FontSize="10" 
                     HorizontalOptions="Center"
-                    TextColor="#22395C"/>
+                    TextColor="White"/>
 
                 <StackLayout.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding BackCommand}" />
                 </StackLayout.GestureRecognizers>
             </StackLayout>
 
-            <StackLayout
+            <!--<StackLayout
                 Spacing="0"
                 Grid.Column="1"
-                BackgroundColor="#7DBEA5">
+                BackgroundColor="{StaticResource MainColor}">
 
-                <Image HeightRequest="40"
-                    Source="ic_add_child"/>
+                <Image HeightRequest="30"
+                    Source="ic_add_user_30_white"/>
 
                 <Label 
                     Text="ADD CHILD" 
@@ -153,18 +270,35 @@
                     <TapGestureRecognizer 
                         Command="{Binding NewChildrenCommand}"/>
                 </StackLayout.GestureRecognizers>
-            </StackLayout>
+            </StackLayout>-->
 
+            <StackLayout
+                Spacing="0"
+                Grid.Column="1"
+                BackgroundColor="{StaticResource MainColor}"
+                Padding="0,0,0,5">
+
+                <Image HeightRequest="30"
+                    Source="ic_settings_30_white"
+                       VerticalOptions="CenterAndExpand"/>
+
+                <Label 
+                    Text="SETTINGS" 
+                    FontSize="10" 
+                    HorizontalOptions="Center"
+                    TextColor="White"/>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer 
+                        Command="{Binding OpenSettingsCommand}"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
 
 
         </Grid>
 
-        <StackLayout
-            VerticalOptions="End"
-            HorizontalOptions="End">
-            <Image 
-                Source="kids"
-                WidthRequest="250"/>
-        </StackLayout>
     </Grid>
+
+
+
 </ContentPage>

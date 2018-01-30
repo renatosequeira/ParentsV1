@@ -46,7 +46,6 @@
                     ItemTapped="ActivitiesList_ItemTapped">
                     <ListView.ItemTemplate>
 
-
                         <DataTemplate>
                             <ViewCell>
 

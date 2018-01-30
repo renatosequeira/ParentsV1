@@ -97,6 +97,7 @@
 
         protected override void OnStart()
         {
+            //CrossPushNotification.Current.Unregister();
             //CrossPushNotification.Current.Register();
             // Handle when your app starts
         }

@@ -9,14 +9,16 @@
     using SQLite.Net.Attributes;
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Linq;
     using System.Windows.Input;
     using Xamarin.Forms;
 
     public class Children
     {
-        #region Properties
+        #region Attributtes
  
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey]
         public int ChildrenId { get; set; }
         //public int BoodInformationId { get; set; }
         //public int MatrimonialStateId { get; set; }
@@ -38,17 +40,65 @@
         public string ChildrenSex { get; set; }
         public byte[] ImageArray { get; set; }
 
+        public bool PendingToSave { get; set; }
+        public bool ChildWithHealthIssues { get; set; }
+        public bool IsMale { get; set; }
+
         //public List<ActivityParents> Activities { get; set; }
 
-        
+
         #endregion
 
         #region Services
         NavigationService navigationService;
         DialogService dialogService;
+        ApiService apiService;
+        DataService dataService;
         #endregion
 
         #region Properties
+        
+        public string ChildrenGenderImage
+        {
+            get
+            {
+                string image = "";
+
+                if (IsMale)
+                {
+                    image = "ic_boy_80_gray_outline";
+                }
+                else
+                {
+                    image = "ic_girl_80_gray_outline";
+                }
+                
+                return image;
+            }
+        }
+
+        public string HealthStatusImage
+        {
+
+            get
+            {
+                string image = "ic_heart_80_green_outline";
+
+                if (ChildWithHealthIssues)
+                {
+                    image = "ic_heart_80_red_outline";
+                   
+                }
+                else
+                {
+                    image = "ic_heart_80_green_outline";
+                }
+
+                return image;
+            }
+
+        }
+
         public string ChildrenImageFullPath
         {
 
@@ -56,7 +106,15 @@
             {
                 if (string.IsNullOrEmpty(ChildrenImage))
                 {
-                    return "no_image";
+                    //return "no_image";
+                    if (IsMale)
+                    {
+                        return "boy_avatar";
+                    }
+                    else
+                    {
+                        return "girl_avatar";
+                    }
                 }
 
                 return string.Format(
@@ -85,7 +143,7 @@
             get
             {
                 string fullName = string.Format("{0} {1}", ChildrenFirstName, ChildrenLastName);
-                return fullName;
+                return fullName.ToUpper();
             }
 
         }
@@ -96,6 +154,10 @@
         {
             navigationService = new NavigationService();
             dialogService = new DialogService();
+            apiService = new ApiService();
+            dataService = new DataService();
+
+            ChildWithHealthIssues = false;
         }
         #endregion
 
@@ -156,6 +218,29 @@
             await navigationService.NavigateOnMaster("ChildrenDetails");
 
         }
+
+        public ICommand AddActivityCommand
+        {
+            get
+            {
+                return new RelayCommand(AddActivity);
+            }
+        }
+
+        async void AddActivity()
+        {
+            Application.Current.Properties["childrenIdentityCard"] = ChildrenIdentityCard;
+            Application.Current.Properties["childrenId"] = ChildrenId;
+            MessagingCenter.Send(this, "childrenName", ChildrenFirstName);
+
+            var mainViewModel = MainViewModel.GetInstance();
+
+            //mainViewModel.Activities = new ActivitiesViewModel();
+            mainViewModel.NewActivity = new NewActivityViewModel();
+
+            await navigationService.NavigateOnMaster("AddAnniversaryActivity");
+
+        }
         #endregion
 
         #region Methods
@@ -163,6 +248,8 @@
         {
             return ChildrenId;
         }
+
+       
         #endregion
 
     }

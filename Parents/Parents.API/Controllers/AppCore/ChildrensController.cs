@@ -52,6 +52,8 @@
                     SecondParentId = children.SecondParendId,
                     SchoolContact = children.SchoolContact,
                     ChildrenSex = children.ChildrenSex,
+                    ChildWithHealthIssues = children.ChildWithHealthIssues,
+                    IsMale = children.IsMale
                 });
             }
 
@@ -67,8 +69,6 @@
             {
                 return NotFound();
             }
-
-            
 
             return Ok(children);
         }
@@ -187,7 +187,9 @@
                 CurrentSchool = view.CurrentSchool,
                 SchoolContact = view.SchoolContact,
                 FirstParentId = userId,
-                SecondParendId = view.SecondParendId
+                SecondParendId = view.SecondParendId,
+                ChildWithHealthIssues = view.ChildWithHealthIssues,
+                IsMale = view.IsMale
             };
         }
 

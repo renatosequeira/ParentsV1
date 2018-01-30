@@ -71,6 +71,15 @@ namespace Parents.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Age: .
+        /// </summary>
+        internal static string Age {
+            get {
+                return ResourceManager.GetString("Age", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a children first name.
         /// </summary>
         internal static string ChildFirstNamePlaceHolder {
@@ -94,6 +103,15 @@ namespace Parents.Resources {
         internal static string ChildLastNameNamePlaceHolder {
             get {
                 return ResourceManager.GetString("ChildLastNameNamePlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a CHILDRENS.
+        /// </summary>
+        internal static string ChildListFormTitle {
+            get {
+                return ResourceManager.GetString("ChildListFormTitle", resourceCulture);
             }
         }
         

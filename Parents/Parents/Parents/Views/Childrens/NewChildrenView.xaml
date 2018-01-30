@@ -123,7 +123,7 @@
                             <DatePicker.MinimumDate>
                                 <sys:DateTime x:FactoryMethod="Parse">
                                     <x:Arguments>
-                                        <x:String>Sep 28 1976</x:String>
+                                        <x:String>Jan 01 1900</x:String>
                                     </x:Arguments>
                                 </sys:DateTime>
                             </DatePicker.MinimumDate>

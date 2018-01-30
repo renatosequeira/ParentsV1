@@ -10,6 +10,7 @@
     using Plugin.Media.Abstractions;
     using Plugin.Media;
     using Parents.Helpers;
+    using Parents.Resources;
 
     public class NewChildrenViewModel : INotifyPropertyChanged
     {
@@ -38,6 +39,23 @@
         #endregion
 
         #region Properties
+        public bool IsMale
+        {
+            get
+            {
+                return _isRunning;
+            }
+            set
+            {
+                if (_isRunning != value)
+                {
+                    _isRunning = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(IsMale)));
+                }
+            }
+        }
 
         public string ChildrenFirstName
         {
@@ -122,6 +140,19 @@
                 if (_childrenSex != value)
                 {
                     _childrenSex = value;
+
+                    var t = AppResources.Male;
+                    
+
+                    if(value == "Male" || value == "Masculino")
+                    {
+                        IsMale = true;
+                    }
+                    else
+                    {
+                        IsMale = false;
+                    }
+
                     PropertyChanged?.Invoke(
                         this,
                         new PropertyChangedEventArgs(nameof(ChildrenSex)));
@@ -359,7 +390,8 @@
                 FirstParentId= null,
                 SecondParentId= null,
                 BloodInformationDescription= null,
-                ImageArray= imageArray
+                ImageArray= imageArray,
+                IsMale = IsMale
             };
 
             var mainViewModel = MainViewModel.GetInstance();

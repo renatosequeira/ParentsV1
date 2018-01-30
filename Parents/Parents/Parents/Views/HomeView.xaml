@@ -5,7 +5,8 @@
              BindingContext="{Binding Main,Source={StaticResource Locator}}"
              Title="PARENTS"
              BackgroundImage="backgroud4"
-             xmlns:translator="clr-namespace:Parents.Helpers">
+             xmlns:translator="clr-namespace:Parents.Helpers"
+             xmlns:design="clr-namespace:Parents.Infrsstructure;assemble=Parents">
 
     <ContentPage.Content>
 
@@ -70,11 +71,7 @@
                     HorizontalOptions="CenterAndExpand" 
                     Text="{translator:Translate ConfigurationMenu}" 
                     TextColor="#5A392B"
-                    Clicked="btn4_Clicked"
-            />
-
-
-
+                    Clicked="btn4_Clicked" />
             </Grid>
             
         </StackLayout>

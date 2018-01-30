@@ -38,6 +38,10 @@
         [Required(ErrorMessage = "The field {0} is required")]
         [Display(Name ="Gender")]
         public string ChildrenSex { get; set; }
+
+        public bool IsMale { get; set; }
+
+        public bool ChildWithHealthIssues { get; set; }
         #endregion
 
         #region HealthInformation

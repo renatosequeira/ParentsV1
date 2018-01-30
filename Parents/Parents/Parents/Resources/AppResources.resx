@@ -120,6 +120,10 @@
   <data name="AddChildFormTitle" xml:space="preserve">
     <value>ADD CHILDREN</value>
   </data>
+  <data name="Age" xml:space="preserve">
+    <value>Age: </value>
+    <comment>xaml</comment>
+  </data>
   <data name="ChildFirstNamePlaceHolder" xml:space="preserve">
     <value>children first name</value>
   </data>
@@ -128,6 +132,10 @@
   </data>
   <data name="ChildLastNameNamePlaceHolder" xml:space="preserve">
     <value>children last name</value>
+  </data>
+  <data name="ChildListFormTitle" xml:space="preserve">
+    <value>CHILDRENS</value>
+    <comment>xaml</comment>
   </data>
   <data name="ChildrensMenu" xml:space="preserve">
     <value>CHILDRENS</value>
@@ -140,6 +148,7 @@
   </data>
   <data name="ConfirmDeleteRecord" xml:space="preserve">
     <value>Are you sure to delete this record?</value>
+    <comment>em código</comment>
   </data>
   <data name="DialogErrorTitle" xml:space="preserve">
     <value>Error</value>

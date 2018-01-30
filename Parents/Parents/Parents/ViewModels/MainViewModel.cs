@@ -9,10 +9,8 @@
     using ViewModels.Settings;
     using ViewModels.Activities;
     using ViewModels.Activities.Helpers;
-    using Views.Activities.Helpers;
     using Parents.ViewModels.Activities.Helpers.ActivitiesInstitutionType;
     using Parents.ViewModels.Activities.Helpers.Peridiocity;
-    using System;
     using Parents.ViewModels.Activities.Helpers.ActivityType;
     using System.Collections.ObjectModel;
     using Parents.ViewModels.Activities.HelperPages;
@@ -229,6 +227,19 @@
         async void GoBack()
         {
             await navigationService.BackOnMaster();
+        }
+
+        public ICommand OpenSettingsCommand
+        {
+            get
+            {
+                return new RelayCommand(GoToSettings);
+            }
+        }
+
+        async void GoToSettings()
+        {
+            await navigationService.NavigateOnMaster("SettingsView");
         }
         #endregion
 

@@ -120,6 +120,10 @@
   <data name="AddChildFormTitle" xml:space="preserve">
     <value>ADICIONAR CRIANÇA</value>
   </data>
+  <data name="Age" xml:space="preserve">
+    <value>Idade: </value>
+    <comment>xaml</comment>
+  </data>
   <data name="ChildFirstNamePlaceHolder" xml:space="preserve">
     <value>primeiro nome da criança</value>
   </data>
@@ -128,6 +132,10 @@
   </data>
   <data name="ChildLastNameNamePlaceHolder" xml:space="preserve">
     <value>último nome da criança</value>
+  </data>
+  <data name="ChildListFormTitle" xml:space="preserve">
+    <value>CRIANÇAS</value>
+    <comment>xaml</comment>
   </data>
   <data name="ChildrensMenu" xml:space="preserve">
     <value>CRIANÇAS</value>
