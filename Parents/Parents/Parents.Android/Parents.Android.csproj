@@ -82,6 +82,12 @@
     <Reference Include="FormsPinView.PCL, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FormsPinView.1.0.1\lib\MonoAndroid10\FormsPinView.PCL.dll</HintPath>
     </Reference>
+    <Reference Include="FormsToolkit, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FormsToolkit.2.0.1\lib\MonoAndroid10\FormsToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="FormsToolkit.Android, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FormsToolkit.2.0.1\lib\MonoAndroid10\FormsToolkit.Android.dll</HintPath>
+    </Reference>
     <Reference Include="FormsViewGroup, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.2.5.0.121934\lib\MonoAndroid10\FormsViewGroup.dll</HintPath>
     </Reference>
@@ -410,6 +416,9 @@
     <AndroidResource Include="Resources\drawable\ic_refresh_5_30_white_a.png" />
     <AndroidResource Include="Resources\drawable\ic_refresh_plus_30_white_a.png" />
     <AndroidResource Include="Resources\drawable\backgroundList.jpg" />
+    <AndroidResource Include="Resources\drawable\profileImage.jpg" />
+    <AndroidResource Include="Resources\drawable\prifile1.png" />
+    <AndroidResource Include="Resources\drawable\ic_user_fill.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

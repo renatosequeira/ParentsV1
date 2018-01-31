@@ -1,30 +1,28 @@
 ﻿namespace Parents.Views.Childrens
 {
-    using global::Parents.Models;
-    using global::Parents.ViewModels;
-    using global::Parents.ViewModels.Activities;
-    using global::Parents.Views.Activities;
     using System;
     using Xamarin.Forms;
     using Xamarin.Forms.Xaml;
 
+
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ChildrenDetails : ContentPage
 	{
-		public ChildrenDetails ()
+
+        public ChildrenDetails ()
 		{
 			InitializeComponent ();
-            
+            MainScroll.ParallaxView = HeaderView;
         }
 
-        private void ChildrensListButton_Clicked(object sender, EventArgs e)
-        {
-            PlaceHolder.Content = null;
+        //private void ChildrensListButton_Clicked(object sender, EventArgs e)
+        //{
+        //    PlaceHolder.Content = null;
 
-            this.Navigation.PopAsync();
-            var childrensList = new ChildrensList();
-            PlaceHolder.Content = childrensList.Content;
-        }
+        //    this.Navigation.PopAsync();
+        //    var childrensList = new ChildrensList();
+        //    PlaceHolder.Content = childrensList.Content;
+        //}
 
 
         private void TapGestureRecognizer_Tapped_2(object sender, EventArgs e)
@@ -37,5 +35,6 @@
 
         }
 
+        
     }
 }

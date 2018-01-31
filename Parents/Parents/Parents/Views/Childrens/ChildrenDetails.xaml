@@ -3,9 +3,229 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Parents.Views.Childrens.ChildrenDetails"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
-             Title="CHILDREN DETAILS">
-    
-    <Grid ColumnSpacing="0" RowSpacing="0">
+             Title="CHILDREN DETAILS"
+             xmlns:local="clr-namespace:Parents.Controls;assembly=Parents">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150" x:Name="Row1Header"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <Grid RowSpacing="0" ColumnSpacing="0" x:Name="HeaderView">
+            <Image
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand"
+                Source="profileImage"
+                Aspect="AspectFill"/>
+
+            <!--USER PROFILE PICTURE-->
+            <Image 
+                    Source="prifile1"
+                    HeightRequest="100"
+                    WidthRequest="100"
+                    Aspect="AspectFill" 
+                    AbsoluteLayout.LayoutBounds="1,1,1,1" 
+                    AbsoluteLayout.LayoutFlags="All" 
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    TranslationY="75"
+                    TranslationX="100"/>
+        </Grid>
+        
+        <local:ParallaxControl x:Name="MainScroll" Grid.RowSpan="2">
+            <Grid RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="150"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid x:Name="MainStack"
+                     VerticalOptions="End"
+                     HorizontalOptions="FillAndExpand">
+                    <StackLayout
+                         Padding="16"
+                         Spacing="0"
+                         VerticalOptions="End"
+                         HorizontalOptions="FillAndExpand">
+                        <Label
+                            Text="Efeito Parallax"
+                            FontSize="18"
+                            TextColor="White">
+                        </Label>
+                        <Label
+                            Text="Subtitulo"
+                            FontSize="12"
+                            TextColor="White"/>
+                    </StackLayout>
+                </Grid>
+                <StackLayout Grid.Row="1" Spacing="0" BindingContext="{Binding EditChildren}">
+                    <StackLayout Padding="16" BackgroundColor="Transparent" HeightRequest="30">
+                        <Label 
+                            FontSize="20"
+                            TextColor="Black" 
+                            Text="{Binding ChildrenFirstName}"/>
+                    </StackLayout>
+                    <StackLayout Padding="16" BackgroundColor="Transparent">
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                    </StackLayout>
+
+
+                    <StackLayout Padding="16"  BackgroundColor="Silver" HeightRequest="30">
+                        <Label TextColor="Black" Text="Efeito Parallax" />
+                    </StackLayout>
+                    <StackLayout Padding="16" BackgroundColor="White">
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                        <Label Text="Efeito Parallax" />
+                    </StackLayout>
+                </StackLayout>
+            </Grid>
+        </local:ParallaxControl>
+
+        <StackLayout
+            Orientation="Horizontal"
+            Grid.Row="2"
+            BackgroundColor="#2B3A42"
+            Spacing="10"
+            Padding="20"
+            HorizontalOptions="FillAndExpand"
+            Opacity="0.9">
+
+            <Grid
+                ColumnSpacing="15"
+                RowSpacing="5"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="AUTO"/>
+                    <ColumnDefinition Width="AUTO"/>
+                    <ColumnDefinition Width="AUTO"/>
+                    <ColumnDefinition Width="AUTO"/>
+                    <ColumnDefinition Width="AUTO"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="AUTO"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Image
+                    Source="ic_user_fill"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    HeightRequest="35"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="CenterAndExpand"/>
+
+                <Label
+                    Text="PROFILE"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    TextColor="#EFEFEF"
+                    FontSize="14"/>
+
+                <Image
+                Source="ic_user_fill"
+                Grid.Row="0"
+                Grid.Column="1"
+                HeightRequest="35"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="CenterAndExpand"/>
+
+                <Label
+                Text="PROFILE"
+                Grid.Row="1"
+                Grid.Column="1"
+                TextColor="#EFEFEF"/>
+
+                <Image
+                Source="ic_user_fill"
+                Grid.Row="0"
+                Grid.Column="2"
+                    HeightRequest="35"
+                                        VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="CenterAndExpand"/>
+
+                <Label
+                Text="PROFILE"
+                Grid.Row="1"
+                Grid.Column="2"
+                TextColor="#EFEFEF"/>
+
+                <Image
+                Source="ic_user_fill"
+                Grid.Row="0"
+                Grid.Column="3"
+                    HeightRequest="35"
+                                        VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="CenterAndExpand"/>
+
+                <Label
+                Text="PROFILE"
+                Grid.Row="1"
+                Grid.Column="3"
+                TextColor="#EFEFEF"/>
+
+                <Image
+                Source="ic_user_fill"
+                Grid.Row="0"
+                Grid.Column="4"
+                    HeightRequest="35"
+                                        VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="CenterAndExpand"/>
+
+                <Label
+                Text="PROFILE"
+                Grid.Row="1"
+                Grid.Column="4"
+                TextColor="#EFEFEF"/>
+            </Grid>
+
+
+
+        </StackLayout>
+
+    </Grid>
+
+
+    <!--<Grid ColumnSpacing="0" RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="1"/>
@@ -14,9 +234,8 @@
         <ContentView x:Name="PlaceHolder" Grid.Row="0"/>
         <BoxView BackgroundColor="#22395C" Grid.Row="1"/>
 
-        <!--CHILDREN DETAILS-->
-
-            <StackLayout 
+        --><!--CHILDREN DETAILS--><!--
+        <StackLayout 
                 BindingContext="{Binding EditChildren}"
                 Padding="10">
 
@@ -30,10 +249,9 @@
                     Text="{Binding ChildrenFirstName, Mode=TwoWay}">
             </Entry>
 
-                <Label
-                    Text="Children Last Name:">
-
-                </Label>
+            <Label
+                Text="Children Last Name:">
+            </Label>
 
             <Entry
                     Placeholder="Enter children last name"
@@ -83,7 +301,7 @@
 
             </StackLayout>
 
-        <!--BOTTOM MENU-->
+        --><!--BOTTOM MENU--><!--
         <Grid 
             ColumnSpacing="0" 
             RowSpacing="0" Grid.Row="2">
@@ -217,14 +435,14 @@
 
         </Grid>
 
-        <StackLayout
+        --><!--<StackLayout
             VerticalOptions="End"
             HorizontalOptions="End">
             <Image 
                 Source="child_boy"
                 WidthRequest="100"/>
-        </StackLayout>
+        </StackLayout>--><!--
 
-    </Grid>
+    </Grid>-->
 
 </ContentPage>

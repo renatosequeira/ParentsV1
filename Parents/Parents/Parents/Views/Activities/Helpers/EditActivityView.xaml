@@ -374,7 +374,7 @@
             <!--ACTIVITY IMAGE SECTION-->
 
             <Grid
-            TranslationY="40">
+                TranslationY="40">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="AUTO"/>
                 </Grid.RowDefinitions>
