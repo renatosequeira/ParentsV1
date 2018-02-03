@@ -32,6 +32,8 @@ namespace Parents.Controls
                 height = ParallaxView.Height;
 
             var y = -(int)((float)ScrollY / 2.5f);
+            var xx = ScrollY/50;
+
             if (y < 0)
             {
                 //Move a imagem no eixo Y em uma fração da posição Y do ScrollView.
@@ -44,6 +46,7 @@ namespace Parents.Controls
                 double newHeight = height + (ScrollY * -1);
                 ParallaxView.Scale = newHeight / height;
                 ParallaxView.TranslationY = -(ScrollY / 2);
+
             }
             else
             {

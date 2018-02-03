@@ -130,10 +130,10 @@
 
             <!--FLOAT BUTTON-->
             <StackLayout
-            VerticalOptions="End"
-            HorizontalOptions="End"
-            WidthRequest="200"
-            MinimumWidthRequest="200">
+                VerticalOptions="End"
+                HorizontalOptions="End"
+                WidthRequest="200"
+                MinimumWidthRequest="200">
 
                 <StackLayout
                 Padding="0"
@@ -211,14 +211,14 @@
 
                 <!--BOTÃO DE MENU-->
                 <StackLayout
-                Padding="5"
-                Grid.Row="1">
+                    Padding="5"
+                    Grid.Row="1">
                     <Button 
-                    x:Name="buttonAdd"
-                    Image="add_closed_orange"
-                    Clicked="buttonAdd_Clicked"
-                    BackgroundColor="Transparent"
-                    HorizontalOptions="EndAndExpand"/>
+                        x:Name="buttonAdd"
+                        Image="add_closed_orange"
+                        Clicked="buttonAdd_Clicked"
+                        BackgroundColor="Transparent"
+                        HorizontalOptions="EndAndExpand"/>
                 </StackLayout>
             </StackLayout>
             <!--FLOAT BUTTON END-->

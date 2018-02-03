@@ -79,6 +79,8 @@
     <Compile Include="HealthManagement\Categories\Treatment.cs" />
     <Compile Include="HealthManagement\Categories\UrgencyCategory.cs" />
     <Compile Include="HealthManagement\Categories\UrgencySeverity.cs" />
+    <Compile Include="HealthManagement\ChildrenHeight.cs" />
+    <Compile Include="HealthManagement\ChildrenWeight.cs" />
     <Compile Include="HealthManagement\Disease.cs" />
     <Compile Include="HealthManagement\PhysicalCharacteristic.cs" />
     <Compile Include="HealthManagement\Urgency.cs" />
@@ -96,7 +98,9 @@
     <Compile Include="SchoolManagement\Helpers\ExamFamily.cs" />
     <Compile Include="SchoolManagement\ParentsMeeting.cs" />
     <Compile Include="SchoolManagement\School.cs" />
+    <Compile Include="Sistema\HeightUnits.cs" />
     <Compile Include="Sistema\Users.cs" />
+    <Compile Include="Sistema\WeightUnits.cs" />
     <Compile Include="TasksManagement\Helpers\TaskFamily.cs" />
     <Compile Include="TasksManagement\TaskFunction.cs" />
   </ItemGroup>

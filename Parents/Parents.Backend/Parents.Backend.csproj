@@ -202,6 +202,8 @@
     <Compile Include="Controllers\AppCore\ChildrensController.cs" />
     <Compile Include="Controllers\AppCore\Helpers\ManagementTypesController.cs" />
     <Compile Include="Controllers\AppCore\ParentsController.cs" />
+    <Compile Include="Controllers\ChildrensHeightController.cs" />
+    <Compile Include="Controllers\ChildrensWeightController.cs" />
     <Compile Include="Controllers\DomesticManagement\ItemsCategoriesController.cs" />
     <Compile Include="Controllers\DomesticManagement\ItemsToBuyController.cs" />
     <Compile Include="Controllers\HealthManagement\AlergiesController.cs" />
@@ -221,6 +223,7 @@
     <Compile Include="Controllers\HealthManagement\Helpers\UrgencySeveritiesController.cs" />
     <Compile Include="Controllers\HealthManagement\PhysicalCharacteristicsController.cs" />
     <Compile Include="Controllers\HealthManagement\UrgenciesController.cs" />
+    <Compile Include="Controllers\HeightUnitsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Locations\LocationsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -239,6 +242,7 @@
     <Compile Include="Controllers\Sistema\UsersController.cs" />
     <Compile Include="Controllers\TasksManagement\Helpers\TaskFamiliesController.cs" />
     <Compile Include="Controllers\TasksManagement\TaskFunctionsController.cs" />
+    <Compile Include="Controllers\WeightUnitsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -562,6 +566,26 @@
     <Content Include="Views\Locations\Details.cshtml" />
     <Content Include="Views\Locations\Edit.cshtml" />
     <Content Include="Views\Locations\Index.cshtml" />
+    <Content Include="Views\WeightUnits\Create.cshtml" />
+    <Content Include="Views\WeightUnits\Delete.cshtml" />
+    <Content Include="Views\WeightUnits\Details.cshtml" />
+    <Content Include="Views\WeightUnits\Edit.cshtml" />
+    <Content Include="Views\WeightUnits\Index.cshtml" />
+    <Content Include="Views\HeightUnits\Create.cshtml" />
+    <Content Include="Views\HeightUnits\Delete.cshtml" />
+    <Content Include="Views\HeightUnits\Details.cshtml" />
+    <Content Include="Views\HeightUnits\Edit.cshtml" />
+    <Content Include="Views\HeightUnits\Index.cshtml" />
+    <Content Include="Views\ChildrensWeight\Create.cshtml" />
+    <Content Include="Views\ChildrensWeight\Delete.cshtml" />
+    <Content Include="Views\ChildrensWeight\Details.cshtml" />
+    <Content Include="Views\ChildrensWeight\Edit.cshtml" />
+    <Content Include="Views\ChildrensWeight\Index.cshtml" />
+    <Content Include="Views\ChildrensHeight\Create.cshtml" />
+    <Content Include="Views\ChildrensHeight\Delete.cshtml" />
+    <Content Include="Views\ChildrensHeight\Details.cshtml" />
+    <Content Include="Views\ChildrensHeight\Edit.cshtml" />
+    <Content Include="Views\ChildrensHeight\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

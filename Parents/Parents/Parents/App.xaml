@@ -122,6 +122,12 @@
                 <Setter Property="BorderColor" Value="{StaticResource HeaderTextColor}"/>
                 <Setter Property="BorderWidth" Value="1"/>
             </Style>
+
+            <Style x:Key="ChildrenDetailsLabelColor" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource FontColor}"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
         </ResourceDictionary>
 
 	</Application.Resources>

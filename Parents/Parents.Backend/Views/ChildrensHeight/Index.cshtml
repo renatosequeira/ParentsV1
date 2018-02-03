@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Parents.Domain.HealthManagement.ChildrenHeight>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ChildrenId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HeightVaue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HeightUnit)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChildrenId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HeightVaue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HeightUnit)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ChildrenHeightId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ChildrenHeightId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ChildrenHeightId })
+        </td>
+    </tr>
+}
+
+</table>

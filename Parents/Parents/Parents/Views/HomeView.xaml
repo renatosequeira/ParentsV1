@@ -59,7 +59,7 @@
                     HorizontalOptions="CenterAndExpand" 
                     Text="{translator:Translate DiaryMenu}" 
                     TextColor="#5A392B" 
-                   />
+                   Clicked="btn3_Clicked"/>
 
                 <Button  
                     Grid.Column="1"

@@ -10,6 +10,7 @@ using PushNotification.Plugin;
 using Parents.Droid.Helpers;
 using Parents.Helpers;
 using FormsPinView.Droid;
+using ButtonCircle.FormsPlugin.Droid;
 
 namespace Parents.Droid
 {
@@ -46,6 +47,8 @@ namespace Parents.Droid
             Xamarin.FormsMaps.Init(this, bundle);
 
             PinItemViewRenderer.Init();
+
+            ButtonCircleRenderer.Init();
 
             AppContext = this.ApplicationContext;
 

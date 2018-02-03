@@ -18,6 +18,7 @@
     using Parents.Models.Sistema;
     using Parents.ViewModels.Locations;
     using Parents.ViewModels.Sistema;
+    using Parents.ViewModels.Health;
 
     public class MainViewModel
     {
@@ -62,6 +63,8 @@
         public SyncViewModel Sync { get; set; }
         public MyProfileViewModel MyProfile { get; set; }
         public PasswordRecoveryViewModel PasswordRecovery { get; set; }
+        public NewWeightViewModel NewChildrenWeight { get; set; }
+        public ChildrenWeightViewModel ChildrenWeight { get; set; }
         #endregion
 
         #region Constructors

@@ -235,12 +235,12 @@
 
             var mainViewModel = MainViewModel.GetInstance();
 
-            //mainViewModel.Activities = new ActivitiesViewModel();
             mainViewModel.NewActivity = new NewActivityViewModel();
 
             await navigationService.NavigateOnMaster("AddAnniversaryActivity");
 
         }
+
         #endregion
 
         #region Methods

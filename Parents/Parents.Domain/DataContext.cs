@@ -104,5 +104,13 @@
         public System.Data.Entity.DbSet<Parents.Domain.Sistema.Users> Users { get; set; }
 
         public System.Data.Entity.DbSet<Parents.Domain.Locations.Location> Locations { get; set; }
+
+        public System.Data.Entity.DbSet<Parents.Domain.Sistema.WeightUnits> WeightUnits { get; set; }
+
+        public System.Data.Entity.DbSet<Parents.Domain.Sistema.HeightUnits> HeightUnits { get; set; }
+
+        public System.Data.Entity.DbSet<Parents.Domain.HealthManagement.ChildrenWeight> ChildrenWeights { get; set; }
+
+        public System.Data.Entity.DbSet<Parents.Domain.HealthManagement.ChildrenHeight> ChildrenHeights { get; set; }
     }
 }

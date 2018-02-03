@@ -52,6 +52,12 @@
         public string ChildrenEmail { get; set; }
         public string ChildrenMobile { get; set; }
         public string ChildrenAddress { get; set; }
+
+        public string FatherEmergencyContact { get; set; }
+        public string MotherEmergencyContact { get; set; }
+        public string AlternativeEmergencyContact1 { get; set; }
+        public string AlternativeEmergencyContact2 { get; set; }
+
         #endregion
 
         #region SchoolInformation
@@ -63,16 +69,23 @@
         public string FirstParentId { get; set; }
         public string SecondParendId { get; set; }
 
-        
+
         #endregion
 
+        #region PhysicalCharacteristics
+        public string EyeColor { get; set; }
+        public string HairColor { get; set; }
+        #endregion
 
         [JsonIgnore]
         public virtual BloodInformation BloodInformation { get; set; }
 
         public string BloodInformationDescription { get; set; }
 
+        #region Multimedia
         public string ChildrenImage { get; set; }
+        public string ChildrenProfileBannerImage { get; set; } 
+        #endregion
 
         [JsonIgnore]
         public ICollection<Activities> Activities { get; set; }

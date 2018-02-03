@@ -1,0 +1,26 @@
+﻿@model Parents.Domain.Sistema.HeightUnits
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>HeightUnits</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.HeightUnitDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HeightUnitDescription)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.HeightUnitId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

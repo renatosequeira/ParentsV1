@@ -23,18 +23,87 @@
         //    var childrensList = new ChildrensList();
         //    PlaceHolder.Content = childrensList.Content;
         //}
-
-
-        private void TapGestureRecognizer_Tapped_2(object sender, EventArgs e)
+      
+        private void btnAddEvent_Clicked(object sender, EventArgs e)
         {
 
         }
 
-        private void TapGestureRecognizer_Tapped_3(object sender, EventArgs e)
+
+        private void btnChangeProfilePicture_Clicked(object sender, EventArgs e)
         {
 
         }
 
-        
+
+        private void btnEdit_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void btnAdd_Clicked(object sender, EventArgs e)
+        {
+            bool homeButtonGroup = btnAddActivityPicture.IsVisible;
+
+            if (!homeButtonGroup)
+            {
+                btnAddActivityPicture.IsVisible = true;
+                btnAddHealthEventPicture.IsVisible = true;
+                btnAddSchoolEventPicture.IsVisible = true;
+                btnAddWeightPicture.IsVisible = true;
+                btnAddHeightPicture.IsVisible = true;
+
+                await bodySection.FadeTo(0.1, 100, Easing.Linear);
+                await btnAddActivityPicture.FadeTo(1, 0, Easing.Linear);
+                await btnAddHealthEventPicture.FadeTo(1, 0, Easing.Linear);
+                await btnAddSchoolEventPicture.FadeTo(1, 0, Easing.Linear);
+                await btnAddWeightPicture.FadeTo(1, 0, Easing.Linear);
+                await btnAddHeightPicture.FadeTo(1, 0, Easing.Linear);
+
+                btnAdd.BackgroundColor = Color.FromHex("#3F5765");
+                btnAdd.TextColor = Color.White;
+            }
+            else
+            {
+
+                await btnAddActivityPicture.FadeTo(0, 0, Easing.Linear);
+                await btnAddHealthEventPicture.FadeTo(0, 0, Easing.Linear);
+                await btnAddSchoolEventPicture.FadeTo(0, 0, Easing.Linear);
+                await btnAddWeightPicture.FadeTo(0, 0, Easing.Linear);
+                await btnAddHeightPicture.FadeTo(0, 0, Easing.Linear);
+                await bodySection.FadeTo(1, 100, Easing.Linear);
+
+                btnAddActivityPicture.IsVisible = false;
+                btnAddHealthEventPicture.IsVisible = false;
+                btnAddSchoolEventPicture.IsVisible = false;
+                btnAddWeightPicture.IsVisible = false;
+                btnAddHeightPicture.IsVisible = false;
+
+                btnAdd.BackgroundColor = Color.FromHex("#99E758");
+                btnAdd.TextColor = Color.White;
+            }
+        }
+
+        private async void btnMore_Clicked(object sender, EventArgs e)
+        {
+            bool b1 = btnAddEvent.IsVisible;
+
+            if (!b1)
+            {
+                btnAddEvent.IsVisible = true;
+                btnChangeBannerPicture.IsVisible = true;
+
+                await btnAddEvent.FadeTo(1, 0, Easing.Linear);
+                await btnChangeBannerPicture.FadeTo(1, 500, Easing.Linear);
+            }
+            else
+            {
+                await btnChangeBannerPicture.FadeTo(0, 0, Easing.Linear);
+                await btnAddEvent.FadeTo(0, 0, Easing.Linear);
+
+                btnChangeBannerPicture.IsVisible = false;
+                btnAddEvent.IsVisible = false;
+            }
+        }
     }
 }

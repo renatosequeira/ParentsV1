@@ -1,0 +1,42 @@
+﻿@model Parents.Domain.HealthManagement.ChildrenWeight
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ChildrenWeight</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ChildrenId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChildrenId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WeightVaue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WeightVaue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WeightUnit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WeightUnit)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ChildrenWeightId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

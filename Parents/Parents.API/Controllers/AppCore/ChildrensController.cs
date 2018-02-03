@@ -53,7 +53,14 @@
                     SchoolContact = children.SchoolContact,
                     ChildrenSex = children.ChildrenSex,
                     ChildWithHealthIssues = children.ChildWithHealthIssues,
-                    IsMale = children.IsMale
+                    IsMale = children.IsMale,
+                    AlternativeEmergencyContact1 = children.AlternativeEmergencyContact1,
+                    AlternativeEmergencyContact2 = children.AlternativeEmergencyContact2,
+                    ChildrenProfileBannerImage = children.ChildrenProfileBannerImage,
+                    EyeColor = children.EyeColor,
+                    FatherEmergencyContact = children.FatherEmergencyContact,
+                    HairColor = children.HairColor,
+                    MotherEmergencyContact = children.MotherEmergencyContact
                 });
             }
 
@@ -137,6 +144,21 @@
                 }
             }
 
+            if (children.ProfileBannerArray != null && children.ProfileBannerArray.Length > 0)
+            {
+                var stream = new MemoryStream(children.ProfileBannerArray);
+                var guid = Guid.NewGuid().ToString();
+                var file = string.Format("{0}.jpg", guid);
+                var folder = "~/Content/Images";
+                var fullPath = string.Format("{0}/{1}", folder, file);
+                var response = FilesHelper.UploadPhoto(stream, folder, file);
+
+                if (response)
+                {
+                    children.ChildrenProfileBannerImage = fullPath;
+                }
+            }
+
             var _children = ToChildren(children);
             
             string parentId = User.Identity.GetUserId();
@@ -189,7 +211,14 @@
                 FirstParentId = userId,
                 SecondParendId = view.SecondParendId,
                 ChildWithHealthIssues = view.ChildWithHealthIssues,
-                IsMale = view.IsMale
+                IsMale = view.IsMale,
+                AlternativeEmergencyContact1 = view.AlternativeEmergencyContact1,
+                AlternativeEmergencyContact2 = view.AlternativeEmergencyContact2,
+                ChildrenProfileBannerImage = view.ChildrenProfileBannerImage,
+                EyeColor = view.EyeColor,
+                FatherEmergencyContact = view.FatherEmergencyContact,
+                MotherEmergencyContact = view.MotherEmergencyContact,
+                HairColor = view.HairColor
             };
         }
 

@@ -41,7 +41,8 @@
         public async Task<ActionResult> Index()
         {
             string userId = User.Identity.GetUserId();
-            var children = db.Children.Include(c => c.BloodInformation);
+            //var children = db.Children.Include(c => c.BloodInformation);
+            var children = db.Children;
             return View(await children.Where(child => child.FirstParentId == userId || child.SecondParendId == userId).ToListAsync());
         }
 

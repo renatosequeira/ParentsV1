@@ -246,6 +246,7 @@
     <Compile Include="Controllers\DomesticManagement\ItemsCategoriesController.cs" />
     <Compile Include="Controllers\DomesticManagement\ItemsToBuyController.cs" />
     <Compile Include="Controllers\HealthManagement\AlergiesController.cs" />
+    <Compile Include="Controllers\HealthManagement\ChildrensWeightController.cs" />
     <Compile Include="Controllers\HealthManagement\DiseasesController.cs" />
     <Compile Include="Controllers\HealthManagement\Helpers\AlergiesController.cs" />
     <Compile Include="Controllers\HealthManagement\Helpers\BloodInformationsController.cs" />
@@ -296,6 +297,7 @@
     <Compile Include="Models\AppCore\ChildrenResponse.cs" />
     <Compile Include="Models\AppCore\ParentResponse.cs" />
     <Compile Include="Models\FacebookResponse.cs" />
+    <Compile Include="Models\HealthManagement\ChildrenWeightResponse.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\SchoolManagement\Helpers\DisciplineResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

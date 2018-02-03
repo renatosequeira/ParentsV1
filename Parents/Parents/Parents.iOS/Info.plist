@@ -45,6 +45,8 @@
 		<string>Icon-Small</string>
 		<string>Icon-Small@2x</string>
 		<string>Icon-Small@3x</string>
+		<string>materialicons.ttf</string>
+        <string>fontawesome.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

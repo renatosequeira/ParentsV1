@@ -11,6 +11,7 @@
     using Plugin.Media;
     using Parents.Helpers;
     using Parents.Resources;
+    using Plugin.LocalNotifications;
 
     public class NewChildrenViewModel : INotifyPropertyChanged
     {
@@ -393,6 +394,8 @@
                 ImageArray= imageArray,
                 IsMale = IsMale
             };
+
+            CrossLocalNotifications.Current.Show("Testando as Notificações", "Agora va ler mais artigos do Bertuzzi no Medium",1,ChildrenBirthDate);
 
             var mainViewModel = MainViewModel.GetInstance();
 

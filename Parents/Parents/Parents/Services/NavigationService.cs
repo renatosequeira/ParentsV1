@@ -19,6 +19,7 @@
     using Parents.Views.Sistema;
     using Parents.Views.Activities;
     using Parents.Views.Locations;
+    using Parents.Views.Health;
 
     public class NavigationService
     {
@@ -171,6 +172,9 @@
                     break;
                 case "PlacesView":
                     await App.Navigator.PushAsync(new GooglePlacesView());
+                    break;
+                case "NewWeightView":
+                    await App.Navigator.PushAsync(new NewWeightView());
                     break;
             }
 

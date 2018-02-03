@@ -1,5 +1,6 @@
 ﻿namespace Parents.Views
 {
+    using Plugin.LocalNotifications;
     using Services;
     using System;
     using Xamarin.Forms;
@@ -38,6 +39,11 @@
         private async void btn4_Clicked(object sender, EventArgs e)
         {
             await navigationService.NavigateOnMaster("SettingsView");
+        }
+
+        private void btn3_Clicked(object sender, EventArgs e)
+        {
+            CrossLocalNotifications.Current.Show("Testando as Notificações", "Agora va ler mais artigos do Bertuzzi no Medium", 1, DateTime.Now.AddSeconds(5));
         }
     }
 }

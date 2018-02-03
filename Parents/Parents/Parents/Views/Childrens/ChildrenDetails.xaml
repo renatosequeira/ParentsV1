@@ -4,141 +4,427 @@
              x:Class="Parents.Views.Childrens.ChildrenDetails"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
              Title="CHILDREN DETAILS"
-             xmlns:local="clr-namespace:Parents.Controls;assembly=Parents">
+             xmlns:local="clr-namespace:Parents.Controls;assembly=Parents"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             xmlns:roundedButtons="clr-namespace:ButtonCircle.FormsPlugin.Abstractions;assembly=ButtonCircle.FormsPlugin.Abstractions">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="150" x:Name="Row1Header"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="60"/>
-        </Grid.RowDefinitions>
-        <Grid RowSpacing="0" ColumnSpacing="0" x:Name="HeaderView">
-            <Image
-                HorizontalOptions="FillAndExpand"
-                VerticalOptions="FillAndExpand"
-                Source="profileImage"
-                Aspect="AspectFill"/>
+    <ContentPage.ToolbarItems>
 
-            <!--USER PROFILE PICTURE-->
-            <Image 
-                    Source="prifile1"
-                    HeightRequest="100"
-                    WidthRequest="100"
-                    Aspect="AspectFill" 
-                    AbsoluteLayout.LayoutBounds="1,1,1,1" 
-                    AbsoluteLayout.LayoutFlags="All" 
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    TranslationY="75"
-                    TranslationX="100"/>
-        </Grid>
+        <ToolbarItem
+            Order="Secondary"
+            Text="Parental"/>
         
-        <local:ParallaxControl x:Name="MainScroll" Grid.RowSpan="2">
-            <Grid RowSpacing="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="150"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid x:Name="MainStack"
-                     VerticalOptions="End"
-                     HorizontalOptions="FillAndExpand">
-                    <StackLayout
-                         Padding="16"
-                         Spacing="0"
-                         VerticalOptions="End"
-                         HorizontalOptions="FillAndExpand">
-                        <Label
-                            Text="Efeito Parallax"
-                            FontSize="18"
-                            TextColor="White">
-                        </Label>
-                        <Label
-                            Text="Subtitulo"
-                            FontSize="12"
-                            TextColor="White"/>
-                    </StackLayout>
+        <ToolbarItem
+            Order="Secondary"
+            Text="Help"/>
+
+        <ToolbarItem
+            Order="Secondary"
+            Text="About"/>
+    </ContentPage.ToolbarItems>
+
+    <AbsoluteLayout
+        HorizontalOptions="FillAndExpand">
+        <Grid
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150" x:Name="Row1Header"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="AUTO"/>
+            </Grid.RowDefinitions>
+
+
+            <Grid RowSpacing="0" ColumnSpacing="0" x:Name="HeaderView">
+
+                <RelativeLayout>
+
+                    <!--BANNER IMAGE-->
+                    <Image
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand"
+                        Source="profileImage"
+                        Aspect="AspectFill"
+                        x:Name="profileBannerPicture"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=1,Constant=0}"
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=1,Constant=0}"/>
+
+                </RelativeLayout>
+
+
+                <!--CHILDREN NAME AND SURNAME-->
+                <Grid
+                    Padding="16"
+                    RowSpacing="0"
+                    VerticalOptions="End"
+                    Opacity="0.8">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="AUTO"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="AUTO"/>
+                        <RowDefinition Height="AUTO"/>
+                    </Grid.RowDefinitions>
+
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Text="{Binding EditChildren.ChildrenFirstName}"
+                        FontSize="30"
+                        TextColor="White"
+                        BackgroundColor="#FF5035"/>
+
+
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="1"
+                        Text="{Binding EditChildren.ChildrenLastName}"
+                        FontSize="20"
+                        TextColor="White"
+                        BackgroundColor="#FF5035"
+                        TranslationX="50"/>
                 </Grid>
-                <StackLayout Grid.Row="1" Spacing="0" BindingContext="{Binding EditChildren}">
-                    <StackLayout Padding="16" BackgroundColor="Transparent" HeightRequest="30">
-                        <Label 
-                            FontSize="20"
-                            TextColor="Black" 
-                            Text="{Binding ChildrenFirstName}"/>
-                    </StackLayout>
-                    <StackLayout Padding="16" BackgroundColor="Transparent">
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                    </StackLayout>
 
-
-                    <StackLayout Padding="16"  BackgroundColor="Silver" HeightRequest="30">
-                        <Label TextColor="Black" Text="Efeito Parallax" />
-                    </StackLayout>
-                    <StackLayout Padding="16" BackgroundColor="White">
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                        <Label Text="Efeito Parallax" />
-                    </StackLayout>
-                </StackLayout>
             </Grid>
-        </local:ParallaxControl>
 
-        <StackLayout
-            Orientation="Horizontal"
-            Grid.Row="2"
-            BackgroundColor="#2B3A42"
-            Spacing="10"
-            Padding="20"
-            HorizontalOptions="FillAndExpand"
-            Opacity="0.9">
+            <!--PARALLAX BODY (BOTTOM)-->
+            <local:ParallaxControl x:Name="MainScroll" Grid.RowSpan="2">
 
+                <AbsoluteLayout>
+                    <Grid 
+                        RowSpacing="0"
+                        BindingContext="{Binding EditChildren}"
+                        AbsoluteLayout.LayoutBounds="0,0,1,1"
+                        AbsoluteLayout.LayoutFlags="All">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="150"/>
+                            <RowDefinition Height="AUTO"/>
+                        </Grid.RowDefinitions>
+
+                        <!--USER PROFILE PICTURE-->
+                        <RelativeLayout
+                            HorizontalOptions="CenterAndExpand"
+                            VerticalOptions="CenterAndExpand">
+
+                            <controls:CircleImage
+                                Source="{Binding ImageFullPath}"
+                                HeightRequest="100"
+                                WidthRequest="100"
+                                Aspect="AspectFit" 
+                                BorderColor="#bdd4de"
+                                BorderThickness="1"
+                                Grid.Row="0"
+                                x:Name="circleImage"
+                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=1,Constant=-22}"
+                                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=1,Constant=-20}"
+                                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=1,Constant=-20}">
+                            </controls:CircleImage>
+
+                            <roundedButtons:CircleButton 
+                                FontIcon="FontAwesome" 
+                                Icon="fa-pencil" 
+                                FontSize="15" 
+                                TextColor="#FF5035" 
+                                HeightRequest="35" 
+                                WidthRequest="35" 
+                                BorderRadius="35"
+                                BackgroundColor="#2B3A42" 
+                                x:Name="btnImages1"
+                                HorizontalOptions="End"
+                                RelativeLayout.YConstraint="{ConstraintExpression 
+                                Type=RelativeToView,
+                                ElementName=circleImage,
+                                Property=Y,
+                                Factor=1,
+                                Constant=75}"
+                                RelativeLayout.XConstraint="{ConstraintExpression 
+                                Type=RelativeToView,
+                                ElementName=circleImage,
+                                Property=X,
+                                Factor=1,
+                                Constant=100}"
+                                Opacity="0.7"/>
+
+                        </RelativeLayout>
+
+                        <!--CHILDREN DETAILS BODY-->
+                        <StackLayout Grid.Row="1" Spacing="0">
+
+                            <StackLayout
+                                Orientation="Horizontal"
+                                Spacing="8"
+                                HorizontalOptions="EndAndExpand"
+                                Margin="8">
+
+                                <roundedButtons:CircleButton 
+                                    FontIcon="FontAwesome" 
+                                    Icon="fa-pencil" 
+                                    FontSize="18" 
+                                    TextColor="White" 
+                                    HeightRequest="45" 
+                                    WidthRequest="45" 
+                                    BorderRadius="45"
+                                    BackgroundColor="#BDD4DE" 
+                                    Clicked="btnEdit_Clicked"
+                                    x:Name="btnEdit"
+                                    HorizontalOptions="End"/>
+
+                                <roundedButtons:CircleButton 
+                                    FontIcon="FontAwesome" 
+                                    Icon="fa-plus" 
+                                    FontSize="20" 
+                                    TextColor="White" 
+                                    HeightRequest="50" 
+                                    WidthRequest="50" 
+                                    BorderRadius="50"
+                                    BackgroundColor="#99E758" 
+                                    Clicked="btnAdd_Clicked"
+                                    x:Name="btnAdd"
+                                    HorizontalOptions="End"/>
+
+                                <roundedButtons:CircleButton 
+                                    FontIcon="FontAwesome" 
+                                    Icon="fa-ellipsis-v" 
+                                    FontSize="18" 
+                                    TextColor="White" 
+                                    HeightRequest="45" 
+                                    WidthRequest="45" 
+                                    BorderRadius="45"
+                                    BackgroundColor="#BDD4DE" 
+                                    Clicked="btnMore_Clicked"
+                                    x:Name="btnMore"
+                                    HorizontalOptions="End"/>
+
+                            </StackLayout>
+
+                            <AbsoluteLayout>
+                                
+                            <!--HIDDEN BUTTONS-->
+                                
+                                <!--GENERAL MENU-->
+                                <StackLayout
+                                    Orientation="Vertical"
+                                    HorizontalOptions="EndAndExpand"
+                                    AbsoluteLayout.LayoutBounds="1,0,1,1"
+                                    AbsoluteLayout.LayoutFlags="All"
+                                    BackgroundColor="#BDD4DE"
+                                    VerticalOptions="FillAndExpand"
+                                    Opacity="1">
+                                    
+                                    <Button 
+                                        x:Name="btnAddEvent"
+                                        Image="anniversary_orange"
+                                        Clicked="btnAddEvent_Clicked"
+                                        BackgroundColor="Transparent"
+                                        IsVisible="False"
+                                        Text="ANNIVERSARY"
+                                        FontAttributes="Bold"
+                                        TextColor="DarkGray"
+                                        Opacity="0"/>
+
+                                    <Button 
+                                        x:Name="btnChangeBannerPicture"
+                                        Clicked="btnAddEvent_Clicked"
+                                        BackgroundColor="Transparent"
+                                        IsVisible="False"
+                                        Text="BANNER PICTURE"
+                                        FontAttributes="None"
+                                        Opacity="0"
+                                        TextColor="#2BRA42"/>
+
+                                </StackLayout>
+                                
+                                <!--ADD MENU-->
+                                <StackLayout
+                                    Orientation="Vertical"
+                                    HorizontalOptions="EndAndExpand"
+                                    AbsoluteLayout.LayoutBounds="1,0,1,0.5"
+                                    AbsoluteLayout.LayoutFlags="All"
+                                    BackgroundColor="#99E758"
+                                    Opacity="1"
+                                    TranslationX="-10"
+                                    Padding="0">
+
+                                    <Button 
+                                        x:Name="btnAddActivityPicture"
+                                        Image="ic_event_30_white"
+                                        Clicked="btnChangeProfilePicture_Clicked"
+                                        BackgroundColor="Transparent"
+                                        IsVisible="False"
+                                        Text="EVENT"
+                                        FontAttributes="None"
+                                        Opacity="0"
+                                        TextColor="White"/>
+
+                                    <Button 
+                                        x:Name="btnAddHealthEventPicture"
+                                        Image="ic_ambulance_30_white"
+                                        Clicked="btnChangeProfilePicture_Clicked"
+                                        BackgroundColor="Transparent"
+                                        IsVisible="False"
+                                        Text="HEALTH ENTRY"
+                                        FontAttributes="None"
+                                        Opacity="0"
+                                        TextColor="White"/>
+
+                                    <Button 
+                                        x:Name="btnAddSchoolEventPicture"
+                                        Image="ic_school_30_white"
+                                        Clicked="btnChangeProfilePicture_Clicked"
+                                        BackgroundColor="Transparent"
+                                        IsVisible="False"
+                                        Text="SCHOOL ENTRY"
+                                        FontAttributes="None"
+                                        Opacity="0"
+                                        TextColor="White"/>
+
+                                    <Button 
+                                        x:Name="btnAddWeightPicture"
+                                        Image="ic_scale_30_white"
+                                        Clicked="btnChangeProfilePicture_Clicked"
+                                        BackgroundColor="Transparent"
+                                        IsVisible="False"
+                                        Text="WEIGHT"
+                                        FontAttributes="None"
+                                        Opacity="0"
+                                        TextColor="White"
+                                        Command="{Binding NewWeightCommand}"/>
+
+                                    <Button 
+                                        x:Name="btnAddHeightPicture"
+                                        Image="ic_height_30_white"
+                                        Clicked="btnChangeProfilePicture_Clicked"
+                                        BackgroundColor="Transparent"
+                                        IsVisible="False"
+                                        Text="HEIGHT"
+                                        FontAttributes="None"
+                                        Opacity="0"
+                                        TextColor="White"/>
+                                   
+
+                                </StackLayout>
+                             
+                                <!--MAIN BODY-->
+                                <StackLayout 
+                                    Padding="16" 
+                                    BackgroundColor="Transparent"
+                                    AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                    AbsoluteLayout.LayoutFlags="All"
+                                    TranslationY="-50">
+
+                                    <Grid
+                                        ColumnSpacing="10"
+                                        RowSpacing="8"
+                                        x:Name="bodySection">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="50"/>
+                                            <ColumnDefinition Width="AUTO"/>
+                                            <ColumnDefinition Width="AUTO"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="AUTO"/>
+                                            <RowDefinition Height="AUTO"/>
+                                            <RowDefinition Height="AUTO"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Image
+                                            Source="ic_identity_card_80_colored"
+                                            HeightRequest="30"
+                                            Grid.Column="0"
+                                            Grid.Row="0"/>
+
+                                        <Label
+                                            Grid.Column="1"
+                                            Grid.Row="0"
+                                            Text="{Binding ChildrenIdentityCard}"
+                                            Style="{StaticResource ChildrenDetailsLabelColor}"/>
+
+                                        <Image
+                                            Source="ic_gender_80_colored"
+                                            HeightRequest="30"
+                                            Grid.Column="0"
+                                            Grid.Row="1"/>
+
+                                        <Label
+                                            Grid.Column="1"
+                                            Grid.Row="1"
+                                            Text="{Binding ChildrenSex}"
+                                            Style="{StaticResource ChildrenDetailsLabelColor}"/>
+
+                                        <Image
+                                            Source="ic_birth_80_colored"
+                                            HeightRequest="30"
+                                            Grid.Column="0"
+                                            Grid.Row="2"/>
+
+                                        <Label
+                                            Grid.Column="1"
+                                            Grid.Row="2"
+                                            Text="{Binding BirthDate, StringFormat='{0:dd-MM-yyyy}'}"
+                                            Style="{StaticResource ChildrenDetailsLabelColor}"/>
+
+                                        <Label
+                                            Grid.Column="2"
+                                            Grid.Row="2"
+                                            Text="{Binding ChildrenAge, StringFormat='{0:N} Years old'}"
+                                            Style="{StaticResource ChildrenDetailsLabelColor}"/>
+
+
+                                    </Grid>
+
+                                    <Label Text="Efeito Parallax" />
+                                    <Label Text="Efeito Parallax" />
+                                    <Label Text="Efeito Parallax" />
+                                    <Label Text="Efeito Parallax" />
+                                    <Label Text="Efeito Parallax" />
+                                    <Label Text="Efeito Parallax" />
+                                    <Label Text="Efeito Parallax" />
+                                    <Label Text="Efeito Parallax" />
+                                    <Label Text="Efeito Parallax" />
+                                    <Label Text="Efeito Parallax" />
+                                    <Label Text="Efeito Parallax" />
+                                    <Label Text="Efeito Parallax" />
+                                    <Label Text="Efeito Parallax" />
+                                    <Label Text="Efeito Parallax" />
+                                    <Label Text="Efeito Parallax" />
+                                    <Label Text="Efeito Parallax" />
+                                    <Label Text="Efeito Parallax" />
+                                    <Label Text="Efeito Parallax" />
+                                    <Label Text="Efeito Parallax" />
+                                    <Label Text="Efeito Parallax" />
+                                </StackLayout>
+                            </AbsoluteLayout>
+
+                        </StackLayout>
+                    </Grid>
+
+
+                </AbsoluteLayout>
+
+
+            </local:ParallaxControl>
+
+
+            <!--BOTTOM MENU-->
             <Grid
-                ColumnSpacing="15"
-                RowSpacing="5"
-                HorizontalOptions="CenterAndExpand"
-                VerticalOptions="CenterAndExpand">
+                    ColumnSpacing="15"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand"
+                    Grid.Row="2"
+                    BackgroundColor="#2B3A42"
+                    Opacity="0.9"
+                    HeightRequest="60"
+                    Padding="8">
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="AUTO"/>
-                    <ColumnDefinition Width="AUTO"/>
-                    <ColumnDefinition Width="AUTO"/>
-                    <ColumnDefinition Width="AUTO"/>
-                    <ColumnDefinition Width="AUTO"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
@@ -146,303 +432,114 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Image
-                    Source="ic_user_fill"
-                    Grid.Row="0"
+                <roundedButtons:CircleButton 
+                    FontIcon="FontAwesome" 
+                    Icon="fa-home" 
+                    FontSize="18" 
+                    TextColor="#FF5035" 
+                    HorizontalOptions="FillAndExpand"
+                    HeightRequest="40" 
+                    WidthRequest="40" 
+                    BorderRadius="40"
+                    BackgroundColor="#BDD4DE" 
                     Grid.Column="0"
-                    HeightRequest="35"
-                    VerticalOptions="CenterAndExpand"
-                    HorizontalOptions="CenterAndExpand"/>
+                    VerticalOptions="Start"/>
 
-                <Label
-                    Text="PROFILE"
+                <Label 
+                    Text="HOME"
                     Grid.Row="1"
                     Grid.Column="0"
-                    TextColor="#EFEFEF"
-                    FontSize="14"/>
+                    TextColor="White"
+                    FontSize="10"
+                    HorizontalOptions="Center"/>
 
-                <Image
-                Source="ic_user_fill"
-                Grid.Row="0"
-                Grid.Column="1"
-                HeightRequest="35"
-                    VerticalOptions="CenterAndExpand"
-                    HorizontalOptions="CenterAndExpand"/>
+                <roundedButtons:CircleButton 
+                    FontIcon="FontAwesome" 
+                    Icon="fa-info" 
+                    FontSize="18" 
+                    TextColor="#3F5765" 
+                    HorizontalOptions="FillAndExpand"
+                    HeightRequest="40" 
+                    WidthRequest="40" 
+                    BorderRadius="40"
+                    BackgroundColor="#BDD4DE" 
+                    Grid.Column="1"
+                    Grid.Row="0"/>
 
-                <Label
-                Text="PROFILE"
-                Grid.Row="1"
-                Grid.Column="1"
-                TextColor="#EFEFEF"/>
+                <Label 
+                    Text="INFO"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    TextColor="White"
+                    FontSize="10"
+                    HorizontalOptions="Center"/>
 
-                <Image
-                Source="ic_user_fill"
-                Grid.Row="0"
-                Grid.Column="2"
-                    HeightRequest="35"
-                                        VerticalOptions="CenterAndExpand"
-                    HorizontalOptions="CenterAndExpand"/>
+                <roundedButtons:CircleButton 
+                    FontIcon="FontAwesome" 
+                    Icon="fa-calendar-o" 
+                    FontSize="18" 
+                    TextColor="#3F5765" 
+                    HorizontalOptions="FillAndExpand"
+                    HeightRequest="40" 
+                    WidthRequest="40" 
+                    BorderRadius="40"
+                    BackgroundColor="#BDD4DE" 
+                    Grid.Column="2"
+                    Grid.Row="0"
+                    Command="{Binding GoToActivitiesCommand}"/>
 
-                <Label
-                Text="PROFILE"
-                Grid.Row="1"
-                Grid.Column="2"
-                TextColor="#EFEFEF"/>
+                <Label 
+                    Text="ACTIVITIES"
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    TextColor="White"
+                    FontSize="10"
+                    HorizontalOptions="Center"/>
 
-                <Image
-                Source="ic_user_fill"
-                Grid.Row="0"
-                Grid.Column="3"
-                    HeightRequest="35"
-                                        VerticalOptions="CenterAndExpand"
-                    HorizontalOptions="CenterAndExpand"/>
+                <roundedButtons:CircleButton 
+                        FontIcon="FontAwesome" 
+                        Icon="fa-medkit" 
+                        FontSize="18" 
+                        TextColor="#3F5765" 
+                        HorizontalOptions="FillAndExpand"
+                        HeightRequest="40" 
+                        WidthRequest="40" 
+                        BorderRadius="40"
+                        BackgroundColor="#BDD4DE" 
+                        Grid.Column="3"
+                        Grid.Row="0"/>
 
-                <Label
-                Text="PROFILE"
-                Grid.Row="1"
-                Grid.Column="3"
-                TextColor="#EFEFEF"/>
+                <Label 
+                    Text="HEALTH"
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    TextColor="White"
+                    FontSize="10"
+                    HorizontalOptions="Center"/>
 
-                <Image
-                Source="ic_user_fill"
-                Grid.Row="0"
-                Grid.Column="4"
-                    HeightRequest="35"
-                                        VerticalOptions="CenterAndExpand"
-                    HorizontalOptions="CenterAndExpand"/>
+                <roundedButtons:CircleButton 
+                        FontIcon="FontAwesome" 
+                        Icon="fa-graduation-cap" 
+                        FontSize="18" 
+                        TextColor="#3F5765" 
+                        HorizontalOptions="FillAndExpand"
+                        HeightRequest="40" 
+                        WidthRequest="40" 
+                        BorderRadius="40"
+                        BackgroundColor="#BDD4DE" 
+                        Grid.Column="4"
+                    Grid.Row="0"/>
 
-                <Label
-                Text="PROFILE"
-                Grid.Row="1"
-                Grid.Column="4"
-                TextColor="#EFEFEF"/>
+                <Label 
+                    Text="SCHOOL"
+                    Grid.Row="1"
+                    Grid.Column="4"
+                    TextColor="White"
+                    FontSize="10"
+                    HorizontalOptions="Center"/>
             </Grid>
 
-
-
-        </StackLayout>
-
-    </Grid>
-
-
-    <!--<Grid ColumnSpacing="0" RowSpacing="0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="1"/>
-            <RowDefinition Height="60"/>
-        </Grid.RowDefinitions>
-        <ContentView x:Name="PlaceHolder" Grid.Row="0"/>
-        <BoxView BackgroundColor="#22395C" Grid.Row="1"/>
-
-        --><!--CHILDREN DETAILS--><!--
-        <StackLayout 
-                BindingContext="{Binding EditChildren}"
-                Padding="10">
-
-                <Label
-                    Text="Children First Name:">
-
-                </Label>
-
-            <Entry
-                    Placeholder="Enter children first name"
-                    Text="{Binding ChildrenFirstName, Mode=TwoWay}">
-            </Entry>
-
-            <Label
-                Text="Children Last Name:">
-            </Label>
-
-            <Entry
-                    Placeholder="Enter children last name"
-                    Text="{Binding ChildrenLastName, Mode=TwoWay}">
-            </Entry>
-
-                <Label
-                    Text="Children ID card:">
-
-                </Label>
-
-                <Entry
-                    Placeholder="Enter children id card"
-                    Text="{Binding ChildrenIdentityCard, Mode=TwoWay}">
-                </Entry>
-
-
-                <Label
-                    Text="Children Sex:">
-
-                </Label>
-
-
-            <Entry
-                    Placeholder="Enter children sex"
-                    Text="{Binding ChildrenSex, Mode=TwoWay}">
-            </Entry>
-
-            <ActivityIndicator
-                    IsRunning="{Binding IsRunning, Mode=TwoWay}"
-                    VerticalOptions="CenterAndExpand">
-            </ActivityIndicator>
-
-                <Button
-                    Command="{Binding SaveCommand}"
-                    BackgroundColor="Navy"
-                    BorderRadius="23"
-                    FontAttributes="Bold"
-                    HeightRequest="46"
-                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                    Text="Save"
-                    TextColor="White"
-                    Margin="50,0"
-                    VerticalOptions="EndAndExpand">
-
-                </Button>
-
-            </StackLayout>
-
-        --><!--BOTTOM MENU--><!--
-        <Grid 
-            ColumnSpacing="0" 
-            RowSpacing="0" Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <StackLayout
-                Spacing="0"
-                Grid.Column="0"
-                BackgroundColor="#7DBEA5">
-
-                <Image 
-                    HeightRequest="40"
-                    Source="ic_format_list_bulleted"/>
-
-                <Label 
-                    Text="CHILDRENS" 
-                    FontSize="10" 
-                    HorizontalOptions="Center"
-                    TextColor="#22395C"/>
-
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding BackCommand}"/>
-                </StackLayout.GestureRecognizers>
-            </StackLayout>
-
-            <StackLayout
-                Spacing="0"
-                Grid.Column="1"
-                BackgroundColor="#7DBEA5">
-
-                <Image HeightRequest="40"
-                    Source="ic_fitness_center"/>
-
-                <Label 
-                    Text="ACTIVITIES" 
-                    FontSize="10" 
-                    HorizontalOptions="Center"
-                    TextColor="#22395C"/>
-
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding GoToActivitiesCommand}"/>
-                </StackLayout.GestureRecognizers>
-            </StackLayout>
-
-            <StackLayout
-                Spacing="0"
-                Grid.Column="2"
-                BackgroundColor="#7DBEA5">  
-
-                <Image 
-                    HeightRequest="40"
-                    Source="ic_local_hospital"/>
-
-                <Label 
-                    Text="HEALTH" 
-                    FontSize="10" 
-                    HorizontalOptions="Center"
-                    TextColor="#22395C"/>   
-
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_2" />
-                </StackLayout.GestureRecognizers>
-            </StackLayout>
-
-            <StackLayout
-                Spacing="0"
-                Grid.Column="3"
-                BackgroundColor="#7DBEA5">
-
-                <Image 
-                    HeightRequest="40"
-                    Source="ic_accessibility_blue"/>
-
-                <Label 
-                    Text="PARENTAL" 
-                    FontSize="10" 
-                    HorizontalOptions="Center"
-                    TextColor="#22395C"/>
-
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_3" />
-                </StackLayout.GestureRecognizers>
-            </StackLayout>
-
-            <StackLayout
-                Spacing="0"
-                Grid.Column="4"
-                BackgroundColor="#7DBEA5">
-
-                <Image 
-                    HeightRequest="40"
-                    Source="ic_school_BLUE"/>
-
-                <Label 
-                    Text="SCHOOL" 
-                    FontSize="10" 
-                    HorizontalOptions="Center"
-                    TextColor="#22395C"/>
-
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_3" />
-                </StackLayout.GestureRecognizers>
-            </StackLayout>
-
-            <StackLayout
-                Spacing="0"
-                Grid.Column="5"
-                BackgroundColor="#7DBEA5">
-
-                <Image 
-                    HeightRequest="40"
-                    Source="ic_playlist_add_check"/>
-
-                <Label 
-                    Text="TASKS" 
-                    FontSize="10" 
-                    HorizontalOptions="Center"
-                    TextColor="#22395C"/>
-
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_3" />
-                </StackLayout.GestureRecognizers>
-            </StackLayout>
-
         </Grid>
-
-        --><!--<StackLayout
-            VerticalOptions="End"
-            HorizontalOptions="End">
-            <Image 
-                Source="child_boy"
-                WidthRequest="100"/>
-        </StackLayout>--><!--
-
-    </Grid>-->
+    </AbsoluteLayout>
 
 </ContentPage>

@@ -35,6 +35,11 @@
         public string ChildrenEmail { get; set; }
         public string ChildrenMobile { get; set; }
         public string ChildrenAddress { get; set; }
+
+        public string FatherEmergencyContact { get; set; }
+        public string MotherEmergencyContact { get; set; }
+        public string AlternativeEmergencyContact1 { get; set; }
+        public string AlternativeEmergencyContact2 { get; set; }
         #endregion
 
         #region SchoolInformation
@@ -47,9 +52,17 @@
         public string SecondParentId { get; set; }
         #endregion
 
+        #region PhysicalCharacteristics
+        public string EyeColor { get; set; }
+        public string HairColor { get; set; }
+        #endregion
+
         public string BloodInformationDescription { get; set; }
 
+        #region Multimedia
         public string ChildrenImage { get; set; }
+        public string ChildrenProfileBannerImage { get; set; } 
+        #endregion
 
         //public List<ActivityResponse> Activities { get; set; }
     }

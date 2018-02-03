@@ -6,6 +6,7 @@
     using System;
     using Services;
     using Parents.Models;
+    using Xamarin.Forms;
 
     public class EditChildrenViewModel : INotifyPropertyChanged
     {
@@ -24,9 +25,43 @@
         Children children;
         bool _isRunning;
         bool _isEnabled;
+        ImageSource _imageSource;
         #endregion
 
         #region Properties
+        public string ChildrenAge
+        {
+
+            get
+            {
+                DateTime birth = BirthDate;
+                DateTime today = DateTime.Today;
+                var age = today.Year - birth.Year;
+                if (birth > today.AddYears(-age)) age--;
+                return age.ToString();
+            }
+
+        }
+
+        public DateTime BirthDate { get; set; }
+
+        public ImageSource ImageFullPath
+        {
+            set
+            {
+                if (_imageSource != value)
+                {
+                    _imageSource = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(ImageFullPath)));
+                }
+            }
+            get
+            {
+                return _imageSource;
+            }
+        }
 
         public string ChildrenFirstName
         {
@@ -104,16 +139,31 @@
             apiService = new ApiService();
             navigationService = new NavigationService();
 
-            ChildrenFirstName = children.ChildrenFirstName;
-            ChildrenLastName = children.ChildrenLastName;
+            ChildrenFirstName = children.ChildrenFirstName.ToUpper();
+            ChildrenLastName = children.ChildrenLastName.ToUpper();
             ChildrenIdentityCard = children.ChildrenIdentityCard;
             ChildrenSex = children.ChildrenSex;
-
+            ImageFullPath = children.ChildrenImageFullPath;
+            BirthDate = children.ChildrenBirthDate;
             IsEnabled = true;
         }
         #endregion
 
         #region Commands
+        
+        public ICommand NewWeightView
+        {
+            get
+            {
+                return new RelayCommand(GoToNewWeight);
+            }
+        }
+
+        async void GoToNewWeight()
+        {
+            await navigationService.NavigateOnMaster("NewWeightView");
+        }
+
         public ICommand SaveCommand
         {
             get

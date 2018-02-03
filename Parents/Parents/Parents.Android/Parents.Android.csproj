@@ -61,6 +61,12 @@
     <BundleAssemblies>false</BundleAssemblies>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ButtonCircle.FormsPlugin.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Plugins.Forms.ButtonCircle.1.3.9\lib\MonoAndroid10\ButtonCircle.FormsPlugin.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="ButtonCircle.FormsPlugin.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Plugins.Forms.ButtonCircle.1.3.9\lib\MonoAndroid10\ButtonCircle.FormsPlugin.Android.dll</HintPath>
+    </Reference>
     <Reference Include="Calvagna.CPop, Version=1.0.1.0, Culture=neutral, PublicKeyToken=7e478755fb6bc12e, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Calvagna.CPop.1.0.1\lib\portable45-net45+win8+wpa81\Calvagna.CPop.dll</HintPath>
     </Reference>
@@ -126,6 +132,12 @@
     </Reference>
     <Reference Include="Plugin.Geolocator.Abstractions, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xam.Plugin.Geolocator.4.2.0\lib\MonoAndroid10\Plugin.Geolocator.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.LocalNotifications, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugins.Notifier.2.1.0\lib\MonoAndroid10\Plugin.LocalNotifications.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.LocalNotifications.Abstractions, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugins.Notifier.2.1.0\lib\MonoAndroid10\Plugin.LocalNotifications.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Plugin.Media, Version=3.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xam.Plugin.Media.3.1.2\lib\MonoAndroid10\Plugin.Media.dll</HintPath>
@@ -419,9 +431,28 @@
     <AndroidResource Include="Resources\drawable\profileImage.jpg" />
     <AndroidResource Include="Resources\drawable\prifile1.png" />
     <AndroidResource Include="Resources\drawable\ic_user_fill.png" />
+    <AndroidResource Include="Resources\drawable\ic_drivers_license_80_3F5765.png" />
+    <AndroidResource Include="Resources\drawable\ic_gender_80_3F5765.png" />
+    <AndroidResource Include="Resources\drawable\ic_gender_80_colored.png" />
+    <AndroidResource Include="Resources\drawable\ic_identity_card_80_colored.png" />
+    <AndroidResource Include="Resources\drawable\ic_birth_80_colored.png" />
+    <AndroidResource Include="Resources\drawable\ic_dots_vertical_25_2bea42.png" />
+    <AndroidResource Include="Resources\drawable\ic_camera_25_2bea42.png" />
+    <AndroidResource Include="Resources\drawable\ic_banner_picture_30_white.png" />
+    <AndroidResource Include="Resources\drawable\ic_camera_25_3f5765.png" />
+    <AndroidResource Include="Resources\drawable\ic_profile_picture_30_white.png" />
+    <AndroidResource Include="Resources\drawable\ic_edit_30_white.png" />
+    <AndroidResource Include="Resources\drawable\ic_edit_25_white.png" />
+    <AndroidResource Include="Resources\drawable\ic_ambulance_30_white.png" />
+    <AndroidResource Include="Resources\drawable\ic_event_30_white.png" />
+    <AndroidResource Include="Resources\drawable\ic_height_30_white.png" />
+    <AndroidResource Include="Resources\drawable\ic_scale_30_white.png" />
+    <AndroidResource Include="Resources\drawable\ic_school_30_white.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <AndroidAsset Include="Assets\materialicons.ttf" />
+    <AndroidAsset Include="Assets\fontawesome.ttf" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
