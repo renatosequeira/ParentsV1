@@ -19,6 +19,7 @@
     using Parents.ViewModels.Locations;
     using Parents.ViewModels.Sistema;
     using Parents.ViewModels.Health;
+    //using Xamarin.Forms;
 
     public class MainViewModel
     {
@@ -65,6 +66,7 @@
         public PasswordRecoveryViewModel PasswordRecovery { get; set; }
         public NewWeightViewModel NewChildrenWeight { get; set; }
         public ChildrenWeightViewModel ChildrenWeight { get; set; }
+        public HealthViewModel Health { get; set; }
         #endregion
 
         #region Constructors
@@ -94,6 +96,21 @@
         #endregion
 
         #region Commands
+        public ICommand HealthViewCommand
+        {
+            get
+            {
+                return new RelayCommand(OpenHealthView);
+            }
+        }
+
+        private async void OpenHealthView()
+        {
+            var mainViewModel = MainViewModel.GetInstance();
+            mainViewModel.ChildrenWeight = new Health.ChildrenWeightViewModel();
+            await navigationService.NavigateOnMaster("HealthView");
+        }
+
         public ICommand FilterActivities
         {
             get

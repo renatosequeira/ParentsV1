@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Parents.Views.Health.ChildrenWeightView"
+             xmlns:chart="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
+             Title="Children Weight"
+             BindingContext="{Binding Main,Source={StaticResource Locator}}"
+             xmlns:roundedButtons="clr-namespace:ButtonCircle.FormsPlugin.Abstractions;assembly=ButtonCircle.FormsPlugin.Abstractions"
+             xmlns:customEntry="clr-namespace:Parents.Renderers"
+             xmlns:local="clr-namespace:Parents.Controls;assembly=Parents"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions">
+
+    <Grid ColumnSpacing="0" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <ContentView x:Name="PlaceHolder" Grid.Row="0"/>
+        <BoxView BackgroundColor="#22395C" Grid.Row="1"/>
+
+        <!--CHILDRENS LIST-->
+        <StackLayout
+            BindingContext="{Binding ChildrenWeight}"
+            Padding="5"
+            Grid.Row="0">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="AUTO"/>
+                    <RowDefinition Height="AUTO"/>
+                </Grid.RowDefinitions>
+
+                <Frame
+                    Grid.Row="0"
+                    HasShadow="True">
+
+                    <StackLayout
+                        Orientation="Vertical">
+                        <Grid
+                            HorizontalOptions="FillAndExpand">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <!--INFO BUTTON-->
+                            <StackLayout
+                                Grid.Column="0">
+                                <Image
+                                Source="ic_info_50_2bea42"
+                                VerticalOptions="Start"
+                                HorizontalOptions="StartAndExpand"
+                                HeightRequest="25">
+                                    <Image.GestureRecognizers>
+                                        <ClickGestureRecognizer Command="{Binding RefreshWeightDataCommand}"/>
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </StackLayout>
+
+                            <!--REFRESH BUTTON-->
+                            <StackLayout
+                                Grid.Column="1">
+                                <Image
+                                Source="ic_refresh_50_2bea42"
+                                VerticalOptions="Start"
+                                HeightRequest="25"
+                                    HorizontalOptions="End">
+                                    <Image.GestureRecognizers>
+                                        <ClickGestureRecognizer Command="{Binding RefreshWeightDataCommand}"/>
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </StackLayout>
+                        </Grid>
+
+                        <StackLayout
+                            Orientation="Horizontal"
+                            HorizontalOptions="CenterAndExpand"
+                            TranslationY="-30">
+
+                            <customEntry:CustomEntry
+                                Text="{Binding InsertedWeight, Mode=TwoWay}"
+                                HorizontalOptions="Center"
+                                WidthRequest="65"
+                                Keyboard="Numeric"/>
+
+                            <Label 
+                                Text="KG"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                FontSize="Medium"/>
+
+                        </StackLayout>
+
+                        <StackLayout
+                            Orientation="Horizontal"
+                            Padding="5"
+                            HorizontalOptions="FillAndExpand"
+                            TranslationY="-20">
+
+                            <Image
+                                Source="ic_skinny_50_2BEA42"
+                                HorizontalOptions="Start"
+                                WidthRequest="40"/>
+                            <Slider
+                                Value="{Binding WeightVaue, Mode=TwoWay}"
+                                Maximum="170"
+                                Minimum="0"
+                                HorizontalOptions="CenterAndExpand"
+                                WidthRequest="200"/>
+                            <Image
+                                Source="ic_fat_50_2BEA42"
+                                HorizontalOptions="End"
+                                WidthRequest="50"/>
+                        </StackLayout>
+
+                        <Grid
+                            HorizontalOptions="FillAndExpand"
+                            Margin="0,10,0,0">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="AUTO"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <StackLayout
+                                Orientation="Horizontal"
+                                Spacing="5"
+                                Grid.Column="0">
+                                
+                                <Image
+                                    Source="ic_scale_50_2BEA42"
+                                    HeightRequest="25"
+                                    VerticalOptions="End"/>
+
+                                <Label
+                                    Text="{Binding OldWeightValue}"
+                                    HorizontalOptions="Start"
+                                    VerticalOptions="End"
+                                    FontSize="Medium"/>
+
+                                <Label
+                                    Text="KG"
+                                    VerticalOptions="End"
+                                    FontSize="Medium"/>
+                            </StackLayout>
+
+                            <roundedButtons:CircleButton 
+                                FontIcon="FontAwesome" 
+                                Icon="fa-plus" 
+                                FontSize="20" 
+                                TextColor="White" 
+                                HeightRequest="40" 
+                                WidthRequest="40" 
+                                BorderRadius="40"
+                                BackgroundColor="#2BEA42" 
+                                x:Name="btnAdd"
+                                HorizontalOptions="End"
+                                Grid.Column="1"
+                                Command="{Binding AddWeightCommand}"/>
+                        </Grid>
+                    </StackLayout>
+
+                </Frame>
+
+                <StackLayout
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="CenterAndExpand"
+                        IsVisible="{Binding ShowEmptyWeightMessage}"
+                    Grid.Row="1">
+                    <Label
+                            Text="No Weight registries were found"/>
+
+                    <Image
+                            Source="{Binding EmptyListImage}"/>
+                </StackLayout>
+
+                <Frame
+                    HeightRequest="200"
+                    Grid.Row="1"
+                    IsVisible="{Binding ShowList}">
+
+                    <ListView
+                        IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+                        ItemsSource="{Binding ChildrensWeightList}"
+                        IsPullToRefreshEnabled="True"
+                        RefreshCommand="{Binding RefreshCommand}"
+                        HasUnevenRows="True"
+                        x:Name="ChildrensWeightList">
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <ViewCell.ContextActions>
+                                        <MenuItem
+                                            Command="{Binding EditCommand}"
+                                            Icon="ic_edit_white_border"
+                                            Text="Edit"/>
+                                        <MenuItem
+                                            Command="{Binding DeleteCommand}"
+                                            IsDestructive="True"
+                                            Icon="ic_delete_red"
+                                            Text="Delete"/>
+                                    </ViewCell.ContextActions>
+
+                                    <Grid
+                                        VerticalOptions="Center">
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+
+                                        <StackLayout
+                                            Orientation="Horizontal"
+                                            VerticalOptions="Center"
+                                            Grid.Column="0">
+                                            <Label 
+                                                Grid.Column="1" 
+                                                HorizontalOptions="Start" 
+                                                FontSize="Medium" 
+                                                Text="{Binding WeightVaue,StringFormat='{0:N2} KG'}" 
+                                                VerticalOptions="Center"
+                                                FontAttributes="Bold">
+                                            </Label>
+                                        </StackLayout>
+
+                                        <StackLayout
+                                            Grid.Column="1">
+                                            <Label
+                                                HorizontalOptions="End"
+                                                FontSize="Small"
+                                                Text="{Binding RegistryDate,StringFormat='{0:dd-MM-yyyy}'}"
+                                                VerticalOptions="Center"
+                                                TextColor="{Binding EndDateColor}"/>
+                                        </StackLayout>
+
+                                        <StackLayout
+                                                Grid.Column="2"
+                                                Orientation="Horizontal"
+                                                Spacing="8"
+                                                HorizontalOptions="EndAndExpand">
+                                            
+                                            <Label
+                                                HorizontalOptions="End"
+                                                FontSize="Small"
+                                                Text="{Binding WeightDifference, StringFormat='{0:N2} kg'}"
+                                                VerticalOptions="Center"/>
+
+                                            <Image
+                                                HorizontalOptions="End" 
+                                                Source="{Binding DifferenceImage}"
+                                                VerticalOptions="Center"
+                                                HeightRequest="20"/>
+
+                                        </StackLayout>
+
+                                    </Grid>
+
+                                </ViewCell>
+
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Frame>
+            </Grid>
+
+        </StackLayout>
+    </Grid>
+
+</ContentPage>

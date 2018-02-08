@@ -5,11 +5,12 @@
     using System;
     using System.ComponentModel;
     using System.Windows.Input;
-    using Parents.Models;
     using Xamarin.Forms;
-    using Parents.Helpers;
-    using Plugin.LocalNotifications;
     using Parents.Models.HealthManagement;
+    using System.Collections.ObjectModel;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     public class NewWeightViewModel : INotifyPropertyChanged
     {
@@ -24,15 +25,55 @@
         #endregion
 
         #region Attributes
+        ObservableCollection<ChildrenWeight> _childrenWeight;
+        List<ChildrenWeight> childrensWeight;
+
         public double _weightValue { get; set; }
         public string _weightUnit { get; set; }
         public int _childrenId { get; set; }
         public DateTime _registryDate { get; set; }
+        public double _oldWeightValue { get; set; }
         bool _isRunning;
         bool _isEnabled;
         #endregion
 
         #region Properties
+        public ObservableCollection<ChildrenWeight> ChildrensWeightList
+        {
+            get
+            {
+                return _childrenWeight;
+            }
+            set
+            {
+                if (_childrenWeight != value)
+                {
+                    _childrenWeight = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(ChildrensWeightList)));
+                }
+            }
+        }
+
+        public double OldWeightValue
+        {
+            get
+            {
+                return _oldWeightValue;
+            }
+            set
+            {
+                if (_oldWeightValue != value)
+                {
+                    _oldWeightValue = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(OldWeightValue)));
+                }
+            }
+        }
+
         public DateTime RegistryDate
         {
             get
@@ -87,7 +128,7 @@
             }
         }
 
-        public double WeightValue
+        public double WeightVaue
         {
             get
             {
@@ -100,7 +141,7 @@
                     _weightValue = value;
                     PropertyChanged?.Invoke(
                         this,
-                        new PropertyChangedEventArgs(nameof(WeightValue)));
+                        new PropertyChangedEventArgs(nameof(WeightVaue)));
                 }
             }
         }
@@ -162,7 +203,10 @@
 
         async void Save()
         {
-            if (WeightValue == 0)
+            
+            double lastWeight = await GetLastWeight();
+
+            if (WeightVaue == 0)
             {
                 await dialogService.ShowMessage("Error", "Please insert Weight value");
                 return;
@@ -187,10 +231,11 @@
 
             var childrenWeight = new ChildrenWeight
             {
-                ChildrenId = ChildrenId,
-                WeightUnit = WeightUnit,
-                WeightVaue = WeightValue,
-                RegistryDate = RegistryDate
+                ChildrenId = 2,
+                WeightUnit = "Kg",
+                WeightVaue = WeightVaue,
+                RegistryDate = DateTime.Now,
+                OldWeightValue = WeightVaue - lastWeight
 
             };
 
@@ -216,14 +261,61 @@
                 return;
             }
 
-            childrenWeight = (ChildrenWeight)response.Result;
-            var childrensWeightViewModel = ChildrenWeightViewModel.GetInstance();
-            childrensWeightViewModel.AddChildrenWeight(childrenWeight);
-
             await navigationService.BackOnMaster();
 
             IsRunning = false;
             IsEnabled = true;
+        }
+
+        public async Task<double> GetLastWeight()
+        {
+            double lastWeight = 0;
+
+            var connection = await apiService.CheckConnection();
+
+            if (!connection.IsSuccess)
+            {
+                //childrensWeight = dataService.Get<ChildrenWeight>(false);
+                ////childrens = dataService.GetChildren();
+
+                //if (childrensWeight.Count == 0)
+                //{
+                //    await dialogService.ShowMessage(
+                //        "Error",
+                //        "No children weights available offline.");
+                //    return;
+                //}
+            }
+            else
+            {
+                var mainViewModel = MainViewModel.GetInstance();
+
+                var urlAPI = Application.Current.Resources["URLAPI"].ToString();
+
+                var response = await apiService.GetList<ChildrenWeight>(
+                    urlAPI,
+                    "/api",
+                    "/ChildrensWeight",
+                    mainViewModel.Token.TokenType,
+                    mainViewModel.Token.AccessToken);
+
+                if (!response.IsSuccess)
+                {
+                    await dialogService.ShowMessage(
+                        "Error",
+                        response.Message);
+                    return 0;
+                }
+
+                childrensWeight = (List<ChildrenWeight>)response.Result;
+
+                //SaveChildrenWeightOnDB();
+            }
+
+            ChildrensWeightList = new ObservableCollection<ChildrenWeight>(childrensWeight.OrderBy(c => c.RegistryDate));
+            lastWeight = ChildrensWeightList.LastOrDefault().WeightVaue;
+
+            return lastWeight;
         }
         #endregion
     }

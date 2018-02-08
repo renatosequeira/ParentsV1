@@ -7,6 +7,7 @@
     using Services;
     using Parents.Models;
     using Xamarin.Forms;
+    using Parents.ViewModels.Health;
 
     public class EditChildrenViewModel : INotifyPropertyChanged
     {
@@ -151,7 +152,7 @@
 
         #region Commands
         
-        public ICommand NewWeightView
+        public ICommand NewWeightCommand
         {
             get
             {
@@ -161,7 +162,12 @@
 
         async void GoToNewWeight()
         {
+            var mainViewModel = MainViewModel.GetInstance();
+            mainViewModel.NewChildrenWeight = new NewWeightViewModel();
+            mainViewModel.ChildrenWeight = new ChildrenWeightViewModel();
             await navigationService.NavigateOnMaster("NewWeightView");
+            //await navigationService.NavigateOnMaster("ChildrenWeightView");
+            
         }
 
         public ICommand SaveCommand

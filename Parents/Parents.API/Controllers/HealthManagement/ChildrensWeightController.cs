@@ -42,7 +42,8 @@
                             ChildrenWeightId = childrenWeight.ChildrenWeightId,
                             WeightUnit = childrenWeight.WeightUnit,
                             WeightVaue = childrenWeight.WeightVaue,
-                            RegistryDate = childrenWeight.RegistryDate
+                            RegistryDate = childrenWeight.RegistryDate,
+                            OldWeightValue = childrenWeight.OldWeightValue
                         });
                     }
                 }
@@ -58,22 +59,32 @@
         {
             var userId = User.Identity.GetUserId();
 
-            var ChildrenWeight = await db.ChildrenWeights.Where(wei => wei.ChildrenId == id).ToListAsync();
+            //identifica a lista de crianças com o id respetivo
+            var ChildrenWeight = await db.ChildrenWeights.Where(ch => ch.ChildrenId == id).ToListAsync();
 
+            //identiica o pai da criança
             var ChildrensList = await db.Children.Where(chi => chi.FirstParentId == userId).ToListAsync();
 
             var childrenWeightResponse = new List<ChildrenWeightResponse>();
 
             foreach (var childrenWeight in ChildrenWeight)
             {
-                childrenWeightResponse.Add(new ChildrenWeightResponse
+                foreach (var user in ChildrensList)
                 {
-                    ChildrenId = childrenWeight.ChildrenId,
-                    ChildrenWeightId = childrenWeight.ChildrenWeightId,
-                    WeightUnit = childrenWeight.WeightUnit,
-                    WeightVaue = childrenWeight.WeightVaue,
-                    RegistryDate = childrenWeight.RegistryDate
-                });
+                    if (user.FirstParentId == userId && user.ChildrenId == childrenWeight.ChildrenId)
+                    {
+                        childrenWeightResponse.Add(new ChildrenWeightResponse
+                        {
+                            ChildrenId = childrenWeight.ChildrenId,
+                            ChildrenWeightId = childrenWeight.ChildrenWeightId,
+                            WeightUnit = childrenWeight.WeightUnit,
+                            WeightVaue = childrenWeight.WeightVaue,
+                            RegistryDate = childrenWeight.RegistryDate,
+                            OldWeightValue = childrenWeight.OldWeightValue
+                        });
+                    }
+                }
+
             }
 
             return Ok(childrenWeightResponse);
@@ -154,7 +165,8 @@
                 ChildrenWeightId = view.ChildrenWeightId,
                 RegistryDate = view.RegistryDate,
                 WeightUnit = view.WeightUnit,
-                WeightVaue = view.WeightVaue
+                WeightVaue = view.WeightVaue,
+                OldWeightValue = view.OldWeightValue
             };
         }
 

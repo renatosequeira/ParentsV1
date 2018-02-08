@@ -9,13 +9,13 @@
     <StackLayout
         Orientation="Vertical"
         Padding="8"
-        BindingContext="{Binding ChildrenWeight}">
+        BindingContext="{Binding NewChildrenWeight}">
 
         <Label
             Text="Insert Weight"/>
 
         <Entry
-            Text="{Binding WeightValue, Mode=TwoWay}"
+            Text="{Binding WeightVaue, Mode=TwoWay}"
             Placeholder="Weight value"/>
 
         <Button

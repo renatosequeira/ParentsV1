@@ -13,5 +13,7 @@ namespace Parents.API.Models.HealthManagement
         public string WeightUnit { get; set; }
 
         public DateTime RegistryDate { get; set; }
+
+        public double OldWeightValue { get; set; }
     }
 }

@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -29,11 +28,256 @@ namespace Parents.ViewModels.Health
         #region Attributes
         ObservableCollection<ChildrenWeight> _childrenWeight;
         List<ChildrenWeight> childrensWeight;
+
         bool _isRefreshing;
         bool _searchVisibility;
+        double _selectedWeight;
+
+        double _weightValue;
+        double _oldWeightValue;
+
+        double _maximumWeight;
+        double _minimumWeight;
+
+        int _childrenAge;
+
+        bool _isRunning;
+        bool _isEnabled;
+
+        int _childrenId;
+
+        string _emptyListImage;
+
+        bool _showEmptyWeightMessage;
+        bool _showList;
+
+        string _insertedWeight;
         #endregion
 
         #region Properties
+        public string InsertedWeight
+        {
+            get
+            {
+
+                return _insertedWeight;
+
+            }
+            set
+            {
+                if (_insertedWeight != value)
+                {
+                    _insertedWeight = value;
+                    try
+                    {
+                        WeightVaue = Convert.ToDouble(value);
+                    }
+                    catch (Exception)
+                    {
+
+                        WeightVaue = 0;
+                    }
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(InsertedWeight)));
+                }
+            }
+        }
+
+        public bool ShowList
+        {
+            get
+            {
+                return _showList;
+            }
+            set
+            {
+                if (_showList != value)
+                {
+                    _showList = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(ShowList)));
+                }
+            }
+        }
+
+        public bool ShowEmptyWeightMessage
+        {
+            get
+            {
+                return _showEmptyWeightMessage;
+            }
+            set
+            {
+                if (_showEmptyWeightMessage != value)
+                {
+                    _showEmptyWeightMessage = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(ShowEmptyWeightMessage)));
+                }
+            }
+        }
+
+        public string EmptyListImage
+        {
+            get
+            {
+
+                return _emptyListImage;
+
+            }
+            set
+            {
+                if (_emptyListImage != value)
+                {
+                    _emptyListImage = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(EmptyListImage)));
+                }
+            }
+        }
+
+        public int ChildrenId
+        {
+            get
+            {
+
+                return _childrenId;
+
+            }
+            set
+            {
+                if (_childrenId != value)
+                {
+                    _childrenId = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(ChildrenId)));
+                }
+            }
+        }
+
+        public int ChildrenAge
+        {
+            get
+            {
+
+                return _childrenAge;
+
+            }
+            set
+            {
+                if (_childrenAge != value)
+                {
+                    _childrenAge = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(ChildrenAge)));
+                }
+            }
+        }
+
+        public double MinimimWeight
+        {
+            get
+            {
+
+                return _minimumWeight;
+
+            }
+            set
+            {
+                if (_minimumWeight != value)
+                {
+                    _minimumWeight = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(MinimimWeight)));
+                }
+            }
+        }
+
+        public double MaximumWeight
+        {
+            get
+            {
+
+                return _maximumWeight;
+
+            }
+            set
+            {
+                if (_maximumWeight != value)
+                {
+                    _maximumWeight = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(MaximumWeight)));
+                }
+            }
+        }
+
+        public double OldWeightValue
+        {
+            get
+            {
+
+                return _oldWeightValue;
+
+            }
+            set
+            {
+                if (_oldWeightValue != value)
+                {
+                    _oldWeightValue = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(OldWeightValue)));
+                }
+            }
+        }
+
+        public double WeightVaue
+        {
+            get
+            {
+
+                return _weightValue;
+                
+            }
+            set
+            {
+                if (_weightValue != value)
+                {
+                    _weightValue = value;
+                    
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(WeightVaue)));
+                }
+            }
+        }
+
+        public double SelectedWeight
+        {
+            get
+            {
+                return _selectedWeight;
+            }
+            set
+            {
+                if (_selectedWeight != value)
+                {
+                    _selectedWeight = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(SelectedWeight)));
+                }
+            }
+        }
 
         public bool SearchVisibility
         {
@@ -90,6 +334,42 @@ namespace Parents.ViewModels.Health
         }
 
         public string Image { get; set; }
+
+        public bool IsRunning
+        {
+            get
+            {
+                return _isRunning;
+            }
+            set
+            {
+                if (_isRunning != value)
+                {
+                    _isRunning = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(IsRunning)));
+                }
+            }
+        }
+
+        public bool IsEnabled
+        {
+            get
+            {
+                return _isEnabled;
+            }
+            set
+            {
+                if (_isEnabled != value)
+                {
+                    _isEnabled = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(IsEnabled)));
+                }
+            }
+        }
         #endregion
 
         #region Constructors
@@ -104,7 +384,12 @@ namespace Parents.ViewModels.Health
             _searchVisibility = false;
 
             LoadChildrenWeightList();
+
+            ChildrenId = Convert.ToInt32(Application.Current.Properties["childrenId"]);
         }
+
+        
+
         #endregion
 
         #region Sigleton
@@ -122,7 +407,6 @@ namespace Parents.ViewModels.Health
         #endregion
 
         #region Methods
-
         public void AddChildrenWeight(ChildrenWeight childrenWeight)
         {
             IsRefreshing = true;
@@ -215,9 +499,9 @@ namespace Parents.ViewModels.Health
                 var response = await apiService.GetList<ChildrenWeight>(
                     urlAPI,
                     "/api",
-                    "/Childrens",
+                    "/ChildrensWeight/WeightForSpecificChildren",
                     mainViewModel.Token.TokenType,
-                    mainViewModel.Token.AccessToken);
+                    mainViewModel.Token.AccessToken, ChildrenId);
 
                 if (!response.IsSuccess)
                 {
@@ -229,10 +513,36 @@ namespace Parents.ViewModels.Health
 
                 childrensWeight = (List<ChildrenWeight>)response.Result;
 
-                SaveChildrenWeightOnDB();
+                //SaveChildrenWeightOnDB();
             }
 
-            ChildrensWeightList = new ObservableCollection<ChildrenWeight>(childrensWeight.OrderBy(c => c.RegistryDate));
+            ChildrensWeightList = new ObservableCollection<ChildrenWeight>(childrensWeight.OrderByDescending(c => c.RegistryDate));
+
+
+            if (ChildrensWeightList.Count == 0)
+            {
+                ShowList = false;
+                ShowEmptyWeightMessage = true;
+                EmptyListImage = "ic_empty_list";
+            }
+            else
+            {
+                ShowList = true;
+                ShowEmptyWeightMessage = false;
+                EmptyListImage = "ic_empty_list";
+            }
+
+            try
+            {
+                OldWeightValue = Convert.ToDouble(ChildrensWeightList.FirstOrDefault().WeightVaue);
+                InsertedWeight = ChildrensWeightList.FirstOrDefault().WeightVaue.ToString();
+            }
+            catch (Exception)
+            {
+
+                OldWeightValue = 0;
+                InsertedWeight = "0";
+            }
             //Search();
             IsRefreshing = false;
         }
@@ -243,9 +553,11 @@ namespace Parents.ViewModels.Health
             dataService.Save(childrensWeight);
         }
 
+
         #endregion
 
         #region Commands
+
         public ICommand RefreshCommand
         {
             get
@@ -289,6 +601,129 @@ namespace Parents.ViewModels.Health
             mainViewModel.NewChildrenWeight = new NewWeightViewModel();  //Liga o objecto NewChildren a um viewmodel
             await dialogService.ShowMessage("INFO", "To be implemented");
             //await navigationService.NavigateOnMaster("NewChildrenView");
+        }
+
+        public ICommand AddWeightCommand
+        {
+            get
+            {
+                return new RelayCommand(Save);
+            }
+        }
+
+        async void Save()
+        {
+            double lastWeight;
+            try
+            {
+                lastWeight = await GetLastWeight();
+            }
+            catch (Exception ex)
+            {
+                lastWeight = 0;
+            }
+
+            if (string.IsNullOrEmpty(InsertedWeight))
+            {
+                await dialogService.ShowMessage("Error", "Please insert Weight value");
+                return;
+            }
+
+            IsRunning = true;
+            IsEnabled = false;
+
+            //verificar se existe ligação à internet
+            var connection = await apiService.CheckConnection();
+
+            //se não houver ligação à internet, popup com erro e sai do método
+            if (!connection.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error", connection.Message);
+
+                IsRunning = false;
+                IsEnabled = true;
+                return;
+            }
+
+            var childrenWeight = new ChildrenWeight
+            {
+                ChildrenId = ChildrenId,
+                WeightUnit = "Kg",
+                WeightVaue = Convert.ToDouble(WeightVaue),
+                RegistryDate = DateTime.Now,
+                OldWeightValue = OldWeightValue
+
+            };
+
+            var mainViewModel = MainViewModel.GetInstance();
+
+            var urlAPI = Application.Current.Resources["URLAPI"].ToString();
+
+            //se existir ligação à internet guarda token na variavel response
+            var response = await apiService.Post(
+                urlAPI,
+                "/api",
+                "/ChildrensWeight/WeightForSpecificChildren",
+                mainViewModel.Token.TokenType,
+                mainViewModel.Token.AccessToken,
+                childrenWeight);
+
+            //se a resposta (Token) for nulo ou estiver vazia, significa que o email ou a pass estão errados
+            if (!response.IsSuccess)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await dialogService.ShowMessage("Error", response.Message);
+                return;
+            }
+
+            //await navigationService.BackOnMaster();
+            LoadChildrenWeightList();
+
+            IsRunning = false;
+            IsEnabled = true;
+        }
+
+        public async Task<double> GetLastWeight()
+        {
+            double lastWeight = 0;
+
+            var connection = await apiService.CheckConnection();
+
+            if (!connection.IsSuccess)
+            {
+
+            }
+            else
+            {
+                var mainViewModel = MainViewModel.GetInstance();
+
+                var urlAPI = Application.Current.Resources["URLAPI"].ToString();
+
+                var response = await apiService.GetList<ChildrenWeight>(
+                    urlAPI,
+                    "/api",
+                    "/ChildrensWeight",
+                    mainViewModel.Token.TokenType,
+                    mainViewModel.Token.AccessToken);
+
+                if (!response.IsSuccess)
+                {
+                    await dialogService.ShowMessage(
+                        "Error",
+                        response.Message);
+                    return 0;
+                }
+
+                childrensWeight = (List<ChildrenWeight>)response.Result;
+
+                //SaveChildrenWeightOnDB();
+            }
+
+            ChildrensWeightList = new ObservableCollection<ChildrenWeight>(childrensWeight.OrderBy(c => c.RegistryDate));
+            lastWeight = ChildrensWeightList.LastOrDefault().WeightVaue;
+
+            return lastWeight;
         }
         #endregion
     }

@@ -20,6 +20,7 @@
     using Parents.Views.Activities;
     using Parents.Views.Locations;
     using Parents.Views.Health;
+    using Parents.ViewModels.Health;
 
     public class NavigationService
     {
@@ -175,6 +176,12 @@
                     break;
                 case "NewWeightView":
                     await App.Navigator.PushAsync(new NewWeightView());
+                    break;
+                case "ChildrenWeightView":
+                    await App.Navigator.PushAsync(new ChildrenWeightView());
+                    break;
+                case "HealthView":
+                    await App.Navigator.PushAsync(new HealthView());
                     break;
             }
 

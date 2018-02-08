@@ -13,6 +13,7 @@
     using Plugin.Media.Abstractions;
     using System;
     using Parents.ViewModels.Childrens;
+    using Parents.ViewModels.Health;
 
     public class ChildrensViewModel : INotifyPropertyChanged
     {
@@ -361,6 +362,7 @@
             mainViewModel.NewChildren = new NewChildrenViewModel();  //Liga o objecto NewChildren a um viewmodel
             await navigationService.NavigateOnMaster("NewChildrenView");
         }
+
         #endregion
 
     }

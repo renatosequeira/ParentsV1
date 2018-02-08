@@ -1,5 +1,7 @@
 ﻿namespace Parents.Views.Childrens
 {
+    using global::Parents.Models;
+    using global::Parents.ViewModels;
     using System;
     using Xamarin.Forms;
     using Xamarin.Forms.Xaml;
@@ -13,6 +15,7 @@
 		{
 			InitializeComponent ();
             MainScroll.ParallaxView = HeaderView;
+            
         }
 
         //private void ChildrensListButton_Clicked(object sender, EventArgs e)
@@ -104,6 +107,22 @@
                 btnChangeBannerPicture.IsVisible = false;
                 btnAddEvent.IsVisible = false;
             }
+        }
+
+        private void btnAddWeightPicture_Clicked(object sender, EventArgs e)
+        {
+            btnAddWeightPicture.IsVisible = false;
+        }
+
+        private void btnOpenHealthView_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            Application.Current.Properties["childrenId"] = null;
         }
     }
 }

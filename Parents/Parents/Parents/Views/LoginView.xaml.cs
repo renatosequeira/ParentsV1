@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Parents.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,5 +17,6 @@ namespace Parents.Views
         {
             InitializeComponent();
         }
+
     }
 }

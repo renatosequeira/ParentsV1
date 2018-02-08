@@ -1,6 +1,7 @@
 ﻿namespace Parents.Models
 {
     using GalaSoft.MvvmLight.Command;
+    using Parents.Interfaces;
     using Parents.Services;
     using Parents.ViewModels;
     using Parents.ViewModels.Activities;
@@ -205,6 +206,8 @@
 
         async void SelectChildren()
         {
+            //DependencyService.Get<IMessage>().ShortAlert("teste toast");
+
             Application.Current.Properties["childrenIdentityCard"] = ChildrenIdentityCard;
             Application.Current.Properties["childrenId"] = ChildrenId;
             MessagingCenter.Send(this, "childrenName", ChildrenFirstName);

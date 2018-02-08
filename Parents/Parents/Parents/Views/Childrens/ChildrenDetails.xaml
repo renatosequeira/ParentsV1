@@ -13,7 +13,7 @@
         <ToolbarItem
             Order="Secondary"
             Text="Parental"/>
-        
+
         <ToolbarItem
             Order="Secondary"
             Text="Help"/>
@@ -197,12 +197,8 @@
                                     x:Name="btnMore"
                                     HorizontalOptions="End"/>
 
-                            </StackLayout>
+                                <!--HIDDEN BUTTONS-->
 
-                            <AbsoluteLayout>
-                                
-                            <!--HIDDEN BUTTONS-->
-                                
                                 <!--GENERAL MENU-->
                                 <StackLayout
                                     Orientation="Vertical"
@@ -212,7 +208,7 @@
                                     BackgroundColor="#BDD4DE"
                                     VerticalOptions="FillAndExpand"
                                     Opacity="1">
-                                    
+
                                     <Button 
                                         x:Name="btnAddEvent"
                                         Image="anniversary_orange"
@@ -235,7 +231,7 @@
                                         TextColor="#2BRA42"/>
 
                                 </StackLayout>
-                                
+
                                 <!--ADD MENU-->
                                 <StackLayout
                                     Orientation="Vertical"
@@ -283,7 +279,7 @@
                                     <Button 
                                         x:Name="btnAddWeightPicture"
                                         Image="ic_scale_30_white"
-                                        Clicked="btnChangeProfilePicture_Clicked"
+                                        Clicked="btnAddWeightPicture_Clicked"
                                         BackgroundColor="Transparent"
                                         IsVisible="False"
                                         Text="WEIGHT"
@@ -302,10 +298,14 @@
                                         FontAttributes="None"
                                         Opacity="0"
                                         TextColor="White"/>
-                                   
+
 
                                 </StackLayout>
-                             
+
+                            </StackLayout>
+
+                            <AbsoluteLayout>
+
                                 <!--MAIN BODY-->
                                 <StackLayout 
                                     Padding="16" 
@@ -369,8 +369,9 @@
                                         <Label
                                             Grid.Column="2"
                                             Grid.Row="2"
-                                            Text="{Binding ChildrenAge, StringFormat='{0:N} Years old'}"
-                                            Style="{StaticResource ChildrenDetailsLabelColor}"/>
+                                            Text="{Binding ChildrenAge}"
+                                            Style="{StaticResource ChildrenDetailsLabelColor}"
+                                            x:Name="age"/>
 
 
                                     </Grid>
@@ -406,7 +407,6 @@
 
 
             </local:ParallaxControl>
-
 
             <!--BOTTOM MENU-->
             <Grid
@@ -497,17 +497,20 @@
                     HorizontalOptions="Center"/>
 
                 <roundedButtons:CircleButton 
-                        FontIcon="FontAwesome" 
-                        Icon="fa-medkit" 
-                        FontSize="18" 
-                        TextColor="#3F5765" 
-                        HorizontalOptions="FillAndExpand"
-                        HeightRequest="40" 
-                        WidthRequest="40" 
-                        BorderRadius="40"
-                        BackgroundColor="#BDD4DE" 
-                        Grid.Column="3"
-                        Grid.Row="0"/>
+                    FontIcon="FontAwesome" 
+                    Icon="fa-medkit" 
+                    FontSize="18" 
+                    TextColor="#3F5765" 
+                    HorizontalOptions="FillAndExpand"
+                    HeightRequest="40" 
+                    WidthRequest="40" 
+                    BorderRadius="40"
+                    BackgroundColor="#BDD4DE" 
+                    Grid.Column="3"
+                    Grid.Row="0"
+                    Command="{Binding HealthViewCommand}"
+                    x:Name="btnOpenHealthView"
+                    Clicked="btnOpenHealthView_Clicked"/>
 
                 <Label 
                     Text="HEALTH"
@@ -518,16 +521,16 @@
                     HorizontalOptions="Center"/>
 
                 <roundedButtons:CircleButton 
-                        FontIcon="FontAwesome" 
-                        Icon="fa-graduation-cap" 
-                        FontSize="18" 
-                        TextColor="#3F5765" 
-                        HorizontalOptions="FillAndExpand"
-                        HeightRequest="40" 
-                        WidthRequest="40" 
-                        BorderRadius="40"
-                        BackgroundColor="#BDD4DE" 
-                        Grid.Column="4"
+                    FontIcon="FontAwesome" 
+                    Icon="fa-graduation-cap" 
+                    FontSize="18" 
+                    TextColor="#3F5765" 
+                    HorizontalOptions="FillAndExpand"
+                    HeightRequest="40" 
+                    WidthRequest="40" 
+                    BorderRadius="40"
+                    BackgroundColor="#BDD4DE" 
+                    Grid.Column="4"
                     Grid.Row="0"/>
 
                 <Label 
