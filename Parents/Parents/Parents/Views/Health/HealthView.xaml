@@ -6,8 +6,8 @@
             BindingContext="{Binding Main, Source={StaticResource Locator}}">
 
     <TabbedPage.Children>
-        <local:ChildrenWeightView Title="Weight" Icon="ic_local_hospital"/>
-        <local:ChildrenWeightView Title="Weight" Icon="ic_local_hospital"/>
+        <local:ChildrenWeightView Title="Weight" Icon="ic_scale_30_white"/>
+        <local:ChildrenWeightView Title="Height" Icon="ic_height_30_white"/>
         <local:ChildrenWeightView Title="Weight" Icon="ic_local_hospital"/>
     </TabbedPage.Children>
     

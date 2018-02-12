@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Parents.Resources;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,7 @@ namespace Parents.Services
 
         public async Task<bool> ShowConfirm(string title, string message)
         {
-            return await Application.Current.MainPage.DisplayAlert(title, message, "Yes", "No");
+            return await Application.Current.MainPage.DisplayAlert(title, message, AppResources.Yes, AppResources.No);
             
         }
 

@@ -1,11 +1,15 @@
 ﻿namespace Parents.Views.Health
 {
+    using global::Parents.Models.HealthManagement;
     using global::Parents.Services;
     using global::Parents.ViewModels;
-    using SkiaSharp;
+    using global::Parents.ViewModels.Health;
+    using global::Parents.ViewModels.Health.HelperPages;
+    using global::Parents.Views.Activities.HelpersPages;
+    using global::Parents.Views.Health.HelperPages;
+    using Rg.Plugins.Popup.Extensions;
     using System;
     using Xamarin.Forms;
-    //using Entry = Microcharts.Entry;
 
     public partial class ChildrenWeightView : ContentPage
 	{
@@ -49,5 +53,15 @@
             
         }
 
+        private async void ChildrensWeightList_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            var content = e.Item as ChildrenWeight;
+
+            var mainViewModel = MainViewModel.GetInstance();
+            mainViewModel.EditChildrenWeightHelper = new EditChildrenWeightHelperViewModel(content);
+
+            var popup = new EditChildrenWeightHelperPage();
+            await Navigation.PushPopupAsync(popup);
+        }
     }
 }

@@ -6,7 +6,8 @@
              Title="PARENTS"
              BackgroundImage="backgroud4"
              xmlns:translator="clr-namespace:Parents.Helpers"
-             xmlns:design="clr-namespace:Parents.Infrsstructure;assemble=Parents">
+             xmlns:design="clr-namespace:Parents.Infrsstructure;assemble=Parents"
+             xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms">
 
     <ContentPage.Content>
 
@@ -35,7 +36,8 @@
                     HorizontalOptions="CenterAndExpand" 
                     Text="{translator:Translate ChildrensMenu}" 
                     TextColor="#5A392B" 
-                    Clicked="btnChildrens_Clicked"/>
+                    Clicked="btnChildrens_Clicked"
+                    Command="{Binding OpenChildrensCommand}"/>
 
                 <Button  
                     Grid.Column="1"
@@ -75,5 +77,20 @@
             </Grid>
             
         </StackLayout>
+
+        <ContentView 
+                x:Name="contentView" 
+                IsVisible="{Binding IsRunning, Mode=TwoWay}" 
+                HorizontalOptions="FillAndExpand" 
+                VerticalOptions="FillAndExpand" 
+                BackgroundColor="Black" 
+                Opacity="0.5">
+            <busyindicator:SfBusyIndicator 
+                    x:Name="BusyIndicator" 
+                    AnimationType="HorizontalPulsingBox" 
+                    IsBusy="{Binding IsRunning, Mode=TwoWay}" 
+                    TextColor="White"/>
+        </ContentView>
+        
     </ContentPage.Content>
 </ContentPage>

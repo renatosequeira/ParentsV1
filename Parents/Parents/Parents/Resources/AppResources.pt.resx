@@ -124,6 +124,9 @@
     <value>Idade: </value>
     <comment>xaml</comment>
   </data>
+  <data name="CancelAction" xml:space="preserve">
+    <value>Tem a certeza que deseja cancelar?</value>
+  </data>
   <data name="ChildFirstNamePlaceHolder" xml:space="preserve">
     <value>primeiro nome da criança</value>
   </data>
@@ -158,6 +161,13 @@
   <data name="Male" xml:space="preserve">
     <value>Masculino</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>Não</value>
+  </data>
+  <data name="Opening" xml:space="preserve">
+    <value>A abrir...</value>
+    <comment>em código</comment>
+  </data>
   <data name="ParentsMenu" xml:space="preserve">
     <value>PAIS</value>
   </data>
@@ -169,5 +179,8 @@
   </data>
   <data name="SelectGender" xml:space="preserve">
     <value>Seleccione o género...</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Sim</value>
   </data>
 </root>

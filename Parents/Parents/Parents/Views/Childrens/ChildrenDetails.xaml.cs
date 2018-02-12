@@ -1,8 +1,10 @@
 ﻿namespace Parents.Views.Childrens
 {
     using global::Parents.Models;
+    using global::Parents.Resources;
     using global::Parents.ViewModels;
     using System;
+    using System.Threading.Tasks;
     using Xamarin.Forms;
     using Xamarin.Forms.Xaml;
 
@@ -15,18 +17,11 @@
 		{
 			InitializeComponent ();
             MainScroll.ParallaxView = HeaderView;
-            
+            contentView.IsVisible = false;
+            BusyIndicator.IsBusy = false;
+
         }
 
-        //private void ChildrensListButton_Clicked(object sender, EventArgs e)
-        //{
-        //    PlaceHolder.Content = null;
-
-        //    this.Navigation.PopAsync();
-        //    var childrensList = new ChildrensList();
-        //    PlaceHolder.Content = childrensList.Content;
-        //}
-      
         private void btnAddEvent_Clicked(object sender, EventArgs e)
         {
 
@@ -112,17 +107,24 @@
         private void btnAddWeightPicture_Clicked(object sender, EventArgs e)
         {
             btnAddWeightPicture.IsVisible = false;
+
         }
 
-        private void btnOpenHealthView_Clicked(object sender, EventArgs e)
+        private async void btnOpenHealthView_Clicked(object sender, EventArgs e)
         {
+            this.BusyIndicator.Title = AppResources.Opening;
 
+            BusyIndicator.IsBusy = true;
+            contentView.IsVisible = true;
+            await Task.Delay(2000);
+            contentView.IsVisible = false;
+            BusyIndicator.IsBusy = false;
         }
 
-        protected override void OnDisappearing()
-        {
-            base.OnDisappearing();
-            Application.Current.Properties["childrenId"] = null;
-        }
+        //protected override void OnDisappearing()
+        //{
+        //    base.OnDisappearing();
+        //    Application.Current.Properties["childrenId"] = null;
+        //}
     }
 }

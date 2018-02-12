@@ -32,6 +32,7 @@
             get;
             internal set;
         }
+
         public static MasterView Master { get; internal set; }
         #endregion
 

@@ -11,6 +11,7 @@ using Parents.Droid.Helpers;
 using Parents.Helpers;
 using FormsPinView.Droid;
 using ButtonCircle.FormsPlugin.Droid;
+using FFImageLoading.Forms.Droid;
 
 namespace Parents.Droid
 {
@@ -49,6 +50,9 @@ namespace Parents.Droid
             PinItemViewRenderer.Init();
 
             ButtonCircleRenderer.Init();
+
+            CachedImageRenderer.Init(enableFastRenderer:true);
+
 
             AppContext = this.ApplicationContext;
 

@@ -5,12 +5,21 @@
     using Services;
     using System.Windows.Input;
     using Xamarin.Forms;
+    using System;
 
     public class HomePageViewModel
     {
         #region Services
         ApiService apiService;
         DialogService dialogService;
+        NavigationService navigationService;
+        #endregion
+
+        #region Constructor
+        public HomePageViewModel()
+        {
+            navigationService = new NavigationService();
+        }
         #endregion
 
         #region Commands
@@ -46,6 +55,21 @@
             await Application.Current.MainPage.Navigation.PushAsync(new HomeView());
 
 
+        }
+
+        public ICommand OpenChildrensCommand
+        {
+            get
+            {
+                return new RelayCommand(OpenChildrens);
+            }
+        }
+
+        private async void OpenChildrens()
+        {
+            //var mainViewModel = MainViewModel.GetInstance();
+            //mainViewModel.Childrens = new ChildrensViewModel();
+            await navigationService.NavigateOnMaster("ChildrensList");
         }
         #endregion
     }

@@ -19,6 +19,10 @@
     using Parents.ViewModels.Locations;
     using Parents.ViewModels.Sistema;
     using Parents.ViewModels.Health;
+    using Parents.ViewModels.Health.HelperPages;
+    using System;
+
+    //using ViewModels.Health.HelperPages;
     //using Xamarin.Forms;
 
     public class MainViewModel
@@ -67,6 +71,7 @@
         public NewWeightViewModel NewChildrenWeight { get; set; }
         public ChildrenWeightViewModel ChildrenWeight { get; set; }
         public HealthViewModel Health { get; set; }
+        public EditChildrenWeightHelperViewModel EditChildrenWeightHelper { get; set; }
         #endregion
 
         #region Constructors

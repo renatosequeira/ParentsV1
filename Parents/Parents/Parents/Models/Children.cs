@@ -1,17 +1,12 @@
 ﻿namespace Parents.Models
 {
     using GalaSoft.MvvmLight.Command;
-    using Parents.Interfaces;
     using Parents.Services;
     using Parents.ViewModels;
     using Parents.ViewModels.Activities;
     using Parents.ViewModels.Childrens;
-    using SQLite;
     using SQLite.Net.Attributes;
     using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Linq;
     using System.Windows.Input;
     using Xamarin.Forms;
 
@@ -207,6 +202,7 @@
         async void SelectChildren()
         {
             //DependencyService.Get<IMessage>().ShortAlert("teste toast");
+            Application.Current.Properties["childrenId"] = null;
 
             Application.Current.Properties["childrenIdentityCard"] = ChildrenIdentityCard;
             Application.Current.Properties["childrenId"] = ChildrenId;
@@ -215,7 +211,6 @@
             var mainViewModel = MainViewModel.GetInstance();
 
             mainViewModel.Activities = new ActivitiesViewModel();
-
 
             mainViewModel.EditChildren = new EditChildrenViewModel(this);
             await navigationService.NavigateOnMaster("ChildrenDetails");

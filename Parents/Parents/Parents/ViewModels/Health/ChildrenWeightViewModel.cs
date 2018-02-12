@@ -55,6 +55,7 @@ namespace Parents.ViewModels.Health
         #endregion
 
         #region Properties
+
         public string InsertedWeight
         {
             get
@@ -83,7 +84,7 @@ namespace Parents.ViewModels.Health
                 }
             }
         }
-
+        
         public bool ShowList
         {
             get
@@ -416,7 +417,7 @@ namespace Parents.ViewModels.Health
             IsRefreshing = false;
         }
 
-        public void UpdateChildren(ChildrenWeight childrenWeight)
+        public void UpdateChildrenWeight(ChildrenWeight childrenWeight)
         {
             IsRefreshing = true;
             var oldChildrenWeight = childrensWeight.Where(c => c.ChildrenWeightId == childrenWeight.ChildrenWeightId).FirstOrDefault();
@@ -427,7 +428,7 @@ namespace Parents.ViewModels.Health
             IsRefreshing = false;
         }
 
-        public async Task DeleteChildren(ChildrenWeight childrenWeight)
+        public async Task DeleteChildrenWeight(ChildrenWeight childrenWeight)
         {
             IsRefreshing = true;
 
@@ -553,10 +554,34 @@ namespace Parents.ViewModels.Health
             dataService.Save(childrensWeight);
         }
 
-
         #endregion
 
         #region Commands
+        public ICommand HomeViewCommand
+        {
+            get
+            {
+                return new RelayCommand(GoHome);
+            }
+        }
+
+        async void GoHome()
+        {
+            await navigationService.NavigateOnMaster("HomeView");
+        }
+
+        public ICommand SelectChildrenCommand
+        {
+            get
+            {
+                return new RelayCommand(SelectChildren);
+            }
+        }
+
+        async void SelectChildren()
+        {
+            await navigationService.NavigateOnMaster("ChildrenDetails");
+        }
 
         public ICommand RefreshCommand
         {
@@ -585,22 +610,6 @@ namespace Parents.ViewModels.Health
             {
                 SearchVisibility = true;
             }
-        }
-
-        public ICommand NewChildrenCommand
-        {
-            get
-            {
-                return new RelayCommand(GoNewChildren);
-            }
-        }
-
-        async void GoNewChildren()
-        {
-            var mainViewModel = MainViewModel.GetInstance();
-            mainViewModel.NewChildrenWeight = new NewWeightViewModel();  //Liga o objecto NewChildren a um viewmodel
-            await dialogService.ShowMessage("INFO", "To be implemented");
-            //await navigationService.NavigateOnMaster("NewChildrenView");
         }
 
         public ICommand AddWeightCommand
@@ -725,6 +734,8 @@ namespace Parents.ViewModels.Health
 
             return lastWeight;
         }
+
+       
         #endregion
     }
 }

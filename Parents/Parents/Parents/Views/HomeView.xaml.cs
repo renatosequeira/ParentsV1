@@ -1,12 +1,13 @@
 ﻿namespace Parents.Views
 {
+    using global::Parents.Resources;
     using Plugin.LocalNotifications;
     using Services;
     using System;
+    using System.Threading.Tasks;
     using Xamarin.Forms;
     using Xamarin.Forms.Xaml;
 
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class HomeView : ContentPage
     {
         #region Services
@@ -24,14 +25,22 @@
         #region ButtonControls
         private async void btnParents_Clicked(object sender, EventArgs e)
         {
-            //await Application.Current.MainPage.Navigation.PushAsync(new ParentsView());
+
+
             await navigationService.NavigateOnMaster("ParentsView");
         }
 
         private async void btnChildrens_Clicked(object sender, EventArgs e)
         {
-            //await Application.Current.MainPage.Navigation.PushAsync(new ChildrensList());
-            await navigationService.NavigateOnMaster("ChildrensList");
+            this.BusyIndicator.Title = AppResources.Opening;
+
+            BusyIndicator.IsBusy = true;
+            contentView.IsVisible = true;
+            await Task.Delay(2000);
+            contentView.IsVisible = false;
+            BusyIndicator.IsBusy = false;
+
+            //await navigationService.NavigateOnMaster("ChildrensList");
 
         }
         #endregion

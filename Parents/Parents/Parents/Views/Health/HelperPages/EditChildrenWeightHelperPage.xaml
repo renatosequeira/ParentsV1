@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage  
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Parents.Views.Health.HelperPages.EditChildrenWeightHelperPage"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    BindingContext="{Binding Main, Source={StaticResource Locator}}"
+    xmlns:customEntry="clr-namespace:Parents.Renderers"
+    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    xmlns:roundedButtons="clr-namespace:ButtonCircle.FormsPlugin.Abstractions;assembly=ButtonCircle.FormsPlugin.Abstractions">
+
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+          PositionIn="Center"
+          PositionOut="Center"
+          ScaleIn="1.2"
+          ScaleOut="0.8"
+          DurationIn="400"
+          DurationOut="300"
+          EasingIn="SinOut"
+          EasingOut="SinIn"
+          HasBackgroundAnimation="True"
+            />
+    </pages:PopupPage.Animation>
+
+    <Grid
+        BindingContext="{Binding EditChildrenWeightHelper}"
+        Padding="20"
+        VerticalOptions="Center"
+        HorizontalOptions="Center"
+        BackgroundColor="#2B3A42"
+        Opacity="0.7"
+        Margin="40">
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="AUTO"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="AUTO"/>
+        </Grid.RowDefinitions>
+
+        <Label 
+            Text="EDIT WEIGHT"
+            HorizontalOptions="CenterAndExpand"
+            Grid.ColumnSpan="2"
+            Margin="0,0,0,10"
+            FontSize="Medium"
+            TextColor="White"/>
+
+        <customEntry:CustomEntry
+                Text="{Binding InsertedWeight, Mode=TwoWay}"
+                Placeholder="Insert valid weight"
+                HorizontalOptions="End"
+                TextColor="White"
+                HorizontalTextAlignment="End"
+                VerticalOptions="Center"
+                FontSize="Large"
+                Keyboard="Numeric"
+            Grid.Row="1"
+            Grid.Column="0"/>
+
+        <Label 
+                Text="KG"
+                HorizontalOptions="Start"
+                TextColor="White"
+                VerticalOptions="Center"
+                FontSize="Large"
+            Grid.Row="1"
+            Grid.Column="1"/>
+
+        <StackLayout
+            Orientation="Horizontal"
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            HorizontalOptions="CenterAndExpand"
+            Spacing="50">
+
+            <roundedButtons:CircleButton 
+                FontIcon="FontAwesome" 
+                Icon="fa-save" 
+                FontSize="27" 
+                TextColor="White" 
+                HeightRequest="50" 
+                WidthRequest="50" 
+                BackgroundColor="#99E758" 
+                HorizontalOptions="Start"
+                Command="{Binding SaveCommand}"/>
+
+            <roundedButtons:CircleButton 
+                FontIcon="FontAwesome" 
+                Icon="fa-angle-left" 
+                FontSize="27" 
+                TextColor="White" 
+                HeightRequest="50" 
+                WidthRequest="50" 
+                BackgroundColor="Red" 
+                HorizontalOptions="End"
+                Command="{Binding CancelCommand}"/>
+
+        </StackLayout>
+
+    </Grid>
+    
+</pages:PopupPage>

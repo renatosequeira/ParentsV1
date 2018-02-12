@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Parents.Views.Health.ChildrenWeightView"
              xmlns:chart="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
-             Title="Children Weight"
              BindingContext="{Binding Main,Source={StaticResource Locator}}"
              xmlns:roundedButtons="clr-namespace:ButtonCircle.FormsPlugin.Abstractions;assembly=ButtonCircle.FormsPlugin.Abstractions"
              xmlns:customEntry="clr-namespace:Parents.Renderers"
@@ -14,8 +13,9 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="1"/>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="AUTO"/>
         </Grid.RowDefinitions>
+        
         <ContentView x:Name="PlaceHolder" Grid.Row="0"/>
         <BoxView BackgroundColor="#22395C" Grid.Row="1"/>
 
@@ -186,7 +186,8 @@
                         IsPullToRefreshEnabled="True"
                         RefreshCommand="{Binding RefreshCommand}"
                         HasUnevenRows="True"
-                        x:Name="ChildrensWeightList">
+                        x:Name="ChildrensWeightList"
+                        ItemTapped="ChildrensWeightList_ItemTapped">
 
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -272,6 +273,144 @@
             </Grid>
 
         </StackLayout>
+
+        <!--BOTTOM MENU-->
+        <Grid
+            ColumnSpacing="15"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
+            Grid.Row="2"
+            BackgroundColor="#2B3A42"
+            Opacity="0.9"
+            HeightRequest="60"
+            Padding="8"
+            BindingContext="{Binding ChildrenWeight}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="AUTO"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--HOME-->
+            <roundedButtons:CircleButton 
+                    FontIcon="FontAwesome" 
+                    Icon="fa-home" 
+                    FontSize="18" 
+                    TextColor="#3F5765" 
+                    HorizontalOptions="FillAndExpand"
+                    HeightRequest="40" 
+                    WidthRequest="40" 
+                    BorderRadius="40"
+                    BackgroundColor="#BDD4DE" 
+                    Grid.Column="0"
+                    VerticalOptions="Start"
+                Command="{Binding HomeViewCommand}"/>
+
+            <Label 
+                    Text="HOME"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    TextColor="White"
+                    FontSize="10"
+                    HorizontalOptions="Center"/>
+
+            <!--INFO-->
+            <roundedButtons:CircleButton 
+                FontIcon="FontAwesome" 
+                Icon="fa-info" 
+                FontSize="18" 
+                TextColor="#3F5765" 
+                HorizontalOptions="FillAndExpand"
+                HeightRequest="40" 
+                WidthRequest="40" 
+                BorderRadius="40"
+                BackgroundColor="#BDD4DE" 
+                Grid.Column="1"
+                Grid.Row="0"
+                Command="{Binding SelectChildrenCommand}"/>
+
+            <Label 
+                Text="INFO"
+                Grid.Row="1"
+                Grid.Column="1"
+                TextColor="White"
+                FontSize="10"
+                HorizontalOptions="Center"/>
+
+            <roundedButtons:CircleButton 
+                FontIcon="FontAwesome" 
+                Icon="fa-calendar-o" 
+                FontSize="18" 
+                TextColor="#3F5765" 
+                HorizontalOptions="FillAndExpand"
+                HeightRequest="40" 
+                WidthRequest="40" 
+                BorderRadius="40"
+                BackgroundColor="#BDD4DE" 
+                Grid.Column="2"
+                Grid.Row="0"
+                Command="{Binding GoToActivitiesCommand}"/>
+
+            <Label 
+                Text="ACTIVITIES"
+                Grid.Row="1"
+                Grid.Column="2"
+                TextColor="White"
+                FontSize="10"
+                HorizontalOptions="Center"/>
+
+            <roundedButtons:CircleButton 
+                FontIcon="FontAwesome" 
+                Icon="fa-medkit" 
+                FontSize="18" 
+                TextColor="#FF5035" 
+                HorizontalOptions="FillAndExpand"
+                HeightRequest="40" 
+                WidthRequest="40" 
+                BorderRadius="40"
+                BackgroundColor="#BDD4DE" 
+                Grid.Column="3"
+                Grid.Row="0"
+                Command="{Binding HealthViewCommand}"
+                x:Name="btnOpenHealthView"/>
+
+            <Label 
+                    Text="HEALTH"
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    TextColor="White"
+                    FontSize="10"
+                    HorizontalOptions="Center"/>
+
+            <roundedButtons:CircleButton 
+                    FontIcon="FontAwesome" 
+                    Icon="fa-graduation-cap" 
+                    FontSize="18" 
+                    TextColor="#3F5765" 
+                    HorizontalOptions="FillAndExpand"
+                    HeightRequest="40" 
+                    WidthRequest="40" 
+                    BorderRadius="40"
+                    BackgroundColor="#BDD4DE" 
+                    Grid.Column="4"
+                    Grid.Row="0"/>
+
+            <Label 
+                    Text="SCHOOL"
+                    Grid.Row="1"
+                    Grid.Column="4"
+                    TextColor="White"
+                    FontSize="10"
+                    HorizontalOptions="Center"/>
+        </Grid>
     </Grid>
 
 </ContentPage>

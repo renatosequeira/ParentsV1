@@ -151,7 +151,7 @@
         #endregion
 
         #region Commands
-        
+
         public ICommand NewWeightCommand
         {
             get
@@ -267,5 +267,6 @@
             IsEnabled = true;
         }
         #endregion
+
     }
 }

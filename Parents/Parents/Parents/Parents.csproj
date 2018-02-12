@@ -119,6 +119,7 @@
     <Compile Include="ViewModels\Childrens\NewChildrenViewModel.cs" />
     <Compile Include="ViewModels\Health\ChildrenWeightViewModel.cs" />
     <Compile Include="ViewModels\Health\HealthViewModel.cs" />
+    <Compile Include="ViewModels\Health\HelperPages\EditChildrenWeightHelperViewModel.cs" />
     <Compile Include="ViewModels\Health\NewWeightViewModel.cs" />
     <Compile Include="ViewModels\HomePageViewModel.cs" />
     <Compile Include="ViewModels\Locations\LocationsViewModel.cs" />
@@ -257,6 +258,9 @@
     <Compile Include="Views\Health\HealthView.xaml.cs">
       <DependentUpon>HealthView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Health\HelperPages\EditChildrenWeightHelperPage.xaml.cs">
+      <DependentUpon>EditChildrenWeightHelperPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Health\NewWeightView.xaml.cs">
       <DependentUpon>NewWeightView.xaml</DependentUpon>
     </Compile>
@@ -363,6 +367,24 @@
     </Reference>
     <Reference Include="ExifLib, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\ExifLib.PCL.1.0.1\lib\portable-net45+sl50+win+WindowsPhoneApp81+wp80+Xamarin.iOS10+MonoAndroid10+MonoTouch10\ExifLib.dll</HintPath>
+    </Reference>
+    <Reference Include="FFImageLoading, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xamarin.FFImageLoading.2.3.4\lib\portable-win+net45+wp80+win81+wpa81\FFImageLoading.dll</HintPath>
+    </Reference>
+    <Reference Include="FFImageLoading.Forms, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xamarin.FFImageLoading.Forms.2.3.4\lib\portable-win+net45+wp80+win81+wpa81\FFImageLoading.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="FFImageLoading.Platform, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xamarin.FFImageLoading.2.3.4\lib\portable-win+net45+wp80+win81+wpa81\FFImageLoading.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="FFImageLoading.Svg.Forms, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xamarin.FFImageLoading.Svg.Forms.2.3.4\lib\portable-win+net45+wp80+win81+wpa81\FFImageLoading.Svg.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="FFImageLoading.Svg.Platform, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xamarin.FFImageLoading.Svg.2.3.4\lib\portable-win+net45+wp80+win81+wpa81\FFImageLoading.Svg.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="FFImageLoading.Transformations, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xamarin.FFImageLoading.Transformations.2.3.4\lib\portable-win+net45+wp80+win81+wpa81\FFImageLoading.Transformations.dll</HintPath>
     </Reference>
     <Reference Include="FormsPinView.PCL, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FormsPinView.1.0.1\lib\portable-net45+netcore45+wpa8+wp8\FormsPinView.PCL.dll</HintPath>
@@ -961,6 +983,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Health\HealthView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Health\HelperPages\EditChildrenWeightHelperPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

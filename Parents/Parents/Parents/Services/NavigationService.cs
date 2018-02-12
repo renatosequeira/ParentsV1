@@ -4,7 +4,6 @@
     using Views.Childrens;
     using System.Threading.Tasks;
     using Xamarin.Forms;
-    using System;
     using Views.School;
     using Views.Settings;
     using Views.Settings.Activities;
@@ -14,13 +13,12 @@
     using Parents.Views.Activities.Helpers.ActivityType;
     using Parents.Views.Activities.HelpersPages;
     using Rg.Plugins.Popup.Extensions;
-    using Rg.Plugins.Popup.Services;
     using Parents.Views.Parents;
     using Parents.Views.Sistema;
     using Parents.Views.Activities;
     using Parents.Views.Locations;
     using Parents.Views.Health;
-    using Parents.ViewModels.Health;
+    using Parents.Views.Health.HelperPages;
 
     public class NavigationService
     {
@@ -183,6 +181,7 @@
                 case "HealthView":
                     await App.Navigator.PushAsync(new HealthView());
                     break;
+
             }
 
         }

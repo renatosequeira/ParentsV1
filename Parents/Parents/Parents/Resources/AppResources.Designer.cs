@@ -80,6 +80,15 @@ namespace Parents.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Are you sure to cancel?.
+        /// </summary>
+        internal static string CancelAction {
+            get {
+                return ResourceManager.GetString("CancelAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a children first name.
         /// </summary>
         internal static string ChildFirstNamePlaceHolder {
@@ -197,6 +206,24 @@ namespace Parents.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a No.
+        /// </summary>
+        internal static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Opening....
+        /// </summary>
+        internal static string Opening {
+            get {
+                return ResourceManager.GetString("Opening", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a PARENTS.
         /// </summary>
         internal static string ParentsMenu {
@@ -229,6 +256,15 @@ namespace Parents.Resources {
         internal static string SelectGender {
             get {
                 return ResourceManager.GetString("SelectGender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Yes.
+        /// </summary>
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }
