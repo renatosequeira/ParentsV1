@@ -57,20 +57,6 @@
 
         }
 
-        public ICommand OpenChildrensCommand
-        {
-            get
-            {
-                return new RelayCommand(OpenChildrens);
-            }
-        }
-
-        private async void OpenChildrens()
-        {
-            //var mainViewModel = MainViewModel.GetInstance();
-            //mainViewModel.Childrens = new ChildrensViewModel();
-            await navigationService.NavigateOnMaster("ChildrensList");
-        }
         #endregion
     }
 }

@@ -19,6 +19,8 @@
         {
             navigationService = new NavigationService();
             InitializeComponent();
+            contentView.IsVisible = false;
+            BusyIndicator.IsBusy = false;
         }
         #endregion
 
