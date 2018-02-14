@@ -345,9 +345,17 @@
     <Compile Include="Views\Sistema\SyncView.xaml.cs">
       <DependentUpon>SyncView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Health\HelperPages\AddChildrenWeightHelperPage.xaml.cs">
+      <DependentUpon>AddChildrenWeightHelperPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Health\HelperPages\AddChildrenWeightHelperViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Health\HelperPages\AddChildrenWeightHelperPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

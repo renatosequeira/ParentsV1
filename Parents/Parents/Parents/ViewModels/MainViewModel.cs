@@ -72,6 +72,7 @@
         public ChildrenWeightViewModel ChildrenWeight { get; set; }
         public HealthViewModel Health { get; set; }
         public EditChildrenWeightHelperViewModel EditChildrenWeightHelper { get; set; }
+        public AddChildrenWeightHelperViewModel AddChildrenWeightHelper { get; set; }
         #endregion
 
         #region Constructors

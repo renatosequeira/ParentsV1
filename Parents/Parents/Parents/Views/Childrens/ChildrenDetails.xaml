@@ -73,12 +73,12 @@
                         </Grid.RowDefinitions>
 
                         <Label
-                        Grid.Column="0"
-                        Grid.Row="0"
-                        Text="{Binding EditChildren.ChildrenFirstName}"
-                        FontSize="30"
-                        TextColor="White"
-                        BackgroundColor="#FF5035"/>
+                            Grid.Column="0"
+                            Grid.Row="0"
+                            Text="{Binding EditChildren.ChildrenFirstName}"
+                            FontSize="30"
+                            TextColor="White"
+                            BackgroundColor="#FF5035"/>
 
 
                         <Label
@@ -565,6 +565,7 @@
 
         </AbsoluteLayout>
 
+        <!--BUSY INDICATOR-->
         <ContentView 
                 x:Name="contentView" 
                 IsVisible="{Binding IsRunning, Mode=TwoWay}" 

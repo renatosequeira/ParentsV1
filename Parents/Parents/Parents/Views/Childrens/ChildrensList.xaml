@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Parents.Views.Childrens.ChildrensList"
@@ -10,7 +10,8 @@
              NavigationPage.HasBackButton="False"
              BackgroundImage="backgroundList"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-             xmlns:ffTransformation="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations">
+             xmlns:ffTransformation="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms">
 
     <ContentPage.ToolbarItems>
 
@@ -218,12 +219,14 @@
                                             BorderRadius="50"
                                             Opacity="0.9"/>
 
+                                        <!--INFO BUTTON-->
                                         <Button
                                             Style="{StaticResource ChildrensListFrameButtons}"
                                             Image="ic_info_25_2bea42_outline"
                                             BorderRadius="50"
                                             Opacity="0.9"
-                                            Command="{Binding SelectChildrenCommand}"/>
+                                            Command="{Binding SelectChildrenCommand}"
+                                        Clicked="Handle_Clicked"/>
                                     </StackLayout>
                                 </Grid>
                             </Frame>
@@ -314,8 +317,23 @@
 
         </Grid>
 
+            <!--BUSY INDICATOR-->
+        <ContentView 
+                x:Name="contentView" 
+                IsVisible="{Binding IsRunning, Mode=TwoWay}" 
+                HorizontalOptions="FillAndExpand" 
+                VerticalOptions="FillAndExpand" 
+                BackgroundColor="Black" 
+                Opacity="0.5">
+            <busyindicator:SfBusyIndicator 
+                    x:Name="BusyIndicator" 
+                    AnimationType="HorizontalPulsingBox" 
+                    IsBusy="{Binding IsRunning, Mode=TwoWay}" 
+                    TextColor="White"/>
+        </ContentView>
+        
     </Grid>
 
 
-
+    
 </ContentPage>

@@ -181,7 +181,6 @@
                 case "HealthView":
                     await App.Navigator.PushAsync(new HealthView());
                     break;
-
             }
 
         }

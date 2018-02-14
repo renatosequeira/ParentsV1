@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.Xaml;
+using Parents.Resources;
 
 namespace Parents.Views.Childrens
 {
@@ -30,6 +31,9 @@ namespace Parents.Views.Childrens
             InitializeComponent();
 
             navigationService = new NavigationService();
+            contentView.IsVisible = false;
+            BusyIndicator.IsBusy = false;
+
         } 
         #endregion
 
@@ -55,6 +59,17 @@ namespace Parents.Views.Childrens
         {
             ChildrensCompletedList.SelectedItem = null;
             var child = e.SelectedItem as Children;
+        }
+
+        async void Handle_Clicked(object sender, System.EventArgs e)
+        {
+            this.BusyIndicator.Title = AppResources.Opening;
+
+            BusyIndicator.IsBusy = true;
+            contentView.IsVisible = true;
+            await Task.Delay(2000);
+            contentView.IsVisible = false;
+            BusyIndicator.IsBusy = false;
         }
     }
 }

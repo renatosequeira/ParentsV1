@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace Parents.ViewModels.Health
 {
@@ -52,9 +53,31 @@ namespace Parents.ViewModels.Health
         bool _showList;
 
         string _insertedWeight;
+
+        double _sliderValue;
         #endregion
 
         #region Properties
+        public double SliderValue
+        {
+            get
+            {
+
+                return Convert.ToDouble(_insertedWeight);
+
+            }
+            set
+            {
+                if (_sliderValue != value)
+                {
+                    _sliderValue = Convert.ToDouble(_insertedWeight);
+
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(SliderValue)));
+                }
+            }
+        }
 
         public string InsertedWeight
         {
@@ -69,15 +92,17 @@ namespace Parents.ViewModels.Health
                 if (_insertedWeight != value)
                 {
                     _insertedWeight = value;
-                    try
-                    {
-                        WeightVaue = Convert.ToDouble(value);
-                    }
-                    catch (Exception)
-                    {
 
-                        WeightVaue = 0;
-                    }
+                    //try
+                    //{
+                    //    WeightVaue = Convert.ToDouble(value);
+                    //}
+                    //catch (Exception)
+                    //{
+
+                    //    WeightVaue = 0;
+                    //}
+
                     PropertyChanged?.Invoke(
                         this,
                         new PropertyChangedEventArgs(nameof(InsertedWeight)));
@@ -467,8 +492,7 @@ namespace Parents.ViewModels.Health
 
             childrensWeight.Remove(childrenWeight);
 
-            ChildrensWeightList = new ObservableCollection<ChildrenWeight>(
-                childrensWeight.OrderBy(c => c.RegistryDate));
+            ChildrensWeightList = new ObservableCollection<ChildrenWeight>(childrensWeight.OrderByDescending(c => c.RegistryDate));
             IsRefreshing = false;
         }
 
@@ -557,6 +581,7 @@ namespace Parents.ViewModels.Health
         #endregion
 
         #region Commands
+
         public ICommand HomeViewCommand
         {
             get
@@ -630,11 +655,13 @@ namespace Parents.ViewModels.Health
             catch (Exception ex)
             {
                 lastWeight = 0;
+                Log.Warning("Last Weight", ex.Message);
             }
 
-            if (string.IsNullOrEmpty(InsertedWeight))
+            if (string.IsNullOrEmpty(InsertedWeight) || InsertedWeight == "0")
             {
                 await dialogService.ShowMessage("Error", "Please insert Weight value");
+                Log.Warning("Empty Weight", "Inserted weight cannot be empty");
                 return;
             }
 
@@ -657,8 +684,8 @@ namespace Parents.ViewModels.Health
             var childrenWeight = new ChildrenWeight
             {
                 ChildrenId = ChildrenId,
-                WeightUnit = "Kg",
-                WeightVaue = Convert.ToDouble(WeightVaue),
+                WeightUnit = "KG",
+                WeightVaue = Convert.ToDouble(InsertedWeight),
                 RegistryDate = DateTime.Now,
                 OldWeightValue = OldWeightValue
 

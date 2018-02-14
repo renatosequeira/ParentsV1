@@ -3,13 +3,12 @@
     using global::Parents.Models.HealthManagement;
     using global::Parents.Services;
     using global::Parents.ViewModels;
-    using global::Parents.ViewModels.Health;
     using global::Parents.ViewModels.Health.HelperPages;
-    using global::Parents.Views.Activities.HelpersPages;
     using global::Parents.Views.Health.HelperPages;
     using Rg.Plugins.Popup.Extensions;
     using System;
     using Xamarin.Forms;
+    using Xamarin.Forms.Internals;
 
     public partial class ChildrenWeightView : ContentPage
 	{
@@ -28,32 +27,14 @@
             apiService = new ApiService();
             dialogService = new DialogService();
             dataService = new DataService();
+
+            MessagingCenter.Subscribe<AddChildrenWeightHelperPage, string>(this, "insertedWeightFromPopup", (s, a) => {
+                weightLabel.Text = a.ToString();
+            });
         } 
         #endregion
-        
-        private void weightEntry_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            //string r = e.NewTextValue;
-            //double valor = double.Parse(r);
-            //weightSlider.Value = valor;
-        }
 
-        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
-        {
-            //string r = e.NewTextValue;
-            //double valor = double.Parse(r);
-            //weightSlider.Value = valor;
-        }
-
-
-        private void ClickGestureRecognizer_Clicked(object sender, EventArgs e)
-        {
-            var maincv = MainViewModel.GetInstance();
-            var list = maincv.ChildrenWeight.ChildrensWeightList;
-            
-        }
-
-        private async void ChildrensWeightList_ItemTapped(object sender, ItemTappedEventArgs e)
+        async void ChildrensWeightList_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             var content = e.Item as ChildrenWeight;
 
@@ -62,6 +43,16 @@
 
             var popup = new EditChildrenWeightHelperPage();
             await Navigation.PushPopupAsync(popup);
+        }
+
+        async void AddWeight_Clicked(object sender, System.EventArgs e)
+        {
+            var mainViewModel = MainViewModel.GetInstance();
+            mainViewModel.AddChildrenWeightHelper = new AddChildrenWeightHelperViewModel();
+
+            var popup = new AddChildrenWeightHelperPage();
+            await Navigation.PushPopupAsync(popup);
+
         }
     }
 }
