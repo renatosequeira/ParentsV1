@@ -40,7 +40,7 @@
                                 Margin="0,0,10,0"/>
 
                                 <Label
-                                    Text="{Binding OldWeightValue}"
+                                    Text="{Binding InsertedWeight, Mode=TwoWay}"
                                     HorizontalOptions="Start"
                                     VerticalOptions="Center"
                                     FontSize="Large"
@@ -71,10 +71,21 @@
                             
                         </Grid>
 
-                        <!--SKINY IMAGE-->
+                        <!--SLIDER SET-->
                         <StackLayout Orientation="Horizontal" Padding="5" HorizontalOptions="FillAndExpand">
+
+                            <!--SKINY IMAGE-->
                             <Image Source="ic_skinny_50_2BEA42" HorizontalOptions="Start" WidthRequest="40" />
-                            <Slider Value="{Binding SliderValue, Mode=TwoWay}" Maximum="170" Minimum="0" HorizontalOptions="CenterAndExpand" WidthRequest="200" x:Name="weightSlider" />
+                            
+                            <Slider 
+                                Value="{Binding SliderValue, Mode=TwoWay}" 
+                                Maximum="170" 
+                                Minimum="0" 
+                                HorizontalOptions="CenterAndExpand" 
+                                WidthRequest="200" 
+                                x:Name="weightSlider" />
+
+                            <!--FAT GUY IMAGE-->
                             <Image Source="ic_fat_50_2BEA42" HorizontalOptions="End" WidthRequest="50" />
                         </StackLayout>
                         
@@ -86,7 +97,7 @@
 
                              <!--INFO BUTTON-->
                             <StackLayout 
-                                Grid.Column="0"
+                                Grid.Column="1"
                                 VerticalOptions="End">
                                 
                                 <Image 

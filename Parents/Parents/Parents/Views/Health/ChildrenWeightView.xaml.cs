@@ -28,9 +28,6 @@
             dialogService = new DialogService();
             dataService = new DataService();
 
-            MessagingCenter.Subscribe<AddChildrenWeightHelperPage, string>(this, "insertedWeightFromPopup", (s, a) => {
-                weightLabel.Text = a.ToString();
-            });
         } 
         #endregion
 

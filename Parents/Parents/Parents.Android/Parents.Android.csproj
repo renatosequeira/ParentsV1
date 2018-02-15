@@ -491,6 +491,9 @@
     <AndroidResource Include="Resources\drawable\ic_refresh_50_2bea42.png" />
     <AndroidResource Include="Resources\drawable\ic_empty_list.png" />
     <AndroidResource Include="Resources\drawable\loading.jpg" />
+    <AndroidResource Include="Resources\drawable\ic_syringe_30_white.png" />
+    <AndroidResource Include="Resources\drawable\ic_dna_30_white.png" />
+    <AndroidResource Include="Resources\drawable\ic_man_30_white.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

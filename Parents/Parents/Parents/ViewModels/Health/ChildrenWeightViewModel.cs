@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
+using Parents.Views.Health.HelperPages;
 
 namespace Parents.ViewModels.Health
 {
@@ -63,19 +64,20 @@ namespace Parents.ViewModels.Health
             get
             {
 
-                return Convert.ToDouble(_insertedWeight);
+                return _sliderValue;
 
             }
             set
             {
                 if (_sliderValue != value)
                 {
-                    _sliderValue = Convert.ToDouble(_insertedWeight);
+                    _sliderValue = value;
 
                     PropertyChanged?.Invoke(
                         this,
                         new PropertyChangedEventArgs(nameof(SliderValue)));
                 }
+
             }
         }
 
@@ -92,16 +94,6 @@ namespace Parents.ViewModels.Health
                 if (_insertedWeight != value)
                 {
                     _insertedWeight = value;
-
-                    //try
-                    //{
-                    //    WeightVaue = Convert.ToDouble(value);
-                    //}
-                    //catch (Exception)
-                    //{
-
-                    //    WeightVaue = 0;
-                    //}
 
                     PropertyChanged?.Invoke(
                         this,
@@ -202,46 +194,6 @@ namespace Parents.ViewModels.Health
                     PropertyChanged?.Invoke(
                         this,
                         new PropertyChangedEventArgs(nameof(ChildrenAge)));
-                }
-            }
-        }
-
-        public double MinimimWeight
-        {
-            get
-            {
-
-                return _minimumWeight;
-
-            }
-            set
-            {
-                if (_minimumWeight != value)
-                {
-                    _minimumWeight = value;
-                    PropertyChanged?.Invoke(
-                        this,
-                        new PropertyChangedEventArgs(nameof(MinimimWeight)));
-                }
-            }
-        }
-
-        public double MaximumWeight
-        {
-            get
-            {
-
-                return _maximumWeight;
-
-            }
-            set
-            {
-                if (_maximumWeight != value)
-                {
-                    _maximumWeight = value;
-                    PropertyChanged?.Invoke(
-                        this,
-                        new PropertyChangedEventArgs(nameof(MaximumWeight)));
                 }
             }
         }
@@ -408,6 +360,11 @@ namespace Parents.ViewModels.Health
             dataService = new DataService();
             navigationService = new NavigationService();
             _searchVisibility = false;
+
+            MessagingCenter.Subscribe<AddChildrenWeightHelperPage, string>(this, "insertedWeightFromPopup", (s, a) => {
+                InsertedWeight = a;
+                SliderValue = Convert.ToDouble(a);
+            });
 
             LoadChildrenWeightList();
 
@@ -658,7 +615,7 @@ namespace Parents.ViewModels.Health
                 Log.Warning("Last Weight", ex.Message);
             }
 
-            if (string.IsNullOrEmpty(InsertedWeight) || InsertedWeight == "0")
+            if (String.IsNullOrEmpty(InsertedWeight) || InsertedWeight == "0")
             {
                 await dialogService.ShowMessage("Error", "Please insert Weight value");
                 Log.Warning("Empty Weight", "Inserted weight cannot be empty");
@@ -685,7 +642,7 @@ namespace Parents.ViewModels.Health
             {
                 ChildrenId = ChildrenId,
                 WeightUnit = "KG",
-                WeightVaue = Convert.ToDouble(InsertedWeight),
+                WeightVaue = Double.Parse(_insertedWeight),
                 RegistryDate = DateTime.Now,
                 OldWeightValue = OldWeightValue
 
@@ -757,6 +714,7 @@ namespace Parents.ViewModels.Health
             }
 
             ChildrensWeightList = new ObservableCollection<ChildrenWeight>(childrensWeight.OrderBy(c => c.RegistryDate));
+           
             lastWeight = ChildrensWeightList.LastOrDefault().WeightVaue;
 
             return lastWeight;
